@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class BannerController extends Controller
 {
@@ -13,6 +16,8 @@ class BannerController extends Controller
     public function index()
     {
         //
+        $data = Banner::latest('created_at')->paginate(5);
+        return view('admin.banner.index', compact('data'));
     }
 
     /**
@@ -21,6 +26,7 @@ class BannerController extends Controller
     public function create()
     {
         //
+        return view('admin.banner.create');
     }
 
     /**
@@ -29,6 +35,22 @@ class BannerController extends Controller
     public function store(Request $request)
     {
         //
+        try {
+            $model = new Banner();
+            $model->fill($request->all());
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $folder = 'images/banner';
+                $imageName = Storage::put($folder, $image);
+                $imageName = 'storage/' . $imageName;
+                $model->image = $imageName;
+            }
+            $model->save();
+            return to_route('admin.banner.index')->with('msg', ['success' => true, 'message' => 'Thêm thành công!']);
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+        }
     }
 
     /**
@@ -45,6 +67,8 @@ class BannerController extends Controller
     public function edit(string $id)
     {
         //
+        $data = Banner::findOrFail($id);
+        return view('admin.banner.edit', compact('data'));
     }
 
     /**
@@ -53,13 +77,45 @@ class BannerController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $data = Banner::findOrFail($id);
+        $data->fill($request->all());
+        if ($request->hasFile('newimage')) {
+            if ($data->image) {
+                $oldFilePath = str_replace('storage/', '', $data->image); // Loại bỏ 'storage/' từ đường dẫn
+                if (Storage::exists($oldFilePath)) {
+                    Storage::delete($oldFilePath);
+                }
+            }
+            $image = $request->file('newimage');
+            $folder = 'images/categories';
+            $imageName = Storage::put($folder, $image);
+            $imageName = 'storage/' . $imageName;
+            $data->image = $imageName;
+        } else {
+            $data->image =  $request->input('currentimage');
+        }
+        $data->save();
+        return to_route('admin.banner.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Banner $banner)
     {
         //
+        try {
+            if ($banner->image) {
+                $oldFilePath = str_replace('storage/', '', $banner->image); // Loại bỏ 'storage/' từ đường dẫn
+                if (Storage::exists($oldFilePath)) {
+                    Storage::delete($oldFilePath);
+                }
+            }
+            $banner->delete();
+            return redirect()->back()->with('msg', ['success' => true, 'message' => 'Category deleted successfully']);
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+        }
     }
 }

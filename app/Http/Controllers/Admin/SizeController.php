@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Size;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SizeController extends Controller
 {
@@ -13,6 +15,8 @@ class SizeController extends Controller
     public function index()
     {
         //
+        $data = Size::latest('created_at')->paginate(5);
+        return view('admin.size.index', compact('data'));
     }
 
     /**
@@ -21,6 +25,7 @@ class SizeController extends Controller
     public function create()
     {
         //
+        return view('admin.size.create');
     }
 
     /**
@@ -29,6 +34,16 @@ class SizeController extends Controller
     public function store(Request $request)
     {
         //
+        try {
+            $model = new Size();
+            $model->fill($request->all());
+
+            $model->save();
+            return to_route('admin.size.index')->with('msg', ['success' => true, 'message' => 'Thêm thành công!']);
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+        }
     }
 
     /**
@@ -45,6 +60,8 @@ class SizeController extends Controller
     public function edit(string $id)
     {
         //
+        $data = Size::findOrFail($id);
+        return view('admin.size.edit', compact('data'));
     }
 
     /**
@@ -53,13 +70,24 @@ class SizeController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $data = Size::findOrFail($id);
+        $data->fill($request->all());
+        $data->save();
+        return to_route('admin.size.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Size $size)
     {
         //
+        try {
+            $size->delete();
+            return redirect()->back()->with('msg', ['success' => true, 'message' => 'Size deleted successfully']);
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+        }
     }
 }

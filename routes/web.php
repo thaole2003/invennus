@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SizeController;
+use App\Http\Controllers\Admin\StoreController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +23,7 @@ Route::get('/', function () {
     return view('admin.layouts.master');
 });
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::prefix('admin')->as('admin.')->group(function () {
@@ -29,4 +34,9 @@ Route::prefix('admin')->as('admin.')->group(function () {
 
     Route::resource('users', UserController::class);
     Route::resource('category', CategoryController::class);
+    Route::resource('banner', BannerController::class);
+    Route::resource('color', ColorController::class);
+    Route::resource('size', SizeController::class);
+    Route::resource('store', StoreController::class);
+    Route::resource('product', ProductController::class);
 });
