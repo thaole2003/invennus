@@ -19,10 +19,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'avt',
         'email',
         'phone',
         'address',
         'role',
+        'store_id',
         'password',
     ];
 
@@ -31,6 +33,9 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    public function store(){
+        return $this->belongsTo(Store::class);
+    }
     protected $hidden = [
         'password',
         'remember_token',

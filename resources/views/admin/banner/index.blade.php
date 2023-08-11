@@ -15,7 +15,6 @@
 
     </div>
     <div class="w-80">
-        <button type="button" class="btn btn-info px-10"><a href="{{ route('admin.banner.create') }}">Thêm mới</a></button>
         <table class="table">
             <thead>
                 <tr>
@@ -41,21 +40,18 @@
 
 
                             <td class="d-flex align-items-center">
-                                <button>
-                                    <a href="{{ route('admin.banner.edit', $value->id) }}"><i
-                                            class="fa-solid fa-pen-to-square"></i></a>
-                                </button>
-                                <form action="{{ route('admin.banner.destroy', $value->id) }}" method="POST">
-                                    @csrf
-                                    @method('delete')
-                                    <button class="text-red-800" onclick="return confirm('Có chắc chắn xóa?')">Xóa</button>
-                                </form>
-                            </td>
+                                <a  class="btn btn-primary" href="{{ route('admin.banner.edit',$value->id) }}"><i class="fas fa-edit"></i></a>
+                            <form action="{{ route('admin.banner.destroy',$value->id) }}" method="POST">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" onclick="return confirm('chắc chắn xóa?')" class="btn btn-danger" class="btn btn-danger"><i class="fas fa-trash-alt"></i> </button>
+                            </form>
+                        </td>
                         </tr>
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="5">Bạn cần thêm danh mục!</td>
+                        <td colspan="5">Bạn cần thêm ảnh quảng cáo!</td>
                     </tr>
                 @endif
 
