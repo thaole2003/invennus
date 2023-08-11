@@ -16,6 +16,8 @@ class Store extends Model
         'phone',
         'email',
         'website',
-        'logo',
     ];
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

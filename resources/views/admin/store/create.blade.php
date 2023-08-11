@@ -41,11 +41,7 @@
                 <input type="text" class="form-control" id="" placeholder="Enter website" name="website"
                     value="{{ old('website') }}">
             </div>
-            <div class="mb-3 mt-3">
-                <label for="" class="form-label">Website:</label>
-                <input type="text" class="form-control" id="" placeholder="Enter website" name="logo"
-                    value="">
-            </div>
+
 
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Submit</button>

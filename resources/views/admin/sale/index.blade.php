@@ -19,11 +19,12 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Tên danh mục</th>
-                    <th scope="col">Slug</th>
-                    {{-- <th scope="col">Mô tả</th> --}}
-                    <th scope="col">Hình ảnh</th>
-                    <th scope="col">Hoạt động</th>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">% Giảm</th>
+                    <th scope="col">Ngày bắt đầu</th>
+                    <th scope="col">Ngày kết thúc</th>
+                    <th scope="col">Hành động</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -31,13 +32,13 @@
                     @foreach ($data as $value)
                         <tr>
                             <th scope="">{{ $value->id }}</th>
-                            <td>{{ $value->name }}</td>
-                            <td>{{ $value->slug }}</td>
-                            {{-- <td>{{ $value->description }}</td> --}}
-                            <td><img class="w-50 h-50" src="{{ asset($value->image) }}" alt=""></td>
+                            <td>{{ $value->product->title }}</td>
+                            <td>{{ $value->discount }}</td>
+                            <td>{{ $value->start_date }}</td>
+                            <td>{{ $value->end_date }}</td>
                             <td class="d-flex align-items-center">
-                                <a  class="btn btn-primary" href="{{ route('admin.category.edit',$value->id) }}"><i class="fas fa-edit"></i></a>
-                            <form action="{{ route('admin.category.destroy',$value->id) }}" method="POST">
+                                <a  class="btn btn-primary" href="{{ route('admin.sale.edit',$value->id) }}"><i class="fas fa-edit"></i></a>
+                            <form action="{{ route('admin.sale.destroy',$value->id) }}" method="POST">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" onclick="return confirm('chắc chắn xóa?')" class="btn btn-danger" class="btn btn-danger"><i class="fas fa-trash-alt"></i> </button>

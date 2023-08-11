@@ -34,6 +34,7 @@ class StoreController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request->all());
         try {
             // dd($request->all());
             $model = new Store();

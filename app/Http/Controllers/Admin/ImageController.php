@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
-use App\Models\Sale;
 use Illuminate\Http\Request;
 
-class SaleController extends Controller
+class ImageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +13,6 @@ class SaleController extends Controller
     public function index()
     {
         //
-        $data=Sale::with('product')->latest('id')->paginate(10);
-        // dd($data);
-        return view('admin.sale.index',compact('data'));
     }
 
     /**
@@ -26,8 +21,6 @@ class SaleController extends Controller
     public function create()
     {
         //
-        $data = Product::all();
-        return view('admin.sale.create',compact('data'));
     }
 
     /**
@@ -35,14 +28,7 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        $data = new Sale();
-        $data->fillable($request->all());
-        $data->product_id = $request->product_id;
-        $data->discount = $request->discount;
-        $data->start_date = $request->start_date;
-        $data->end_date = $request->end_date;
-        $data->save();
-        return redirect()->route('admin.sale.index')->with('success','Sale Added Successfully');
+        //
     }
 
     /**
@@ -72,10 +58,8 @@ class SaleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Sale $sale)
+    public function destroy(string $id)
     {
         //
-        $sale->delete();
-        return redirect()->route('admin.sale.index')->with('success','Sale Deleted Successfully');
     }
 }
