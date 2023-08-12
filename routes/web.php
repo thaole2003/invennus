@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\StoreController;
+use App\Http\Controllers\Admin\StoreVariantController;
 use App\Http\Controllers\admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('admin.layouts.master');
+    return view('client.layouts.master');
 });
 
 Auth::routes();
@@ -37,4 +38,6 @@ Route::prefix('admin')->as('admin.')->group(function () {
     Route::resource('store', StoreController::class);
     Route::resource('product', ProductController::class);
     Route::resource('sale', SaleController::class);
+
+    Route::resource('storeVariant', StoreVariantController::class);
 });
