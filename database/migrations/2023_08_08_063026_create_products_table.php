@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('metatitle')->nullable();
             $table->string('slug')->unique()->nullable()->comment('URL-friendly slug');
             $table->text('description');
+            $table->string('price');
             $table->string('image');
             $table->decimal('length', 10, 2)->nullable();
             $table->decimal('width', 10, 2)->nullable();

@@ -120,6 +120,19 @@
         </div>
     </li>
     <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('admin.storevariant.index') }}" data-toggle="" data-target="#"
+            aria-expanded="true" aria-controls="">
+            <i class="fas fa-tshirt"></i>
+            <span> QL Số lượng sản phẩm</span>
+        </a>
+        {{-- <div id="collapseTwo5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item"  href={{ route('admin.product.index') }}>Danh sách sản phẩm</a>
+                <a class="collapse-item"  href={{ route('admin.product.create') }}>Thêm mới sản phẩm</a>
+            </div>
+        </div> --}}
+    </li>
+    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo7"
             aria-expanded="true" aria-controls="collapseTwo7">
             <i class="fab fa-salesforce"></i>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\Admin\SizeController;
@@ -38,6 +39,8 @@ Route::prefix('admin')->as('admin.')->group(function () {
     Route::resource('store', StoreController::class);
     Route::resource('product', ProductController::class);
     Route::resource('sale', SaleController::class);
-
-    Route::resource('storeVariant', StoreVariantController::class);
+    Route::resource('image', ImageController::class);
+    Route::get('store/{storeid}/variant/{variantid}', [StoreVariantController::class, 'liststorevariant'])->name('store.variant.list');
+    Route::resource('storevariant', StoreVariantController::class);
+    Route::put('editprice/{id}',[ProductController::class,'updateprice'])->name('variant.editprice');
 });

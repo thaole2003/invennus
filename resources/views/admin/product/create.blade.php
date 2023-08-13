@@ -56,6 +56,16 @@
                     <textarea type="text" class="form-control" id="email" placeholder="Enter description"
                         name="description" value="{{ old('description') }}"></textarea>
                 </div>
+                <div class="mb-3 mt-3">
+                    <div class="mb-3 mt-3">
+                        <div class="category-container">
+                            <label for="email" class="form-label">Danh mục :</label><br>
+                            <input type="text" name="category[]" placeholder="Danh mục"><br>
+                        </div>
+
+                        <label onclick="addCategoryField()">Thêm danh mục</label>
+                    </div>
+                </div>
                 <div class="d-flex">
                     <div class="mb-3 mt-3">
                         <div class="size-container">
@@ -133,6 +143,26 @@
         container.removeChild(colorDiv);
     }
     </script>
+    <script>
+        function addCategoryField() {
+            var container = document.querySelector('.category-container');
+
+            var colorDiv = document.createElement('div');
+            colorDiv.innerHTML = `
+                <input type="text" name="category[]" placeholder="Danh mục">
+                <button class="delete-button" onclick="deleteCategoryField(this)">Xóa</button>
+            `;
+
+            container.appendChild(colorDiv);
+        }
+
+        function deleteCategoryField(button) {
+            var container = document.querySelector('.category-container');
+            var colorDiv = button.parentElement;
+
+            container.removeChild(colorDiv);
+        }
+        </script>
 <script>
     function addSizeField() {
         var container = document.querySelector('.size-container');

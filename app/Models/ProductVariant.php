@@ -20,7 +20,12 @@ class ProductVariant extends Model
 
     public function product()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsTo(Product::class);
+    }
+
+    public function storeVariant()
+    {
+        return $this->hasOne(StoreVariant::class, 'variant_id');
     }
     public function size()
     {
