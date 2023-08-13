@@ -50,6 +50,7 @@
                                 <button type="submit" onclick="return confirm('chắc chắn xóa?')" class="btn btn-danger" class="btn btn-danger"><i class="fas fa-trash-alt"></i> </button>
                             </form>
                         </td>
+                        <td><a href="{{ route('admin.storevariant.show',$value->id) }}">xem sản phẩm</a></td>
                         </tr>
                     @endforeach
                 @else

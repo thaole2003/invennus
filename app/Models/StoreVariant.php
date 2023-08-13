@@ -21,8 +21,8 @@ class StoreVariant extends Model
         return $this->belongsTo(Store::class);
     }
 
-    public function productVariant()
+    public function variant()
     {
-        return $this->hasMany(ProductVariant::class);
+        return $this->belongsTo(ProductVariant::class, 'variant_id');
     }
 }

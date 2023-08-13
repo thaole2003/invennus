@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
+use App\Models\Store;
 use App\Models\StoreVariant;
 use Illuminate\Http\Request;
 
@@ -14,10 +16,9 @@ class StoreVariantController extends Controller
     public function index()
     {
         //
-        $data = StoreVariant::latest('created_at')->paginate(5);
+        $data = Store::all();
         return view('admin.storeVariant.index', compact('data'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -37,7 +38,12 @@ class StoreVariantController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = StoreVariant::with(['variant.product'])
+            ->where('store_id', $id)
+            ->latest('created_at')
+            ->get();
+
+        return view('admin.storeVariant.show', compact('data'));
     }
 
     /**
@@ -45,6 +51,7 @@ class StoreVariantController extends Controller
      */
     public function edit(string $id)
     {
+
     }
 
     /**

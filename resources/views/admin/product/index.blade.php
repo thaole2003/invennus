@@ -20,7 +20,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Mã</th>
-                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">Tên SP</th>
                     <th scope="col">Tên ngắn</th>
                     <th scope="col">slug</th>
                     <th scope="col">Description</th>
@@ -52,6 +52,8 @@
                                 @method('delete')
                                 <button type="submit" onclick="return confirm('chắc chắn xóa?')" class="btn btn-danger" class="btn btn-danger"><i class="fas fa-trash-alt"></i> </button>
                             </form>
+                            <a  class="btn btn-primary" href="{{ route('admin.product.show',$value->id) }}"><i class="fas fa-eye"></i></a>
+
                         </td>
                         </tr>
                     @endforeach

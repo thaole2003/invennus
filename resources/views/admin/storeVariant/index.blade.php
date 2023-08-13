@@ -1,29 +1,19 @@
 @extends('admin.layouts.master')
+@push('styles')
+   <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+@endpush
+
 @section('content')
     <div class="m-10">
-        <h1 class="text-center">Danh sách cửa hàng</h1>
+        <h1 class="text-center">Chọn cửa hàng quản lí cửa hàng</h1>
     </div>
-    {{-- <div>
-
-        @if (session('msg'))
-            @if (session('msg')['success'])
-                <div class="alert alert-success">{{ session('msg')['message'] }}</div>
-            @else
-                <div class="alert alert-danger">{{ session('msg')['message'] }}</div>
-            @endif
-        @endif
-
-    </div> --}}
     <div class="w-80">
-        <table class="table">
+        <table class="table" id="myTable">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Cua Hanf</th>
-                    <th scope="col">San pham</th>
-                    <th scope="col">So luong</th>
-                    <th scope="col">So luong</th>
-
+                    <th scope="col">Cửa hàng</th>
+                    <th scope="col">Chọn</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,30 +21,22 @@
                     @foreach ($data as $key => $value)
                         <tr>
                             <th scope="">{{ $key + 1 }}</th>
-                            <td>{{ $value->store->name }}</td>
-                            <td>{{ $value->productVariant->product_id }}</td>
+                            <td>{{ $value->name }}</td>
+                            <td><a href="{{ route('admin.storevariant.show',$value->id) }}">Xem sản phẩm</a></td>
 
-
-                            <td class="d-flex align-items-center">
-                                <form action="{{ route('admin.storeVariant.update', $value->id) }}" method="POST">
-                                    @csrf
-                                    @method('put')
-                                    <input type="number" name="quantity" value="{{ $value->quantity }}">
-                                    <button type="submit"class="btn btn-danger" class="btn btn-danger"><i
-                                            class="fas fa-trash-alt"></i> </button>
-                                </form>
-                            </td>
                         </tr>
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="5">Bạn cần thêm 1 cửa hàng!</td>
+                        <td colspan="5">Bạn cần thêm sản phẩm!</td>
                     </tr>
                 @endif
-
-
             </tbody>
         </table>
-        {{ $data->links() }}
+        {{-- {{ $data->links() }} --}}
     </div>
 @endsection
+@push('scripts')
+    <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>let table = new DataTable('#myTable');</script>
+@endpush
