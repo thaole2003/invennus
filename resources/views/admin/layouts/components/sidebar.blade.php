@@ -13,7 +13,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href>
+        <a class="nav-link" href="{{route('admin.home')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -44,12 +44,12 @@
         <a class="nav-link collapsed" href="{{ route('admin.users.index') }}" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-user"></i>
-            <span>Quản lý User</span>
+            <span>Quản lý người dùng</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.users.index') }}">Danh sách User</a>
-                <a class="collapse-item" href="{{ route('admin.users.create') }}">Thêm mới User</a>
+                <a class="collapse-item" href="{{ route('admin.users.index') }}">Danh sách người dùng</a>
+                <a class="collapse-item" href="{{ route('admin.users.create') }}">Thêm mới người dùng</a>
             </div>
         </div>
     </li>

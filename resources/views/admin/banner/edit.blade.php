@@ -1,7 +1,10 @@
 @extends('admin.layouts.master')
+@section('title')
+    Banner
+@endsection
 @section('content')
     <h1 class=" bg-info fs-1 d-flex justify-content-center align-items-center text-white rounded" style="height: 100px">
-        Cate Edit</h1>
+        Sửa hình ảnh</h1>
 
     <form action="{{ route('admin.banner.update', $data->id) }}" method="post" enctype="multipart/form-data">
         @csrf
@@ -13,6 +16,10 @@
                     placeholder="Enter title" value="{{ old('image') }}">
                 <input type="text" class="form-control" name="currentimage" hidden value="{{ $data->image }}">
             </div>
+            @error('newimage')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
+
             <div class="mb-3 mt-3" style="text-align:center;">
                 <img src={{ asset($data->image) }}
                     style="width: 120px;min-height:120px;border-radius:100% ;     object-fit: cover;" id="show-image"
@@ -23,6 +30,9 @@
                 <input type="text" class="form-control" id="" placeholder="Enter Title" name="title"
                     value="{{ $data->title }}">
             </div>
+            @error('title')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
             <div class="mb-3 mt-3">
                 <label for="email" class="form-label">Trạng thái:</label>
                 <select name="is_active" id="">

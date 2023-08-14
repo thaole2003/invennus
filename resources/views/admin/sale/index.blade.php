@@ -1,7 +1,10 @@
 @extends('admin.layouts.master')
+@section('title')
+    Sale
+@endsection
 @section('content')
     <div class="m-10">
-        <h1 class="text-center">Danh sách danh mục sản phẩm</h1>
+        <h1 class="text-center">Danh sách mã giảm giá</h1>
     </div>
     <div>
 
@@ -48,7 +51,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="5">Bạn cần thêm danh mục!</td>
+                        <td colspan="5">Bạn cần mã giảm giá!</td>
                     </tr>
                 @endif
 

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Category\CreateCategoryRequest;
+use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -33,7 +35,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateCategoryRequest $request)
     {
         //
         try{
@@ -75,22 +77,23 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCategoryRequest $request, string $id)
     {
         //
         $data= Category::findOrFail($id);
         $data->fill($request->all());
         if($request->hasFile('newimage')){
+
+            $image = $request->file('newimage');
+            $folder = 'images/categories';
+            $imageName =Storage::put($folder,$image);
+            $imageName= 'storage/' . $imageName;
             if ($data->image) {
                 $oldFilePath = str_replace('storage/', '', $data->image); // Loại bỏ 'storage/' từ đường dẫn
                 if (Storage::exists($oldFilePath)) {
                     Storage::delete($oldFilePath);
                 }
             }
-            $image = $request->file('newimage');
-            $folder = 'images/categories';
-            $imageName =Storage::put($folder,$image);
-            $imageName= 'storage/' . $imageName;
             $data->image = $imageName;
         }else{
             $data->image =  $request->input('currentimage');
@@ -106,13 +109,13 @@ class CategoryController extends Controller
     {
         //
         try {
+            $category->delete();
             if ($category->image) {
-                $oldFilePath = str_replace('storage/', '', $category->image); // Loại bỏ 'storage/' từ đường dẫn
+                $oldFilePath = str_replace('storage/', '', $category->image);
                 if (Storage::exists($oldFilePath)) {
                     Storage::delete($oldFilePath);
                 }
             }
-            $category->delete();
             return redirect()->back()->with('msg', ['success' => true, 'message' => 'Category deleted successfully']);
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());

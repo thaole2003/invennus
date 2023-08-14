@@ -64,9 +64,6 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-<!-- Logout Modal-->
-@include('admin.layouts.components.footer')
-
 <!-- Bootstrap core JavaScript-->
 <script src="{{ asset('be/vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('be/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

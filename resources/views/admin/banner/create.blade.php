@@ -1,4 +1,7 @@
 @extends('admin.layouts.master')
+@section('title')
+    Banner
+@endsection
 @section('content')
     <h1 class=" bg-success fs-1 d-flex justify-content-center align-items-center text-white rounded" style="height: 100px">
         Thêm hình ảnh</h1>
@@ -12,6 +15,10 @@
                 <input type="file" class="form-control" name="image" accept="image/*" id="image-input"
                     placeholder="Enter title" value="{{ old('image') }}">
             </div>
+                @error('image')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror
+
             <div class="mb-3 mt-3" style="text-align:center;">
                 <img src="" style="width: 120px;min-height:120px;border-radius:100% ;     object-fit: cover;"
                     id="show-image" alt="">
@@ -21,6 +28,10 @@
                 <input type="text" class="form-control" id="" placeholder="Enter title" name="title"
                     value="{{ old('title') }}">
             </div>
+                @error('title')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+
             <div class="mb-3 mt-3">
                 <label for="email" class="form-label">Trạng thái:</label>
 
@@ -29,6 +40,7 @@
                     <option value="2">Chưa kích hoạt</option>
                 </select>
             </div>
+
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
