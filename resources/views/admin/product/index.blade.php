@@ -1,4 +1,7 @@
 @extends('admin.layouts.master')
+@section('title')
+    Product
+@endsection
 @section('content')
     <div class="m-10">
         <h1 class="text-center">Danh sách sản phẩm</h1>
@@ -32,6 +35,7 @@
                 </tr>
             </thead>
             <tbody>
+{{--            {{dd($data)}}--}}
                 @if (count($data) > 0)
                     @foreach ($data as $value)
                         <tr>
@@ -59,7 +63,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="5">Bạn cần thêm danh mục!</td>
+                        <td colspan="5">Bạn cần thêm sản phẩm!</td>
                     </tr>
                 @endif
 

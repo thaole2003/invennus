@@ -1,61 +1,75 @@
 @extends('admin.layouts.master')
+@section('title')
+    Store
+@endsection
 @section('content')
     <h1 class=" bg-info fs-1 d-flex justify-content-center align-items-center text-white rounded" style="height: 100px">
-        Cate Edit</h1>
+        Sua cửa hàng</h1>
 
-    <form action="{{ route('admin.banner.update', $data->id) }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('admin.store.update',$data->id) }}" method="post">
         @csrf
         @method('put')
         <div class="w-50 mx-auto border bg-light rounded h-100 p-4 mt-5">
             <div class="mb-3 mt-3">
-                <label for="" class="form-label">Image:</label>
-                <input type="file" class="form-control" name="newimage" accept="image/*" id="image-input"
-                    placeholder="Enter title" value="{{ old('image') }}">
-                <input type="text" class="form-control" name="currentimage" hidden value="{{ $data->image }}">
+                <label for="" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="" placeholder="Enter name" name="name"
+                       value="{{ $data->name }}">
             </div>
-            <div class="mb-3 mt-3" style="text-align:center;">
-                <img src={{ asset($data->image) }}
-                    style="width: 120px;min-height:120px;border-radius:100% ;     object-fit: cover;" id="show-image"
-                    alt="">
-            </div>
+            @error('name')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
             <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Title:</label>
-                <input type="text" class="form-control" id="" placeholder="Enter Title" name="title"
-                    value="{{ $data->title }}">
+                <label for="" class="form-label">Slug:</label>
+                <input type="text" class="form-control" id="" placeholder="Enter slug" name="slug"
+                       value="{{ $data->slug }}">
             </div>
+            @error('slug')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
             <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Trạng thái:</label>
-                <select name="is_active" id="">
-                    <option value="1" {{ $data->is_active == 1 ? 'checked' : false }}>Kích hoạt</option>
-                    <option value="2" {{ $data->is_active == 2 ? 'checked' : false }}>Chưa kích hoạt</option>
-                </select>
+                <label for="" class="form-label">Mô tả:</label>
+                <textarea name="description" class="form-control" cols="80" rows="10" style="width: 100%;border-radius: 5px;">{{ $data->description }}</textarea>
             </div>
+            @error('description')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
+            <div class="mb-3 mt-3">
+                <label for="" class="form-label">Địa chỉ:</label>
+                <input type="text" class="form-control" id="" placeholder="Enter address" name="address"
+                       value="{{ $data->address }}">
+            </div>
+            @error('address')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
+            <div class="mb-3 mt-3">
+                <label for="" class="form-label">Số điện thoại:</label>
+                <input type="text" class="form-control" id="" placeholder="Enter phone" name="phone"
+                       value="{{ $data->phone }}">
+            </div>
+            @error('phone')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
+            <div class="mb-3 mt-3">
+                <label for="" class="form-label">email:</label>
+                <input type="email" class="form-control" id="" placeholder="Enter email" name="email"
+                       value="{{ $data->email }}">
+            </div>
+            @error('email')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
+            <div class="mb-3 mt-3">
+                <label for="" class="form-label">Website:</label>
+                <input type="text" class="form-control" id="" placeholder="Enter website" name="website"
+                       value="{{ $data->website }}">
+            </div>
+            @error('website')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
+
+
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </form>
 @endsection
-
-@push('scripts')
-    <!-- Page level plugins -->
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-        crossorigin="anonymous"></script>
-    <script>
-        $(() => {
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        $('#show-image').attr('src', e.target.result);
-                    };
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
-
-            $("#image-input").change(function() {
-                readURL(this);
-            });
-        });
-    </script>
-@endpush

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Store\CreateStoreRequest;
+use App\Http\Requests\Store\UpdateStoreRequest;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -31,7 +33,7 @@ class StoreController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateStoreRequest $request)
     {
         //
         // dd($request->all());
@@ -68,7 +70,7 @@ class StoreController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateStoreRequest $request, string $id)
     {
         //
         $data = Store::findOrFail($id);
@@ -85,7 +87,7 @@ class StoreController extends Controller
         //
         try {
             $store->delete();
-            return redirect()->back()->with('msg', ['success' => true, 'message' => 'Size deleted successfully']);
+            return redirect()->back()->with('msg', ['success' => true, 'message' => 'Store deleted successfully']);
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);

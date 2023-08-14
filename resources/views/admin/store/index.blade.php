@@ -1,4 +1,7 @@
 @extends('admin.layouts.master')
+@section('title')
+    Store
+@endsection
 @section('content')
     <div class="m-10">
         <h1 class="text-center">Danh sách cửa hàng</h1>

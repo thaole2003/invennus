@@ -1,7 +1,10 @@
 @extends('admin.layouts.master')
+@section('title')
+    Sale
+@endsection
 @section('content')
     <h1 class=" bg-info fs-1 d-flex justify-content-center align-items-center text-white rounded" style="height: 100px">
-        Cate Add</h1>
+        Thêm mã giảm giá</h1>
 
     <form action="{{ route('admin.sale.store') }}" method="post" enctype="multipart/form-data">
         @csrf
@@ -15,21 +18,33 @@
                     @endforeach
                 </select>
             </div>
+            @error('product_id')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
             <div class="mb-3 mt-3">
                 <label for="email" class="form-label">% Giảm:</label>
                 <input type="text" class="form-control" id="email" placeholder="Enter discount" name="discount"
                     value="{{ old('discount') }}">
             </div>
+            @error('discount')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
             <div class="mb-3 mt-3">
                 <label for="email" class="form-label">bắt đầu :</label>
                 <input type="datetime-local" class="form-control" name="start_date" id="end_date"
                 placeholder="Enter title" value="{{old('start_date')}}">
             </div>
+            @error('start_date')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
             <div class="mb-3 mt-3">
                 <label for="email" class="form-label">kết thúc :</label>
                 <input type="datetime-local" class="form-control" name="end_date" id="end_date"
                 placeholder="Enter title" value="{{old('end_date')}}">
             </div>
+            @error('end_date')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>

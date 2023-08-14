@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -34,7 +36,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
         //
         // dd($request->all());
@@ -84,7 +86,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateUserRequest $request, string $id)
     {
         //
         // dd($request->all());
@@ -95,6 +97,7 @@ class UserController extends Controller
         try{
             $model = User::findOrFail($id);
             $model->fill($request->all());
+            $model->fill($request->all());
             if($model->role=='user' || $model->role=='admin'){
                 $model->store_id=null;
             }
@@ -103,6 +106,10 @@ class UserController extends Controller
                 $folder = 'images/user';
                 $imageName =Storage::put($folder,$image);
                 $imageName= 'storage/' . $imageName;
+                $oldFilePath = str_replace('storage/', '', $model->avt); // Loại bỏ 'storage/' từ đường dẫn
+                if (Storage::exists($oldFilePath)) {
+                    Storage::delete($oldFilePath);
+                }
                 $model->avt = $imageName;
             }else{
                 $model->avt = $request->input('current_avt');
@@ -123,6 +130,12 @@ class UserController extends Controller
         //
         try {
             $user->delete();
+            if ($user->avt) {
+                $oldFilePath = str_replace('storage/', '', $user->avt); // Loại bỏ 'storage/' từ đường dẫn
+                if (Storage::exists($oldFilePath)) {
+                    Storage::delete($oldFilePath);
+                }
+            }
             return redirect()->back()->with('msg', ['success' => true, 'message' => 'User deleted successfully']);
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());

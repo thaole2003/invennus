@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Sale\CreateSaleRequest;
 use App\Models\Product;
 use App\Models\Sale;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SaleController extends Controller
 {
@@ -33,7 +35,7 @@ class SaleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateSaleRequest $request)
     {
         $data = new Sale();
         $data->fillable($request->all());
@@ -75,7 +77,12 @@ class SaleController extends Controller
     public function destroy(Sale $sale)
     {
         //
-        $sale->delete();
-        return redirect()->route('admin.sale.index')->with('success','Sale Deleted Successfully');
+        try {
+           $sale->delete();
+            return redirect()->back()->with('msg', ['success' => true, 'message' => 'Sale deleted successfully']);
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+        }
     }
 }

@@ -1,7 +1,10 @@
 @extends('admin.layouts.master')
+@section('title')
+    Banner
+@endsection
 @section('content')
     <div class="m-10">
-        <h1 class="text-center">Danh sách banner</h1>
+        <h1 class="text-center">Danh sách hình ảnh</h1>
     </div>
     <div>
 

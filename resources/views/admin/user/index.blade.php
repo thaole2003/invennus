@@ -1,4 +1,7 @@
 @extends('admin.layouts.master')
+@section('title')
+    User
+@endsection
 @section('content')
     <div class="m-10">
         <h1 class="text-center">Danh sách người dùng</h1>
@@ -54,7 +57,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="5">Bạn cần thêm danh mục!</td>
+                        <td colspan="5">Bạn cần thêm người dùng!</td>
                     </tr>
                 @endif
 

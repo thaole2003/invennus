@@ -24,13 +24,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('client.layouts.master');
+    return view('client.layouts.components.main');
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::prefix('admin')->as('admin.')->group(function () {
+    Route::get('/', function () {
+        return view('admin.layouts.components.main');
+    })->name('home');
     Route::resource('users', UserController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('banner', BannerController::class);

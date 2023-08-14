@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Size\CreateSizeRequest;
+use App\Http\Requests\Size\UpdateSizeRequest;
 use App\Models\Size;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -31,7 +33,7 @@ class SizeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateSizeRequest $request)
     {
         //
         try {
@@ -67,7 +69,7 @@ class SizeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateSizeRequest $request, string $id)
     {
         //
         $data = Size::findOrFail($id);

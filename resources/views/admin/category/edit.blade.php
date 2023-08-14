@@ -1,9 +1,10 @@
-
-
 @extends('admin.layouts.master')
+@section('title')
+    Category
+@endsection
 @section('content')
     <h1 class=" bg-info fs-1 d-flex justify-content-center align-items-center text-white rounded" style="height: 100px">
-        Cate Edit</h1>
+        Sửa danh mục</h1>
 
     <form action="{{ route('admin.category.update',$data->id) }}" method="post" enctype="multipart/form-data">
         @csrf
@@ -16,6 +17,9 @@
                 <input type="text" class="form-control" name="currentimage"  hidden
                     value="{{ $data->image }}">
             </div>
+            @error('image')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
             <div class="mb-3 mt-3" style="text-align:center;">
                 <img src={{ asset($data->image) }} style="width: 120px;min-height:120px;border-radius:100% ;     object-fit: cover;"
                     id="show-image" alt="">
@@ -25,16 +29,25 @@
                 <input type="text" class="form-control" id="email" placeholder="Enter name" name="name"
                     value="{{ $data->name }}">
             </div>
+            @error('name')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
             <div class="mb-3 mt-3">
                 <label for="email" class="form-label">Slug:</label>
                 <input type="text" class="form-control" id="email" placeholder="Enter slug" name="slug"
                     value="{{ $data->slug }}" disabled>
             </div>
+            @error('slug')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
             <div class="mb-3 mt-3">
                 <label for="email" class="form-label">Description :</label>
                 <input type="text" class="form-control" id="email" placeholder="Enter description" name="description"
                 value="{{ $data->description }}" >
             </div>
+            @error('description')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>

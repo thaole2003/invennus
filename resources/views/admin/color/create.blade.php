@@ -1,4 +1,7 @@
 @extends('admin.layouts.master')
+@section('title')
+    Color
+@endsection
 @section('content')
     <h1 class=" bg-info fs-1 d-flex justify-content-center align-items-center text-white rounded" style="height: 100px">
         Thêm màu</h1>
@@ -12,11 +15,17 @@
                 <input type="text" class="form-control" id="" placeholder="Enter color" name="name"
                     value="{{ old('name') }}">
             </div>
+            @error('name')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
             <div class="mb-3 mt-3">
                 <label for="" class="form-label">Mã màu:</label>
                 <input type="text" class="form-control" id="" placeholder="Enter code color" name="code"
                     value="{{ old('name') }}">
             </div>
+            @error('name')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
 
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Submit</button>
