@@ -1,4 +1,7 @@
 @extends('admin.layouts.master')
+@section('title')
+    Category
+@endsection
 @section('content')
     <div class="m-10">
         <h1 class="text-center">Danh sách danh mục sản phẩm</h1>
@@ -34,7 +37,7 @@
                             <td>{{ $value->name }}</td>
                             <td>{{ $value->slug }}</td>
                             {{-- <td>{{ $value->description }}</td> --}}
-                            <td><img class="w-50 h-50" src="{{ asset($value->image) }}" alt=""></td>
+                            <td><img class="" src="{{ asset($value->image) }}" alt="" style="width: 80px;height: 80px"></td>
                             <td class="d-flex align-items-center">
                                 <a  class="btn btn-primary" href="{{ route('admin.category.edit',$value->id) }}"><i class="fas fa-edit"></i></a>
                             <form action="{{ route('admin.category.destroy',$value->id) }}" method="POST">

@@ -1,4 +1,7 @@
 @extends('admin.layouts.master')
+@section('title')
+    Color
+@endsection
 @section('content')
     <div class="m-10">
         <h1 class="text-center">Danh sách màu</h1>

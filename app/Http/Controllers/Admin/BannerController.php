@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Banner\CreateBannerRequest;
+use App\Http\Requests\Banner\UpdateBannerRequest;
 use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -32,7 +34,7 @@ class BannerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateBannerRequest $request)
     {
         //
         try {
@@ -43,6 +45,10 @@ class BannerController extends Controller
                 $folder = 'images/banner';
                 $imageName = Storage::put($folder, $image);
                 $imageName = 'storage/' . $imageName;
+                $oldimage = str_replace('storage/', '', $model->image);
+                if (Storage::exists($oldimage)) {
+                    Storage::delete($oldimage);
+                }
                 $model->image = $imageName;
             }
             $model->save();
@@ -74,7 +80,7 @@ class BannerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateBannerRequest $request, string $id)
     {
         //
         $data = Banner::findOrFail($id);
@@ -106,13 +112,13 @@ class BannerController extends Controller
         //
         try {
             if ($banner->image) {
-                $oldFilePath = str_replace('storage/', '', $banner->image); // Loại bỏ 'storage/' từ đường dẫn
+                $oldFilePath = str_replace('storage/', '', $banner->image);
                 if (Storage::exists($oldFilePath)) {
                     Storage::delete($oldFilePath);
                 }
             }
             $banner->delete();
-            return redirect()->back()->with('msg', ['success' => true, 'message' => 'Category deleted successfully']);
+            return redirect()->back()->with('msg', ['success' => true, 'message' => 'Banner deleted successfully']);
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);

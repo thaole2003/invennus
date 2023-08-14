@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Color\CreateColorRequest;
+use App\Http\Requests\Color\UpdateColorRequest;
 use App\Models\Color;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -31,7 +33,7 @@ class ColorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateColorRequest $request)
     {
         //
         try {
@@ -66,7 +68,7 @@ class ColorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateColorRequest $request, string $id)
     {
         //
         $data = Color::findOrFail($id);

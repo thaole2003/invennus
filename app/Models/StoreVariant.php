@@ -14,6 +14,7 @@ class StoreVariant extends Model
         'store_id',
         'variant_id',
         'quantity',
+        'old_quantity'
     ];
 
     public function store()
