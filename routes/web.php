@@ -29,7 +29,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::prefix('admin')->as('admin.')->group(function () {
     Route::get('/', function () {
         return view('admin.layouts.components.main');
@@ -47,3 +47,4 @@ Route::prefix('admin')->as('admin.')->group(function () {
     Route::resource('storevariant', StoreVariantController::class);
     Route::put('editprice/{id}',[ProductController::class,'updateprice'])->name('variant.editprice');
 });
+Route::get('/', [App\Http\Controllers\Client\HomeController::class, 'index'])->name('home');

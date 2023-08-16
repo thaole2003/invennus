@@ -3,6 +3,41 @@
 @section('content')
 
     <!-- Start Facility Area -->
+    <!-- End Navbar Area -->
+
+    <div class="home-slides-two owl-carousel owl-theme">
+
+
+        <div class="banner-section item-bg5 jarallax" data-jarallax='{"speed": 0.3}'>
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="container">
+                        <div class="banner-content">
+                            <span class="sub-title">Limited Time Offer!</span>
+                            <h1>Clothing Made for You!</h1>
+                            <p>Take 20% Off ‘Sale Must-Haves'</p>
+                            <a href="#" class="btn btn-primary">Shop women's</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="banner-section item-bg6 jarallax" data-jarallax='{"speed": 0.3}'>
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="container">
+                        <div class="banner-content">
+                            <span class="sub-title">Limited Time Offer!</span>
+                            <h1>Clothing Made for You!</h1>
+                            <p>Take 20% Off ‘Sale Must-Haves'</p>
+                            <a href="#" class="btn btn-primary">Shop Men's</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <section class="facility-area black-bg">
         <div class="container">
             <div class="row">
@@ -50,53 +85,23 @@
     <section class="category-boxes-area pt-60">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-3 col-sm-6 col-md-6">
-                    <div class="single-category-boxes">
-                        <img src="{{asset('fe/assets/img/category-products-img5.jpg')}}" alt="image">
+                {{-- đổ dữ liệu category --}}
+                @if (count($category) > 0)
+                @foreach ($category as $item)
+                    <div class="col-lg-3 col-sm-6 col-md-6">
+                        <div class="single-category-boxes w-100">
+                            <img class="w-100 h-100" src="{{ $item->image ? asset($item->image) : asset('fe/assets/img/category-products-img5.jpg') }}" alt="image">
 
-                        <h3>Bags</h3>
 
-                        <a href="#" class="shop-now-btn">Shop Now</a>
+                            <h3>{{ $item->name }}</h3>
 
-                        <a href="#" class="link-btn"></a>
+                            <a href="#" class="shop-now-btn">Shop Now</a>
+
+                            <a href="#" class="link-btn"></a>
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-lg-3 col-sm-6 col-md-6">
-                    <div class="single-category-boxes">
-                        <img src="{{asset('fe/assets/img/category-products-img6.jpg')}}" alt="image">
-
-                        <h3>Shoes</h3>
-
-                        <a href="#" class="shop-now-btn">Shop Now</a>
-
-                        <a href="#" class="link-btn"></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-sm-6 col-md-6">
-                    <div class="single-category-boxes">
-                        <img src="{{asset('fe/assets/img/category-products-img7.jpg')}}" alt="image">
-
-                        <h3>Watches</h3>
-
-                        <a href="#" class="shop-now-btn">Shop Now</a>
-
-                        <a href="#" class="link-btn"></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-sm-6 col-md-6">
-                    <div class="single-category-boxes">
-                        <img src="{{asset('fe/assets/img/category-products-img8.jpg')}}" alt="image">
-
-                        <h3>Glasses</h3>
-
-                        <a href="#" class="shop-now-btn">Shop Now</a>
-
-                        <a href="#" class="link-btn"></a>
-                    </div>
-                </div>
+                @endforeach
+                @endif
             </div>
         </div>
     </section>

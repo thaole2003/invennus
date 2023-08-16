@@ -2,8 +2,8 @@
 @section('content')
     <h1 class=" bg-info fs-1 d-flex justify-content-center align-items-center text-white rounded" style="height: 100px">
         Sửa sản phẩm</h1>
-
-    <form action="{{ route('admin.product.update',$data->id) }}" method="post" enctype="multipart/form-data">
+<div class="d-flex">
+    <form class="col-md-10" action="{{ route('admin.product.update',$data->id) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('put')
         <div class="row mx-2">
@@ -76,27 +76,7 @@
                 </div>
 
 
-                <div class="d-flex">
-                    @if ($data->images->count() > 0)
-                    @foreach ($data->images as $value)
-                    <div class="col-md-4">
-                        <div class="mb-3 mt-3" style="text-align:center;">
-                            <img src="{{ asset($value->image) }}"
-                                style="width: 120px;min-height:120px;max-height:120px; border-radius:100% ; object-fit: cover;"
-                              alt="">
-                        </div>
-                        {{-- <form action="{{ route('admin.image.destroy', $value->id) }}" method="post">
-                            @csrf
-                            @method('delete')
 
-                            <button onclick="return confirm('chắc chắn xóa ảnh này?')">Xóa</button>
-                    </form> --}}
-                    </div>
-                    @endforeach
-                @else
-                    <p>Không có hình ảnh nào.</p>
-                @endif
-                </div>
 
 
             </div>
@@ -107,6 +87,35 @@
         </div>
 
     </form>
+
+
+
+
+    <div>
+        <h2>ảnh sản phẩm</h2>
+        <div class="d-flex col-md-2" >
+        @if ($data->images->count() > 0)
+        @foreach ($data->images as $key =>  $value)
+        <div class="">
+
+            <form id="{{ $key+10 }}" action="{{ route('admin.image.destroy', $value->id) }}" method="post">
+                @csrf
+                @method('delete')
+<div class="mb-3 mt-3" style="text-align:center;">
+                <img src="{{ asset($value->image) }}"
+                    style="width: 120px;min-height:120px;max-height:120px; border-radius:100% ; object-fit: cover;"
+                  alt="">
+            </div>
+                <button onclick="return confirm('chắc chắn xóa ảnh này?')">Xóa</button>
+        </form>
+        </div>
+        @endforeach
+    @else
+        <p>Không có hình ảnh nào.</p>
+    @endif
+</div>
+    </div>
+</div>
 @endsection
 
 @push('scripts')
