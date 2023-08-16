@@ -504,41 +504,8 @@
         </div>
     </div>
 </div>
-<!-- End Navbar Area -->
 </header>
 
 <!-- Start Main Banner Area -->
-<div class="home-slides-two owl-carousel owl-theme">
 
-
-    <div class="banner-section item-bg5 jarallax" data-jarallax='{"speed": 0.3}'>
-        <div class="d-table">
-            <div class="d-table-cell">
-                <div class="container">
-                    <div class="banner-content">
-                        <span class="sub-title">Limited Time Offer!</span>
-                        <h1>Clothing Made for You!</h1>
-                        <p>Take 20% Off ‘Sale Must-Haves'</p>
-                        <a href="#" class="btn btn-primary">Shop women's</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="banner-section item-bg6 jarallax" data-jarallax='{"speed": 0.3}'>
-        <div class="d-table">
-            <div class="d-table-cell">
-                <div class="container">
-                    <div class="banner-content">
-                        <span class="sub-title">Limited Time Offer!</span>
-                        <h1>Clothing Made for You!</h1>
-                        <p>Take 20% Off ‘Sale Must-Haves'</p>
-                        <a href="#" class="btn btn-primary">Shop Men's</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- End Main Banner Area -->
