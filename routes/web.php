@@ -34,6 +34,7 @@ Route::prefix('admin')->as('admin.')->group(function () {
     Route::get('/', function () {
         return view('admin.layouts.components.main');
     })->name('home');
+
     Route::resource('users', UserController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('banner', BannerController::class);
@@ -45,6 +46,10 @@ Route::prefix('admin')->as('admin.')->group(function () {
     Route::resource('image', ImageController::class);
     Route::get('store/{storeid}/variant/{variantid}', [StoreVariantController::class, 'liststorevariant'])->name('store.variant.list');
     Route::resource('storevariant', StoreVariantController::class);
-    Route::put('editprice/{id}',[ProductController::class,'updateprice'])->name('variant.editprice');
+    Route::put('editprice/{id}', [ProductController::class, 'updateprice'])->name('variant.editprice');
 });
 Route::get('/', [App\Http\Controllers\Client\HomeController::class, 'index'])->name('home');
+Route::prefix('product')->name('product.')->group(function () {
+    // Route::post('search', [HomeController::class, 'productSearch'])->name('search');
+    Route::get('/detail/{id}', [App\Http\Controllers\Client\HomeController::class, 'product'])->name('detail');
+});
