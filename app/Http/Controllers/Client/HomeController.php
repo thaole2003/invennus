@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Category;
+use App\Models\Image;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -16,18 +18,26 @@ class HomeController extends Controller
     {
         //
         $category = Category::withCount('products')
-        ->having('products_count', '>', 0)
-        ->paginate(4);
+            ->having('products_count', '>', 0)
+            ->paginate(4);
         $banner = Banner::latest('id')->paginate(2);
-        return view('client.layouts.components.main', compact('category'));
+
+        // $data = Product::with(['images' => function ($query) {
+        //     $query->take(2);
+        // }])->findOrFail(8);
+        $products = Image::all();
+        $banners = Banner::all();
+        // dd($banner);
+        return view('client.layouts.components.main', compact('category', 'products', 'banners'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function product($id)
     {
-        //
+        $product = Product::where('id', $id)->get();
+        return view('client.products.productDetail', compact('product'));
     }
 
     /**

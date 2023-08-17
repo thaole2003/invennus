@@ -56,7 +56,7 @@ class ProductController extends Controller
             $model->save();
             // $category = $request->input('category');
             $categoryunique = collect($request->input('category'))->unique()->values()->all();
-            foreach($categoryunique as $valuecate){
+            foreach ($categoryunique as $valuecate) {
                 $cate = Category::firstOrCreate(['name' => $valuecate]);
                 $modelProductCategory = new CategoryProduct();
                 $modelProductCategory->category_id = $cate->id;
@@ -117,17 +117,17 @@ class ProductController extends Controller
     public function updateprice(Request $request, $id)
     {
         try {
-        $productDetail = ProductVariant::findOrFail($id);
-        $productDetail->update([
-            'price' => $request->price,
-        ]);
+            $productDetail = ProductVariant::findOrFail($id);
+            $productDetail->update([
+                'price' => $request->price,
+            ]);
 
-        return back();
+            return back();
         } catch (\Exception $exception) {
-        Log::error('Exception', [$exception]);
+            Log::error('Exception', [$exception]);
 
-        return back()->with('msg', 'Thao tác thất bại!');
-    }
+            return back()->with('msg', 'Thao tác thất bại!');
+        }
     }
     /**
      * Show the form for editing the specified resource.
@@ -146,39 +146,40 @@ class ProductController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        $model = Product::findOrFail($id);
-        $model->fill($request->all());
-        if ($request->hasFile('newimage')) {
-            $file = $request->file('newimage');
-            $folder = 'images/admin/product';
-            $filePathAfterUpload = Storage::put($folder, $file);
-            $filePathAfterUpload = 'storage/' . $filePathAfterUpload;
-            $oldimage = str_replace('storage/', '', $model->image);
-            if (Storage::exists($oldimage)) {
-                Storage::delete($oldimage);
+        try {
+
+            $model = Product::findOrFail($id);
+            $model->fill($request->all());
+            if ($request->hasFile('newimage')) {
+                $file = $request->file('newimage');
+                $folder = 'images/admin/product';
+                $filePathAfterUpload = Storage::put($folder, $file);
+                $filePathAfterUpload = 'storage/' . $filePathAfterUpload;
+                $oldimage = str_replace('storage/', '', $model->image);
+                if (Storage::exists($oldimage)) {
+                    Storage::delete($oldimage);
+                }
+                $model->image = $filePathAfterUpload;
+            } else {
+                $model->image = $request->input('currentimage');
             }
-            $model->image = $filePathAfterUpload;
-
-        } else {
-            $model->image = $request->input('currentimage');
-        }
-        $model->save();
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $key => $image) {
-                $folder = 'images/admin/ImageProduct';
-                $fileaddPathAfterUpload = Storage::put($folder, $image);
-                $fileaddPathAfterUpload = 'storage/' . $fileaddPathAfterUpload;
-                $imageModel = new Image();
-                $imageModel->product_id = $model->id;
-                $imageModel->image = $fileaddPathAfterUpload;
-                $imageModel->save();
+            $model->save();
+            if ($request->hasFile('images')) {
+                foreach ($request->file('images') as $key => $image) {
+                    $folder = 'images/admin/ImageProduct';
+                    $fileaddPathAfterUpload = Storage::put($folder, $image);
+                    $fileaddPathAfterUpload = 'storage/' . $fileaddPathAfterUpload;
+                    $imageModel = new Image();
+                    $imageModel->product_id = $model->id;
+                    $imageModel->image = $fileaddPathAfterUpload;
+                    $imageModel->save();
+                }
             }
+            return to_route('admin.product.index')->with('msg', ['success' => true, 'message' => 'Thao tác thành công']);
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
         }
-        return back()->with('msg', 'Successfully uploaded');
-
-
-
-
     }
 
     /**
