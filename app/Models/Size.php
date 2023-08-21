@@ -13,4 +13,5 @@ class Size extends Model
         'name',
         'description',
     ];
+   
 }
