@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\StoreVariantController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\Client\CartController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,3 +54,7 @@ Route::prefix('product')->name('product.')->group(function () {
     // Route::post('search', [HomeController::class, 'productSearch'])->name('search');
     Route::get('/detail/{id}', [App\Http\Controllers\Client\HomeController::class, 'product'])->name('detail');
 });
+
+Route::get('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
+Route::delete('del-cart/{id}', [CartController::class, 'delCart'])->name('del-cart');
+Route::get('view-cart', [CartController::class, 'viewCart'])->name('view-cart');
