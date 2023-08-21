@@ -7,6 +7,7 @@ use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
@@ -41,6 +42,8 @@ class CategoryController extends Controller
         try{
         $model = new Category();
         $model->fill($request->all());
+        $slug = Str::slug($request->name);
+            $model->slug = $slug;
         if($request->hasFile('image')){
             $image = $request->file('image');
             $folder = 'images/categories';
@@ -82,6 +85,8 @@ class CategoryController extends Controller
         //
         $data= Category::findOrFail($id);
         $data->fill($request->all());
+        $slug = Str::slug($request->name);
+        $data->slug = $slug;
         if($request->hasFile('newimage')){
 
             $image = $request->file('newimage');

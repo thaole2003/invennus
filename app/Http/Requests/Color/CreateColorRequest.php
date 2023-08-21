@@ -22,8 +22,8 @@ class CreateColorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=> ['required'],
-            'code'=> ['required'],
+            'name'=> ['required','unique:colors,name'],
+            'code'=> ['required','unique:colors,code'],
         ];
     }
 }

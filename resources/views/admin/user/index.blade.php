@@ -39,12 +39,12 @@
                             <th scope="">{{ $value->id }}</th>
                             <td>{{ $value->name }}</td>
                             {{-- <td>{{ $value->description }}</td> --}}
-                            <td><img class="w-50 h-50" src="{{ asset($value->avt) }}" alt=""></td>
+                            <td><img class="w-50 h-50" src="{{$value->avt ? asset($value->avt) : 'https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg' }}" alt=""></td>
                             <td>{{ $value->email }}</td>
                             <td>{{ $value->phone }}</td>
                             <td>{{ $value->address }}</td>
                             <td>{{ $value->role }}</td>
-                            <td>{{ $value->store_id }}</td>
+                            <td>{{$value->store_id ? $value->store->name : ''}}</td>
                             <td class="d-flex align-items-center">
                                     <a  class="btn btn-primary" href="{{ route('admin.users.edit',$value->id) }}"><i class="fas fa-edit"></i></a>
                                 <form action="{{ route('admin.users.destroy',$value->id) }}" method="POST">

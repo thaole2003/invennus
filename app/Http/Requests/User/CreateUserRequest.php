@@ -23,9 +23,8 @@ class CreateUserRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'avt' => ['required'],
-            'email' => ['required','unique:users,email'],
-            'phone' => ['required'],
+            'email' => ['required','unique:users,email','email'],
+            'phone' => ['required','unique:users,phone', 'regex:/^[0-9]{10}$/u'],
             'address' => ['required'],
             'role' => ['required'],
             'store_id' => ['nullable'],

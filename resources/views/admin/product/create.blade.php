@@ -14,40 +14,64 @@
                     <input type="text" class="form-control" id="" placeholder="SKU" name="sku"
                         value="{{ old('sku') }}">
                 </div>
+                @error('sku')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">Tên:</label>
                     <input type="text" class="form-control" id="" placeholder="Title" name="title" value="{{ old('title') }}">
                 </div>
+                @error('title')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">Tên ngắn:</label>
                     <input type="text" class="form-control" id="" placeholder="Meta title" name="metatitle"
                         value="{{ old('metatitle') }}">
                 </div>
+                @error('metatitle')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">Giá chung:</label>
                     <input type="text" class="form-control" id="email" placeholder="Meta title" name="price"
                         value="{{ old('price') }}">
                 </div>
+                @error('price')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">Slug:</label>
                     <input type="text" class="form-control" id="email" placeholder=" Slug" name="slug"
                         value="{{ old('slug') }}">
                 </div>
+                @error('slug')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">Độ dài:</label>
                     <input type="text" class="form-control" id="email" placeholder="Đơn vị cm" name="length"
                         value="{{ old('length') }}">
                 </div>
+                @error('length')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">Độ rộng:</label>
                     <input type="text" class="form-control" id="" placeholder="Đơn vị cm" name="width"
                         value="{{ old('width') }}">
                 </div>
+                @error('width')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">Nặng:</label>
                     <input type="text" class="form-control" id="" placeholder="Đơn vị kg" name="weight"
                         value="{{ old('weight') }}">
                 </div>
+                @error('weight')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
 
             </div>
             <div class="col-md-4">
@@ -56,6 +80,9 @@
                     <textarea type="text" class="form-control" id="email" placeholder="Enter description"
                         name="description" value="{{ old('description') }}"></textarea>
                 </div>
+                @error('description')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
                 <div class="mb-3 mt-3">
                     <div class="mb-3 mt-3">
                         <div class="category-container">
@@ -66,24 +93,33 @@
                         <label onclick="addCategoryField()">Thêm danh mục</label>
                     </div>
                 </div>
+                @error('category.*')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
                 <div class="d-flex">
                     <div class="mb-3 mt-3">
                         <div class="size-container">
                             <label for="email" class="form-label">Kích cỡ :</label><br>
                             <input type="text" name="size[]" placeholder="Kích thước"><br>
                         </div>
-
                         <label onclick="addSizeField()">Thêm Kích thước</label>
                     </div>
+
                     <div class="mb-3 mt-3">
                         <div class="color-container">
                             <label for="email" class="form-label">Màu :</label><br>
                             <input type="text" name="color[]" placeholder="Màu sắc">
                         </div>
                         <label onclick="addColorField()">Thêm Màu</label>
-
                     </div>
+
                 </div>
+                @error('color.*')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+                @error('size.*')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">Cửa hàng có:</label><br>
                     @if(count($store)>0)
@@ -92,19 +128,28 @@
 
                     @endforeach
                     @else
-                    <span>let add category!</span>
+                    <span>Hãy thêm 1 cửa hàng!</span>
                     @endif
                 </div>
+                @foreach ($errors->get('store_id.*') as $error)
+                <p>{{ $error }}</p>
+            @endforeach
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">Ảnh sản phẩm ( thêm nhiều ảnh):</label>
                     <input type="file" class="form-control" name="images[]"
                         placeholder="Enter title" value="{{ old('images') }}" multiple>
                 </div>
+                @error('images[]')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label">Ảnh chinh:</label>
+                    <label for="email" class="form-label">Ảnh chính:</label>
                     <input type="file" class="form-control" name="image" accept="image/*" id="image-input"
                         placeholder="Enter title" value="{{ old('image') }}">
                 </div>
+                @error('image')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
                 <div class="mb-3 mt-3" style="text-align:center;">
                     <img src="" style="width: 120px;min-height:120px;border-radius:100% ;     object-fit: cover;"
                         id="show-image" alt="">

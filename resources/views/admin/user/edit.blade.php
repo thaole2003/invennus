@@ -13,7 +13,7 @@
             <div class="col-md-8">
 
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label">Name:</label>
+                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Name:</label>
                     <input type="text" class="form-control" id="email" placeholder="Enter name" name="name"
                         value="{{ $model->name }}">
                 </div>
@@ -21,7 +21,7 @@
                 <span class="text-danger">{{$message}}</span>
                 @enderror
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label">Email:</label>
+                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Email:</label>
                     <input type="text" class="form-control" id="email" placeholder="Enter slug" name="email"
                         value="{{$model->email  }}">
                 </div>
@@ -29,7 +29,7 @@
                 <span class="text-danger">{{$message}}</span>
                 @enderror
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label">SĐT:</label>
+                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> SĐT:</label>
                     <input type="text" class="form-control" id="email" placeholder="Enter slug" name="phone"
                         value="{{ $model->phone  }}">
                 </div>
@@ -37,7 +37,7 @@
                 <span class="text-danger">{{$message}}</span>
                 @enderror
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label">Address:</label>
+                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Address:</label>
                     <input type="text" class="form-control" id="email" placeholder="Enter slug" name="address"
                         value="{{ $model->address  }}">
                 </div>
@@ -45,7 +45,7 @@
                 <span class="text-danger">{{$message}}</span>
                 @enderror
                 <div class="mb-3 mt-3" hidden>
-                    <label for="email" class="form-label">Password:</label>
+                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i>Password:</label>
                     <input type="text" class="form-control" id="email" placeholder="Enter slug" name="password"
                         value="{{ $model->password  }}">
                 </div>
@@ -55,7 +55,7 @@
             </div>
             <div class="col-md-4">
                 <div class="mt-3">
-                    <label for="email" class="form-label">Chức danh :</label>
+                    <label for="email" class="form-label"> <i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i>Chức danh :</label>
                     <div class="radio-container">
                         <input type="radio" id="option1" name="role" {{ $model->role == 'user' ? 'checked' : '' }} value="user">
 

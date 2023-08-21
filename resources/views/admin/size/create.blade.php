@@ -12,7 +12,7 @@
         <div class="w-50 mx-auto border bg-light rounded h-100 p-4 mt-5">
 
             <div class="mb-3 mt-3">
-                <label for="" class="form-label">Tên:</label>
+                <label for="" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Tên:</label>
                 <input type="text" class="form-control" id="" placeholder="Enter name" name="name"
                     value="{{ old('name') }}">
             </div>
@@ -35,7 +35,7 @@
 @endsection
 
 @push('scripts')
-    <script src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script> 
+    <script src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script>
     <script>
         CKEDITOR.replace('description');
     </script>

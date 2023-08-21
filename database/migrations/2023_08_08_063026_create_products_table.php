@@ -16,13 +16,13 @@ return new class extends Migration
             $table->string('sku')->unique();
             $table->string('title');
             $table->string('metatitle')->nullable();
-            $table->string('slug')->unique()->nullable()->comment('URL-friendly slug');
+            $table->string('slug')->unique()->comment('URL-friendly slug');
             $table->text('description');
             $table->string('price');
             $table->string('image');
-            $table->decimal('length', 10, 2)->nullable();
-            $table->decimal('width', 10, 2)->nullable();
-            $table->decimal('weight', 10, 2)->nullable();
+            $table->decimal('length', 10)->nullable();
+            $table->decimal('width', 10)->nullable();
+            $table->decimal('weight', 10)->nullable();
             $table->timestamps();
         });
     }

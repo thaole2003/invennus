@@ -47,6 +47,7 @@ Route::prefix('admin')->as('admin.')->group(function () {
     Route::get('store/{storeid}/variant/{variantid}', [StoreVariantController::class, 'liststorevariant'])->name('store.variant.list');
     Route::resource('storevariant', StoreVariantController::class);
     Route::put('editprice/{id}', [ProductController::class, 'updateprice'])->name('variant.editprice');
+    Route::put('updatequantitystock/{id}', [ProductController::class, 'updatequantitystock'])->name('variant.updatequantitystock');
 });
 Route::get('/', [App\Http\Controllers\Client\HomeController::class, 'index'])->name('home');
 Route::prefix('product')->name('product.')->group(function () {

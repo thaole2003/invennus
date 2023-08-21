@@ -11,7 +11,7 @@
         @method('post')
         <div class="w-50 mx-auto border bg-light rounded h-100 p-4 mt-5">
             <div class="mb-3 mt-3">
-                <label for="" class="form-label">Tên màu:</label>
+                <label for="" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Tên màu:</label>
                 <input type="text" class="form-control" id="" placeholder="Enter color" name="name"
                     value="{{ old('name') }}">
             </div>
@@ -19,11 +19,11 @@
             <span class="text-danger">{{$message}}</span>
             @enderror
             <div class="mb-3 mt-3">
-                <label for="" class="form-label">Mã màu:</label>
+                <label for="" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Mã màu:</label>
                 <input type="text" class="form-control" id="" placeholder="Enter code color" name="code"
-                    value="{{ old('name') }}">
+                    value="{{ old('code') }}">
             </div>
-            @error('name')
+            @error('code')
             <span class="text-danger">{{$message}}</span>
             @enderror
 

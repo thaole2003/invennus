@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Store\CreateStoreRequest;
 use App\Http\Requests\Store\UpdateStoreRequest;
 use App\Models\Store;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -41,6 +42,9 @@ class StoreController extends Controller
             // dd($request->all());
             $model = new Store();
             $model->fill($request->all());
+            // Tạo slug từ tên cửa hàng
+            $slug = Str::slug($request->name);
+            $model->slug = $slug;
             $model->save();
             return to_route('admin.store.index')->with('msg', ['success' => true, 'message' => 'Thêm thành công!']);
         } catch (\Exception $exception) {
@@ -75,6 +79,8 @@ class StoreController extends Controller
         //
         $data = Store::findOrFail($id);
         $data->fill($request->all());
+        $slug = Str::slug($request->name);
+        $data->slug = $slug;
         $data->save();
         return to_route('admin.store.index');
     }

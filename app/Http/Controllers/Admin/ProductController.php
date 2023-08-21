@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\CreateProductRequest;
 use App\Models\Category;
 use App\Models\CategoryProduct;
 use App\Models\Color;
@@ -16,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -40,12 +42,11 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateProductRequest $request)
     {
         try {
             $model = new Product();
             $model->fill($request->all());
-
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
                 $folder = 'images/admin/product';
@@ -53,6 +54,8 @@ class ProductController extends Controller
                 $filePathAfterUpload = 'storage/' . $filePathAfterUpload;
                 $model->image = $filePathAfterUpload;
             }
+            $slug = Str::slug($request->title);
+            $model->slug = $slug;
             $model->save();
             // $category = $request->input('category');
             $categoryunique = collect($request->input('category'))->unique()->values()->all();
@@ -121,12 +124,24 @@ class ProductController extends Controller
             $productDetail->update([
                 'price' => $request->price,
             ]);
-
-            return back();
+            return back()->with('msg', ['success' => true, 'message' => 'Đã sửa giá']);
         } catch (\Exception $exception) {
             Log::error('Exception', [$exception]);
 
             return back()->with('msg', 'Thao tác thất bại!');
+        }
+    }
+    public function updatequantitystock(Request $request, $id)
+    {
+        try {
+            $productVariant = ProductVariant::findOrFail($id);
+            $productVariant->total_quantity_stock = $request->total_quantity_stock;
+            $productVariant->save();
+            return back()->with('msg', ['success' => true, 'message' => 'Đã sửa số lượng !']);
+        } catch (\Exception $exception) {
+            Log::error('Exception', [$exception]);
+
+            return back()->with('msg', ['success' => false, 'message' => 'Thao tác thất bại !']);
         }
     }
     /**

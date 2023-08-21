@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Color;
 
+use App\Models\Color;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateColorRequest extends FormRequest
 {
@@ -21,9 +23,10 @@ class UpdateColorRequest extends FormRequest
      */
     public function rules(): array
     {
+        $table = (new Color())->getTable();
         return [
-            'name'=> ['required'],
-            'code'=> ['required'],
+            'name'=> ['required',Rule::unique($table)->ignore(request()->segment('3'))],
+            'code'=> ['required',Rule::unique($table)->ignore(request()->segment('3'))],
         ];
     }
 }

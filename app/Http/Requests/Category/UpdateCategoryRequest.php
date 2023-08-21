@@ -27,7 +27,7 @@ class UpdateCategoryRequest extends FormRequest
         return [
             'name' => ['required', Rule::unique($tableName)->ignore(request()->segment('3'))],
 //            'slug' => ['required'],
-            'description' => ['required'],
+            // 'description' => ['required'],
 //            'image' => ['required'],
         ];
     }

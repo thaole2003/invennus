@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 @section('content')
     <div class="m-10">
-        <h1 class="text-center">Cập nhật giá sản phẩm {{ $data[0]->product->title }}</h1>
+        <h1 class="text-center">Cập nhật giá sản phẩm</h1>
     </div>
     <div>
 
@@ -23,29 +23,38 @@
                     <th scope="col">Màu</th>
                     <th scope="col">Kích cỡ</th>
                     <th scope="col">Giá</th>
+                    <th scope="col">số lượng trong kho</th>
                 </tr>
             </thead>
             <tbody>
                 @if (count($data) > 0)
                     @foreach ($data as $key => $value)
-                        <tr>
+                        <tr class="">
                             <th scope="">{{  $key +1 }}</th>
                             <td>{{ $value->product->sku }}</td>
                             <td>{{ $value->color->name }}</td>
                             <td>{{ $value->size->name }}</td>
-                            <td class="d-flex align-items-center">
-                                <form action="{{ route('admin.variant.editprice',$value->id) }}" method="POST">
-                                    @csrf
-                                    @method('put')
-                                <input type="number" name="price" value={{ $value->price }}>
-                                <button><i class="fas fa-edit"></i></button>
-                            </form>
-                            </td>
+                                <td class="d-flex align-items-center">
+                                    <form action="{{ route('admin.variant.editprice',$value->id) }}" method="POST">
+                                        @csrf
+                                        @method('put')
+                                    <input type="number" name="price" value={{ $value->price }}>
+                                    <button><i class="fas fa-edit"></i></button>
+                                </form>
+                                </td>
+                                <td class="d-flex  align-items-center">
+                                    <form action="{{ route('admin.variant.updatequantitystock',$value->id) }}" method="POST">
+                                        @csrf
+                                        @method('put')
+                                    <input type="number" name="total_quantity_stock" value={{ $value->total_quantity_stock }}>
+                                    <button><i class="fas fa-edit"></i></button>
+                                </form>
+                                </td>
                         </tr>
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="5">Bạn cần thêm danh mục!</td>
+                        <td colspan="5">Bạn chưa có sản phẩm!</td>
                     </tr>
                 @endif
 

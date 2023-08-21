@@ -23,9 +23,9 @@ class CreateCategoryRequest extends FormRequest
     {
         return [
             'name' => ['required','unique:categories,name'],
-            'slug' => ['required'] ,
-            'description' => ['required'],
-            'image' => ['required'],
+            // 'slug' => ['required'] ,
+            // 'description' => ['required'],
+            // 'image' => ['required'],
         ];
     }
 }

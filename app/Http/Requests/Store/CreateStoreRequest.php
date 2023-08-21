@@ -22,13 +22,11 @@ class CreateStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=> ['required'],
-            'slug'=> ['required','unique:stores,slug'],
-            'description'=> ['required'],
-            'address'=> ['required','unique:stores,slug'],
-            'phone'=> ['required'],
-            'email'=> ['required'],
-            'website'=> ['required'],
+            'name'=> ['required','unique:stores,name'],
+            'slug'=> ['unique:stores,slug'],
+            'address'=> ['required','unique:stores,slug','min:5'],
+            'phone'=> ['required','unique:users,phone', 'regex:/^[0-9]{10}$/u'],
+            'email'=> ['required','unique:users,email','email'],
         ];
     }
 }

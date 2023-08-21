@@ -23,7 +23,7 @@
                      id="show-image" alt="">
             </div>
             <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Name:</label>
+                <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Name:</label>
                 <input type="text" class="form-control" id="email" placeholder="Enter name" name="name"
                        value="{{ old('name') }}">
             </div>

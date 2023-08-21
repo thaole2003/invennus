@@ -26,9 +26,8 @@ class UpdateUserRequest extends FormRequest
         $table = (new User())->getTable();
         return [
             'name' => ['required'],
-            'avt' => ['nullable'],
             'email' => ['required',Rule::unique($table)->ignore(request()->segment('3'))],
-            'phone' => ['required'],
+            'phone' => ['required',Rule::unique($table)->ignore(request()->segment('3'))],
             'address' => ['required'],
             'role' => ['required'],
             'store_id' => ['nullable'],

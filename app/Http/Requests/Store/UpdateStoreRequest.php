@@ -26,12 +26,10 @@ class UpdateStoreRequest extends FormRequest
         $table = (new Store())->getTable();
         return [
             'name'=> ['required'],
-            'slug'=> ['required',Rule::unique($table)->ignore(request()->segment('3'))],
-            'description'=> ['required'],
+            'slug'=> [Rule::unique($table)->ignore(request()->segment('3'))],
             'address'=> ['required',Rule::unique($table)->ignore(request()->segment('3'))],
-            'phone'=> ['required'],
-            'email'=> ['required'],
-            'website'=> ['required'],
+            'phone'=> ['required', 'regex:/^[0-9]{10}$/u'],
+            'email'=> ['required','email'],
         ];
     }
 }
