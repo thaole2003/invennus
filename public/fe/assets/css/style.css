@@ -6887,6 +6887,7 @@ Products Details Area CSS
 
 .products-page-gallery .product-page-gallery-main .slick-slide img {
   width: 100%;
+  height: 100%;
 }
 
 .products-page-gallery .product-page-gallery-main .slick-prev, .products-page-gallery .product-page-gallery-main .slick-next {
@@ -6919,6 +6920,7 @@ Products Details Area CSS
   border-left: 0;
   border-radius: 1px;
   border-color: #222222;
+
 }
 
 .products-page-gallery .product-page-gallery-main .slick-prev:hover, .products-page-gallery .product-page-gallery-main .slick-next:hover {

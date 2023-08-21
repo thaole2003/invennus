@@ -140,13 +140,16 @@
                     <div class="col-lg-12 col-md-12">
                         <div class="tab_content">
                             <div class="tabs_item">
+                               
+                            <img src="" class="" alt="">
                                 <div class="all-products-slides-two owl-carousel owl-theme">
                                     @foreach ($products as $product)
                                         <div class="single-product-box">
                                             <div class="product-image">
+                                            
                                                 <a href="#">
-                                                    <img src="{{ $product->product->image }}" alt="image">
                                                     <img src="{{ $product->image }}" alt="image">
+                                                    <img src="{{ $product->images[0]->image }}" alt="image">
                                                 </a>
 
                                                 <ul>
@@ -163,11 +166,11 @@
 
                                             <div class="product-content">
                                                 <h3><a
-                                                        href="{{ route('product.detail', $product->product->id) }}">{{ $product->product->title }}</a>
+                                                        href="{{ route('product.detail', $product->id) }}">{{ $product->title }}</a>
                                                 </h3>
 
                                                 <div class="product-price">
-                                                    <span class="new-price">${{ $product->product->price }}</span>
+                                                    <span class="new-price">${{ $product->price }}</span>
                                                 </div>
 
                                                 <div class="rating">
