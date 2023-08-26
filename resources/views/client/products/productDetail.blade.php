@@ -78,33 +78,54 @@
 
                                     <div class="product-size-wrapper">
                                         <h4>Size:</h4>
-                                        {{-- <ul>
-                                            <li><a href="#">{{ $szArr['size'] }}</a></li>
-                                        </ul> --}}
+                                        <ul>
+                                            @foreach ($groupbySizes as $size)
+                                                {{-- @if ($item->storeVariant->quantity > 0) --}}
+                                                {{-- @foreach ($sizes as $size) --}}
+                                                <label>
+                                                    <input type="radio" name="size" id="size"
+                                                        value="{{ $size->id }}">
+                                                    <div class="">{{ $size->name }}</div>
+                                                </label>
+
+                                                {{-- @endforeach --}}
+                                                {{-- @endif --}}
+                                            @endforeach
+
+                                        </ul>
                                         {{-- {{ dd($szArr->sizes) }} --}}
                                         {{-- @foreach ($szArr as $item) --}}
-                                        <input type="radio" name="" id="">{{ $szArr->size }}
-                                        <input type="radio" name="" id="">{{ $item }}
-                                        @foreach ($product->variants as $item)
+                                        {{-- <input type="radio" name="" id="">{{ $szArr->size }} --}}
+                                        {{-- <input type="radio" name="" id="">{{ $item }} --}}
+                                        {{-- @foreach ($product->variants as $item)
                                             @if ($item->storeVariant->quantity > 0)
                                                 <div>{{ $item->storeVariant->variant->size->name }}</div>
-                                                {{-- <input type="hidden" id="storevariant_id"
-                                                    value="{{ $item->storeVariant->id }}"> --}}
                                             @endif
-                                        @endforeach
+                                        @endforeach --}}
                                         {{-- @endforeach --}}
                                     </div>
                                     <div class="product-size-wrapper">
                                         <h4>Color:</h4>
-                                        <input type="radio" name="" value="{{ $szArr->color_id }}"
-                                            id="">{{ $szArr->color }}
-                                            @foreach ($product->variants as $item)
+                                        @foreach ($groupbyColors as $color)
+                                            {{-- @if ($item->storeVariant->quantity > 0) --}}
+                                            {{-- @foreach ($colors as $color) --}}
+                                            <label>
+                                                <input type="radio" name="color" id="color"
+                                                    value="{{ $color->id }}">
+                                                <div class="">{{ $color->name }}</div>
+                                            </label>
+                                            {{-- @endforeach --}}
+                                            {{-- @endif --}}
+                                        @endforeach
+
+
+                                        {{-- <input type="radio" name="" value="{{ $szArr->color_id }}"
+                                            id="">{{ $szArr->color }} --}}
+                                        {{-- @foreach ($product->variants as $item)
                                             @if ($item->storeVariant->quantity > 0)
                                                 <div>{{ $item->storeVariant->variant->color->name }}</div>
-                                                {{-- <input type="hidden" id="storevariant_id"
-                                                    value="{{ $item->storeVariant->id }}"> --}}
                                             @endif
-                                        @endforeach
+                                        @endforeach --}}
                                     </div>
 
                                     <div class="product-info-btn">
@@ -117,12 +138,13 @@
 
                                     <div class="product-add-to-cart">
                                         <div class="input-counter">
-                                            <span class="minus-btn"><i class="fas fa-minus"></i></span>
-                                            <input type="text" value="1">
-                                            <span class="plus-btn"><i class="fas fa-plus"></i></span>
+                                            <span class="minus-btn decrement-btn"><i class="fas fa-minus"></i></span>
+                                            <input type="text" name="quantity" id=""
+                                                class="form-control text-center qty-input" value="1" step="1">
+                                            <span class="plus-btn increment-btn"><i class="fas fa-plus"></i></span>
                                         </div>
 
-                                        <button type="submit" id="addtocart" class="btn btn-primary"><i
+                                        <button type="submit" data-prod-var="" id="addtocart" class="btn btn-primary"><i
                                                 class="fas fa-cart-plus"></i>
                                             Add
                                             to Cart</button>
@@ -524,7 +546,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="related-products-area">
                 <div class="container">
                     <div class="section-title">
@@ -752,7 +773,83 @@
         });
     </script>
     <script>
-        $(function() {
+        $(document).ready(function() {
+
+            $('.increment-btn').click(function(e) {
+                e.preventDefault();
+
+                var inc_val = $('.qty-input').val();
+                var value = parseInt(inc_val, 10);
+                value = isNaN(value) ? 0 : value;
+                if (value < 10) {
+                    value++;
+                    $('.qty-input').val(value);
+                }
+            })
+            $('.decrement-btn').click(function(e) {
+                e.preventDefault();
+
+                var inc_val = $('.qty-input').val();
+                var value = parseInt(inc_val, 10);
+                value = isNaN(value) ? 0 : value;
+                if (value > 1) {
+                    value--;
+                    $('.qty-input').val(value);
+                }
+            })
+
+            $(document).on('change', '#size', function() {
+                let size = $(this).val();
+                let product_id = $("#product_id").val();
+                let color = $("input[name='color']:checked").val();
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('product.check-detail-quantity') }}",
+                    data: {
+                        product_id: product_id,
+                        size: size,
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        let colorIds = [];
+
+                        const res = response.data;
+
+                        for (const item of res) {
+                            colorIds.push(item.color_id + '');
+                        }
+                        $("input[name='color']").each(function() {
+                            $(this).prop('checked', false);
+
+                            if (colorIds.includes($(this).val())) {
+                                $(this).removeAttr('disabled');
+                            } else {
+                                $(this).attr('disabled', true);
+                            }
+                        })
+
+                        // const size_id = $('input[name="size"]').val();
+                        // const color_id = $('input[name="color"]').val();
+
+                        // console.log(size_id, color_id);
+
+                        // const product_variant = res.find((item) => {
+                        //     return item.size_id == size_id && item.color_id == color_id;
+                        // })
+
+
+                        // location.reload();
+
+                        var dataProduct = @json($product->variants);
+                        dataProduct.forEach(function(data) {
+                            if (data.color_id == color && data.size_id == size) {
+                                console.log(data);
+                            }
+                        });
+                    }
+                })
+                // console.log(size, product_id);
+            })
 
             $(document).on('click', '#addtocart', function() {
                 $.ajax({
@@ -761,22 +858,19 @@
                     data: {
                         product_id: $('#product_id').val(),
                         storevariant_id: $('#storevariant_id').val(),
-                        quantity: 1,
+                        quantity: $('.qty-input').val(),
+                        size: $("input[name='size']:checked").val(),
+                        color: $("input[name='color']:checked").val(),
                         user_id: 1,
                     },
                     dataType: 'json',
                     success: function(response) {
                         console.log(response)
                         // location.reload();
-                        // Xem còn lỗi gì k 
-                        // em insert vaof laf okee roif a
-                        // di ngu thoi
-                        // OK thôi để mai a bảo ngủ đi thôi
-                        // okee a
-
                     }
                 });
             });
+
         })
     </script>
 @endpush

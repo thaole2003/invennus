@@ -54,6 +54,7 @@ Route::get('/', [App\Http\Controllers\Client\HomeController::class, 'index'])->n
 Route::prefix('product')->name('product.')->group(function () {
     // Route::post('search', [HomeController::class, 'productSearch'])->name('search');
     Route::get('/detail/{id}', [App\Http\Controllers\Client\HomeController::class, 'product'])->name('detail');
+    Route::get('check-detail-quantity', [App\Http\Controllers\Client\HomeController::class, 'checkQuantity'])->name('check-detail-quantity');
 });
 
 Route::get('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');

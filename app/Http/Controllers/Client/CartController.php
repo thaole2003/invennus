@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -12,6 +13,19 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
         // $request['user_id'] = auth()->id();
+
+        $size_id = $request['size'];
+        $color_id = $request['color'];
+
+        $product_variant = ProductVariant::query()->where([
+            'size_id' => $size_id,
+            'color_id' => $color_id,
+        ])->first();
+
+        $id = $product_variant->id;
+
+        $request['id'] = $id;
+
         $cart = Cart::query();
         $cart->create($request->all());
         // $checkProductExists = $cart->where([
