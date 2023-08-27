@@ -38,7 +38,7 @@
                                     <form action="{{ route('admin.variant.editprice',$value->id) }}" method="POST">
                                         @csrf
                                         @method('put')
-                                    <input type="number" name="price" value={{ $value->price }}>
+                                    <input type="number" min="0" name="price" value={{ $value->price }}>
                                     <button><i class="fas fa-edit"></i></button>
                                 </form>
                                 </td>
@@ -46,7 +46,7 @@
                                     <form action="{{ route('admin.variant.updatequantitystock',$value->id) }}" method="POST">
                                         @csrf
                                         @method('put')
-                                    <input type="number" name="total_quantity_stock" value={{ $value->total_quantity_stock }}>
+                                    <input type="number" min="0" name="total_quantity_stock" value={{ $value->total_quantity_stock }}>
                                     <button><i class="fas fa-edit"></i></button>
                                 </form>
                                 </td>

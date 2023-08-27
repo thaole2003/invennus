@@ -49,9 +49,9 @@
 
                                             <td class="product-price">
                                                 <span
-                                                    class="unit-amount">${{ $value->ProductVariant->price }}</span>
+                                                    class="unit-amount">{{number_format( $value->ProductVariant->price) }} vnd</span>
                                                 <input type="hidden" id="price"
-                                                    value="{{ $value->ProductVariant->price }}">
+                                                    value="{{ number_format($value->ProductVariant->price )}}" vnd>
                                             </td>
 
                                             <td class="product-quantity">
@@ -66,7 +66,7 @@
 
                                             <td class="product-subtotal">
                                                 <span
-                                                    class="subtotal-amount">{{ $value->quantity * $value->ProductVariant->price }}</span>
+                                                    class="subtotal-amount">{{ number_format($value->quantity * $value->ProductVariant->price) }} vnd</span>
 
                                                 {{-- <a href="#" class="remove"><i class="far fa-trash-alt"></i></a> --}}
                                                 <form action="{{ route('del-cart', $value->id) }}" method="post">
@@ -76,9 +76,9 @@
                                                             class="far fa-trash-alt"></i></button>
                                                 </form>
                                             </td>
-                                            <?php
-                                            $sumTotal += $value->quantity * $value->ProductVariant->price;
-                                            ?>
+                                         {{
+                                            $sumTotal += $value->quantity * $value->ProductVariant->price
+                                          }}
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -96,16 +96,19 @@
 
                             </div>
                         </div>
+                        @if($auth()->user()->id )
+                        <input type="text" id='user_id' hidden value="{{ auth()->user()->id }}">
+                    @endif
 
                         <div class="cart-totals">
                             <h3>Cart Totals</h3>
 
                             <ul>
-                                <li>Subtotal <span>${{ $sumTotal }}</span></li>
-                                <li>Shipping <span>$00.00</span></li>
-                                <li>Total <span><b>$2250.00</b></span></li>
+                                <li>Subtotal <span>${{number_format( $sumTotal) }} vnd</span></li>
+                                <li>Shipping <span>0</span></li>
+                                <li>Total <span><b>{{ number_format( $sumTotal)  }} vnd</b></span></li>
                             </ul>
-                            <a href="#" class="btn btn-light">Proceed to Checkout</a>
+                            <a href="{{ route('checkout') }}" class="btn btn-light">Proceed to Checkout</a>
                         </div>
                 </div>
             </div>
@@ -130,6 +133,8 @@
                 let quantity = $(this).val();
                 let price = $('#price').val();
                 let product = $('#product').val();
+                let user_id = $('#user_id').val();
+                console.log(user_id);
                 let id = $(this).closest('tr').data('id');
                 // console.log(quantity, id, product);
                 $.ajax({
@@ -138,7 +143,7 @@
                     data: {
                         id,
                         quantity,
-                        user_id: 1,
+                        user_id,
                         product,
                         price
                     },
