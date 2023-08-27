@@ -69,8 +69,10 @@ class CartController extends Controller
         // } else {
         //     return redirect()->route('loginUser');
         // }
-
-        $carts = Cart::query()->latest()->get();
+        $carts = Cart::with('ProductVariant')
+        ->where('user_id', auth()->user()->id) // Thêm điều kiện user_id
+        ->latest()
+        ->get();
         return view('client.carts.viewcart', compact('carts'));
     }
 
@@ -80,7 +82,6 @@ class CartController extends Controller
         Cart::find($id)->delete();
         return back();
     }
-
     public function getTotalPrice(Request $request)
     {
 
@@ -96,5 +97,12 @@ class CartController extends Controller
                 'cart' => $cart ?? 0
             ]
         ]);
+    }
+    public function checkout(){
+        $carts = Cart::with('ProductVariant')
+        ->where('user_id', auth()->user()->id) // Thêm điều kiện user_id
+        ->latest()
+        ->get();
+        return view('client.carts.checkout',compact('carts'));
     }
 }

@@ -6,7 +6,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
-                    <form>
                         <div class="cart-table table-responsive">
                             <table class="table table-bordered">
                                 <thead>
@@ -21,11 +20,15 @@
                                 </thead>
 
                                 <tbody>
+
                                     <?php
                                     $sumTotal = 0;
                                     ?>
                                     @foreach ($carts as $key => $value)
+
                                         <tr data-id="{{ $value->id }}">
+                    <form>
+
                                             <td>{{ $key + 1 }}</td>
                                             <input type="hidden" id="product" value="{{ $value->ProductVariant->id }}">
                                             <td class="product-thumbnail">
@@ -46,23 +49,24 @@
 
                                             <td class="product-price">
                                                 <span
-                                                    class="unit-amount">${{ $value->ProductVariant->product->price }}</span>
+                                                    class="unit-amount">{{number_format( $value->ProductVariant->price) }} vnd</span>
                                                 <input type="hidden" id="price"
-                                                    value="{{ $value->ProductVariant->product->price }}">
+                                                    value="{{ number_format($value->ProductVariant->price )}}" vnd>
                                             </td>
 
                                             <td class="product-quantity">
                                                 <div class="input-counter">
                                                     <span class="minus-btn increment-btn"><i
                                                             class="fas fa-minus"></i></span>
-                                                    <input type="text" class="qty-input" value="{{ $value->quantity }}">
+                                                    <input  type="text" min="0" class="qty-input" value="{{ $value->quantity }}">
                                                     <span class="plus-btn decrement-btn"><i class="fas fa-plus"></i></span>
                                                 </div>
                                             </td>
+                                        </form>
 
                                             <td class="product-subtotal">
                                                 <span
-                                                    class="subtotal-amount">{{ $value->quantity * $value->ProductVariant->product->price }}</span>
+                                                    class="subtotal-amount">{{ number_format($value->quantity * $value->ProductVariant->price) }} vnd</span>
 
                                                 {{-- <a href="#" class="remove"><i class="far fa-trash-alt"></i></a> --}}
                                                 <form action="{{ route('del-cart', $value->id) }}" method="post">
@@ -72,9 +76,9 @@
                                                             class="far fa-trash-alt"></i></button>
                                                 </form>
                                             </td>
-                                            <?php
-                                            $sumTotal += $value->quantity * $value->ProductVariant->product->price;
-                                            ?>
+                                         {{
+                                            $sumTotal += $value->quantity * $value->ProductVariant->price
+                                          }}
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -89,23 +93,23 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-5 col-md-5 text-right">
-                                    <a href="#" class="btn btn-primary">Update Cart</a>
-                                </div>
+
                             </div>
                         </div>
+                        @if($auth()->user()->id )
+                        <input type="text" id='user_id' hidden value="{{ auth()->user()->id }}">
+                    @endif
 
                         <div class="cart-totals">
                             <h3>Cart Totals</h3>
 
                             <ul>
-                                <li>Subtotal <span>${{ $sumTotal }}</span></li>
-                                <li>Shipping <span>$00.00</span></li>
-                                <li>Total <span><b>$2250.00</b></span></li>
+                                <li>Subtotal <span>${{number_format( $sumTotal) }} vnd</span></li>
+                                <li>Shipping <span>0</span></li>
+                                <li>Total <span><b>{{ number_format( $sumTotal)  }} vnd</b></span></li>
                             </ul>
-                            <a href="#" class="btn btn-light">Proceed to Checkout</a>
+                            <a href="{{ route('checkout') }}" class="btn btn-light">Proceed to Checkout</a>
                         </div>
-                    </form>
                 </div>
             </div>
         </div>
@@ -129,6 +133,8 @@
                 let quantity = $(this).val();
                 let price = $('#price').val();
                 let product = $('#product').val();
+                let user_id = $('#user_id').val();
+                console.log(user_id);
                 let id = $(this).closest('tr').data('id');
                 // console.log(quantity, id, product);
                 $.ajax({
@@ -137,7 +143,7 @@
                     data: {
                         id,
                         quantity,
-                        user_id: 1,
+                        user_id,
                         product,
                         price
                     },

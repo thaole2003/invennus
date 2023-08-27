@@ -82,7 +82,7 @@
                                         @foreach ($groupbyColors as $color)
                                             {{-- @if ($item->storeVariant->quantity > 0) --}}
                                             {{-- @foreach ($colors as $color) --}}
-                                            <label>
+                                            <label style="width: 40px; height:40px;background-color:{{   $color->name }}">
                                                 <input type="radio" name="color" id="color"
                                                     value="{{ $color->id }}">
                                                 <div class="">{{ $color->name }}</div>
@@ -106,7 +106,7 @@
                                             @foreach ($groupbySizes as $size)
                                                 {{-- @if ($item->storeVariant->quantity > 0) --}}
                                                 {{-- @foreach ($sizes as $size) --}}
-                                                <label>
+                                                <label style="width: 40px; height:40px;background-color:grey">
                                                     <input type="radio" name="size" id="size"
                                                         value="{{ $size->id }}">
                                                     <div class="">{{ $size->name }}</div>
@@ -733,7 +733,9 @@
                                                     title="Add to Compare"><i class="fas fa-sync"></i></a></li>
                                         </ul>
                                     </div>
-
+                                    @if($auth()->user()->id )
+                                        <input type="text" id='user_id' hidden value="{{ auth()->user()->id }}">
+                                    @endif
                                     <div class="product-content">
                                         <h3><a href="#">Belted chino trousers polo</a></h3>
 
@@ -779,6 +781,7 @@
             let color = $(this).val();
             let product_id = $("#product_id").val();
             let size = $("input[name='size']:checked").val();
+
             $(document).on('change', '#color', function() {
                 color = $(this).val();
                 $.ajax({
@@ -830,6 +833,7 @@
         })
         $(function() {
             $(document).on('click', '#addtocart', function() {
+                let user_id = $('#user_id').val();
                 $.ajax({
                     type: 'GET',
                     url: "{{ route('add-to-cart') }}",
@@ -837,7 +841,7 @@
                         quantity: $('.qty-input').val(),
                         size: $("input[name='size']:checked").val(),
                         color: $("input[name='color']:checked").val(),
-                        user_id: 1,
+                        user_id,
                     },
                     dataType: 'json',
                     success: function(response) {

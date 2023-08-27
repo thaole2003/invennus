@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('store_id');
             $table->unsignedBigInteger('variant_id');
-            $table->decimal('quantity',10)->default(0);
+            $table->integer('quantity')->default(0);
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');;
             $table->foreign('variant_id')->references('id')->on('product_variants')->onDelete('cascade');;
             $table->timestamps();

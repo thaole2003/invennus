@@ -25,7 +25,7 @@
             </div>
         @endforeach
 
-        {{-- 
+        {{--
         <div class="banner-section item-bg6 jarallax" data-jarallax='{"speed": 0.3}'>
             <div class="d-table">
                 <div class="d-table-cell">
@@ -1390,7 +1390,7 @@
 
                     <div class="product-cart-btn">
                         <a href="#" class="btn btn-primary">Proceed to Checkout</a>
-                        <a href="#" class="btn btn-light">View Shopping Cart</a>
+                        <a href="{{ route('view-cart') }}" class="btn btn-light">View Shopping Cart</a>
                     </div>
                 </div>
             </div>
