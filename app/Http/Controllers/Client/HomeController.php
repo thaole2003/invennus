@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Product;
@@ -25,12 +26,12 @@ class HomeController extends Controller
             ->having('products_count', '>', 0)
             ->paginate(4);
         $banner = Banner::latest('id')->paginate(2);
-        // $data = Product::with('images')->get();
         $products = Product::with('images')->get();
-        // dd(@do $products->images);
         $banners = Banner::all();
-        // dd($banner);
-        return view('client.layouts.components.main', compact('category', 'products', 'banners'));
+        $carts = Cart::query()->latest()->get();
+        $countCart = Cart::query()->count();
+
+        return view('client.layouts.components.main', compact('category', 'products', 'banners', 'carts', 'countCart'));
     }
 
     /**
@@ -103,14 +104,14 @@ class HomeController extends Controller
 
     public function checkQuantity(Request $request)
     {
-        $getcolors = ProductVariant::query()
+        $getsizes = ProductVariant::query()
             ->where([
                 'product_id' => $request->product_id,
-                'size_id' => $request->size,
+                'color_id' => $request->color,
             ])->where('total_quantity_stock', '>', 0)->get();
 
         return response()->json([
-            'data' => $getcolors,
+            'data' => $getsizes,
         ]);
     }
     /**

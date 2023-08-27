@@ -140,13 +140,13 @@
                     <div class="col-lg-12 col-md-12">
                         <div class="tab_content">
                             <div class="tabs_item">
-                               
-                            <img src="" class="" alt="">
+
+                                <img src="" class="" alt="">
                                 <div class="all-products-slides-two owl-carousel owl-theme">
                                     @foreach ($products as $product)
                                         <div class="single-product-box">
                                             <div class="product-image">
-                                            
+
                                                 <a href="#">
                                                     <img src="{{ $product->image }}" alt="image">
                                                     <img src="{{ $product->images[0]->image }}" alt="image">
@@ -1327,26 +1327,29 @@
                         aria-hidden="true">&times;</span></button>
 
                 <div class="modal-body">
-                    <h3>My Cart (3)</h3>
-
+                    <h3>My Cart ({{ $countCart }})</h3>
                     <div class="product-cart-content">
-                        <div class="product-cart">
-                            <div class="product-image">
-                                <img src="{{ asset('fe/assets/img/img2.jpg') }}" alt="image">
-                            </div>
+                        @foreach ($carts as $value)
+                            <div class="product-cart">
+                                <div class="product-image">
+                                    <img src="{{ $value->ProductVariant->product->image }}" alt="image">
+                                </div>
 
-                            <div class="product-content">
-                                <h3><a href="#">Belted chino trousers polo</a></h3>
-                                <span>Blue / XS</span>
-                                <div class="product-price">
-                                    <span>1</span>
-                                    <span>x</span>
-                                    <span class="price">$191.00</span>
+                                <div class="product-content">
+                                    <h3><a href="#">{{ $value->ProductVariant->product->title }}</a></h3>
+                                    <span>{{ $value->ProductVariant->color->name }} /
+                                        {{ $value->ProductVariant->size->name }}</span>
+                                    <div class="product-price">
+                                        <span>{{ $value->quantity }}</span>
+                                        <span>x</span>
+                                        <span class="price">${{ $value->ProductVariant->product->price }}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
 
-                        <div class="product-cart">
+
+                        {{-- <div class="product-cart">
                             <div class="product-image">
                                 <img src="{{ asset('fe/assets/img/img3.jpg') }}" alt="image">
                             </div>
@@ -1360,9 +1363,9 @@
                                     <span class="price">$191.00</span>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
-                        <div class="product-cart">
+                        {{-- <div class="product-cart">
                             <div class="product-image">
                                 <img src="{{ asset('fe/assets/img/img4.jpg') }}" alt="image">
                             </div>
@@ -1376,7 +1379,7 @@
                                     <span class="price">$191.00</span>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="product-cart-subtotal">

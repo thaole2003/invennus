@@ -10,8 +10,12 @@ class Cart extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
-        'storevariant_id',
-        'quantity',
-        'product_id',
+        'product_radiant',
+        'quantity'
     ];
+
+    public function ProductVariant()
+    {
+        return $this->belongsTo(ProductVariant::class, 'product_radiant', 'id');
+    }
 }

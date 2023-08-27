@@ -16,25 +16,35 @@ class CartController extends Controller
 
         $size_id = $request['size'];
         $color_id = $request['color'];
+        $user_id = $request['user_id'];
+        $quantity = $request['quantity'];
 
         $product_variant = ProductVariant::query()->where([
             'size_id' => $size_id,
             'color_id' => $color_id,
         ])->first();
 
-        $id = $product_variant->id;
+        // $product_variant_id = $product_variant->id;
 
-        $request['id'] = $id;
+        $cart = new Cart;
+        $cart->fill(
+            [
+                'user_id' => $user_id,
+                'product_radiant' => $product_variant->id,
+                'quantity' => $quantity,
+            ]
+        );
+        $cart->save();
 
-        $cart = Cart::query();
-        $cart->create($request->all());
+
+        // $cart = Cart::query();
+
         // $checkProductExists = $cart->where([
-        //     'product_id' => $request['product_id'],
-        //     'stock_id' => $request['stock_id'],
+        //     'user_id' => $user_id,
+        //     'product_radiant' => $product_variant->id,
+        //     'quantity' => $quantity,
         // ])->first();
-        // // $cart->create($request->all());
-        // if (!$checkProductExists) {
-        // }
+
         // if (!$checkProductExists) {
         //     $cart->create($request->all());
         // } else {
@@ -42,6 +52,7 @@ class CartController extends Controller
         //         'quantity' => $checkProductExists->quantity + $request['quantity']
         //     ]);
         // }
+
 
         return response()->json([
             'data' => $request->all(),
@@ -58,13 +69,32 @@ class CartController extends Controller
         // } else {
         //     return redirect()->route('loginUser');
         // }
-        return view('client.carts.viewcart');
+
+        $carts = Cart::query()->latest()->get();
+        return view('client.carts.viewcart', compact('carts'));
     }
 
     public function delCart(string $id)
     {
-        //        dd(Cart::query()->find($id));
+        // dd(Cart::query()->find($id));
         Cart::find($id)->delete();
         return back();
+    }
+
+    public function getTotalPrice(Request $request)
+    {
+
+
+        $id = $request['id'];
+        $quantity = $request['quantity'];
+        $cart = Cart::find($id);
+        $cart->quantity = $quantity;
+        $cart->save();
+        return response()->json([
+            'code' => 200,
+            'data' => [
+                'cart' => $cart ?? 0
+            ]
+        ]);
     }
 }
