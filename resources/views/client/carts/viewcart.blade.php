@@ -11,7 +11,8 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Product</th>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">IMAGE</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Unit Price</th>
                                         <th scope="col">Quantity</th>
@@ -20,42 +21,62 @@
                                 </thead>
 
                                 <tbody>
-                                    <tr>
-                                        <td class="product-thumbnail">
-                                            <a href="#">
-                                                <img src="assets/img/img2.jpg" alt="item">
-                                            </a>
-                                        </td>
+                                    <?php
+                                    $sumTotal = 0;
+                                    ?>
+                                    @foreach ($carts as $key => $value)
+                                        <tr data-id="{{ $value->id }}">
+                                            <td>{{ $key + 1 }}</td>
+                                            <input type="hidden" id="product" value="{{ $value->ProductVariant->id }}">
+                                            <td class="product-thumbnail">
+                                                <a href="#">
+                                                    <img src="{{ $value->ProductVariant->product->image }}" alt="item">
+                                                </a>
+                                            </td>
 
-                                        <td class="product-name">
-                                            <a href="#">Wood Pencil</a>
-                                            <ul>
-                                                <li>Color: <strong>Light Blue</strong></li>
-                                                <li>Size: <strong>XL</strong></li>
-                                                <li>Material: <strong>Cotton</strong></li>
-                                            </ul>
-                                        </td>
+                                            <td class="product-name">
+                                                <a href="#">{{ $value->ProductVariant->product->title }}</a>
+                                                <ul>
+                                                    <li>Color: <strong>{{ $value->ProductVariant->color->name }}</strong>
+                                                    </li>
+                                                    <li>Size: <strong>{{ $value->ProductVariant->size->name }}</strong></li>
+                                                    <li>Material: <strong>Cotton</strong></li>
+                                                </ul>
+                                            </td>
 
-                                        <td class="product-price">
-                                            <span class="unit-amount">$191.00</span>
-                                        </td>
+                                            <td class="product-price">
+                                                <span
+                                                    class="unit-amount">${{ $value->ProductVariant->product->price }}</span>
+                                                <input type="hidden" id="price"
+                                                    value="{{ $value->ProductVariant->product->price }}">
+                                            </td>
 
-                                        <td class="product-quantity">
-                                            <div class="input-counter">
-                                                <span class="minus-btn"><i class="fas fa-minus"></i></span>
-                                                <input type="text" value="1">
-                                                <span class="plus-btn"><i class="fas fa-plus"></i></span>
-                                            </div>
-                                        </td>
+                                            <td class="product-quantity">
+                                                <div class="input-counter">
+                                                    <span class="minus-btn increment-btn"><i
+                                                            class="fas fa-minus"></i></span>
+                                                    <input type="text" class="qty-input" value="{{ $value->quantity }}">
+                                                    <span class="plus-btn decrement-btn"><i class="fas fa-plus"></i></span>
+                                                </div>
+                                            </td>
 
-                                        <td class="product-subtotal">
-                                            <span class="subtotal-amount">$191.00</span>
+                                            <td class="product-subtotal">
+                                                <span
+                                                    class="subtotal-amount">{{ $value->quantity * $value->ProductVariant->product->price }}</span>
 
-                                            <a href="#" class="remove"><i class="far fa-trash-alt"></i></a>
-                                        </td>
-                                    </tr>
-
-                                   
+                                                {{-- <a href="#" class="remove"><i class="far fa-trash-alt"></i></a> --}}
+                                                <form action="{{ route('del-cart', $value->id) }}" method="post">
+                                                    @csrf
+                                                    @method('Delete')
+                                                    <button class="remove border-0 bg-light"><i
+                                                            class="far fa-trash-alt"></i></button>
+                                                </form>
+                                            </td>
+                                            <?php
+                                            $sumTotal += $value->quantity * $value->ProductVariant->product->price;
+                                            ?>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -78,7 +99,7 @@
                             <h3>Cart Totals</h3>
 
                             <ul>
-                                <li>Subtotal <span>$2250.00</span></li>
+                                <li>Subtotal <span>${{ $sumTotal }}</span></li>
                                 <li>Shipping <span>$00.00</span></li>
                                 <li>Total <span><b>$2250.00</b></span></li>
                             </ul>
@@ -91,3 +112,48 @@
     </section>
     <!-- End Cart Area -->
 @endsection
+@push('scripts')
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> --}}
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
+    <script>
+        $(function() {
+            $(document).on('change', '.qty-input', function(e) {
+                e.preventDefault();
+                let quantity = $(this).val();
+                let price = $('#price').val();
+                let product = $('#product').val();
+                let id = $(this).closest('tr').data('id');
+                // console.log(quantity, id, product);
+                $.ajax({
+                    type: 'GET',
+                    url: "/get-total-price",
+                    data: {
+                        id,
+                        quantity,
+                        user_id: 1,
+                        product,
+                        price
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.code === 200) {
+                            // let newquantity = response.data.cart.quantity;
+                            // let total = price * newquantity;
+                            // // console.log(total);
+                            $('.subtotal-amount').text(response.data.total)
+                            location.reload();
+                        }
+                    }
+                });
+            })
+
+        });
+    </script>
+@endpush

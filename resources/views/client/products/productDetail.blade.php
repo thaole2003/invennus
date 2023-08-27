@@ -50,15 +50,15 @@
                                     <h3>{{ $product->title }}</h3>
 
                                     <div class="price">
-                                        <span class="new-price">${{ $product->price }}</span>
+                                        <span id="newPrice" class="new-price">${{ $product->price }}</span>
                                     </div>
-                                    @foreach ($product->variants as $item)
+                                    {{-- @foreach ($product->variants as $item)
                                         @if ($item->storeVariant->quantity > 0)
                                             <div>{{ $item->storeVariant->store->name }}</div>
                                             <input type="hidden" id="storevariant_id"
                                                 value="{{ $item->storeVariant->id }}">
                                         @endif
-                                    @endforeach
+                                    @endforeach --}}
                                     <div class="product-review">
                                         <div class="rating">
                                             <i class="fas fa-star"></i>
@@ -76,37 +76,58 @@
                                         <li><span>Product Type:</span> <a href="#">T-Shirt</a></li>
                                     </ul>
 
-                                    <div class="product-size-wrapper">
-                                        <h4>Size:</h4>
-                                        {{-- <ul>
-                                            <li><a href="#">{{ $szArr['size'] }}</a></li>
-                                        </ul> --}}
-                                        {{-- {{ dd($szArr->sizes) }} --}}
-                                        {{-- @foreach ($szArr as $item) --}}
-                                        <input type="radio" name="" id="">{{ $szArr->size }}
-                                        <input type="radio" name="" id="">{{ $item }}
-                                        @foreach ($product->variants as $item)
-                                            @if ($item->storeVariant->quantity > 0)
-                                                <div>{{ $item->storeVariant->variant->size->name }}</div>
-                                                {{-- <input type="hidden" id="storevariant_id"
-                                                    value="{{ $item->storeVariant->id }}"> --}}
-                                            @endif
-                                        @endforeach
-                                        {{-- @endforeach --}}
-                                    </div>
+
                                     <div class="product-size-wrapper">
                                         <h4>Color:</h4>
-                                        <input type="radio" name="" value="{{ $szArr->color_id }}"
-                                            id="">{{ $szArr->color }}
-                                            @foreach ($product->variants as $item)
+                                        @foreach ($groupbyColors as $color)
+                                            {{-- @if ($item->storeVariant->quantity > 0) --}}
+                                            {{-- @foreach ($colors as $color) --}}
+                                            <label>
+                                                <input type="radio" name="color" id="color"
+                                                    value="{{ $color->id }}">
+                                                <div class="">{{ $color->name }}</div>
+                                            </label>
+                                            {{-- @endforeach --}}
+                                            {{-- @endif --}}
+                                        @endforeach
+
+
+                                        {{-- <input type="radio" name="" value="{{ $szArr->color_id }}"
+                                            id="">{{ $szArr->color }} --}}
+                                        {{-- @foreach ($product->variants as $item)
                                             @if ($item->storeVariant->quantity > 0)
                                                 <div>{{ $item->storeVariant->variant->color->name }}</div>
-                                                {{-- <input type="hidden" id="storevariant_id"
-                                                    value="{{ $item->storeVariant->id }}"> --}}
                                             @endif
-                                        @endforeach
+                                        @endforeach --}}
                                     </div>
+                                    <div class="product-size-wrapper">
+                                        <h4>Size:</h4>
+                                        <ul>
+                                            @foreach ($groupbySizes as $size)
+                                                {{-- @if ($item->storeVariant->quantity > 0) --}}
+                                                {{-- @foreach ($sizes as $size) --}}
+                                                <label>
+                                                    <input type="radio" name="size" id="size"
+                                                        value="{{ $size->id }}">
+                                                    <div class="">{{ $size->name }}</div>
+                                                </label>
 
+                                                {{-- @endforeach --}}
+                                                {{-- @endif --}}
+                                            @endforeach
+
+                                        </ul>
+                                        {{-- {{ dd($szArr->sizes) }} --}}
+                                        {{-- @foreach ($szArr as $item) --}}
+                                        {{-- <input type="radio" name="" id="">{{ $szArr->size }} --}}
+                                        {{-- <input type="radio" name="" id="">{{ $item }} --}}
+                                        {{-- @foreach ($product->variants as $item)
+                                            @if ($item->storeVariant->quantity > 0)
+                                                <div>{{ $item->storeVariant->variant->size->name }}</div>
+                                            @endif
+                                        @endforeach --}}
+                                        {{-- @endforeach --}}
+                                    </div>
                                     <div class="product-info-btn">
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#sizeGuideModal"><i
                                                 class="fas fa-crop"></i> Size guide</a>
@@ -117,12 +138,13 @@
 
                                     <div class="product-add-to-cart">
                                         <div class="input-counter">
-                                            <span class="minus-btn"><i class="fas fa-minus"></i></span>
-                                            <input type="text" value="1">
-                                            <span class="plus-btn"><i class="fas fa-plus"></i></span>
+                                            <span class="minus-btn decrement-btn"><i class="fas fa-minus"></i></span>
+                                            <input type="text" name="quantity" id=""
+                                                class="form-control text-center qty-input" value="1" step="1">
+                                            <span class="plus-btn increment-btn"><i class="fas fa-plus"></i></span>
                                         </div>
 
-                                        <button type="submit" id="addtocart" class="btn btn-primary"><i
+                                        <button type="submit" data-prod-var="" id="addtocart" class="btn btn-primary"><i
                                                 class="fas fa-cart-plus"></i>
                                             Add
                                             to Cart</button>
@@ -524,7 +546,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="related-products-area">
                 <div class="container">
                     <div class="section-title">
@@ -752,31 +773,79 @@
         });
     </script>
     <script>
-        $(function() {
+        $(document).ready(function() {
 
+            let dataProduct = @json($product->variants);
+            let color = $(this).val();
+            let product_id = $("#product_id").val();
+            let size = $("input[name='size']:checked").val();
+            $(document).on('change', '#color', function() {
+                color = $(this).val();
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('product.check-detail-quantity') }}",
+                    data: {
+                        product_id: product_id,
+                        color: color,
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        let sizeIds = [];
+
+                        const res = response.data;
+
+                        for (const item of res) {
+                            sizeIds.push(item.size_id + '');
+                        }
+                        $("input[name='size']").each(function() {
+                            $(this).prop('checked', false);
+
+                            if (sizeIds.includes($(this).val())) {
+                                $(this).removeAttr('disabled');
+                            } else {
+                                $(this).attr('disabled', true);
+                            }
+                        })
+                        dataProduct.forEach(function(data) {
+                            if (data.color_id == color && data.size_id == size) {
+                                // console.log(data);
+                                document.getElementById('newPrice').innerHTML = data
+                                    .price;
+                            }
+                        });
+                    }
+                })
+            })
+
+            $(document).on('change', '#size', function() {
+                size = $(this).val();
+                dataProduct.forEach(function(data) {
+                    if (data.color_id == color && data.size_id == size) {
+                        document.getElementById('newPrice').innerHTML = data.price;
+                    }
+                });
+            })
+
+
+        })
+        $(function() {
             $(document).on('click', '#addtocart', function() {
                 $.ajax({
                     type: 'GET',
                     url: "{{ route('add-to-cart') }}",
                     data: {
-                        product_id: $('#product_id').val(),
-                        storevariant_id: $('#storevariant_id').val(),
-                        quantity: 1,
+                        quantity: $('.qty-input').val(),
+                        size: $("input[name='size']:checked").val(),
+                        color: $("input[name='color']:checked").val(),
                         user_id: 1,
                     },
                     dataType: 'json',
                     success: function(response) {
                         console.log(response)
-                        // location.reload();
-                        // Xem còn lỗi gì k 
-                        // em insert vaof laf okee roif a
-                        // di ngu thoi
-                        // OK thôi để mai a bảo ngủ đi thôi
-                        // okee a
-
+                        location.reload();
                     }
                 });
             });
-        })
+        });
     </script>
 @endpush
