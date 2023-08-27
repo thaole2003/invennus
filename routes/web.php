@@ -29,7 +29,9 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+Route::get('/home', function () {
+    return view('layouts.app');
+})->name('home');
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::prefix('admin')->as('admin.')->group(function () {
     Route::get('/', function () {
