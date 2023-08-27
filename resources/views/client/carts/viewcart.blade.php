@@ -6,7 +6,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
-                    <form>
                         <div class="cart-table table-responsive">
                             <table class="table table-bordered">
                                 <thead>
@@ -21,11 +20,15 @@
                                 </thead>
 
                                 <tbody>
+
                                     <?php
                                     $sumTotal = 0;
                                     ?>
                                     @foreach ($carts as $key => $value)
+
                                         <tr data-id="{{ $value->id }}">
+                    <form>
+
                                             <td>{{ $key + 1 }}</td>
                                             <input type="hidden" id="product" value="{{ $value->ProductVariant->id }}">
                                             <td class="product-thumbnail">
@@ -46,23 +49,24 @@
 
                                             <td class="product-price">
                                                 <span
-                                                    class="unit-amount">${{ $value->ProductVariant->product->price }}</span>
+                                                    class="unit-amount">${{ $value->ProductVariant->price }}</span>
                                                 <input type="hidden" id="price"
-                                                    value="{{ $value->ProductVariant->product->price }}">
+                                                    value="{{ $value->ProductVariant->price }}">
                                             </td>
 
                                             <td class="product-quantity">
                                                 <div class="input-counter">
                                                     <span class="minus-btn increment-btn"><i
                                                             class="fas fa-minus"></i></span>
-                                                    <input type="text" class="qty-input" value="{{ $value->quantity }}">
+                                                    <input  type="text" min="0" class="qty-input" value="{{ $value->quantity }}">
                                                     <span class="plus-btn decrement-btn"><i class="fas fa-plus"></i></span>
                                                 </div>
                                             </td>
+                                        </form>
 
                                             <td class="product-subtotal">
                                                 <span
-                                                    class="subtotal-amount">{{ $value->quantity * $value->ProductVariant->product->price }}</span>
+                                                    class="subtotal-amount">{{ $value->quantity * $value->ProductVariant->price }}</span>
 
                                                 {{-- <a href="#" class="remove"><i class="far fa-trash-alt"></i></a> --}}
                                                 <form action="{{ route('del-cart', $value->id) }}" method="post">
@@ -73,7 +77,7 @@
                                                 </form>
                                             </td>
                                             <?php
-                                            $sumTotal += $value->quantity * $value->ProductVariant->product->price;
+                                            $sumTotal += $value->quantity * $value->ProductVariant->price;
                                             ?>
                                         </tr>
                                     @endforeach
@@ -89,9 +93,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-5 col-md-5 text-right">
-                                    <a href="#" class="btn btn-primary">Update Cart</a>
-                                </div>
+
                             </div>
                         </div>
 
@@ -105,7 +107,6 @@
                             </ul>
                             <a href="#" class="btn btn-light">Proceed to Checkout</a>
                         </div>
-                    </form>
                 </div>
             </div>
         </div>

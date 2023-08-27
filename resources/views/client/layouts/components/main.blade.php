@@ -25,7 +25,7 @@
             </div>
         @endforeach
 
-        {{-- 
+        {{--
         <div class="banner-section item-bg6 jarallax" data-jarallax='{"speed": 0.3}'>
             <div class="d-table">
                 <div class="d-table-cell">

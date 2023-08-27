@@ -70,7 +70,7 @@ class CartController extends Controller
         //     return redirect()->route('loginUser');
         // }
 
-        $carts = Cart::query()->latest()->get();
+        $carts = Cart::with('ProductVariant')->latest()->get();
         return view('client.carts.viewcart', compact('carts'));
     }
 
