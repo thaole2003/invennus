@@ -586,7 +586,7 @@
                                 </div>
                             </div>
                             <div class="option-item"><a href="login.html">Login</a></div>
-                            <div class="option-item"><a href="#" data-bs-toggle="modal"
+                            <div class="option-item"><a href="{{ route('view-cart') }}" data-bs-toggle="modal"
                                     data-bs-target="#shoppingCartModal">Cart({{ test() }}) <i
                                         class="fas fa-shopping-bag"></i></a>
                             </div>

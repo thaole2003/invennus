@@ -1390,7 +1390,7 @@
 
                     <div class="product-cart-btn">
                         <a href="#" class="btn btn-primary">Proceed to Checkout</a>
-                        <a href="#" class="btn btn-light">View Shopping Cart</a>
+                        <a href="{{ route('view-cart') }}" class="btn btn-light">View Shopping Cart</a>
                     </div>
                 </div>
             </div>

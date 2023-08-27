@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id');
-            $table->decimal('discount',10);
+            $table->integer('discount');
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
