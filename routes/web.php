@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\BillController as AdminBillController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\ImageController;
@@ -10,8 +11,10 @@ use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\StoreVariantController;
 use App\Http\Controllers\admin\UserController;
-use App\Http\Controllers\BillController;
+use App\Http\Controllers\Client\BillController;
 use App\Http\Controllers\Client\CartController;
+use App\Http\Controllers\Client\HomeController as ClientHomeController;
+use App\Http\Controllers\Client\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/home', function () {
     return view('client.layouts.components.main');
 })->name('home');
 
@@ -33,7 +36,10 @@ Auth::routes();
 Route::get('/home', function () {
     return view('layouts.app');
 })->name('home');
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
 Route::prefix('admin')->as('admin.')->group(function () {
     Route::get('/', function () {
         return view('admin.layouts.components.main');
@@ -52,15 +58,28 @@ Route::prefix('admin')->as('admin.')->group(function () {
     Route::resource('storevariant', StoreVariantController::class);
     Route::put('editprice/{id}', [ProductController::class, 'updateprice'])->name('variant.editprice');
     Route::put('updatequantitystock/{id}', [ProductController::class, 'updatequantitystock'])->name('variant.updatequantitystock');
+    Route::prefix('bill')->name('bill.')->group(function () {
+        Route::get('/detail', [AdminBillController::class, 'index'])->name('detail');
+        Route::get('/product/{id}', [AdminBillController::class, 'show'])->name('product');
+    });
 });
-Route::get('/', [App\Http\Controllers\Client\HomeController::class, 'index'])->name('home');
+Route::get('/', [ClientHomeController::class, 'index'])->name('home');
 Route::prefix('product')->name('product.')->group(function () {
     // Route::post('search', [HomeController::class, 'productSearch'])->name('search');
-    Route::get('/detail/{id}', [App\Http\Controllers\Client\HomeController::class, 'product'])->name('detail');
-    Route::get('check-detail-quantity', [App\Http\Controllers\Client\HomeController::class, 'checkQuantity'])->name('check-detail-quantity');
+    Route::get('/detail/{id}', [ClientHomeController::class, 'product'])->name('detail');
+    Route::get('/QuickView/{id}', [ClientHomeController::class, 'products'])->name('QuickView');
+    Route::get('check-detail-quantity', [ClientHomeController::class, 'checkQuantity'])->name('check-detail-quantity');
+});
+Route::prefix('bill')->name('bill.')->group(function () {
+    Route::get('/detail', [BillController::class, 'index'])->name('detail');
+    Route::get('/product/{id}', [BillController::class, 'show'])->name('product');
+});
+Route::prefix('wishlist')->name('wishlist.')->group(function () {
+    Route::get('/add-to-wishlist/{id}', [WishlistController::class, 'addToWishlist'])->name('add-to-wishlist');
+    Route::delete('/del-to-wishlist/{id}', [WishlistController::class, 'destroy'])->name('del-to-wishlist');
 });
 Route::get('checkout', [CartController::class, 'checkout'])->name('checkout');
-Route::resource('bill',BillController::class);
+Route::resource('bill', BillController::class);
 Route::get('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
 Route::delete('del-cart/{id}', [CartController::class, 'delCart'])->name('del-cart');
 Route::get('view-cart', [CartController::class, 'viewCart'])->name('view-cart');

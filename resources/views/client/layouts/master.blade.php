@@ -50,6 +50,9 @@
 
     @yield('content')
 
+
+
+   
     <!-- Start Footer Area -->
     @include('client.layouts.components.footer')
     <!-- End Footer Area -->

@@ -155,9 +155,10 @@
                                                 <ul>
                                                     <li><a href="#" data-tooltip="tooltip" data-placement="left"
                                                             title="Quick View" data-bs-toggle="modal"
-                                                            data-bs-target="#productQuickView"><i
+                                                            data-bs-target="#productQuickView{{ $product->id }}"><i
                                                                 class="far fa-eye"></i></a></li>
-                                                    <li><a href="#" data-tooltip="tooltip" data-placement="left"
+                                                    <li><a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
+                                                            data-tooltip="tooltip" data-placement="left"
                                                             title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                                     <li><a href="#" data-tooltip="tooltip" data-placement="left"
                                                             title="Add to Compare"><i class="fas fa-sync"></i></a></li>
@@ -187,860 +188,10 @@
                                     @endforeach
 
 
-                                    {{-- <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{asset('fe/assets/img/img2.jpg')}}" alt="image">
-                                                <img src="{{asset('fe/assets/img/img-hover2.jpg')}}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Quick View" data-bs-toggle="modal" data-bs-target="#productQuickView"><i class="far fa-eye"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">Neck empire sleeve t-shirts</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="old-price">$400.00</span>
-                                                <span class="new-price">$300.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{asset('fe/assets/img/img3.jpg')}}" alt="image">
-                                                <img src="{{asset('fe/assets/img/img-hover3.jpg')}}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Quick View" data-bs-toggle="modal" data-bs-target="#productQuickView"><i class="far fa-eye"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">Mermaid pencil midi lace</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="new-price">$166.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{asset('fe/assets/img/img4.jpg')}}" alt="image">
-                                                <img src="{{asset('fe/assets/img/img-hover4.jpg')}}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Quick View" data-bs-toggle="modal" data-bs-target="#productQuickView"><i class="far fa-eye"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">Criss-cross V neck bodycon</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="new-price">$200.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{asset('fe/assets/img/img5.jpg')}}" alt="image">
-                                                <img src="{{asset('fe/assets/img/img-hover5.jpg')}}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Quick View" data-bs-toggle="modal" data-bs-target="#productQuickView"><i class="far fa-eye"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">The cosmic cornucopia</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="new-price">$150.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{asset('fe/assets/img/img6.jpg')}}" alt="image">
-                                                <img src="{{asset('fe/assets/img/img-hover6.jpg')}}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Quick View" data-bs-toggle="modal" data-bs-target="#productQuickView"><i class="far fa-eye"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">Tenku remastered</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="new-price">$177.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{asset('fe/assets/img/img7.jpg')}}" alt="image">
-                                                <img src="{{asset('fe/assets/img/img-hover7.jpg')}}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Quick View" data-bs-toggle="modal" data-bs-target="#productQuickView"><i class="far fa-eye"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">Women's sherpa lined hoodie</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="old-price">$300.00</span>
-                                                <span class="new-price">$299.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{asset('fe/assets/img/img8.jpg')}}" alt="image">
-                                                <img src="{{asset('fe/assets/img/img-hover8.jpg')}}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Quick View" data-bs-toggle="modal" data-bs-target="#productQuickView"><i class="far fa-eye"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left" title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">Belted chino trousers polo</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="new-price">$191.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div> --}}
                                 </div>
                             </div>
 
-                            <div class="tabs_item">
-                                <div class="all-products-slides-two owl-carousel owl-theme">
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{ asset('fe/assets/img/img1.jpg') }}" alt="image">
-                                                <img src="{{ asset('fe/assets/img/img-hover1.jpg') }}" alt="image">
-                                            </a>
 
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Quick View" data-bs-toggle="modal"
-                                                        data-bs-target="#productQuickView"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">Linen crochet trim t-shirt</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="new-price">$191.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{ asset('fe/assets/img/img2.jpg') }}" alt="image">
-                                                <img src="{{ asset('fe/assets/img/img-hover2.jpg') }}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Quick View" data-bs-toggle="modal"
-                                                        data-bs-target="#productQuickView"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">Neck empire sleeve t-shirts</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="old-price">$400.00</span>
-                                                <span class="new-price">$300.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{ asset('fe/assets/img/img3.jpg') }}" alt="image">
-                                                <img src="{{ asset('fe/assets/img/img-hover3.jpg') }}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Quick View" data-bs-toggle="modal"
-                                                        data-bs-target="#productQuickView"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">Mermaid pencil midi lace</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="new-price">$166.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{ asset('fe/assets/img/img4.jpg') }}" alt="image">
-                                                <img src="{{ asset('fe/assets/img/img-hover4.jpg') }}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Quick View" data-bs-toggle="modal"
-                                                        data-bs-target="#productQuickView"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">Criss-cross V neck bodycon</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="new-price">$200.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{ asset('fe/assets/img/img5.jpg') }}" alt="image">
-                                                <img src="{{ asset('fe/assets/img/img-hover5.jpg') }}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Quick View" data-bs-toggle="modal"
-                                                        data-bs-target="#productQuickView"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">The cosmic cornucopia</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="new-price">$150.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{ asset('fe/assets/img/img6.jpg') }}" alt="image">
-                                                <img src="{{ asset('fe/assets/img/img-hover6.jpg') }}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Quick View" data-bs-toggle="modal"
-                                                        data-bs-target="#productQuickView"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">Tenku remastered</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="new-price">$177.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{ asset('fe/assets/img/img7.jpg') }}" alt="image">
-                                                <img src="{{ asset('fe/assets/img/img-hover7.jpg') }}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Quick View" data-bs-toggle="modal"
-                                                        data-bs-target="#productQuickView"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">Women's sherpa lined hoodie</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="old-price">$300.00</span>
-                                                <span class="new-price">$299.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{ asset('fe/assets/img/img8.jpg') }}" alt="image">
-                                                <img src="{{ asset('fe/assets/img/img-hover8.jpg') }}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Quick View" data-bs-toggle="modal"
-                                                        data-bs-target="#productQuickView"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">Belted chino trousers polo</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="new-price">$191.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tabs_item">
-                                <div class="all-products-slides-two owl-carousel owl-theme">
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{ asset('fe/assets/img/img1.jpg') }}" alt="image">
-                                                <img src="{{ asset('fe/assets/img/img-hover1.jpg') }}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Quick View" data-bs-toggle="modal"
-                                                        data-bs-target="#productQuickView"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">Linen crochet trim t-shirt</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="new-price">$191.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{ asset('fe/assets/img/img2.jpg') }}" alt="image">
-                                                <img src="{{ asset('fe/assets/img/img-hover2.jpg') }}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Quick View" data-bs-toggle="modal"
-                                                        data-bs-target="#productQuickView"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">Neck empire sleeve t-shirts</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="old-price">$400.00</span>
-                                                <span class="new-price">$300.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{ asset('fe/assets/img/img3.jpg') }}" alt="image">
-                                                <img src="{{ asset('fe/assets/img/img-hover3.jpg') }}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Quick View" data-bs-toggle="modal"
-                                                        data-bs-target="#productQuickView"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">Mermaid pencil midi lace</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="new-price">$166.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{ asset('fe/assets/img/img4.jpg') }}" alt="image">
-                                                <img src="{{ asset('fe/assets/img/img-hover4.jpg') }}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Quick View" data-bs-toggle="modal"
-                                                        data-bs-target="#productQuickView"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">Criss-cross V neck bodycon</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="new-price">$200.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{ asset('fe/assets/img/img5.jpg') }}" alt="image">
-                                                <img src="{{ asset('fe/assets/img/img-hover5.jpg') }}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Quick View" data-bs-toggle="modal"
-                                                        data-bs-target="#productQuickView"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">The cosmic cornucopia</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="new-price">$150.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{ asset('fe/assets/img/img6.jpg') }}" alt="image">
-                                                <img src="{{ asset('fe/assets/img/img-hover6.jpg') }}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Quick View" data-bs-toggle="modal"
-                                                        data-bs-target="#productQuickView"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">Tenku remastered</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="new-price">$177.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{ asset('fe/assets/img/img7.jpg') }}" alt="image">
-                                                <img src="{{ asset('fe/assets/img/img-hover7.jpg') }}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Quick View" data-bs-toggle="modal"
-                                                        data-bs-target="#productQuickView"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">Women's sherpa lined hoodie</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="old-price">$300.00</span>
-                                                <span class="new-price">$299.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-product-box">
-                                        <div class="product-image">
-                                            <a href="#">
-                                                <img src="{{ asset('fe/assets/img/img8.jpg') }}" alt="image">
-                                                <img src="{{ asset('fe/assets/img/img-hover8.jpg') }}" alt="image">
-                                            </a>
-
-                                            <ul>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Quick View" data-bs-toggle="modal"
-                                                        data-bs-target="#productQuickView"><i class="far fa-eye"></i></a>
-                                                </li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                        title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="product-content">
-                                            <h3><a href="#">Belted chino trousers polo</a></h3>
-
-                                            <div class="product-price">
-                                                <span class="new-price">$191.00</span>
-                                            </div>
-
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-
-                                            <a href="#" class="btn btn-light">Add to Cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -1349,37 +500,6 @@
                         @endforeach
 
 
-                        {{-- <div class="product-cart">
-                            <div class="product-image">
-                                <img src="{{ asset('fe/assets/img/img3.jpg') }}" alt="image">
-                            </div>
-
-                            <div class="product-content">
-                                <h3><a href="#">Belted chino trousers polo</a></h3>
-                                <span>Blue / XS</span>
-                                <div class="product-price">
-                                    <span>1</span>
-                                    <span>x</span>
-                                    <span class="price">$191.00</span>
-                                </div>
-                            </div>
-                        </div> --}}
-
-                        {{-- <div class="product-cart">
-                            <div class="product-image">
-                                <img src="{{ asset('fe/assets/img/img4.jpg') }}" alt="image">
-                            </div>
-
-                            <div class="product-content">
-                                <h3><a href="#">Belted chino trousers polo</a></h3>
-                                <span>Blue / XS</span>
-                                <div class="product-price">
-                                    <span>1</span>
-                                    <span>x</span>
-                                    <span class="price">$191.00</span>
-                                </div>
-                            </div>
-                        </div> --}}
                     </div>
 
                     <div class="product-cart-subtotal">
@@ -1409,57 +529,41 @@
                     <h3>My Wish List (3)</h3>
 
                     <div class="product-cart-content">
-                        <div class="product-cart">
-                            <div class="product-image">
-                                <img src="{{ asset('fe/assets/img/img2.jpg') }}" alt="image">
-                            </div>
+                        @foreach ($wishlists as $wishlist)
+                            <div class="product-cart d-flex justify-content-between align-items-center">
+                                <div class="">
+                                    <div class="product-image">
+                                        <img src="{{ asset($wishlist->product->image) }}" alt="image">
+                                    </div>
 
-                            <div class="product-content">
-                                <h3><a href="#">Belted chino trousers polo</a></h3>
-                                <span>Blue / XS</span>
-                                <div class="product-price">
-                                    <span>1</span>
-                                    <span>x</span>
-                                    <span class="price">$191.00</span>
+                                    <div class="product-content">
+                                        <h3><a
+                                                href="{{ route('product.detail', $wishlist->product_id) }}">{{ $wishlist->product->title }}</a>
+                                        </h3>
+                                        {{-- <span>Blue / XS</span> --}}
+                                        <div class="product-price">
+                                            {{-- <span>1</span>
+                                            <span>x</span> --}}
+                                            <span class="price">{{ $wishlist->product->price }}đ</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <form action="{{ route('wishlist.del-to-wishlist', $wishlist->id) }}" method="post">
+                                        @csrf
+                                        @method('Delete')
+                                        <button class="remove border-0 bg-light"><i class="far fa-trash-alt"></i></button>
+                                    </form>
+                                    {{-- <i class="far fa-trash-alt"></i> --}}
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
 
-                        <div class="product-cart">
-                            <div class="product-image">
-                                <img src="{{ asset('fe/assets/img/img3.jpg') }}" alt="image">
-                            </div>
 
-                            <div class="product-content">
-                                <h3><a href="#">Belted chino trousers polo</a></h3>
-                                <span>Blue / XS</span>
-                                <div class="product-price">
-                                    <span>1</span>
-                                    <span>x</span>
-                                    <span class="price">$191.00</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product-cart">
-                            <div class="product-image">
-                                <img src="{{ asset('fe/assets/img/img4.jpg') }}" alt="image">
-                            </div>
-
-                            <div class="product-content">
-                                <h3><a href="#">Belted chino trousers polo</a></h3>
-                                <span>Blue / XS</span>
-                                <div class="product-price">
-                                    <span>1</span>
-                                    <span>x</span>
-                                    <span class="price">$191.00</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="product-cart-btn">
-                        <a href="#" class="btn btn-light">View Shopping Cart</a>
+                        <a href="#" class="btn btn-light">Continue Shopping</a>
                     </div>
                 </div>
             </div>
@@ -1468,87 +572,145 @@
     <!-- End Wishlist Modal -->
 
     <!-- Start Products QuickView Modal Area -->
-    <div class="modal fade productQuickView" id="productQuickView" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                </button>
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="productQuickView-image">
-                            <img src="{{ asset('fe/assets/img/quick-view-img.jpg') }}" alt="image">
+    @foreach ($products as $product)
+        <div class="modal fade productQuickView" id="productQuickView{{ $product->id }}" tabindex="-1" role="dialog"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="productQuickView-image">
+                                <img src="{{ $product->image }}" alt="image">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-lg-6 col-md-6">
-                        <div class="product-content">
-                            <h3><a href="#">chino trousers polo</a></h3>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="product-content">
 
-                            <div class="price">
-                                <span class="new-price">$191.00</span>
-                            </div>
+                                <h3><a href="#">{{ $product->title }}</a></h3>
 
-                            <div class="product-review">
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                                <a href="#" class="rating-count">3 reviews</a>
-                            </div>
-
-                            <ul class="product-info">
-                                <li><span>Vendor:</span> <a href="#">Lereve</a></li>
-                                <li><span>Availability:</span> <a href="#">In stock (7 items)</a></li>
-                                <li><span>Product Type:</span> <a href="#">T-Shirt</a></li>
-                            </ul>
-
-                            <div class="product-color-switch">
-                                <h4>Color:</h4>
-
-                                <ul>
-                                    <li><a href="#" title="Black" class="color-black"></a></li>
-                                    <li><a href="#" title="White" class="color-white"></a></li>
-                                    <li class="active"><a href="#" title="Green" class="color-green"></a>
-                                    </li>
-                                    <li><a href="#" title="Yellow Green" class="color-yellowgreen"></a></li>
-                                    <li><a href="#" title="Teal" class="color-teal"></a></li>
-                                </ul>
-                            </div>
-
-                            <div class="product-size-wrapper">
-                                <h4>Size:</h4>
-
-                                <ul>
-                                    <li><a href="#">XS</a></li>
-                                    <li class="active"><a href="#">S</a></li>
-                                    <li><a href="#">M</a></li>
-                                    <li><a href="#">XL</a></li>
-                                    <li><a href="#">XXL</a></li>
-                                </ul>
-                            </div>
-
-                            <div class="product-add-to-cart">
-                                <div class="input-counter">
-                                    <span class="minus-btn"><i class="fas fa-minus"></i></span>
-                                    <input type="text" value="1">
-                                    <span class="plus-btn"><i class="fas fa-plus"></i></span>
+                                <div class="price">
+                                    <span id="newPrice" class="new-price">${{ $product->price }}</span>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-cart-plus"></i> Add to
-                                    Cart</button>
-                            </div>
+                                <div class="product-review">
+                                    <div class="rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <a href="#" class="rating-count">3 reviews</a>
+                                </div>
 
-                            <a href="#" class="view-full-info">View full info</a>
+                                <ul class="product-info">
+                                    <li><span>Vendor:</span> <a href="#">Lereve</a></li>
+                                    <li><span>Availability:</span> <a href="#">In stock (7 items)</a></li>
+                                    <li><span>Product Type:</span> <a href="#">T-Shirt</a></li>
+                                </ul>
+
+                                <div class="product-color-switch">
+                                    <h4>Color:</h4>
+                                    <div>
+                                        {{-- @foreach ($colorIds as $color)
+                                            <div>{{ $color }}</div>
+                                        @endforeach --}}
+                                    </div>
+                                    @foreach ($product->variants as $variant)
+                                        @php
+                                            $rendered_colors = []; // Mảng để theo dõi các màu đã render
+                                        @endphp
+
+                                        @foreach ($product->variants as $color)
+                                            @if (!in_array($color->color->id, $rendered_colors))
+                                                @php
+                                                    $rendered_colors[] = $color->color->id; // Đánh dấu màu đã render
+                                                @endphp
+
+                                                <label
+                                                    style="width: 40px; height: 40px; background-color:{{ $color->color->name }}">
+                                                    <input type="radio" data-prod-id="{{ $color->product_id }}"
+                                                        name="color" id="color" value="{{ $color->color->id }}">
+                                                    <div class="">{{ $color->color->name }}</div>
+                                                    {{-- <input type="hidden" data-prod-id="{{ $color->product_id }}"
+                                                        class="product_id" value="{{ $color->product_id }}"> --}}
+
+                                                    {{-- {{ $color->product_id }} --}}
+
+                                                </label>
+                                            @endif
+                                        @endforeach
+                                    @endforeach
+                                    {{-- <ul>
+                                        <li><a href="#" title="Black" class="color-black"></a></li>
+                                        <li><a href="#" title="White" class="color-white"></a></li>
+                                        <li class="active"><a href="#" title="Green" class="color-green"></a>
+                                        </li>
+                                        <li><a href="#" title="Yellow Green" class="color-yellowgreen"></a></li>
+                                        <li><a href="#" title="Teal" class="color-teal"></a></li>
+                                    </ul> --}}
+                                </div>
+
+                                <div class="product-size-wrapper">
+                                    <h4>Size:</h4>
+                                    {{-- <div>
+                                        @foreach ($sizeIds as $size)
+                                            <div>{{ $size }}</div>
+                                        @endforeach
+                                    </div> --}}
+                                    @foreach ($product->variants as $variant)
+                                        @php
+                                            $rendered_sizes = []; // Mảng để theo dõi các màu đã render
+                                        @endphp
+
+                                        @foreach ($product->variants as $size)
+                                            @if (!in_array($size->size->id, $rendered_sizes))
+                                                @php
+                                                    $rendered_sizes[] = $size->size->id; // Đánh dấu màu đã render
+                                                @endphp
+
+                                                <label style="width: 40px; height: 40px;">
+                                                    <input type="radio" name="size" id="size"
+                                                        value="{{ $size->size->id }}">
+                                                    <div class="">{{ $size->size->name }}</div>
+                                                </label>
+                                            @endif
+                                        @endforeach
+                                    @endforeach
+                                    {{-- <ul>
+                                        <li><a href="#">XS</a></li>
+                                        <li class="active"><a href="#">S</a></li>
+                                        <li><a href="#">M</a></li>
+                                        <li><a href="#">XL</a></li>
+                                        <li><a href="#">XXL</a></li>
+                                    </ul> --}}
+                                </div>
+
+                                <div class="product-add-to-cart">
+                                    <div class="input-counter">
+                                        <span class="minus-btn"><i class="fas fa-minus"></i></span>
+                                        <input type="text" class="qty-input" value="1" step="1">
+                                        <span class="plus-btn"><i class="fas fa-plus"></i></span>
+                                    </div>
+
+                                    <button type="submit" id="addtocart" class="btn btn-primary"><i
+                                            class="fas fa-cart-plus"></i> Add
+                                        to
+                                        Cart</button>
+                                </div>
+
+                                <a href="#" class="view-full-info">View full info</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endforeach
     <!-- End Products QuickView Modal Area -->
 
     <!-- Start Size Guide Modal Area -->
@@ -1984,3 +1146,89 @@
     <!-- End Ads Popup Area -->
 
 @endsection
+
+@push('scripts')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            let dataProduct = @json($product->variants);
+            let color = $(this).val();
+            let size = $("input[name='size']:checked").val();
+            // let product_id = $(".product_id").val();
+            $(document).on('change', '#color', function() {
+                color = $(this).val();
+                const product_id = $(this).data('prod-id')
+                // console.log(product_id);
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('product.check-detail-quantity') }}",
+                    data: {
+                        product_id: product_id,
+                        color: color,
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        let sizeIds = [];
+
+                        const res = response.data;
+
+                        for (const item of res) {
+                            sizeIds.push(item.size_id + '');
+                        }
+                        $("input[name='size']").each(function() {
+                            $(this).prop('checked', false);
+
+                            if (sizeIds.includes($(this).val())) {
+                                $(this).removeAttr('disabled');
+                            } else {
+                                $(this).attr('disabled', true);
+                            }
+                        })
+                        dataProduct.forEach(function(data) {
+                            if (data.color_id == color && data.size_id == size) {
+                                // console.log(data);
+                                document.getElementById('newPrice').innerHTML = data
+                                    .price;
+                            }
+                        });
+                    }
+                })
+            })
+
+            $(document).on('change', '#size', function() {
+                size = $(this).val();
+                dataProduct.forEach(function(data) {
+                    if (data.color_id == color && data.size_id == size) {
+                        document.getElementById('newPrice').innerHTML = data.price;
+                    }
+                });
+            })
+        })
+        $(function() {
+            $(document).on('click', '#addtocart', function() {
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ route('add-to-cart') }}",
+                    data: {
+                        quantity: $('.qty-input').val(),
+                        size: $("input[name='size']:checked").val(),
+                        color: $("input[name='color']:checked").val(),
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log(response)
+                        location.reload();
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

@@ -80,15 +80,11 @@
                                     <div class="product-size-wrapper">
                                         <h4>Color:</h4>
                                         @foreach ($groupbyColors as $color)
-                                            {{-- @if ($item->storeVariant->quantity > 0) --}}
-                                            {{-- @foreach ($colors as $color) --}}
-                                            <label style="width: 40px; height:40px;background-color:{{   $color->name }}">
+                                            <label style="width: 40px; height:40px;background-color:{{ $color->name }}">
                                                 <input type="radio" name="color" id="color"
                                                     value="{{ $color->id }}">
-                                                <div class="">{{ $color->name }}</div>
+                                                <div class="text-danger">{{ $color->name }}</div>
                                             </label>
-                                            {{-- @endforeach --}}
-                                            {{-- @endif --}}
                                         @endforeach
 
 
@@ -106,7 +102,8 @@
                                             @foreach ($groupbySizes as $size)
                                                 {{-- @if ($item->storeVariant->quantity > 0) --}}
                                                 {{-- @foreach ($sizes as $size) --}}
-                                                <label style="width: 40px; height:40px;background-color:grey">
+                                                <label id="label-size"
+                                                    style="width: 40px; height:40px;background-color:grey">
                                                     <input type="radio" name="size" id="size"
                                                         value="{{ $size->id }}">
                                                     <div class="">{{ $size->name }}</div>
@@ -733,9 +730,9 @@
                                                     title="Add to Compare"><i class="fas fa-sync"></i></a></li>
                                         </ul>
                                     </div>
-                                    @if($auth()->user()->id )
+                                    {{-- @if ($auth()->user()->id)
                                         <input type="text" id='user_id' hidden value="{{ auth()->user()->id }}">
-                                    @endif
+                                    @endif --}}
                                     <div class="product-content">
                                         <h3><a href="#">Belted chino trousers polo</a></h3>
 
@@ -805,8 +802,10 @@
 
                             if (sizeIds.includes($(this).val())) {
                                 $(this).removeAttr('disabled');
+                                $('#label-size').removeClass('not-allowed');
                             } else {
                                 $(this).attr('disabled', true);
+                                $('#label-size').addClass('not-allowed');
                             }
                         })
                         dataProduct.forEach(function(data) {
@@ -833,7 +832,6 @@
         })
         $(function() {
             $(document).on('click', '#addtocart', function() {
-                let user_id = $('#user_id').val();
                 $.ajax({
                     type: 'GET',
                     url: "{{ route('add-to-cart') }}",
@@ -841,7 +839,6 @@
                         quantity: $('.qty-input').val(),
                         size: $("input[name='size']:checked").val(),
                         color: $("input[name='color']:checked").val(),
-                        user_id,
                     },
                     dataType: 'json',
                     success: function(response) {

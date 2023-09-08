@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\BillDetails;
 
 class Bill extends Model
 {
@@ -20,4 +21,8 @@ class Bill extends Model
         'pay_method',
         'user_id',
     ];
+    public function billDetail()
+    {
+        return $this->hasMany(BillDetails::class, 'bill_id', 'id');
+    }
 }
