@@ -16,7 +16,7 @@ class CartController extends Controller
 
         $size_id = $request['size'];
         $color_id = $request['color'];
-        $user_id = $request['user_id'];
+        $user_id = auth()->user()->id;
         $quantity = $request['quantity'];
 
         $product_variant = ProductVariant::query()->where([
@@ -70,9 +70,9 @@ class CartController extends Controller
         //     return redirect()->route('loginUser');
         // }
         $carts = Cart::with('ProductVariant')
-        ->where('user_id', auth()->user()->id) // Thêm điều kiện user_id
-        ->latest()
-        ->get();
+            ->where('user_id', auth()->user()->id) // Thêm điều kiện user_id
+            ->latest()
+            ->get();
         return view('client.carts.viewcart', compact('carts'));
     }
 
@@ -98,11 +98,12 @@ class CartController extends Controller
             ]
         ]);
     }
-    public function checkout(){
+    public function checkout()
+    {
         $carts = Cart::with('ProductVariant')
-        ->where('user_id', auth()->user()->id) // Thêm điều kiện user_id
-        ->latest()
-        ->get();
-        return view('client.carts.checkout',compact('carts'));
+            ->where('user_id', auth()->user()->id) // Thêm điều kiện user_id
+            ->latest()
+            ->get();
+        return view('client.carts.checkout', compact('carts'));
     }
 }

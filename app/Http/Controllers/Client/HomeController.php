@@ -9,10 +9,9 @@ use App\Models\Category;
 use App\Models\Image;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\wishlist;
 use Illuminate\Http\Request;
 use stdClass;
-
-use function Laravel\Prompts\select;
 
 class HomeController extends Controller
 {
@@ -21,17 +20,34 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //
         $category = Category::withCount('products')
             ->having('products_count', '>', 0)
             ->paginate(4);
         $banner = Banner::latest('id')->paginate(2);
-        $products = Product::with('images')->get();
+        $products = Product::with([
+            'variants' => function ($query) {
+                $query->with('color', 'size');
+            },
+            'images',
+            'categories',
+        ])->paginate(6);
+        $colorIds = ProductVariant::where('total_quantity_stock', '>', 0)
+            ->where('product_id', 1)
+            ->with('color')
+            ->groupBy('color_id')
+            ->pluck('color_id');
+        $sizeIds = ProductVariant::where('total_quantity_stock', '>', 0)
+            ->where('product_id', 1)
+            ->with('color')
+            ->groupBy('size_id')
+            ->pluck('size_id'); 
+        // dd($products->variants->product_id);
         $banners = Banner::all();
         $carts = Cart::query()->latest()->get();
         $countCart = Cart::query()->count();
+        $wishlists = wishlist::query()->latest()->where('user_id', 1)->get();
 
-        return view('client.layouts.components.main', compact('category', 'products', 'banners', 'carts', 'countCart'));
+        return view('client.layouts.components.main', compact('category', 'products', 'banners', 'carts', 'countCart', 'wishlists', 'colorIds', 'sizeIds'));
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ProductVariant;
 
 class BillDetails extends Model
 {
@@ -13,4 +14,9 @@ class BillDetails extends Model
         'quantity',
         'bill_id',
     ];
+
+    public function ProductVariant()
+    {
+        return $this->belongsTo(ProductVariant::class, 'product_variant_id', 'id');
+    }
 }

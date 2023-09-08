@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Client;
 
+use App\Http\Controllers\Controller;
 use App\Models\Bill;
 use App\Models\BillDetails;
 use App\Models\Cart;
@@ -14,15 +15,22 @@ class BillController extends Controller
      */
     public function index()
     {
-        //
+        $bills = Bill::query()->where('user_id', auth()->user()->id)->latest()->get();
+        // dd($bills);
+        return view('client.bills.billDetail', compact('bills'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function show($id)
     {
-        //
+        $bills = Bill::query()->where([
+            'user_id' => auth()->user()->id,
+            'id' => $id
+        ])->first();
+        // dd($bills->billDetail);
+        return view('client.bills.billProduct', compact('bills'));
     }
 
     /**
@@ -33,13 +41,13 @@ class BillController extends Controller
 
         $model = new Bill();
         $model->fill($request->all());
-        $model->user_id= auth()->user()->id;
+        $model->user_id = auth()->user()->id;
         $model->save();
         $cart_user = Cart::with('ProductVariant')
-        ->where('user_id', auth()->user()->id) // Thêm điều kiện user_id
-        ->latest()
-        ->get();
-        foreach($cart_user as $value){
+            ->where('user_id', auth()->user()->id) // Thêm điều kiện user_id
+            ->latest()
+            ->get();
+        foreach ($cart_user as $value) {
             $billDetail =  new BillDetails();
             $billDetail->product_variant_id = $value['product_radiant'];
             $billDetail->quantity = $value['quantity'];
@@ -52,10 +60,6 @@ class BillController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
