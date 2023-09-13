@@ -40,7 +40,7 @@ Route::get('/home', function () {
 
 
 
-Route::prefix('admin')->as('admin.')->group(function () {
+Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('admin.layouts.components.main');
     })->name('home');
@@ -70,18 +70,18 @@ Route::prefix('product')->name('product.')->group(function () {
     Route::get('/QuickView/{id}', [ClientHomeController::class, 'products'])->name('QuickView');
     Route::get('check-detail-quantity', [ClientHomeController::class, 'checkQuantity'])->name('check-detail-quantity');
 });
-Route::prefix('bill')->name('bill.')->group(function () {
+Route::prefix('bill')->name('bill.')->middleware('auth')->group(function () {
     Route::get('/detail', [BillController::class, 'index'])->name('detail');
     Route::get('/product/{id}', [BillController::class, 'show'])->name('product');
     Route::post('/momo_payment', [BillController::class, 'momoPayment'])->name('momo_payment');
 });
-Route::prefix('wishlist')->name('wishlist.')->group(function () {
+Route::prefix('wishlist')->name('wishlist.')->middleware('auth')->group(function () {
     Route::get('/add-to-wishlist/{id}', [WishlistController::class, 'addToWishlist'])->name('add-to-wishlist');
     Route::delete('/del-to-wishlist/{id}', [WishlistController::class, 'destroy'])->name('del-to-wishlist');
 });
-Route::get('checkout', [CartController::class, 'checkout'])->name('checkout');
-Route::resource('bill', BillController::class);
+Route::get('checkout', [CartController::class, 'checkout'])->name('checkout')->middleware('auth');
+Route::resource('bill', BillController::class)->middleware('auth');
 Route::get('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
-Route::delete('del-cart/{id}', [CartController::class, 'delCart'])->name('del-cart');
-Route::get('view-cart', [CartController::class, 'viewCart'])->name('view-cart');
-Route::get('get-total-price', [CartController::class, 'getTotalPrice'])->name('get-total-price');
+Route::delete('del-cart/{id}', [CartController::class, 'delCart'])->name('del-cart')->middleware('auth');
+Route::get('view-cart', [CartController::class, 'viewCart'])->name('view-cart')->middleware('auth');
+Route::get('get-total-price', [CartController::class, 'getTotalPrice'])->name('get-total-price')->middleware('auth');
