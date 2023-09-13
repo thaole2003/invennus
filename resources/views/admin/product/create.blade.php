@@ -10,19 +10,22 @@
             <div class="col-md-8">
 
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Mã sản phẩm:</label>
+                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
+                            style="color: #ff6666;"></i> Mã sản phẩm:</label>
                     <input type="text" class="form-control" id="" placeholder="SKU" name="sku"
                         value="{{ old('sku') }}">
                 </div>
                 @error('sku')
-                <span class="text-danger">{{$message}}</span>
+                    <span class="text-danger">{{ $message }}</span>
                 @enderror
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Tên:</label>
-                    <input type="text" class="form-control" id="" placeholder="Title" name="title" value="{{ old('title') }}">
+                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
+                            style="color: #ff6666;"></i> Tên:</label>
+                    <input type="text" class="form-control" id="" placeholder="Title" name="title"
+                        value="{{ old('title') }}">
                 </div>
                 @error('title')
-                <span class="text-danger">{{$message}}</span>
+                    <span class="text-danger">{{ $message }}</span>
                 @enderror
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">Tên ngắn:</label>
@@ -30,15 +33,16 @@
                         value="{{ old('metatitle') }}">
                 </div>
                 @error('metatitle')
-                <span class="text-danger">{{$message}}</span>
+                    <span class="text-danger">{{ $message }}</span>
                 @enderror
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Giá chung:</label>
+                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
+                            style="color: #ff6666;"></i> Giá chung:</label>
                     <input type="text" class="form-control" id="email" placeholder="Meta title" name="price"
                         value="{{ old('price') }}">
                 </div>
                 @error('price')
-                <span class="text-danger">{{$message}}</span>
+                    <span class="text-danger">{{ $message }}</span>
                 @enderror
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">Slug:</label>
@@ -46,7 +50,7 @@
                         value="{{ old('slug') }}">
                 </div>
                 @error('slug')
-                <span class="text-danger">{{$message}}</span>
+                    <span class="text-danger">{{ $message }}</span>
                 @enderror
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">Độ dài:</label>
@@ -54,7 +58,7 @@
                         value="{{ old('length') }}">
                 </div>
                 @error('length')
-                <span class="text-danger">{{$message}}</span>
+                    <span class="text-danger">{{ $message }}</span>
                 @enderror
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">Độ rộng:</label>
@@ -62,7 +66,7 @@
                         value="{{ old('width') }}">
                 </div>
                 @error('width')
-                <span class="text-danger">{{$message}}</span>
+                    <span class="text-danger">{{ $message }}</span>
                 @enderror
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">Nặng:</label>
@@ -70,23 +74,27 @@
                         value="{{ old('weight') }}">
                 </div>
                 @error('weight')
-                <span class="text-danger">{{$message}}</span>
+                    <span class="text-danger">{{ $message }}</span>
                 @enderror
 
             </div>
             <div class="col-md-4">
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Description :</label>
-                    <textarea type="text" class="form-control" id="email" placeholder="Enter description"
-                        name="description" value="{{ old('description') }}"></textarea>
+                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
+                            style="color: #ff6666;"></i> Description :</label>
+                    {{-- <textarea class="form-control" placeholder="Enter description" name="description">{{ old('description') }}</textarea> --}}
+                    <textarea id="description" name="description" class="form-control" cols="80" rows="10"
+                        style="width: 100%;border-radius: 5px;">{{ old('description') }}</textarea>
+
                 </div>
                 @error('description')
-                <span class="text-danger">{{$message}}</span>
+                    <span class="text-danger">{{ $message }}</span>
                 @enderror
                 <div class="mb-3 mt-3">
                     <div class="mb-3 mt-3">
                         <div class="category-container">
-                            <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Danh mục :</label><br>
+                            <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
+                                    style="color: #ff6666;"></i> Danh mục :</label><br>
                             <input type="text" name="category[]" placeholder="Danh mục"><br>
                         </div>
 
@@ -94,12 +102,13 @@
                     </div>
                 </div>
                 @error('category.*')
-                <span class="text-danger">{{$message}}</span>
+                    <span class="text-danger">{{ $message }}</span>
                 @enderror
                 <div class="d-flex">
                     <div class="mb-3 mt-3">
                         <div class="size-container">
-                            <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Kích cỡ :</label><br>
+                            <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
+                                    style="color: #ff6666;"></i> Kích cỡ :</label><br>
                             <input type="text" name="size[]" placeholder="Kích thước"><br>
                         </div>
                         <label onclick="addSizeField()">Thêm Kích thước</label>
@@ -107,7 +116,8 @@
 
                     <div class="mb-3 mt-3">
                         <div class="color-container">
-                            <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Màu :</label><br>
+                            <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
+                                    style="color: #ff6666;"></i> Màu :</label><br>
                             <input type="text" name="color[]" placeholder="Màu sắc">
                         </div>
                         <label onclick="addColorField()">Thêm Màu</label>
@@ -115,40 +125,43 @@
 
                 </div>
                 @error('color.*')
-                <span class="text-danger">{{$message}}</span>
+                    <span class="text-danger">{{ $message }}</span>
                 @enderror
                 @error('size.*')
-                <span class="text-danger">{{$message}}</span>
+                    <span class="text-danger">{{ $message }}</span>
                 @enderror
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Cửa hàng có:</label><br>
-                    @if(count($store)>0)
-                    @foreach ($store as $key =>$value )
-                    <input type="checkbox" name="store_id[]" value="{{ $value->id }}" id=""> {{ $value->name }} <br>
-
-                    @endforeach
+                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
+                            style="color: #ff6666;"></i> Cửa hàng có:</label><br>
+                    @if (count($store) > 0)
+                        @foreach ($store as $key => $value)
+                            <input type="checkbox" name="store_id[]" value="{{ $value->id }}" id="">
+                            {{ $value->name }} <br>
+                        @endforeach
                     @else
-                    <span>Hãy thêm 1 cửa hàng!</span>
+                        <span>Hãy thêm 1 cửa hàng!</span>
                     @endif
                 </div>
                 @foreach ($errors->get('store_id.*') as $error)
-                <p>{{ $error }}</p>
-            @endforeach
+                    <p>{{ $error }}</p>
+                @endforeach
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Ảnh sản phẩm ( thêm nhiều ảnh):</label>
-                    <input type="file" class="form-control" name="images[]"
-                        placeholder="Enter title" value="{{ old('images') }}" multiple>
+                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
+                            style="color: #ff6666;"></i> Ảnh sản phẩm ( thêm nhiều ảnh):</label>
+                    <input type="file" class="form-control" name="images[]" placeholder="Enter title"
+                        value="{{ old('images') }}" multiple>
                 </div>
                 @error('images[]')
-                <span class="text-danger">{{$message}}</span>
+                    <span class="text-danger">{{ $message }}</span>
                 @enderror
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Ảnh chính:</label>
+                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
+                            style="color: #ff6666;"></i> Ảnh chính:</label>
                     <input type="file" class="form-control" name="image" accept="image/*" id="image-input"
                         placeholder="Enter title" value="{{ old('image') }}">
                 </div>
                 @error('image')
-                <span class="text-danger">{{$message}}</span>
+                    <span class="text-danger">{{ $message }}</span>
                 @enderror
                 <div class="mb-3 mt-3" style="text-align:center;">
                     <img src="" style="width: 120px;min-height:120px;border-radius:100% ;     object-fit: cover;"
@@ -168,27 +181,32 @@
 @endsection
 
 @push('scripts')
-<script>
-    function addColorField() {
-        var container = document.querySelector('.color-container');
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+        CKEDITOR.replace('description');
 
-        var colorDiv = document.createElement('div');
-        colorDiv.innerHTML = `
+        function addColorField() {
+            var container = document.querySelector('.color-container');
+
+            var colorDiv = document.createElement('div');
+            colorDiv.innerHTML = `
             <input type="text" name="color[]" placeholder="Màu">
             <button class="delete-button" onclick="deleteColorField(this)">Xóa</button>
         `;
 
-        container.appendChild(colorDiv);
-    }
+            container.appendChild(colorDiv);
+        }
 
-    function deleteColorField(button) {
-        var container = document.querySelector('.color-container');
-        var colorDiv = button.parentElement;
+        function deleteColorField(button) {
+            var container = document.querySelector('.color-container');
+            var colorDiv = button.parentElement;
 
-        container.removeChild(colorDiv);
-    }
-    </script>
-    <script>
+            container.removeChild(colorDiv);
+        }
+
         function addCategoryField() {
             var container = document.querySelector('.category-container');
 
@@ -207,31 +225,26 @@
 
             container.removeChild(colorDiv);
         }
-        </script>
-<script>
-    function addSizeField() {
-        var container = document.querySelector('.size-container');
 
-        var sizeDiv = document.createElement('div');
-        sizeDiv.innerHTML = `
+        function addSizeField() {
+            var container = document.querySelector('.size-container');
+
+            var sizeDiv = document.createElement('div');
+            sizeDiv.innerHTML = `
             <input type="text" name="size[]" placeholder="Kích thước">
             <button class="delete-button" onclick="deleteSizeField(this)">Xóa</button>
         `;
 
-        container.appendChild(sizeDiv);
-    }
+            container.appendChild(sizeDiv);
+        }
 
-    function deleteSizeField(button) {
-        var container = document.querySelector('.size-container');
-        var sizeDiv = button.parentElement;
+        function deleteSizeField(button) {
+            var container = document.querySelector('.size-container');
+            var sizeDiv = button.parentElement;
 
-        container.removeChild(sizeDiv);
-    }
-    </script>
-    <!-- Page level plugins -->
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-        crossorigin="anonymous"></script>
-    <script>
+            container.removeChild(sizeDiv);
+        }
+
         $(() => {
             function readURL(input) {
                 if (input.files && input.files[0]) {
@@ -246,9 +259,6 @@
             $("#image-input").change(function() {
                 readURL(this);
             });
-
-
-
         });
     </script>
 @endpush

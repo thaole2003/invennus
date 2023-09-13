@@ -146,6 +146,12 @@
                     </div>
                 </div>
             </form>
+            <form action="{{ route('bill.momo_payment') }}" method="POST">
+                @csrf
+                @method('post')
+                <input type="hidden" name="total_momo" value="{{ $totalAmount }}">
+                <button class="brn btn-primary" name="payUrl">Thanh toán momo</button>
+            </form>
         </div>
     </section>
 @endsection
