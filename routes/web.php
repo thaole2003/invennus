@@ -73,6 +73,7 @@ Route::prefix('product')->name('product.')->group(function () {
 Route::prefix('bill')->name('bill.')->middleware('auth')->group(function () {
     Route::get('/detail', [BillController::class, 'index'])->name('detail');
     Route::get('/product/{id}', [BillController::class, 'show'])->name('product');
+    Route::post('/momo_payment', [BillController::class, 'momoPayment'])->name('momo_payment');
 });
 Route::prefix('wishlist')->name('wishlist.')->middleware('auth')->group(function () {
     Route::get('/add-to-wishlist/{id}', [WishlistController::class, 'addToWishlist'])->name('add-to-wishlist');
