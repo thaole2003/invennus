@@ -9,6 +9,8 @@ use App\Models\Category;
 use App\Models\Image;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\Store;
+use App\Models\StoreVariant;
 use App\Models\wishlist;
 use Illuminate\Http\Request;
 use stdClass;
@@ -40,7 +42,7 @@ class HomeController extends Controller
             ->where('product_id', 1)
             ->with('color')
             ->groupBy('size_id')
-            ->pluck('size_id'); 
+            ->pluck('size_id');
         // dd($products->variants->product_id);
         $banners = Banner::all();
         $carts = Cart::query()->latest()->get();
@@ -92,6 +94,11 @@ class HomeController extends Controller
     // }
     public function product(string $id)
     {
+
+        $store_isset = StoreVariant::whereHas('variant', function ($query) use ($id) {
+            $query->where('product_id', $id);
+        })->where('quantity', '>', 0)->pluck('store_id')->unique();
+        $stores = Store::whereIn('id', $store_isset)->get();
         $product = Product::with([
             'variants' => function ($query) {
                 $query->with('color', 'size');
@@ -99,7 +106,7 @@ class HomeController extends Controller
             'images',
             'categories',
         ])->findOrFail($id);
-
+        $totalQuantity = ProductVariant::where('product_id', $id)->sum('total_quantity_stock');
         $groupbyColors = [];
         $groupbySizes = [];
         // dd($product->variants);
@@ -115,7 +122,7 @@ class HomeController extends Controller
                 $groupbySizes[] = $size;
             }
         }
-        return view('client.products.productDetail', compact('product', 'groupbyColors', 'groupbySizes'));
+        return view('client.products.productDetail', compact('product', 'groupbyColors', 'groupbySizes', 'stores','totalQuantity'));
     }
 
     public function checkQuantity(Request $request)

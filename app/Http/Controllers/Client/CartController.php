@@ -23,36 +23,21 @@ class CartController extends Controller
             'size_id' => $size_id,
             'color_id' => $color_id,
         ])->first();
-
-        // $product_variant_id = $product_variant->id;
-
-        $cart = new Cart;
-        $cart->fill(
-            [
-                'user_id' => $user_id,
-                'product_radiant' => $product_variant->id,
-                'quantity' => $quantity,
-            ]
-        );
-        $cart->save();
-
-
-        // $cart = Cart::query();
-
-        // $checkProductExists = $cart->where([
-        //     'user_id' => $user_id,
-        //     'product_radiant' => $product_variant->id,
-        //     'quantity' => $quantity,
-        // ])->first();
-
-        // if (!$checkProductExists) {
-        //     $cart->create($request->all());
-        // } else {
-        //     $checkProductExists->update([
-        //         'quantity' => $checkProductExists->quantity + $request['quantity']
-        //     ]);
-        // }
-
+        $cartItem = Cart::where('product_radiant', $product_variant->id)->first();
+        if($cartItem){
+            $cartItem->quantity += $quantity;
+            $cartItem->save();
+        }else{
+            $cart = new Cart;
+            $cart->fill(
+                [
+                    'user_id' => $user_id,
+                    'product_radiant' => $product_variant->id,
+                    'quantity' => $quantity,
+                ]
+            );
+            $cart->save();
+        }
 
         return response()->json([
             'data' => $request->all(),

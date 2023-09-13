@@ -98,9 +98,9 @@
                                     alt="image">
 
 
-                                <h3>{{ $item->name }}</h3>
+                                <h3>{{ $item->name }}<span class="text-primary">( {{ $item->products_count }}SP)</span></h3>
 
-                                <a href="#" class="shop-now-btn">Shop Now</a>
+                                <a href="#" class="shop-now-btn">Xem ngay</a>
 
                                 <a href="#" class="link-btn"></a>
                             </div>
@@ -117,22 +117,22 @@
         <div class="container">
             <div class="tab products-category-tab">
                 <div class="section-title">
-                    <h2>Product Overview</h2>
+                    <h2>Sản phẩm nổi bật</h2>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
                         <ul class="tabs without-bg">
                             <li><a href="#">
-                                    <span class="dot"></span> Latest Products
+                                    <span class="dot"></span> Sản phẩm mới nhất
                                 </a></li>
 
                             <li><a href="#">
-                                    <span class="dot"></span> Special Products
+                                    <span class="dot"></span> Sản phẩm bán chạy nhất
                                 </a></li>
 
                             <li><a href="#">
-                                    <span class="dot"></span> Featured Products
+                                    <span class="dot"></span> Giảm sâu
                                 </a></li>
                         </ul>
                     </div>
@@ -173,16 +173,7 @@
                                                 <div class="product-price">
                                                     <span class="new-price">${{ $product->price }}</span>
                                                 </div>
-
-                                                <div class="rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="far fa-star"></i>
-                                                </div>
-
-                                                <a href="#" class="btn btn-light">Add to Cart</a>
+                                                <a href="{{ route('product.detail', $product->id) }}" class="btn btn-light">Xem chi tiết</a>
                                             </div>
                                         </div>
                                     @endforeach

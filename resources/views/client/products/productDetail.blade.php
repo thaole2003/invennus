@@ -8,7 +8,7 @@
             <div class="container">
                 <ul>
                     <li><a href="#">Home</a></li>
-                    <li>Belted chino trousers polo</li>
+                    <li>{{ $product->title }}</li>
                 </ul>
             </div>
         </div>
@@ -59,51 +59,42 @@
                                                 value="{{ $item->storeVariant->id }}">
                                         @endif
                                     @endforeach --}}
-                                    <div class="product-review">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                        </div>
-                                        <a href="#" class="rating-count">3 reviews</a>
-                                    </div>
-
                                     <ul class="product-info">
                                         <li><span>Vendor:</span> <a href="#">Lereve</a></li>
-                                        <li><span>Availability:</span> <a href="#">In stock (7 items)</a></li>
-                                        <li><span>Product Type:</span> <a href="#">T-Shirt</a></li>
+                                        <li><span>Sản phẩm:</span> <a href="#">Trong kho ({{ $totalQuantity }} sản phẩm)</a></li>
+                                        <li><span>Danh mục:</span>
+                                            @foreach ($product->categories as $index => $categorie)
+                                                <a href="#">{{ $categorie->name }}</a>
+                                                @if ($index < count($product->categories) - 1)
+                                                    |
+                                                @endif
+                                            @endforeach
+                                        </li>
+
                                     </ul>
 
 
                                     <div class="product-size-wrapper">
-                                        <h4>Color:</h4>
-                                        @foreach ($groupbyColors as $color)
-                                            <label style="width: 40px; height:40px;background-color:{{ $color->name }}">
-                                                <input type="radio" name="color" id="color"
+                                        <h4>Màu:</h4>
+                                        <div class="d-flex gap-1">
+                                            @foreach ($groupbyColors as $color)
+                                            <label style="width: 40px; height:40px;border:1px solid grey;border-radius:50%">
+                                                <input type="radio" name="color" id="color" hidden
                                                     value="{{ $color->id }}">
-                                                <div class="text-danger">{{ $color->name }}</div>
+                                                <div class="text-muted">{{ $color->name }}</div>
                                             </label>
                                         @endforeach
+                                        </div>
 
-
-                                        {{-- <input type="radio" name="" value="{{ $szArr->color_id }}"
-                                            id="">{{ $szArr->color }} --}}
-                                        {{-- @foreach ($product->variants as $item)
-                                            @if ($item->storeVariant->quantity > 0)
-                                                <div>{{ $item->storeVariant->variant->color->name }}</div>
-                                            @endif
-                                        @endforeach --}}
                                     </div>
                                     <div class="product-size-wrapper">
-                                        <h4>Size:</h4>
+                                        <h4>Kích cỡ:</h4>
                                         <ul>
                                             @foreach ($groupbySizes as $size)
                                                 {{-- @if ($item->storeVariant->quantity > 0) --}}
                                                 {{-- @foreach ($sizes as $size) --}}
                                                 <label id="label-size"
-                                                    style="width: 40px; height:40px;background-color:grey">
+                                                    style="width: 40px; height:40px;background-color:grey ;border:1px solid grey;border-radius:50%">
                                                     <input type="radio" name="size" id="size"
                                                         value="{{ $size->id }}">
                                                     <div class="">{{ $size->name }}</div>
@@ -136,15 +127,13 @@
                                     <div class="product-add-to-cart">
                                         <div class="input-counter">
                                             <span class="minus-btn decrement-btn"><i class="fas fa-minus"></i></span>
-                                            <input type="text" name="quantity" id=""
+                                            <input type="text" name="quantity" id="" min="1"
                                                 class="form-control text-center qty-input" value="1" step="1">
                                             <span class="plus-btn increment-btn"><i class="fas fa-plus"></i></span>
                                         </div>
 
                                         <button type="submit" data-prod-var="" id="addtocart" class="btn btn-primary"><i
-                                                class="fas fa-cart-plus"></i>
-                                            Add
-                                            to Cart</button>
+                                                class="fas fa-cart-plus"></i> Thêm vào giỏ hàng</button>
                                     </div>
                                     {{-- <div id="addtocart" class="btn">Add to cart</div> --}}
 
@@ -174,15 +163,11 @@
                                         <div class="col-lg-12 col-md-12">
                                             <ul class="tabs">
                                                 <li><a href="#">
-                                                        <div class="dot"></div> Description
+                                                        <div class="dot"></div> Mô tả
                                                     </a></li>
 
                                                 <li><a href="#">
-                                                        <div class="dot"></div> Additional information
-                                                    </a></li>
-
-                                                <li><a href="#">
-                                                        <div class="dot"></div> Reviews
+                                                        <div class="dot"></div> Thông tin sản phẩm
                                                     </a></li>
                                             </ul>
                                         </div>
@@ -191,47 +176,9 @@
                                             <div class="tab_content">
                                                 <div class="tabs_item">
                                                     <div class="products-details-tab-content">
-                                                        <p>Design inspiration lorem ipsum dolor sit amet, consectetuer
-                                                            adipiscing elit. Morbi commodo, ipsum sed pharetra gravida,
-                                                            orci
-                                                            magna rhoncus neque, id pulvinar odio lorem non turpis.
-                                                            Nullam
-                                                            sit amet enim. Suspendisse id velit vitae ligula volutpat
-                                                            condimentum. Aliquam erat volutpat. Sed quis velit. Nulla
-                                                            facilisi. Nulla libero. Vivamus pharetra posuere sapien. Nam
-                                                            consectetuer. Sed aliquam, nunc eget euismod ullamcorper,
-                                                            lectus
-                                                            nunc ullamcorper orci, fermentum bibendum enim nibh eget
-                                                            ipsum.
-                                                            Nam consectetuer. Sed aliquam, nunc eget euismod
-                                                            ullamcorper,
-                                                            lectus nunc ullamcorper orci, fermentum bibendum enim nibh
-                                                            eget
-                                                            ipsum. Nulla libero. Vivamus pharetra posuere sapien.</p>
-
-                                                        <div class="row">
-                                                            <div class="col-lg-6 col-md-6">
-                                                                <ul>
-                                                                    <li>Fabric 1: 100% Polyester</li>
-                                                                    <li>Fabric 2: 100% Polyester,Lining: 100% Polyester
-                                                                    </li>
-                                                                    <li>Fabric 3: 75% Polyester, 20% Viscose, 5%
-                                                                        Elastane
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-
-                                                            <div class="col-lg-6 col-md-6">
-                                                                <ol>
-                                                                    <li>Fabric 1: 75% Polyester, 20% Viscose, 5%
-                                                                        Elastane
-                                                                    </li>
-                                                                    <li>Fabric 2: 100% Polyester,Lining: 100% Polyester
-                                                                    </li>
-                                                                    <li>Fabric 3: 100% Polyester</li>
-                                                                </ol>
-                                                            </div>
-                                                        </div>
+                                                        <p>
+                                                            {{ $product->description }}
+                                                        </p>
                                                     </div>
                                                 </div>
 
@@ -241,36 +188,39 @@
                                                             <table class="table table-striped">
                                                                 <tbody>
                                                                     <tr>
-                                                                        <td>Color:</td>
-                                                                        <td>Blue, Purple, White</td>
+                                                                        <td>Màu:</td>
+                                                                        <td>
+                                                                            @foreach ($groupbyColors as $index => $color)
+                                                                                {{ $color->name }}
+                                                                                @if ($index < count($groupbyColors) - 1)
+                                                                                    ,
+                                                                                @endif
+                                                                            @endforeach
+                                                                        </td>
+
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>Size:</td>
-                                                                        <td>20, 24</td>
+                                                                        <td>Kích cỡ:</td>
+                                                                        <td>
+                                                                            @foreach ($groupbySizes as $index => $size)
+                                                                                {{ $size->name }}
+                                                                                @if ($index < count($groupbySizes) - 1)
+                                                                                    ,
+                                                                                @endif
+                                                                            @endforeach
+                                                                        </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>Material:</td>
-                                                                        <td>100% Polyester</td>
+                                                                        <td>Dài:</td>
+                                                                        <td>{{ $product->length }}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>Height:</td>
-                                                                        <td>180 cm - 5' 11”</td>
+                                                                        <td>Rộng</td>
+                                                                        <td>{{ $product->width }}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>Bust</td>
-                                                                        <td>83 cm - 32”</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Waist</td>
-                                                                        <td>57 cm - 22”</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Hips</td>
-                                                                        <td>88 cm - 35</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Shipping</td>
-                                                                        <td>Free</td>
+                                                                        <td>Nặng</td>
+                                                                        <td>{{ $product->weight }}</td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -487,7 +437,20 @@
 
 
                     <div class="col-lg-4 col-md-12">
+
                         <div class="product-single-aside">
+                            <div>
+                                <h3>cửa hàng còn sản phẩm</h3>
+                            </div>
+                            @if (count($stores)>0)
+                            @foreach ($stores as $store )
+                                <h4>{{ $store->name }}</h4>
+                            @endforeach
+
+                            @endif
+                            <div>
+
+                            </div>
                             <div class="services-aside">
                                 <div class="facility-block">
                                     <h3><i class="fas fa-plane"></i> Delivery</h3>
