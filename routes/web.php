@@ -85,3 +85,4 @@ Route::get('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-ca
 Route::delete('del-cart/{id}', [CartController::class, 'delCart'])->name('del-cart')->middleware('auth');
 Route::get('view-cart', [CartController::class, 'viewCart'])->name('view-cart')->middleware('auth');
 Route::get('get-total-price', [CartController::class, 'getTotalPrice'])->name('get-total-price')->middleware('auth');
+Route::post('search', [ClientHomeController::class, 'search'])->name('search');

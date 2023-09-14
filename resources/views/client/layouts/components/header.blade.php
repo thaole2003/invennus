@@ -140,8 +140,10 @@
 
                                 <div class="search-overlay search-popup">
                                     <div class='search-box'>
-                                        <form class="search-form">
-                                            <input class="search-input" name="search" placeholder="Search"
+                                        <form action="{{ route('search') }}" class="search-form" method="POST">
+                                            @csrf
+                                            @method('POST')
+                                            <input class="search-input" name="keyword" placeholder="Search"
                                                 type="text">
 
                                             <button class="search-button" type="submit"><i

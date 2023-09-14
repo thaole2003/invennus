@@ -137,6 +137,37 @@ class HomeController extends Controller
             'data' => $getsizes,
         ]);
     }
+    public function search(Request $request)
+    {
+        $category = $request->category_id;
+        $keyword = $request->input('keyword');
+        if($keyword){
+            $products = Product::where('title', 'like', '%' . $keyword .'%')->with([
+                'variants' => function ($query) {
+                    $query->with('color', 'size');
+                },
+                'images',
+                'categories',
+            ])->get();
+            return view('client.search', compact('products'));
+        }
+        if($category){
+            $products = Product::with([
+                'variants' => function ($query) {
+                    $query->with('color', 'size');
+                },
+                'images',
+                'categories',
+            ])
+            ->whereHas('categories', function ($query) use ($category) {
+                $query->where('category_id', $category);
+            })
+            ->get();
+            dd($products);
+            return view('client.search', compact('products'));
+        }
+
+    }
     /**
      * Store a newly created resource in storage.
      */

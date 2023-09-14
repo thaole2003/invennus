@@ -99,9 +99,12 @@
 
 
                                 <h3>{{ $item->name }}<span class="text-primary">( {{ $item->products_count }}SP)</span></h3>
-
-                                <a href="#" class="shop-now-btn">Xem ngay</a>
-
+                            <form action="{{ route('search') }}" method="POST">
+                                @csrf
+                                @method('post')
+                                <input type="" hidden name="category_id" value="{{ $item->id }}">
+                                <button href="#" class="shop-now-btn">Xem ngay</button>
+                            </form>
                                 <a href="#" class="link-btn"></a>
                             </div>
                         </div>
