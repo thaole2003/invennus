@@ -162,7 +162,6 @@ class ProductController extends Controller
     {
         //
         try {
-
             $model = Product::findOrFail($id);
             $model->fill($request->all());
             if ($request->hasFile('newimage')) {

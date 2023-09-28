@@ -61,7 +61,8 @@
                                     @endforeach --}}
                                     <ul class="product-info">
                                         <li><span>Vendor:</span> <a href="#">Lereve</a></li>
-                                        <li><span>Sản phẩm:</span> <a href="#">Trong kho ({{ $totalQuantity }} sản phẩm)</a></li>
+                                        <li><span>Sản phẩm:</span> <a href="#">Trong kho ({{ $totalQuantity }} sản
+                                                phẩm)</a></li>
                                         <li><span>Danh mục:</span>
                                             @foreach ($product->categories as $index => $categorie)
                                                 <a href="#">{{ $categorie->name }}</a>
@@ -78,12 +79,13 @@
                                         <h4>Màu:</h4>
                                         <div class="d-flex gap-1">
                                             @foreach ($groupbyColors as $color)
-                                            <label style="width: 40px; height:40px;border:1px solid grey;border-radius:50%">
-                                                <input type="radio" name="color" id="color" hidden
-                                                    value="{{ $color->id }}">
-                                                <div class="text-muted">{{ $color->name }}</div>
-                                            </label>
-                                        @endforeach
+                                                <label
+                                                    style="width: 40px; height:40px;border:1px solid grey;border-radius:50%">
+                                                    <input type="radio" name="color" id="color"
+                                                        value="{{ $color->id }}">
+                                                    <div class="text-muted">{{ $color->name }}</div>
+                                                </label>
+                                            @endforeach
                                         </div>
 
                                     </div>
@@ -91,30 +93,16 @@
                                         <h4>Kích cỡ:</h4>
                                         <ul>
                                             @foreach ($groupbySizes as $size)
-                                                {{-- @if ($item->storeVariant->quantity > 0) --}}
-                                                {{-- @foreach ($sizes as $size) --}}
                                                 <label id="label-size"
                                                     style="width: 40px; height:40px;background-color:grey ;border:1px solid grey;border-radius:50%">
                                                     <input type="radio" name="size" id="size"
-                                                        value="{{ $size->id }}">
+                                                        value="{{ $size->id }}" >
                                                     <div class="">{{ $size->name }}</div>
                                                 </label>
-
-                                                {{-- @endforeach --}}
-                                                {{-- @endif --}}
                                             @endforeach
 
                                         </ul>
-                                        {{-- {{ dd($szArr->sizes) }} --}}
-                                        {{-- @foreach ($szArr as $item) --}}
-                                        {{-- <input type="radio" name="" id="">{{ $szArr->size }} --}}
-                                        {{-- <input type="radio" name="" id="">{{ $item }} --}}
-                                        {{-- @foreach ($product->variants as $item)
-                                            @if ($item->storeVariant->quantity > 0)
-                                                <div>{{ $item->storeVariant->variant->size->name }}</div>
-                                            @endif
-                                        @endforeach --}}
-                                        {{-- @endforeach --}}
+
                                     </div>
                                     <div class="product-info-btn">
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#sizeGuideModal"><i
@@ -442,11 +430,10 @@
                             <div>
                                 <h3>cửa hàng còn sản phẩm</h3>
                             </div>
-                            @if (count($stores)>0)
-                            @foreach ($stores as $store )
-                                <h4>{{ $store->name }}</h4>
-                            @endforeach
-
+                            @if (count($stores) > 0)
+                                @foreach ($stores as $store)
+                                    <h4>{{ $store->name }}</h4>
+                                @endforeach
                             @endif
                             <div>
 
@@ -754,21 +741,18 @@
                     dataType: 'json',
                     success: function(response) {
                         let sizeIds = [];
-
                         const res = response.data;
-
                         for (const item of res) {
                             sizeIds.push(item.size_id + '');
                         }
                         $("input[name='size']").each(function() {
                             $(this).prop('checked', false);
-
                             if (sizeIds.includes($(this).val())) {
                                 $(this).removeAttr('disabled');
-                                $('#label-size').removeClass('not-allowed');
+                                $('#label-size').removeClass('bg-primary');
                             } else {
                                 $(this).attr('disabled', true);
-                                $('#label-size').addClass('not-allowed');
+                                $('#label-size').addClass('bg-primary');
                             }
                         })
                         dataProduct.forEach(function(data) {
@@ -797,7 +781,7 @@
             $(document).on('click', '#addtocart', function() {
                 $.ajax({
                     type: 'GET',
-                    url: "{{ route('add-to-cart') }}",
+                    url: "{{ route('cart.add-to-cart') }}",
                     data: {
                         quantity: $('.qty-input').val(),
                         size: $("input[name='size']:checked").val(),

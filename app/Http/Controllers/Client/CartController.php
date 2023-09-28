@@ -69,8 +69,6 @@ class CartController extends Controller
     }
     public function getTotalPrice(Request $request)
     {
-
-
         $id = $request['id'];
         $quantity = $request['quantity'];
         $cart = Cart::find($id);

@@ -32,7 +32,7 @@
                                             <input type="hidden" id="product" value="{{ $value->ProductVariant->id }}">
                                             <td class="product-thumbnail">
                                                 <a href="#">
-                                                    <img src="{{ $value->ProductVariant->product->image }}" alt="item">
+                                                    <img src="{{ asset($value->ProductVariant->product->image) }}" alt="item">
                                                 </a>
                                             </td>
 
@@ -71,7 +71,7 @@
 
                                         </td>
                                         <td>
-                                            <form action="{{ route('del-cart', $value->id) }}" method="post">
+                                            <form action="{{ route('cart.del-cart', $value->id) }}" method="post">
                                                 @csrf
                                                 @method('Delete')
                                                 <button class="remove border-0 bg-light"><i
@@ -103,7 +103,7 @@
                             <li>Shipping <span>0</span></li>
                             <li>Total <span><b>{{ number_format($sumTotal) }} vnd</b></span></li>
                         </ul>
-                        <a href="{{ route('checkout') }}" class="btn btn-light">Proceed to Checkout</a>
+                        <a href="{{ route('cart.checkout') }}" class="btn btn-light">Proceed to Checkout</a>
                     </div>
                 </div>
             </div>
@@ -129,7 +129,7 @@
                 let id = $(this).closest('tr').data('id');
                 $.ajax({
                     type: 'GET',
-                    url: "/get-total-price",
+                    url: "{{ route('cart.get-total-price') }}",
                     data: {
                         id,
                         quantity,
