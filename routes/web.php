@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\BillController as AdminBillController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\ImageController;
+use App\Http\Controllers\Admin\PostCategoryController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\Admin\SizeController;
@@ -28,14 +30,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home', function () {
-    return view('client.layouts.components.main');
-})->name('home');
+// Route::get('/home', function () {
+//     return view('client.layouts.components.main');
+// })->name('home');
 
 Auth::routes();
-Route::get('/home', function () {
-    return view('layouts.app');
-})->name('home');
+// Route::get('/home', function () {
+//     return view('layouts.app');
+// })->name('home');
 
 
 
@@ -54,6 +56,8 @@ Route::prefix('admin')->as('admin.')->middleware('auth')->group(function () {
     Route::resource('product', ProductController::class);
     Route::resource('sale', SaleController::class);
     Route::resource('image', ImageController::class);
+    Route::resource('postCategory', PostCategoryController::class);
+    Route::resource('post', PostController::class);
     Route::get('store/{storeid}/variant/{variantid}', [StoreVariantController::class, 'liststorevariant'])->name('store.variant.list');
     Route::resource('storevariant', StoreVariantController::class);
     Route::put('editprice/{id}', [ProductController::class, 'updateprice'])->name('variant.editprice');
@@ -73,15 +77,23 @@ Route::prefix('product')->name('product.')->group(function () {
 Route::prefix('bill')->name('bill.')->middleware('auth')->group(function () {
     Route::get('/detail', [BillController::class, 'index'])->name('detail');
     Route::get('/product/{id}', [BillController::class, 'show'])->name('product');
+    Route::post('/store', [BillController::class, 'store'])->name('store');
     Route::post('/momo_payment', [BillController::class, 'momoPayment'])->name('momo_payment');
-});
+})->middleware('auth');
 Route::prefix('wishlist')->name('wishlist.')->middleware('auth')->group(function () {
     Route::get('/add-to-wishlist/{id}', [WishlistController::class, 'addToWishlist'])->name('add-to-wishlist');
     Route::delete('/del-to-wishlist/{id}', [WishlistController::class, 'destroy'])->name('del-to-wishlist');
 });
-Route::get('checkout', [CartController::class, 'checkout'])->name('checkout')->middleware('auth');
-Route::resource('bill', BillController::class)->middleware('auth');
-Route::get('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
-Route::delete('del-cart/{id}', [CartController::class, 'delCart'])->name('del-cart')->middleware('auth');
-Route::get('view-cart', [CartController::class, 'viewCart'])->name('view-cart')->middleware('auth');
-Route::get('get-total-price', [CartController::class, 'getTotalPrice'])->name('get-total-price')->middleware('auth');
+Route::prefix('cart')->name('cart.')->middleware('auth')->group(function () {
+    Route::get('view-cart', [CartController::class, 'viewCart'])->name('view-cart');
+    Route::get('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
+    Route::delete('del-cart/{id}', [CartController::class, 'delCart'])->name('del-cart');
+    Route::get('checkout', [CartController::class, 'checkout'])->name('checkout');
+    Route::get('get-total-price', [CartController::class, 'getTotalPrice'])->name('get-total-price');
+})->middleware('auth');
+// Route::get('checkout', [CartController::class, 'checkout'])->name('checkout')->middleware('auth');
+// // Route::resource('bill', BillController::class);
+// Route::get('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
+// Route::delete('del-cart/{id}', [CartController::class, 'delCart'])->name('del-cart')->middleware('auth');
+// Route::get('view-cart', [CartController::class, 'viewCart'])->name('view-cart')->middleware('auth');
+// Route::get('get-total-price', [CartController::class, 'getTotalPrice'])->name('get-total-price')->middleware('auth');

@@ -151,7 +151,7 @@
                                 </div>
                             </div>
                             <div class="option-item">
-                                <a href="{{ route('view-cart') }}">Cart(12) <i
+                                <a href="{{ route('cart.view-cart') }}">Cart(12) <i
                                     class="fas fa-shopping-bag"></i></a>
                             </div>
                             <div class="option-item">

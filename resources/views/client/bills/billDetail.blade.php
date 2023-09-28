@@ -25,36 +25,39 @@
                                 ?>
 
                                 @foreach ($bills as $key => $value)
-                                    <form>
+                                    <tr>
 
-                                        <td style="width: 5%">{{ $key + 1 }}</td>
+                                        <form>
+
+                                            <td style="width: 5%">{{ $key + 1 }}</td>
 
 
-                                        <td class="product-name" style="width: 50%">
-                                            <a href="#">{{ $value->name }}</a>
-                                            <ul>
-                                                <li>Phone: <strong>{{ $value->phone }}</strong>
-                                                </li>
-                                                <li>Email: <strong>{{ $value->email }}</strong></li>
-                                                <li>Address: <strong>{{ $value->address }}</strong></li>
-                                            </ul>
-                                        </td>
+                                            <td class="product-name" style="width: 50%">
+                                                <a href="#">{{ $value->name }}</a>
+                                                <ul>
+                                                    <li>Phone: <strong>{{ $value->phone }}</strong>
+                                                    </li>
+                                                    <li>Email: <strong>{{ $value->email }}</strong></li>
+                                                    <li>Address: <strong>{{ $value->address }}</strong></li>
+                                                </ul>
+                                            </td>
 
-                                        <td class="product-price">
-                                            <span class="unit-amount">{{ $value->status }}</span>
-                                        </td>
+                                            <td class="product-price">
+                                                <span class="unit-amount">{{ $value->status }}</span>
+                                            </td>
 
-                                        <td class="product-subtotal">
-                                            <span class="unit-amount">{{ $value->pay_method }}</span>
-                                        </td>
-                                        <td class="product-subtotal">
-                                            <span class="unit-amount">{{ $value->created_at->format('d-m-Y') }}</span>
-                                        </td>
-                                        <td class="product-subtotal" style="width: 5%">
-                                            <a href="{{ route('bill.product', $value->id) }}"
-                                                class="remove border-0 bg-light"><i class="far fa-trash-alt"></i></a>
-                                        </td>
-                                    </form>
+                                            <td class="product-subtotal">
+                                                <span class="unit-amount">{{ $value->pay_method }}</span>
+                                            </td>
+                                            <td class="product-subtotal">
+                                                <span class="unit-amount">{{ $value->created_at->format('d-m-Y') }}</span>
+                                            </td>
+                                            <td class="product-subtotal" style="width: 5%">
+                                                <a href="{{ route('bill.product', $value->id) }}"
+                                                    class="remove border-0 bg-light"><i class="far fa-trash-alt"></i></a>
+                                            </td>
+                                        </form>
+                                    </tr>
 
                                     {{-- <td class="product-subtotal">
                                         <span

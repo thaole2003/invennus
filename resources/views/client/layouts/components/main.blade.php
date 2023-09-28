@@ -501,7 +501,7 @@
 
                     <div class="product-cart-btn">
                         <a href="#" class="btn btn-primary">Proceed to Checkout</a>
-                        <a href="{{ route('view-cart') }}" class="btn btn-light">View Shopping Cart</a>
+                        <a href="{{ route('cart.view-cart') }}" class="btn btn-light">View Shopping Cart</a>
                     </div>
                 </div>
             </div>
@@ -1207,7 +1207,7 @@
             $(document).on('click', '#addtocart', function() {
                 $.ajax({
                     type: 'GET',
-                    url: "{{ route('add-to-cart') }}",
+                    url: "{{ route('cart.add-to-cart') }}",
                     data: {
                         quantity: $('.qty-input').val(),
                         size: $("input[name='size']:checked").val(),

@@ -25,7 +25,7 @@
                                 ?>
                                 @foreach ($bills->billDetail as $key => $value)
                                     <tr>
-                                        <form>
+                                        {{-- <form> --}}
 
                                             <td>{{ $key + 1 }}</td>
                                             <td class="product-thumbnail">
@@ -56,7 +56,7 @@
                                                 </span>
 
                                             </td>
-                                        </form>
+                                        {{-- </form> --}}
 
                                         <td class="product-subtotal">
                                             <span
