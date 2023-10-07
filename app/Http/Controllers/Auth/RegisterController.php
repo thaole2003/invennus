@@ -65,21 +65,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        if($data['avt']){
-            if($data['avt']){
-                $image = $data['avt'];
-                $folder = 'images/avt';
-                $imageName =Storage::put($folder,$image);
-                $imageName= 'storage/' . $imageName;
-                $data['avt'] = $imageName;
-            }
-        }
+        // if($data['avt']){
+        //     if($data['avt']){
+        //         $image = $data['avt'];
+        //         $folder = 'images/avt';
+        //         $imageName =Storage::put($folder,$image);
+        //         $imageName= 'storage/' . $imageName;
+        //         $data['avt'] = $imageName;
+        //     }
+        // }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
-            'address' => $data['address'],
-            'avt' => $data['avt'],
+            // 'address' => $data['address'],
+            // 'avt' => $data['avt'],
             'password' => Hash::make($data['password']),
         ]);
     }

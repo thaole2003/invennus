@@ -161,6 +161,19 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <div class="fxt-transformY-50 fxt-transition-delay-1">
+                        <input id="phone" type="text" placeholder="Email Address"
+                            class="form-control @error('phone') is-invalid @enderror" name="phone"
+                            value="{{ old('phone') }}" autocomplete="phone">
+                        <i class="flaticon-envelope"></i>
+                        @error('phone')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group">
                     <div class="fxt-transformY-50 fxt-transition-delay-2">
                         {{-- <input type="password" class="form-control" name="password" placeholder="Password"
                             required="required"> --}}
