@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Bill;
 use App\Models\BillDetails;
 use App\Models\Cart;
+use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 
 class BillController extends Controller
@@ -53,6 +54,9 @@ class BillController extends Controller
             $billDetail->quantity = $value['quantity'];
             $billDetail->bill_id = $model->id;
             $billDetail->save();
+            $productVariant = ProductVariant::findOrFail($value['product_radiant']);
+            $productVariant->total_quantity_stock = $productVariant->total_quantity_stock - $value['quantity'];
+            $productVariant->save();
             Cart::destroy($value['id']);
         }
     }
