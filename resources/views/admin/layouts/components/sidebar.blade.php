@@ -41,6 +41,19 @@
         </div>
     </li>
     <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo11"
+            aria-expanded="true" aria-controls="collapseTwo11">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Quản lý nhà cung cấp</span>
+        </a>
+        <div id="collapseTwo11" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href={{ route('admin.vendors.index') }}>Danh sách nhà cung cấp</a>
+                <a class="collapse-item"  href={{ route('admin.vendors.create') }}>Thêm nhà cung cấp</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('admin.users.index') }}" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-user"></i>

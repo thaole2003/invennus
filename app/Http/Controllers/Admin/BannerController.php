@@ -51,6 +51,7 @@ class BannerController extends Controller
                 }
                 $model->image = $imageName;
             }
+            toastr()->success('Thêm thành công 1 banner','Thành công');
             $model->save();
             return to_route('admin.banner.index')->with('msg', ['success' => true, 'message' => 'Thêm thành công!']);
         } catch (\Exception $exception) {

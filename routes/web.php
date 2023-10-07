@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\StoreVariantController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\Admin\VendoreController;
 use App\Http\Controllers\Client\BillController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\HomeController as ClientHomeController;
@@ -47,6 +48,7 @@ Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(fu
         return view('admin.layouts.components.main');
     })->name('home');
 
+    Route::resource('vendors', VendoreController::class);
     Route::resource('users', UserController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('banner', BannerController::class);
