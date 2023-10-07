@@ -10,12 +10,12 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">IMAGE</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Unit Price</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Total</th>
+                                    <th scope="col"></th>
+                                    <th scope="col">Ảnh</th>
+                                    <th scope="col">Sảm phẩm</th>
+                                    <th scope="col">Giá</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Tổng</th>
                                 </tr>
                             </thead>
 
@@ -90,20 +90,20 @@
                         <div class="row align-items-center">
                             <div class="col-lg-7 col-md-7">
                                 <div class="continue-shopping-box">
-                                    <a href="#" class="btn btn-light">Continue Shopping</a>
+                                    <a href="{{ route('home') }}" class="btn btn-light">Tiếp tục mua hàng</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="cart-totals">
-                        <h3>Cart Totals</h3>
+                        <h3>Giỏ hàng của bạn</h3>
 
                         <ul>
-                            <li>Subtotal <span>${{ number_format($sumTotal) }} vnd</span></li>
-                            <li>Shipping <span>0</span></li>
-                            <li>Total <span><b>{{ number_format($sumTotal) }} vnd</b></span></li>
+                            <li>Tổng tiền<span>{{ number_format($sumTotal) }} vnd</span></li>
+                            <li>Phí vận chuyển <span>0</span></li>
+                            <li>Thành tiền <span><b>{{ number_format($sumTotal) }} vnd</b></span></li>
                         </ul>
-                        <a href="{{ route('checkout') }}" class="btn btn-light">Proceed to Checkout</a>
+                        <a href="{{ route('checkout') }}" class="btn btn-light">Tiếp tục</a>
                     </div>
                 </div>
             </div>

@@ -37,20 +37,20 @@
     <div class="navbar-area bg-black">
         <div class="comero-mobile-nav">
             <div class="logo">
-                <a href="{{ route('home') }}"><img src="{{ asset('fe/assets/img/logo.png') }}" alt="logo"></a>
+                <a href="{{ route('home') }}"><img src="{{ asset('img/logo.jpg') }}" alt="logo"></a>
             </div>
         </div>
 
         <div class="comero-nav">
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-md navbar-light">
-                    <a class="navbar-brand" href="{{ route('home') }}"><img
-                            src="{{ asset('fe/assets/img/white-logo.png') }}" alt="logo"></a>
+                    <a class="navbar-brand" style="width:70px" href="{{ route('home') }}"><img
+                            src="{{  asset('img/logo.jpg') }}" alt="logo"></a>
 
                     <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                         <ul class="navbar-nav">
                             <li class="nav-item p-relative">
-                                <a href="#" class="nav-link active">Trang Chủ</a>
+                                <a href="{{ route('home') }}" class="nav-link active">Trang Chủ</a>
                             </li>
                             <li class="nav-item p-relative">
                                 <a href="#" class="nav-link active">Yêu thích</a>
