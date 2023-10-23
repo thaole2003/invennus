@@ -23,9 +23,13 @@ class CreateCategoryRequest extends FormRequest
     {
         return [
             'name' => ['required','unique:categories,name'],
-            // 'slug' => ['required'] ,
-            // 'description' => ['required'],
-            // 'image' => ['required'],
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'name.required' => 'Tên danh mục là bắt buộc.',
+            'name.unique' => 'Tên danh mục đã tồn tại trong hệ thống, vui lòng chọn một tên khác.',
         ];
     }
 }
