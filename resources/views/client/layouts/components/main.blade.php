@@ -14,8 +14,8 @@
                     <div class="d-table-cell">
                         <div class="container">
                             <div class="banner-content">
-                                <span class="sub-title">Limited Time Offer!</span>
-                                <h1>Clothing Made for You!</h1>
+                                <span class="sub-title">Tràn ngập ưu đãi!</span>
+                                <h1>Rất nhiều sự lựa chọn dành cho b!</h1>
                                 <p>Take 20% Off ‘Sale Must-Haves'</p>
                                 <a href="#" class="btn btn-primary">Shop women's</a>
                             </div>
@@ -44,16 +44,17 @@
     <section class="facility-area black-bg">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="facility-box">
                         <div class="icon">
-                            <i class="fas fa-plane"></i>
+                            <i class="fas fa-shipping-fast"></i>
                         </div>
-                        <h3>Free Shipping World Wide</h3>
+                        <h3>Giao hàng nhanh chóng</h3>
+                        <p class="text-white">Miễn phí với đơn hàng trên 599.000đ.</p>
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-6 col-sm-6">
+                {{-- <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="facility-box">
                         <div class="icon">
                             <i class="fas fa-money-check-alt"></i>
@@ -61,22 +62,26 @@
                         <h3>100% money back guarantee</h3>
                     </div>
                 </div>
+               --}}
 
-                <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="facility-box">
                         <div class="icon">
-                            <i class="far fa-credit-card"></i>
+                            <i class="fas fa-exchange-alt"></i>
                         </div>
-                        <h3>Many payment gatways</h3>
+                        <h3>Đổi hàng miễn phí</h3>
+                        <p class="text-white">Trong 7 ngày kể từ ngày mua.</p>
+
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="facility-box">
                         <div class="icon">
                             <i class="fas fa-headset"></i>
                         </div>
-                        <h3>24/7 online support</h3>
+                        <h3>Hỗ trợ 24/7</h3>
+                        <p class="text-white">Hotline: 0332132912.</p>
                     </div>
                 </div>
             </div>
@@ -152,7 +157,7 @@
 
                                                 <a href="#">
                                                     <img src="{{ $product->image }}" alt="image">
-                                                    <img src="{{ $product->images[0]->image }}" alt="image">
+                                                    <img src="{{ isset($product->images[0]->image) ? $product->images[0]->image : asset('img/logo.jpg') }}" alt="image">
                                                 </a>
 
                                                 <ul>
@@ -163,8 +168,8 @@
                                                     <li><a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
                                                             data-tooltip="tooltip" data-placement="left"
                                                             title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                    <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                            title="Add to Compare"><i class="fas fa-sync"></i></a></li>
+                                                    {{-- <li><a href="#" data-tooltip="tooltip" data-placement="left"
+                                                            title="Add to Compare"><i class="fas fa-sync"></i></a></li> --}}
                                                 </ul>
                                             </div>
 
@@ -198,10 +203,11 @@
     <section class="products-offer-area bg-image2 ptb-60 jarallax" data-jarallax='{"speed": 0.3}'>
         <div class="container">
             <div class="products-offer-content">
-                <span>Limited Time Offer</span>
-                <h1>-40% Off</h1>
-                <p>Get The Best Deals Now</p>
-                <a href="#" class="btn btn-primary">Discover Now</a>
+                <span class="sub-title">Tràn ngập ưu đãi!</span>
+                <h1>Sự lựa chọn đa dạng!</h1>
+                <p>Trải nghiệm ngay</p>
+                <a href="#" class="btn btn-primary">Quần bò</a>
+                <a href="#" class="btn btn-primary">Quần vải</a>
             </div>
         </div>
     </section>
@@ -211,7 +217,7 @@
     <section class="news-area ptb-60">
         <div class="container">
             <div class="section-title">
-                <h2><span class="dot"></span> Comero News</h2>
+                <h2><span class=""></span> Bài viết mới nhất</h2>
             </div>
 
             <div class="row">

@@ -22,8 +22,15 @@ class CreateBannerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'title' => ['required'],
             'image' => ['required'],
         ];
     }
+    public function messages()
+    {
+        return [
+            'image.required' => 'Bắt buộc chọn 1 ảnh.',
+        ];
+    }
+
+
 }

@@ -125,16 +125,16 @@
         </div>
         <div class="fxt-form">
             <div class="fxt-transformY-50 fxt-transition-delay-1">
-                <h2>Register</h2>
+                <h2>Đăng ký</h2>
             </div>
             <div class="fxt-transformY-50 fxt-transition-delay-2">
-                <p>Create an account free and enjoy it</p>
+                <p>Tạo tài khoản cho bạn</p>
             </div>
             <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                 @csrf <div class="form-group">
                     <div class="fxt-transformY-50 fxt-transition-delay-1">
                         {{-- <input type="text" class="form-control" name="name" placeholder="Name" required="required"> --}}
-                        <input id="name" type="text" placeholder="Name"
+                        <input id="name" type="text" placeholder="Tên của bạn"
                             class="form-control @error('name') is-invalid @enderror" name="name"
                             value="{{ old('name') }}" autocomplete="name" autofocus>
                         <i class="flaticon-user"></i>
@@ -147,7 +147,7 @@
                 </div>
                 <div class="form-group">
                     <div class="fxt-transformY-50 fxt-transition-delay-1">
-                        <input id="email" type="email" placeholder="Email Address"
+                        <input id="email" type="email" placeholder="Địa chỉ email"
                             class="form-control @error('email') is-invalid @enderror" name="email"
                             value="{{ old('email') }}" autocomplete="email">
                         {{-- <input type="email" class="form-control" name="email" placeholder="Email Address"
@@ -162,7 +162,7 @@
                 </div>
                 <div class="form-group">
                     <div class="fxt-transformY-50 fxt-transition-delay-1">
-                        <input id="phone" type="text" placeholder="Email Address"
+                        <input id="phone" type="text" placeholder="Số điện thoại"
                             class="form-control @error('phone') is-invalid @enderror" name="phone"
                             value="{{ old('phone') }}" autocomplete="phone">
                         <i class="flaticon-envelope"></i>
@@ -177,7 +177,7 @@
                     <div class="fxt-transformY-50 fxt-transition-delay-2">
                         {{-- <input type="password" class="form-control" name="password" placeholder="Password"
                             required="required"> --}}
-                        <input id="password" type="password" placeholder="Password"
+                        <input id="password" type="password" placeholder="Mật khẩu"
                             class="form-control @error('password') is-invalid @enderror" name="password"
                             autocomplete="new-password">
                         <i class="flaticon-padlock"></i>
@@ -196,7 +196,7 @@
                             class="form-control @error('password') is-invalid @enderror" name="password" required
                             autocomplete="new-password"> --}}
                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
-                            autocomplete="new-password" placeholder="Re - Password">
+                            autocomplete="new-password" placeholder="Nhập lại mật khẩu">
                         <i class="flaticon-padlock"></i>
                         @error('password_confirmation')
                             <span class="invalid-feedback" role="alert">
@@ -207,7 +207,7 @@
                 </div>
                 <div class="form-group">
                     <div class="fxt-transformY-50 fxt-transition-delay-3">
-                        <button type="submit" class="fxt-btn-fill">Register</button>
+                        <button type="submit" class="fxt-btn-fill">Đăng ký</button>
                     </div>
                 </div>
             </form>

@@ -45,9 +45,11 @@
                     data-vegas-options='{"delay":5000, "timer":false,"animation":"kenburns", "transition":"swirlLeft", "slides":[{"src": "{{ asset('authen/img/figure/bg33-1.jpg') }}"}, {"src": "{{ asset('authen/img/figure/bg35-1.jpg') }}"}, {"src": "{{ asset('authen/img/figure/bg36-1.jpg') }}"}]}'>
                     <div class="fxt-page-switcher">
                         <a href="{{ route('login') }}"
-                            class="switcher-text1 {{ route('login') ? '' : 'active' }}">Login</a>
+                            class="switcher-text1 {{ route('login') ? '' : 'active' }}">Đăng nhập</a>
                         <a href="{{ route('register') }}"
-                            class="switcher-text1 {{ route('register') ? '' : 'active' }}">Register</a>
+                            class="switcher-text1 {{ route('register') ? '' : 'active' }}">Đăng ký</a>
+                        <a href="{{ route('home') }}"
+                        class="switcher-text1 {{ route('register') ? '' : 'active' }}">Trang chủ</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-12 fxt-bg-color">

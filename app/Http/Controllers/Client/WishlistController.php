@@ -36,7 +36,7 @@ class WishlistController extends Controller
         }
     }
 
-    
+
 
     function destroy(String $id)
     {

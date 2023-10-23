@@ -22,8 +22,8 @@ class CreateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sku' => ['required','unique:products,sku'],
-            'title' => ['required','unique:products,title'],
+            'sku' => ['required', 'unique:products,sku'],
+            'title' => ['required', 'unique:products,title'],
             'slug' => ['unique:products,slug'],
             'description' => ['required'],
             'image' => ['required'],
@@ -35,4 +35,24 @@ class CreateProductRequest extends FormRequest
             'category.*' => ['required'],
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'sku.required' => 'Bắt buộc nhập mã sản phẩm.',
+            'sku.unique' => 'Mã sản phẩm này đã tồn tại trong hệ thống.',
+            'title.required' => 'Tiêu đề là bắt buộc nhập.',
+            'title.unique' => 'Tiêu đề này đã tồn tại trong hệ thống.',
+            'slug.unique' => 'Slug này đã tồn tại trong hệ thống.',
+            'description.required' => 'Mô tả bắt buộc nhập.',
+            'image.required' => 'Ảnh chính bắt buộc nhập.',
+            'price.required' => 'Giá là bắt buộc.',
+            'images.*.required' => 'Hình ảnh bắt buộc nhập (chọn nhiều ảnh).',
+            'store_id.*.required' => 'Chọn ít nhất 1 cửa hàng.',
+            'color.*.required' => 'Chọn màu sắc cho sản phẩm.',
+            'size.*.required' => 'Chọn kích cỡ cho sản phẩm.',
+            'category.*.required' => 'Chọn danh mục.',
+        ];
+    }
+
 }

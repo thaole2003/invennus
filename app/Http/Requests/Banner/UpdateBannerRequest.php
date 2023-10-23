@@ -26,4 +26,12 @@ class UpdateBannerRequest extends FormRequest
             'image' => ['nullable'],
         ];
     }
+    public function messages()
+    {
+        return [
+            'title.required' => 'Tiêu đề là bắt buộc.',
+            // 'image.nullable' => 'Hình ảnh có thể để trống.',
+        ];
+    }
+
 }
