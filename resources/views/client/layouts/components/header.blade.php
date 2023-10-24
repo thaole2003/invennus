@@ -153,28 +153,21 @@
                                 </div>
                             </div>
                             @if (auth()->check())
-                                @if (auth()->user()->role==='admin')
+                                @if (auth()->user()->role==='admin' || auth()->user()->role==='employ')
                                 <div class="option-item">
                                     <a href="{{ route('admin.home') }}">Quản lí cửa hàng </a>
                                 </div>
                                 @endif
                             @endif
-                            {{-- <div class="option-item">
-                                @php
-                                if (auth()->user()->role==='admin') {
-                                    $countCart = Cart::where('user_id', auth()->user()->id)->count();
-                                }
-                                @endphp
-                            <a href="{{ route('cart.view-cart') }}">Giỏ hàng ({{ $countCart }}) <i class="fas fa-shopping-bag"></i></a>
-                            </div> --}}
                             <div class="option-item">
                                 @php
                                 use App\Models\Cart;
                                 $countCart = 0;
                                 if (auth()->check()) {
-                                    $countCart = Cart::where('user_id', auth()->user()->id)->count();
+                                    $countCart = Cart::where('user_id', auth()->user()->id)->sum('quantity');
                                 }
                                 @endphp
+
                             <a href="{{ route('cart.view-cart') }}">Giỏ hàng ({{ $countCart }}) <i class="fas fa-shopping-bag"></i></a>
                             </div>
 
@@ -200,7 +193,6 @@
                                             aria-expanded="false" v-pre>
                                             {{ Auth::user()->name }}
                                         </a>
-
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                             <a style="color: black ; font-size: 0.875rem;line-height: 1.25rem;" class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();

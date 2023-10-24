@@ -23,14 +23,25 @@ class CreateBannerRequest extends FormRequest
     {
         return [
             'image' => ['required'],
+            'meta_title' => ['required'],
+            'title' => ['required'],
+            'description' => ['required', 'min:10', 'max:100'],
+            'links' => ['url'],
         ];
     }
     public function messages()
     {
         return [
-            'image.required' => 'Bắt buộc chọn 1 ảnh.',
+            'image.required' => 'Bắt buộc chọn một ảnh.',
+            'meta_title.required' => 'Bắt buộc nhập tiêu đề.',
+            'title.required' => 'Bắt buộc nhập tiêu đề.',
+            'description.required' => 'Bắt buộc nhập mô tả có ít nhất 10 ký tự và tối đa 100 ký tự.',
+            'description.min' => 'Mô tả phải có ít nhất 10 ký tự.',
+            'description.max' => 'Mô tả không được vượt quá 100 ký tự.',
+            'links.url' => 'Liên kết không hợp lệ. Vui lòng nhập một URL hợp lệ.'
         ];
     }
+
 
 
 }
