@@ -14,10 +14,10 @@
                     <div class="d-table-cell">
                         <div class="container">
                             <div class="banner-content">
-                                <span class="sub-title">Tràn ngập ưu đãi!</span>
-                                <h1>Rất nhiều sự lựa chọn dành cho b!</h1>
-                                <p>Take 20% Off ‘Sale Must-Haves'</p>
-                                <a href="#" class="btn btn-primary">Shop women's</a>
+                                <span class="sub-title">{{ $banner->meta_title }}</span>
+                                <h1>{{ $banner->title }}</h1>
+                                <p>{{ $banner->description }}</p>
+                                {{-- <a href="#" class="btn btn-primary">Shop women's</a> --}}
                             </div>
                         </div>
                     </div>
@@ -44,38 +44,39 @@
     <section class="facility-area black-bg">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="facility-box">
                         <div class="icon">
-                            <i class="fas fa-shipping-fast"></i>
+                            <i class="fas fa-money-bill-wave"></i>
                         </div>
-                        <h3>Giao hàng nhanh chóng</h3>
-                        <p class="text-white">Miễn phí với đơn hàng trên 599.000đ.</p>
+                        <h3>Thanh toán khi nhận hàng (COD)</h3>
+                        <p class="text-white">Giao hàng toàn quốc.</p>
                     </div>
                 </div>
 
-                {{-- <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="facility-box">
-                        <div class="icon">
-                            <i class="fas fa-money-check-alt"></i>
-                        </div>
-                        <h3>100% money back guarantee</h3>
-                    </div>
-                </div>
-               --}}
-
-                <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="facility-box">
                         <div class="icon">
                             <i class="fas fa-exchange-alt"></i>
                         </div>
                         <h3>Đổi hàng miễn phí</h3>
-                        <p class="text-white">Trong 7 ngày kể từ ngày mua.</p>
+                        <p class="text-white">Trong 30 ngày kể từ ngày mua.</p>
 
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6 col-sm-6">
+
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="facility-box">
+                        <div class="icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <h3>Miễn phí giao hàng</h3>
+                        <p class="text-white">Với đơn hàng trên 599.000đ..</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="facility-box">
                         <div class="icon">
                             <i class="fas fa-headset"></i>
@@ -98,7 +99,7 @@
                     @foreach ($category as $item)
                         <div class="col-lg-3 col-sm-6 col-md-6">
                             <div class="single-category-boxes w-100">
-                                <img class="w-100 h-100"
+                                <img class="" style="width:430px;height:350px"
                                     src="{{ $item->image ? asset($item->image) : asset('fe/assets/img/category-products-img5.jpg') }}"
                                     alt="image">
 

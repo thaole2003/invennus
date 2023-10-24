@@ -23,6 +23,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Tên danh mục</th>
+                    <th scope="col">Sản phẩm</th>
                     <th scope="col">Slug</th>
                     {{-- <th scope="col">Mô tả</th> --}}
                     <th scope="col">Hình ảnh</th>
@@ -35,6 +36,7 @@
                         <tr>
                             <th scope="">{{ $value->id }}</th>
                             <td>{{ $value->name }}</td>
+                            <td>{{ $value->products_count. ' sản phẩm' }}</td>
                             <td>{{ $value->slug }}</td>
                             {{-- <td>{{ $value->description }}</td> --}}
                             <td><img class="" src="{{ asset($value->image) }}" alt="" style="width: 80px;height: 80px"></td>
@@ -45,6 +47,7 @@
                                 @method('delete')
                                 <button type="submit" onclick="return confirm('chắc chắn xóa?')" class="btn btn-danger" class="btn btn-danger"><i class="fas fa-trash-alt"></i> </button>
                             </form>
+                            <a  class="btn btn-primary" href="{{ route('admin.category.show',$value->id) }}"><i class="fas fa-eye"></i></a>
                         </td>
                         </tr>
                     @endforeach
