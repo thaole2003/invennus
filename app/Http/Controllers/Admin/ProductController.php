@@ -36,7 +36,11 @@ class ProductController extends Controller
     public function create()
     {
         $store = Store::all();
-        return view('admin.product.create', compact('store'));
+        $categories = Category::query()->get();
+        $sizes = Size::query()->get();
+        $colors = Color::query()->get();
+        // dd($categories);
+        return view('admin.product.create', compact('store', 'categories', 'sizes', 'colors'));
     }
 
     /**
@@ -151,8 +155,17 @@ class ProductController extends Controller
     {
         //
         $data = Product::with('images')->findOrFail($id);
-        // dd($data->images);
-        return view('admin.product.edit', compact('data'));
+
+        $categories = Category::query()->latest()->get();
+        $categoryproducts = CategoryProduct::query()->where('product_id', $id)->get();
+        foreach ($categoryproducts as $categoryproduct) {
+            $categoryArray[] = $categoryproduct->product_id;
+        }
+        // $surrounding = Surrounding::query()->latest()->get();
+        $categories = Category::query()->get();
+        $sizes = Size::query()->get();
+        $colors = Color::query()->get();
+        return view('admin.product.edit', compact('data', 'categories', 'categoryArray'));
     }
 
     /**
