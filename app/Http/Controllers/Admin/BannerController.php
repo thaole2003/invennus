@@ -38,6 +38,7 @@ class BannerController extends Controller
     {
         //
         try {
+            // dd($request->all());
             $model = new Banner();
             $model->fill($request->all());
             if ($request->hasFile('image')) {

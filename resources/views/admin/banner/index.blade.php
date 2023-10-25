@@ -22,7 +22,10 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Tiêu đề ngắn</th>
                     <th scope="col">Tiêu đề</th>
+                    <th scope="col">Mô tả</th>
+                    <th scope="col">Đường dẫn</th>
                     <th scope="col">Hình ảnh</th>
                     <th scope="col">Trạng thái</th>
                     <th scope="col">Hoạt động</th>
@@ -39,8 +42,6 @@
                             ? '<button class="btn btn-success">Kích hoạt</button>'
                             : '<button class="btn btn-danger">Chưa kích hoạt</button>' !!}
                         </td>
-
-
                         <td class="d-flex align-items-center">
                             <a class="btn btn-primary" href="{{ route('admin.banner.edit', $value->id) }}"><i
                                     class="fas fa-edit"></i></a>

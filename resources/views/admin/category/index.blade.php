@@ -23,6 +23,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Tên danh mục</th>
+                    <th scope="col">Sản phẩm</th>
                     <th scope="col">Slug</th>
                     <th scope="col">Hình ảnh</th>
                     <th scope="col">Hoạt động</th>
@@ -45,6 +46,7 @@
                                 <button type="submit" onclick="return confirm('chắc chắn xóa?')" class="btn btn-danger"
                                     class="btn btn-danger"><i class="fas fa-trash-alt"></i> </button>
                             </form>
+                            <a  class="btn btn-primary" href="{{ route('admin.category.show',$value->id) }}"><i class="fas fa-eye"></i></a>
                         </td>
                     </tr>
                 @endforeach
