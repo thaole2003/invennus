@@ -18,7 +18,7 @@
 
     </div>
     <div class="w-80">
-        <table class="table">
+        <table id="table" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -28,32 +28,28 @@
                 </tr>
             </thead>
             <tbody>
-                @if (count($data) > 0)
-                    @foreach ($data as $key => $value)
-                        <tr>
-                            <th scope="">{{ $key + 1 }}</th>
-                            <td>{{ $value->name }}</td>
-                            <td>{{ $value->description }}</td>
+                @foreach ($data as $key => $value)
+                    <tr>
+                        <td scope="">{{ $key + 1 }}</td>
+                        <td>{{ $value->name }}</td>
+                        <td>{{ $value->description }}</td>
 
-                            <td class="d-flex align-items-center">
-                                <a  class="btn btn-primary" href="{{ route('admin.size.edit',$value->id) }}"><i class="fas fa-edit"></i></a>
-                            <form action="{{ route('admin.size.destroy',$value->id) }}" method="POST">
+                        <td class="d-flex align-items-center">
+                            <a class="btn btn-primary" href="{{ route('admin.size.edit', $value->id) }}"><i
+                                    class="fas fa-edit"></i></a>
+                            <form action="{{ route('admin.size.destroy', $value->id) }}" method="POST">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" onclick="return confirm('chắc chắn xóa?')" class="btn btn-danger" class="btn btn-danger"><i class="fas fa-trash-alt"></i> </button>
+                                <button type="submit" onclick="return confirm('chắc chắn xóa?')" class="btn btn-danger"
+                                    class="btn btn-danger"><i class="fas fa-trash-alt"></i> </button>
                             </form>
                         </td>
-                        </tr>
-                    @endforeach
-                @else
-                    <tr>
-                        <td colspan="5">Bạn cần thêm danh mục!</td>
                     </tr>
-                @endif
+                @endforeach
+
 
 
             </tbody>
         </table>
-        {{ $data->links() }}
     </div>
 @endsection

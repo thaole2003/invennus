@@ -4385,7 +4385,7 @@ Products Offer Area CSS
 }
 
 .products-offer-area.bg-image2 {
-  background-image: url(../img/offer-bg2.jpg);
+  background-image: url(https://down-bs-vn.img.susercontent.com/923acbf8710deeb7b00558b51be1e716_tn);
 }
 
 .products-offer-content {
@@ -8487,7 +8487,7 @@ Cart Area CSS
   float: right;
   position: relative;
   top: -1px;
-  
+
 }
 
 .cart-table table tbody tr td.product-quantity .input-counter {

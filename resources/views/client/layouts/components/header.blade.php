@@ -1,6 +1,6 @@
 <header class="header-area">
     <!-- Start Top Header Area -->
-    <div class="top-header">
+    {{-- <div class="top-header">
         <div class="container-fluid">
             <div class="row align-items-center">
                 <div class="col-lg-7 col-md-6">
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- End Top Header Area -->
 
     <!-- Start Navbar Area -->
@@ -152,10 +152,32 @@
                                     </div>
                                 </div>
                             </div>
+                            @if (auth()->check())
+                                @if (auth()->user()->role==='admin')
+                                <div class="option-item">
+                                    <a href="{{ route('admin.home') }}">Quản lí cửa hàng </a>
+                                </div>
+                                @endif
+                            @endif
+                            {{-- <div class="option-item">
+                                @php
+                                if (auth()->user()->role==='admin') {
+                                    $countCart = Cart::where('user_id', auth()->user()->id)->count();
+                                }
+                                @endphp
+                            <a href="{{ route('cart.view-cart') }}">Giỏ hàng ({{ $countCart }}) <i class="fas fa-shopping-bag"></i></a>
+                            </div> --}}
                             <div class="option-item">
-                                <a href="{{ route('cart.view-cart') }}">Cart(12) <i
-                                    class="fas fa-shopping-bag"></i></a>
+                                @php
+                                use App\Models\Cart;
+                                $countCart = 0;
+                                if (auth()->check()) {
+                                    $countCart = Cart::where('user_id', auth()->user()->id)->count();
+                                }
+                                @endphp
+                            <a href="{{ route('cart.view-cart') }}">Giỏ hàng ({{ $countCart }}) <i class="fas fa-shopping-bag"></i></a>
                             </div>
+
                             <div class="option-item">
                                 @guest
                                 <div class="d-flex">
@@ -180,10 +202,10 @@
                                         </a>
 
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                            <a style="color: black ; font-size: 0.875rem;line-height: 1.25rem;" class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
-                                                {{ __('Logout') }}
+                                                {{ __('Đăng xuất') }}
                                             </a>
 
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST"

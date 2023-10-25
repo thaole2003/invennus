@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\StoreVariantController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\Admin\VendoreController;
 use App\Http\Controllers\Client\BillController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\HomeController as ClientHomeController;
@@ -47,6 +48,7 @@ Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(fu
         return view('admin.layouts.components.main');
     })->name('home');
 
+    Route::resource('vendors', VendoreController::class);
     Route::resource('users', UserController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('banner', BannerController::class);
@@ -92,7 +94,7 @@ Route::prefix('cart')->name('cart.')->middleware('auth')->group(function () {
     Route::get('get-total-price', [CartController::class, 'getTotalPrice'])->name('get-total-price');
 })->middleware('auth');
 // Route::get('checkout', [CartController::class, 'checkout'])->name('checkout')->middleware('auth');
-// // Route::resource('bill', BillController::class);
+Route::resource('bill', BillController::class);
 // Route::get('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
 // Route::delete('del-cart/{id}', [CartController::class, 'delCart'])->name('del-cart')->middleware('auth');
 // Route::get('view-cart', [CartController::class, 'viewCart'])->name('view-cart')->middleware('auth');

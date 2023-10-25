@@ -32,17 +32,19 @@ class CreateStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Tên cửa hàng bắt buộc nhập',
-            'address.required' => 'Địa chỉ bắt buộc nhập',
-            'phone.required' => 'Số điện thoại là bắt buộc.',
-            'email.required' => 'Email là bắt buộc.',
-            
-            'name.unique' => 'Tên cửa hàng đã tồn tại.',
-            'address.unique' => 'Địa chỉ đã tồn tại.',
-            'phone.unique' => 'Số điện thoại đã tồn tại.',
-            'email.unique' => 'Email đã tồn tại.',
-            
-            'address.min' => 'Địa chỉ không được dưới 5 kí tự',
+
+            'name.required' => 'Trường tên cửa hàng là bắt buộc.',
+            'name.unique' => 'Tên cửa hàng này đã tồn tại trong hệ thống.',
+            'slug.unique' => 'Slug này đã tồn tại trong hệ thống.',
+            'address.required' => 'Trường địa chỉ cửa hàng là bắt buộc.',
+            'address.unique' => 'Địa chỉ cửa hàng này đã tồn tại trong hệ thống.',
+            'address.min' => 'Trường địa chỉ cửa hàng phải có ít nhất 5 ký tự.',
+            'phone.required' => 'Trường số điện thoại là bắt buộc.',
+            'phone.unique' => 'Số điện thoại này đã tồn tại trong hệ thống.',
+            'phone.regex' => 'Số điện thoại phải có 10 chữ số và không có ký tự đặc biệt.',
+            'email.required' => 'Trường email là bắt buộc.',
+            'email.unique' => 'Email này đã tồn tại trong hệ thống.',
+            'email.email' => 'Email phải có định dạng hợp lệ.',
         ];
     }
 }

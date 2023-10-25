@@ -26,12 +26,26 @@ class UpdateUserRequest extends FormRequest
         $table = (new User())->getTable();
         return [
             'name' => ['required'],
-            'email' => ['required',Rule::unique($table)->ignore(request()->segment('3'))],
-            'phone' => ['required',Rule::unique($table)->ignore(request()->segment('3'))],
+            'email' => ['required', Rule::unique($table)->ignore(request()->segment('3'))],
+            'phone' => ['required', Rule::unique($table)->ignore(request()->segment('3'))],
             'address' => ['required'],
             'role' => ['required'],
             'store_id' => ['nullable'],
-            'password' => ['required','min:6'],
+            'password' => ['required', 'min:6'],
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'name.required' => 'Trường tên là bắt buộc.',
+            'email.required' => 'Trường email là bắt buộc.',
+            'email.unique' => 'Email này đã tồn tại trong hệ thống.',
+            'phone.required' => 'Trường số điện thoại là bắt buộc.',
+            'phone.unique' => 'Số điện thoại này đã tồn tại trong hệ thống.',
+            'address.required' => 'Trường địa chỉ là bắt buộc.',
+            'role.required' => 'Trường vai trò là bắt buộc.',
+            'password.required' => 'Trường mật khẩu là bắt buộc.',
+            'password.min' => 'Mật khẩu phải có ít nhất 6 ký tự.',
         ];
     }
 }

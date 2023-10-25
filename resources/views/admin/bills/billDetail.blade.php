@@ -18,7 +18,7 @@
 
     </div>
     <div class="w-80">
-        <table class="table">
+        <table id="table" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th scope="col">Mã</th>
@@ -29,31 +29,26 @@
                     <th scope="col">Status</th>
                     <th scope="col">Payments Method</th>
                     <th scope="col">Order Created Date</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                @if (count($bills) > 0)
-                    @foreach ($bills as $value)
-                        <tr>
-                            <th scope="">{{ $value->id }}</th>
-                            <td>{{ $value->name }}</td>
-                            <td>{{ $value->email }}</td>
-                            <td>{{ $value->address }}</td>
-                            <td>{{ $value->phone }}</td>
-                            <td>{{ $value->status }}</td>
-                            <td>{{ $value->pay_method }}</td>
-                            <td>{{ $value->created_at->format('d-m-Y') }}</td>
-                            <td class="d-flex align-items-center">
-                                <a href="{{ route('admin.bill.product', $value->id) }}" class="remove border-0 bg-light"><i
-                                        class="far fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                    @endforeach
-                @else
+                @foreach ($bills as $value)
                     <tr>
-                        <td colspan="5">Bạn cần thêm sản phẩm!</td>
+                        <td scope="">{{ $value->id }}</td>
+                        <td>{{ $value->name }}</td>
+                        <td>{{ $value->email }}</td>
+                        <td>{{ $value->address }}</td>
+                        <td>{{ $value->phone }}</td>
+                        <td>{{ $value->status }}</td>
+                        <td>{{ $value->pay_method }}</td>
+                        <td>{{ $value->created_at->format('d-m-Y') }}</td>
+                        <td class="d-flex align-items-center">
+                            <a href="{{ route('admin.bill.product', $value->id) }}" class="remove border-0 bg-light"><i
+                                    class="far fa-trash-alt"></i></a>
+                        </td>
                     </tr>
-                @endif
+                @endforeach
             </tbody>
         </table>
     </div>

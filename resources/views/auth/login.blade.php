@@ -72,14 +72,13 @@
 </div> --}}
     <div class="fxt-content">
         <div class="fxt-header">
-            {{-- <a href="login-29.html" class="fxt-logo"><img src="{{ asset('authen/img/logo-29.png') }}" alt="Logo"></a> --}}
         </div>
         <div class="fxt-form">
             <div class="fxt-transformY-50 fxt-transition-delay-1">
-                <h2>Log In</h2>
+                <h2>Đăng nhập</h2>
             </div>
             <div class="fxt-transformY-50 fxt-transition-delay-2">
-                <p>Log in to continue in our website</p>
+                <p>Đăng nhập để tiếp tục mua hàng</p>
             </div>
             <form method="POST" action="{{ route('login') }}">
                 @csrf
@@ -88,7 +87,7 @@
                         {{-- <input type="email" class="form-control" name="email" placeholder="Email Address"
                             required="required"> --}}
                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                            name="email" value="{{ old('email') }}" placeholder="Email Address"
+                            name="email" value="{{ old('email') }}" placeholder="Địa chỉ email"
                             autocomplete="email" autofocus>
                         <i class="flaticon-envelope"></i>
                         @error('email')
@@ -102,7 +101,7 @@
                     <div class="fxt-transformY-50 fxt-transition-delay-5">
                         {{-- <input type="password" class="form-control" name="password" placeholder="Password" required="required"> --}}
                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                            placeholder="Password" name="password" autocomplete="current-password">
+                            placeholder="Mật khẩu" name="password" autocomplete="current-password">
                         <i class="flaticon-padlock"></i>
                         @error('password')
                             <span class="invalid-feedback" role="alert">
@@ -114,11 +113,11 @@
                 <div class="form-group">
                     <div class="fxt-transformY-50 fxt-transition-delay-6">
                         <div class="fxt-content-between">
-                            <button type="submit" class="fxt-btn-fill">Log in</button>
+                            <button type="submit" class="fxt-btn-fill">Đăng nhập</button>
                             {{-- <a href="forgot-password-29.html" class="switcher-text2">Forgot Password</a> --}}
                             @if (Route::has('password.request'))
                                 <a class="switcher-text2" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
+                                    {{ __('Quên mật khẩu?') }}
                                 </a>
                             @endif
                         </div>

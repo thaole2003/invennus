@@ -18,24 +18,20 @@
 
     </div>
     <div class="w-80">
-        <table class="table">
+        <table id="table" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Tên</th>
-                    {{-- <th scope="col">Mô tả</th> --}}
                     <th scope="col">Hình ảnh</th>
                     <th scope="col">Hoạt động</th>
                 </tr>
             </thead>
             <tbody>
-                @if (count($data) > 0)
                     @foreach ($data as $value)
                         <tr>
-                            <th scope="">{{ $value->id }}</th>
+                            <td scope="">{{ $value->id }}</td>
                             <td>{{ $value->title }}</td>
-                            <td>{{ $value->slug }}</td>
-                            {{-- <td>{{ $value->description }}</td> --}}
                             <td><img class="" src="{{ asset($value->image) }}" alt=""
                                     style="width: 80px;height: 80px"></td>
                             <td class="d-flex align-items-center">
@@ -50,15 +46,10 @@
                             </td>
                         </tr>
                     @endforeach
-                @else
-                    <tr>
-                        <td colspan="5">Bạn cần thêm danh mục!</td>
-                    </tr>
-                @endif
+             
 
 
             </tbody>
         </table>
-        {{ $data->links() }}
     </div>
 @endsection
