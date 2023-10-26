@@ -36,7 +36,11 @@ class ProductController extends Controller
     public function create()
     {
         $store = Store::all();
-        return view('admin.product.create', compact('store'));
+        $categories = Category::query()->get();
+        $sizes = Size::query()->get();
+        $colors = Color::query()->get();
+        // dd($categories);
+        return view('admin.product.create', compact('store', 'categories', 'sizes', 'colors'));
     }
 
     /**
@@ -151,8 +155,16 @@ class ProductController extends Controller
     {
         //
         $data = Product::with('images')->findOrFail($id);
-        // dd($data->images);
-        return view('admin.product.edit', compact('data'));
+
+        $categories = Category::query()->latest()->get();
+        $categoryproducts = CategoryProduct::query()->where('product_id', $id)->get();
+        foreach ($categoryproducts as $categoryproduct) {
+            $categoryArray[] = $categoryproduct->product_id;
+        }
+        $categories = Category::query()->get();
+        $sizes = Size::query()->get();
+        $colors = Color::query()->get();
+        return view('admin.product.edit', compact('data', 'categories', 'categoryArray'));
     }
 
     /**
@@ -178,6 +190,8 @@ class ProductController extends Controller
                 $model->image = $request->input('currentimage');
             }
             $model->save();
+            $model->categories()->sync($request->category);
+
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $key => $image) {
                     $folder = 'images/admin/ImageProduct';

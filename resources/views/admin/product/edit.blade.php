@@ -30,26 +30,6 @@
                         <input type="text" class="form-control" id="email" placeholder="Meta title" name="price"
                             value="{{ $data->price }}">
                     </div>
-                    <div class="mb-3 mt-3">
-                        <label for="email" class="form-label">Slug:</label>
-                        <input type="text" class="form-control" id="email" placeholder=" Slug" name="slug"
-                            value="{{ $data->slug }}">
-                    </div>
-                    <div class="mb-3 mt-3">
-                        <label for="email" class="form-label">Độ dài:</label>
-                        <input type="text" class="form-control" id="email" placeholder="Đơn vị cm" name="length"
-                            value="{{ $data->length }}">
-                    </div>
-                    <div class="mb-3 mt-3">
-                        <label for="email" class="form-label">Độ rộng:</label>
-                        <input type="text" class="form-control" id="" placeholder="Đơn vị cm" name="width"
-                            value="{{ $data->width }}">
-                    </div>
-                    <div class="mb-3 mt-3">
-                        <label for="email" class="form-label">Nặng:</label>
-                        <input type="text" class="form-control" id="" placeholder="Đơn vị kg" name="weight"
-                            value="{{ $data->weight }}">
-                    </div>
 
                 </div>
                 <div class="col-md-4">
@@ -57,6 +37,28 @@
                         <label for="email" class="form-label">Description :</label>
                         <textarea type="text" class="form-control" id="email" placeholder="Enter description" name="description"> {{ $data->description }}</textarea>
                     </div>
+                    <div class="mb-3 mt-3">
+                        <div class="mb-3 mt-3">
+                            <div class="category-container">
+                                <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
+                                        style="color: #ff6666;"></i> Danh mục</label><br>
+                                @if (count($categories) > 0)
+                                    @foreach ($categories as $key => $category)
+                                        <input type="checkbox" name="category[]" value="{{ $category->id }}" id=""
+                                            {{ in_array($category->id, $categoryArray) ? 'checked' : '' }}>
+                                        {{ $category->name }} <br>
+                                    @endforeach
+                                @else
+                                    <span>Hãy thêm 1 danh mục sản phẩm!</span>
+                                @endif
+
+                            </div>
+
+                        </div>
+                    </div>
+                    @error('category.*')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     <div class="mb-3 mt-3">
                         <label for="email" class="form-label">Ảnh chính:</label>
                         <input type="file" class="form-control" name="newimage" accept="image/*" id="image-input"

@@ -8,17 +8,17 @@
     </div>
     <div>
 
-    @if(session('msg'))
-        @if(session('msg')['success'])
-            <div class="alert alert-success">{{ session('msg')['message'] }}</div>
-        @else
-            <div class="alert alert-danger">{{ session('msg')['message'] }}</div>
+        @if (session('msg'))
+            @if (session('msg')['success'])
+                <div class="alert alert-success">{{ session('msg')['message'] }}</div>
+            @else
+                <div class="alert alert-danger">{{ session('msg')['message'] }}</div>
+            @endif
         @endif
-    @endif
 
-        </div>
+    </div>
     <div class="w-80">
-        <table class="table">
+        <table id="table" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -31,33 +31,29 @@
                 </tr>
             </thead>
             <tbody>
-                @if (count($data) > 0)
-                    @foreach ($data as $value)
-                        <tr>
-                            <th scope="">{{ $value->id }}</th>
-                            <td>{{ $value->product->title }}</td>
-                            <td>{{ $value->discount }}</td>
-                            <td>{{ $value->start_date }}</td>
-                            <td>{{ $value->end_date }}</td>
-                            <td class="d-flex align-items-center">
-                                <a  class="btn btn-primary" href="{{ route('admin.sale.edit',$value->id) }}"><i class="fas fa-edit"></i></a>
-                            <form action="{{ route('admin.sale.destroy',$value->id) }}" method="POST">
+                @foreach ($data as $value)
+                    <tr>
+                        <td scope="">{{ $value->id }}</td>
+                        <td>{{ $value->product->title }}</td>
+                        <td>{{ $value->discount }}</td>
+                        <td>{{ $value->start_date }}</td>
+                        <td>{{ $value->end_date }}</td>
+                        <td class="d-flex align-items-center">
+                            <a class="btn btn-primary" href="{{ route('admin.sale.edit', $value->id) }}"><i
+                                    class="fas fa-edit"></i></a>
+                            <form action="{{ route('admin.sale.destroy', $value->id) }}" method="POST">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" onclick="return confirm('chắc chắn xóa?')" class="btn btn-danger" class="btn btn-danger"><i class="fas fa-trash-alt"></i> </button>
+                                <button type="submit" onclick="return confirm('chắc chắn xóa?')" class="btn btn-danger"
+                                    class="btn btn-danger"><i class="fas fa-trash-alt"></i> </button>
                             </form>
                         </td>
-                        </tr>
-                    @endforeach
-                @else
-                    <tr>
-                        <td colspan="5">Bạn cần mã giảm giá!</td>
                     </tr>
-                @endif
+                @endforeach
+
 
 
             </tbody>
         </table>
-        {{ $data->links() }}
     </div>
 @endsection

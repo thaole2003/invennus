@@ -17,6 +17,8 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"></script>
+    <script src="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"></script>
     <!-- Custom styles for this template-->
     <link href="{{ asset('be/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
@@ -25,57 +27,62 @@
 
 <body id="page-top">
 
-<!-- Page Wrapper -->
-<div id="wrapper">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
-    <!-- Sidebar -->
-    @include('admin.layouts.components.sidebar')
-    <!-- End of Sidebar -->
+        <!-- Sidebar -->
+        @include('admin.layouts.components.sidebar')
+        <!-- End of Sidebar -->
 
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-        <!-- Main Content -->
-        <div id="content">
+            <!-- Main Content -->
+            <div id="content">
 
-            <!-- Topbar -->
-            @include('admin.layouts.components.topbar')
-            <!-- End of Topbar -->
+                <!-- Topbar -->
+                @include('admin.layouts.components.topbar')
+                <!-- End of Topbar -->
 
-            <!-- Begin Page Content -->
-            @yield('content')
-            <!-- /.container-fluid -->
+                <!-- Begin Page Content -->
+                @yield('content')
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            @include('admin.layouts.components.footer')
+            <!-- End of Footer -->
 
         </div>
-        <!-- End of Main Content -->
-
-        <!-- Footer -->
-        @include('admin.layouts.components.footer')
-        <!-- End of Footer -->
+        <!-- End of Content Wrapper -->
 
     </div>
-    <!-- End of Content Wrapper -->
+    <!-- End of Page Wrapper -->
 
-</div>
-<!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{ asset('be/vendor/jquery/jquery.min.js') }}"></script>
 
-<!-- Bootstrap core JavaScript-->
-<script src="{{ asset('be/vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('be/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="{{ asset('be/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-<!-- Core plugin JavaScript-->
-<script src="{{ asset('be/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{{ asset('be/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
-<!-- Custom scripts for all pages-->
-<script src="{{ asset('be/js/sb-admin-2.min.js') }}"></script>
-
-@stack('scripts')
-
+    <!-- Custom scripts for all pages-->
+    <script src="{{ asset('be/js/sb-admin-2.min.js') }}"></script>
+    @stack('scripts')
+    <script>
+        new DataTable('#table');
+    </script>
 </body>
 
 </html>

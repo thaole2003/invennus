@@ -16,4 +16,6 @@ class PostCategoryPost extends Model
     {
         return $this->belongsTo(PostCategories::class, 'categorypost_id', 'id');
     }
+
+   
 }

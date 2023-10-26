@@ -8,17 +8,17 @@
     </div>
     <div>
 
-    @if(session('msg'))
-        @if(session('msg')['success'])
-            <div class="alert alert-success">{{ session('msg')['message'] }}</div>
-        @else
-            <div class="alert alert-danger">{{ session('msg')['message'] }}</div>
+        @if (session('msg'))
+            @if (session('msg')['success'])
+                <div class="alert alert-success">{{ session('msg')['message'] }}</div>
+            @else
+                <div class="alert alert-danger">{{ session('msg')['message'] }}</div>
+            @endif
         @endif
-    @endif
 
-        </div>
+    </div>
     <div class="w-80">
-        <table class="table">
+        <table id="table" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -33,37 +33,31 @@
                 </tr>
             </thead>
             <tbody>
-                @if (count($data) > 0)
-                    @foreach ($data as $value)
-                        <tr>
-                            <th scope="">{{ $value->id }}</th>
-                            <td>{{ $value->name }}</td>
-                            {{-- <td>{{ $value->description }}</td> --}}
-                            <td><img class="w-50 h-50" src="{{$value->avt ? asset($value->avt) : 'https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg' }}" alt=""></td>
-                            <td>{{ $value->email }}</td>
-                            <td>{{ $value->phone }}</td>
-                            <td>{{ $value->address }}</td>
-                            <td>{{ $value->role }}</td>
-                            <td>{{$value->store_id ? $value->store->name : ''}}</td>
-                            <td class="d-flex align-items-center">
-                                    <a  class="btn btn-primary" href="{{ route('admin.users.edit',$value->id) }}"><i class="fas fa-edit"></i></a>
-                                <form action="{{ route('admin.users.destroy',$value->id) }}" method="POST">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" onclick="return confirm('chắc chắn xóa?')" class="btn btn-danger" class="btn btn-danger"><i class="fas fa-trash-alt"></i> </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                @else
+                @foreach ($data as $value)
                     <tr>
-                        <td colspan="5">Bạn cần thêm người dùng!</td>
+                        <td scope="">{{ $value->id }}</td>
+                        <td>{{ $value->name }}</td>
+                        <td><img class="w-50 h-50"
+                                src="{{ $value->avt ? asset($value->avt) : 'https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg' }}"
+                                alt=""></td>
+                        <td>{{ $value->email }}</td>
+                        <td>{{ $value->phone }}</td>
+                        <td>{{ $value->address }}</td>
+                        <td>{{ $value->role }}</td>
+                        <td>{{ $value->store_id ? $value->store->name : '' }}</td>
+                        <td class="d-flex align-items-center">
+                            <a class="btn btn-primary" href="{{ route('admin.users.edit', $value->id) }}"><i
+                                    class="fas fa-edit"></i></a>
+                            <form action="{{ route('admin.users.destroy', $value->id) }}" method="POST">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" onclick="return confirm('chắc chắn xóa?')" class="btn btn-danger"
+                                    class="btn btn-danger"><i class="fas fa-trash-alt"></i> </button>
+                            </form>
+                        </td>
                     </tr>
-                @endif
-
-
+                @endforeach
             </tbody>
         </table>
-        {{ $data->links() }}
     </div>
 @endsection

@@ -8,17 +8,17 @@
     </div>
     <div>
 
-    @if(session('msg'))
-        @if(session('msg')['success'])
-            <div class="alert alert-success">{{ session('msg')['message'] }}</div>
-        @else
-            <div class="alert alert-danger">{{ session('msg')['message'] }}</div>
+        @if (session('msg'))
+            @if (session('msg')['success'])
+                <div class="alert alert-success">{{ session('msg')['message'] }}</div>
+            @else
+                <div class="alert alert-danger">{{ session('msg')['message'] }}</div>
+            @endif
         @endif
-    @endif
 
-        </div>
+    </div>
     <div class="w-80">
-        <table class="table">
+        <table id="table" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -28,48 +28,37 @@
                     <th scope="col">slug</th>
                     <th scope="col">Description</th>
                     <th scope="col">ảnh chính</th>
-                    <th scope="col">độ dài(cm)</th>
-                    <th scope="col">Độ rộng(cm)</th>
-                    <th scope="col">Độ nặng(kg)</th>
                     <th scope="col">Hành động</th>
                 </tr>
             </thead>
             <tbody>
-{{--            {{dd($data)}}--}}
-                @if (count($data) > 0)
-                    @foreach ($data as $value)
-                        <tr>
-                            <th scope="">{{ $value->id }}</th>
-                            <td>{{ $value->sku }}</td>
-                            <td>{{ $value->title }}</td>
-                            <td>{{ $value->metatitle }}</td>
-                            <td>{{ $value->slug }}</td>
-                            <td>{!! substr($value->description, 0, 20) !!}</td>
-                            <td><img class="w-50 h-50" src="{{ asset($value->image) }}" alt=""></td>
-                            <td>{{ $value->length }}</td>
-                            <td>{{ $value->width }}</td>
-                            <td>{{ $value->weight }}</td>
-                            <td class="d-flex align-items-center">
-                                <a  class="btn btn-primary" href="{{ route('admin.product.edit',$value->id) }}"><i class="fas fa-edit"></i></a>
-                            <form action="{{ route('admin.product.destroy',$value->id) }}" method="POST">
+                @foreach ($data as $key => $value)
+                    <tr>
+                        <td scope="">{{ $key + 1 }}</td>
+                        <td>{{ $value->sku }}</td>
+                        <td>{{ $value->title }}</td>
+                        <td>{{ $value->metatitle }}</td>
+                        <td>{{ $value->slug }}</td>
+                        <td>{{ $value->description }}</td>
+                        <td><img class="w-50 h-50" src="{{ asset($value->image) }}" alt=""></td>
+
+                        <td class="d-flex align-items-center">
+                            <a class="btn btn-primary" href="{{ route('admin.product.edit', $value->id) }}"><i
+                                    class="fas fa-edit"></i></a>
+                            <form action="{{ route('admin.product.destroy', $value->id) }}" method="POST">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" onclick="return confirm('chắc chắn xóa?')" class="btn btn-danger" class="btn btn-danger"><i class="fas fa-trash-alt"></i> </button>
+                                <button type="submit" onclick="return confirm('chắc chắn xóa?')" class="btn btn-danger"
+                                    class="btn btn-danger"><i class="fas fa-trash-alt"></i> </button>
                             </form>
-                            <a  class="btn btn-primary" href="{{ route('admin.product.show',$value->id) }}"><i class="fas fa-eye"></i></a>
+                            <a class="btn btn-primary" href="{{ route('admin.product.show', $value->id) }}"><i
+                                    class="fas fa-eye"></i></a>
 
                         </td>
-                        </tr>
-                    @endforeach
-                @else
-                    <tr>
-                        <td colspan="5">Bạn cần thêm sản phẩm!</td>
                     </tr>
-                @endif
-
-
+                @endforeach
             </tbody>
         </table>
-        {{ $data->links() }}
+        {{-- {{ $data->links() }} --}}
     </div>
 @endsection

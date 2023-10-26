@@ -20,9 +20,6 @@ return new class extends Migration
             $table->text('description');
             $table->string('price');
             $table->string('image');
-            $table->integer('length')->nullable();
-            $table->integer('width')->nullable();
-            $table->integer('weight')->nullable();
             $table->timestamps();
         });
     }
