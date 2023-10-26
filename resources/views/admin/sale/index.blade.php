@@ -51,7 +51,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="5">Bạn cần mã giảm giá!</td>
+                        <td colspan="5">Chưa có sản phẩm nào giảm giá!</td>
                     </tr>
                 @endif
 

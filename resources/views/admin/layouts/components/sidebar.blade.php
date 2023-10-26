@@ -136,7 +136,7 @@
         <a class="nav-link collapsed" href="{{ route('admin.storevariant.index') }}" data-toggle="" data-target="#"
             aria-expanded="true" aria-controls="">
             <i class="fas fa-tshirt"></i>
-            <span> QL Số lượng sản phẩm</span>
+            <span> Sản phẩm theo cửa hàng</span>
         </a>
         {{-- <div id="collapseTwo5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
@@ -149,7 +149,7 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo7"
             aria-expanded="true" aria-controls="collapseTwo7">
             <i class="fab fa-salesforce"></i>
-            <span>Quản lý giảm giá</span>
+            <span>Sản phẩm giảm giá</span>
         </a>
         <div id="collapseTwo7" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
