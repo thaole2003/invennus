@@ -45,20 +45,12 @@
                 <label for="" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
                         style="color: #ff6666;"></i> Danh mục:</label><br>
                 @if (count($category) > 0)
-                    {{-- {{ var_dump($postcategory) }} --}}
                     @foreach ($category as $value)
                         <input type="checkbox" {{ in_array($value->id, $datas) ? 'checked' : '' }} name="postCate[]"
                             value="{{ $value->id }}" id="">
                         {{ $value->name }} <br>
-
-                        {{-- {{ var_dump($datas) }}
-                        <br>{{ $value->id }}
-                        <br>{{ in_array($value->id, $datas) }} --}}
                     @endforeach
-                    {{-- @foreach ($postcategory as $data)
-                        {{ $data->post_id }}    
-                        {{ $data->categorypost_id }} 
-                    @endforeach --}}
+                  
                 @else
                     <span>Hãy thêm 1 cửa hàng!</span>
                 @endif

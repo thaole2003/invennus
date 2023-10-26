@@ -30,7 +30,6 @@ class PostController extends Controller
     public function create()
     {
         $postCate = PostCategories::all();
-
         return view('admin.post.create', compact('postCate'));
     }
 
@@ -39,11 +38,10 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
         try {
             $model = new Post();
             $model->fill($request->all());
-            // $slug = Str::slug($request->name);
+            $model->slug = Str::slug($request->name);
             // $model->user_id = ;
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
@@ -53,7 +51,6 @@ class PostController extends Controller
                 $model->image = $imageName;
             }
             $model->save();
-
             if (count($request->input('postCate'))) {
                 foreach ($request->input('postCate') as $postCate) {
                     $PostCategoryPost = new PostCategoryPost();
@@ -90,7 +87,6 @@ class PostController extends Controller
         foreach ($postcategory as $postcate) {
             $datas[] = $postcate->categorypost_id;
         }
-        // dd($postcategory);
         return view('admin.post.edit', compact('data', 'category', 'datas'));
     }
 
@@ -105,7 +101,6 @@ class PostController extends Controller
         $slug = Str::slug($request->name);
         $data->slug = $slug;
         if ($request->hasFile('newimage')) {
-
             $image = $request->file('newimage');
             $folder = 'images/categories';
             $imageName = Storage::put($folder, $image);
@@ -121,6 +116,7 @@ class PostController extends Controller
             $data->image =  $request->input('currentimage');
         }
         $data->save();
+        $data->category_posts()->sync($request->postCate);
         return to_route('admin.post.index');
     }
 

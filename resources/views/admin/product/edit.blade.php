@@ -49,7 +49,7 @@
                                         {{ $category->name }} <br>
                                     @endforeach
                                 @else
-                                    <span>Hãy thêm 1 cửa hàng!</span>
+                                    <span>Hãy thêm 1 danh mục sản phẩm!</span>
                                 @endif
 
                             </div>

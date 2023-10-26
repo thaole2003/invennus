@@ -161,7 +161,6 @@ class ProductController extends Controller
         foreach ($categoryproducts as $categoryproduct) {
             $categoryArray[] = $categoryproduct->product_id;
         }
-        // $surrounding = Surrounding::query()->latest()->get();
         $categories = Category::query()->get();
         $sizes = Size::query()->get();
         $colors = Color::query()->get();
@@ -191,6 +190,8 @@ class ProductController extends Controller
                 $model->image = $request->input('currentimage');
             }
             $model->save();
+            $model->categories()->sync($request->category);
+
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $key => $image) {
                     $folder = 'images/admin/ImageProduct';
