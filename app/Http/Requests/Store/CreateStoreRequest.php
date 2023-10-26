@@ -32,6 +32,7 @@ class CreateStoreRequest extends FormRequest
     public function messages()
     {
         return [
+
             'name.required' => 'Trường tên cửa hàng là bắt buộc.',
             'name.unique' => 'Tên cửa hàng này đã tồn tại trong hệ thống.',
             'slug.unique' => 'Slug này đã tồn tại trong hệ thống.',

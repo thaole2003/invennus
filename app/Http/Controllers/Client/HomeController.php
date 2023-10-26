@@ -122,7 +122,7 @@ class HomeController extends Controller
                 $groupbySizes[] = $size;
             }
         }
-        return view('client.products.productDetail', compact('product', 'groupbyColors', 'groupbySizes', 'stores','totalQuantity'));
+        return view('client.products.productDetail', compact('product', 'groupbyColors', 'groupbySizes', 'stores', 'totalQuantity'));
     }
 
     public function checkQuantity(Request $request)
@@ -141,8 +141,8 @@ class HomeController extends Controller
     {
         $category = $request->category_id;
         $keyword = $request->input('keyword');
-        if($keyword){
-            $products = Product::where('title', 'like', '%' . $keyword .'%')->with([
+        if ($keyword) {
+            $products = Product::where('title', 'like', '%' . $keyword . '%')->with([
                 'variants' => function ($query) {
                     $query->with('color', 'size');
                 },
@@ -151,7 +151,7 @@ class HomeController extends Controller
             ])->get();
             return view('client.search', compact('products'));
         }
-        if($category){
+        if ($category) {
             $products = Product::with([
                 'variants' => function ($query) {
                     $query->with('color', 'size');
@@ -159,14 +159,12 @@ class HomeController extends Controller
                 'images',
                 'categories',
             ])
-            ->whereHas('categories', function ($query) use ($category) {
-                $query->where('category_id', $category);
-            })
-            ->get();
-            dd($products);
+                ->whereHas('categories', function ($query) use ($category) {
+                    $query->where('category_id', $category);
+                })
+                ->get();
             return view('client.search', compact('products'));
         }
-
     }
     /**
      * Store a newly created resource in storage.

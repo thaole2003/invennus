@@ -44,39 +44,6 @@
                 @error('price')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
-                <div class="mb-3 mt-3">
-                    <label for="email" class="form-label">Slug:</label>
-                    <input type="text" class="form-control" id="email" placeholder=" Slug" name="slug"
-                        value="{{ old('slug') }}">
-                </div>
-                @error('slug')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-                <div class="mb-3 mt-3">
-                    <label for="email" class="form-label">Độ dài:</label>
-                    <input type="text" class="form-control" id="email" placeholder="Đơn vị cm" name="length"
-                        value="{{ old('length') }}">
-                </div>
-                @error('length')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-                <div class="mb-3 mt-3">
-                    <label for="email" class="form-label">Độ rộng:</label>
-                    <input type="text" class="form-control" id="" placeholder="Đơn vị cm" name="width"
-                        value="{{ old('width') }}">
-                </div>
-                @error('width')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-                <div class="mb-3 mt-3">
-                    <label for="email" class="form-label">Nặng:</label>
-                    <input type="text" class="form-control" id="" placeholder="Đơn vị kg" name="weight"
-                        value="{{ old('weight') }}">
-                </div>
-                @error('weight')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-
             </div>
             <div class="col-md-4">
                 <div class="mb-3 mt-3">
@@ -94,33 +61,55 @@
                     <div class="mb-3 mt-3">
                         <div class="category-container">
                             <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
-                                    style="color: #ff6666;"></i> Danh mục :</label><br>
-                            <input type="text" name="category[]" placeholder="Danh mục"><br>
+                                    style="color: #ff6666;"></i> Danh mục</label><br>
+                            @if (count($store) > 0)
+                                @foreach ($categories as $key => $category)
+                                    <input type="checkbox" name="category[]" value="{{ $category->id }}" id=""
+                                        {{ in_array($category->id, old('category', [])) ? 'checked' : '' }}>
+                                    {{ $category->name }} <br>
+                                @endforeach
+                            @else
+                                <span>Hãy thêm 1 cửa hàng!</span>
+                            @endif
+
                         </div>
 
-                        <label onclick="addCategoryField()">Thêm danh mục</label>
                     </div>
                 </div>
                 @error('category.*')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
-                <div class="d-flex">
+                <div class="d-flex j">
                     <div class="mb-3 mt-3">
                         <div class="size-container">
                             <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
-                                    style="color: #ff6666;"></i> Kích cỡ :</label><br>
-                            <input type="text" name="size[]" placeholder="Kích thước"><br>
+                                    style="color: #ff6666;"></i>Kích cỡ</label><br>
+                            @if (count($sizes) > 0)
+                                @foreach ($sizes as $key => $size)
+                                    <input type="checkbox" name="size[]" value="{{ $size->id }}" id=""
+                                        {{ in_array($size->id, old('size', [])) ? 'checked' : '' }}>
+                                    {{ $size->name }} <br>
+                                @endforeach
+                            @else
+                                <span>Hãy thêm 1 cửa hàng!</span>
+                            @endif
                         </div>
-                        <label onclick="addSizeField()">Thêm Kích thước</label>
                     </div>
 
                     <div class="mb-3 mt-3">
                         <div class="color-container">
                             <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
-                                    style="color: #ff6666;"></i> Màu :</label><br>
-                            <input type="text" name="color[]" placeholder="Màu sắc">
+                                    style="color: #ff6666;"></i>Màu sắc</label><br>
+                            @if (count($colors) > 0)
+                                @foreach ($colors as $key => $color)
+                                    <input type="checkbox" name="color[]" value="{{ $color->id }}" id=""
+                                        {{ in_array($color->id, old('color', [])) ? 'checked' : '' }}>
+                                    {{ $color->name }} <br>
+                                @endforeach
+                            @else
+                                <span>Hãy thêm 1 cửa hàng!</span>
+                            @endif
                         </div>
-                        <label onclick="addColorField()">Thêm Màu</label>
                     </div>
 
                 </div>
@@ -135,7 +124,8 @@
                             style="color: #ff6666;"></i> Cửa hàng có:</label><br>
                     @if (count($store) > 0)
                         @foreach ($store as $key => $value)
-                            <input type="checkbox" name="store_id[]" value="{{ $value->id }}" id="">
+                            <input type="checkbox" name="store_id[]" value="{{ $value->id }}" id=""
+                                {{ in_array($value->id, old('store_id', [])) ? 'checked' : '' }}>
                             {{ $value->name }} <br>
                         @endforeach
                     @else
