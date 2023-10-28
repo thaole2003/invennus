@@ -71,7 +71,6 @@
                             @else
                                 <span>Hãy thêm 1 cửa hàng!</span>
                             @endif
-
                         </div>
 
                     </div>
