@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\BillController as AdminBillController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\ImageController;
+use App\Http\Controllers\admin\InventoryEntryController;
 use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductController;
@@ -44,6 +45,10 @@ Auth::routes();
 Route::get('/dashboard', function () {
     return view('admin.thongke.charts');
 });
+// Route::get('/InventoryEntry', function () {
+//     return view('admin.InventoryEntry.index');
+// });
+Route::get('/InventoryEntry', [InventoryEntryController::class, 'index'])->name('InventoryEntry');
 
 
 Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(function () {
