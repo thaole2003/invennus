@@ -147,6 +147,8 @@ class HomeController extends Controller
     {
         $category = $request->category_id;
         $keyword = $request->input('keyword');
+
+
         if ($keyword) {
             $products = Product::where('title', 'like', '%' . $keyword . '%')->with([
                 'variants' => function ($query) {
@@ -171,6 +173,20 @@ class HomeController extends Controller
                 ->get();
             return view('client.search', compact('products'));
         }
+    }
+
+    public function allProduct(Request $request)
+    {
+        $product = Product::with([
+            'variants' => function ($query) {
+                $query->with('color', 'size');
+            },
+            'images',
+            'categories',
+        ]);
+        $products = $product->get();
+        // dd($products);
+        return view('client.search', compact('products'));
     }
     /**
      * Store a newly created resource in storage.
