@@ -73,7 +73,7 @@ Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(fu
     Route::put('editprice/{id}', [ProductController::class, 'updateprice'])->name('variant.editprice');
     Route::put('updatequantitystock/{id}', [ProductController::class, 'updatequantitystock'])->name('variant.updatequantitystock');
     Route::prefix('bill')->name('bill.')->group(function () {
-        Route::get('/detail', [AdminBillController::class, 'index'])->name('detail');
+        Route::get('/', [AdminBillController::class, 'index'])->name('detail');
         Route::get('/product/{id}', [AdminBillController::class, 'show'])->name('product');
     });
 });

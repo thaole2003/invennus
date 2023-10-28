@@ -1,6 +1,9 @@
 @extends('client.layouts.master')
 
 @section('content')
+@php
+$currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
+@endphp
     <!-- Start Cart Area -->
     <section class="cart-area ptb-60" style="margin-top: 100px">
         <div class="container">
@@ -32,25 +35,30 @@
                                             <input type="hidden" id="product" value="{{ $value->ProductVariant->id }}">
                                             <td class="product-thumbnail">
                                                 <a href="#">
-                                                    <img src="{{ asset($value->ProductVariant->product->image) }}" alt="item">
+                                                    <img style="width:80px;height:80px" src="{{ asset($value->ProductVariant->product->image) }}" alt="item">
                                                 </a>
                                             </td>
 
                                             <td class="product-name">
                                                 <a href="#">{{ $value->ProductVariant->product->title }}</a>
                                                 <ul>
-                                                    <li>Color: <strong>{{ $value->ProductVariant->color->name }}</strong>
+                                                    <li>Màu: <strong>{{ $value->ProductVariant->color->name }}</strong>
                                                     </li>
-                                                    <li>Size: <strong>{{ $value->ProductVariant->size->name }}</strong></li>
-                                                    <li>Material: <strong>Cotton</strong></li>
+                                                    <li>Kích cỡ: <strong>{{ $value->ProductVariant->size->name }}</strong></li>
                                                 </ul>
                                             </td>
 
                                             <td class="product-price">
-                                                <span class="unit-amount">{{ number_format($value->ProductVariant->price) }}
-                                                    vnd</span>
+                                                <span class="unit-amount">
+                                                    @if ($value->ProductVariant->product->sales && $value->ProductVariant->product->sales && $value->ProductVariant->product->sales->start_date <= $currentDateTime && $value->ProductVariant->product->sales->end_date >= $currentDateTime)
+                                                        <p style="text-decoration: line-through;">{{ number_format($value->ProductVariant->price) }} VND</p>
+                                                        {{ number_format(max($value->ProductVariant->price - $value->ProductVariant->product->sales->discount, 0)) }} VND
+                                                    @else
+                                                        {{ number_format($value->ProductVariant->price) }} VND
+                                                    @endif
+                                                </span>
                                                 <input type="hidden" id="price"
-                                                    value="{{ number_format($value->ProductVariant->price) }}" vnd>
+                                                    value="{{ $value->ProductVariant->price  }}" >
                                             </td>
 
                                             <td class="product-quantity">
@@ -65,9 +73,18 @@
                                         </form>
 
                                         <td class="product-subtotal">
-                                            <span
-                                                class="subtotal-amount">{{ number_format($value->quantity * $value->ProductVariant->price) }}
-                                                vnd</span>
+                                            <span class="subtotal-amount">
+
+                                                @if ($value->ProductVariant->product->sales &&
+                                                 $value->ProductVariant->product->sales &&
+                                                 $value->ProductVariant->product->sales->start_date <= $currentDateTime &&
+                                                  $value->ProductVariant->product->sales->end_date >= $currentDateTime)
+                                                        {{ number_format(max($value->quantity * ($value->ProductVariant->price - $value->ProductVariant->product->sales->discount), 0)) }} VND
+                                                @else
+                                                    {{ number_format($value->quantity * $value->ProductVariant->price) }} VND
+                                                @endif
+                                            </span>
+
 
                                         </td>
                                         <td>
@@ -79,7 +96,12 @@
                                             </form>
                                         </td>
                                         <div class="d-none">
+                                            @if ($value->ProductVariant->product->sales)
+                                            {{ $sumTotal += $value->quantity * max(($value->ProductVariant->price - $value->ProductVariant->product->sales->discount),0) }}   </div>                                     </div>
+                                        @else
                                             {{ $sumTotal += $value->quantity * $value->ProductVariant->price }}</div>
+                                        @endif
+                                        </div>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -100,7 +122,7 @@
 
                         <ul>
                             <li>Tổng tiền<span>{{ number_format($sumTotal) }} vnd</span></li>
-                            <li>Phí vận chuyển <span>0</span></li>
+                            <li>Phí vận chuyển <span>N/A</span></li>
                             <li>Thành tiền <span><b>{{ number_format($sumTotal) }} vnd</b></span></li>
                         </ul>
                         <a href="{{ route('cart.checkout') }}" class="btn btn-light">Tiếp tục</a>

@@ -23,7 +23,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Tên sản phẩm</th>
-                    <th scope="col">% Giảm</th>
+                    <th scope="col">Tiền giảm</th>
                     <th scope="col">Ngày bắt đầu</th>
                     <th scope="col">Ngày kết thúc</th>
                     <th scope="col">Hành động</th>
@@ -35,10 +35,10 @@
                     <tr>
                         <td scope="">{{ $value->id }}</td>
                         <td>{{ $value->product->title }}</td>
-                        <td>{{ $value->discount }}</td>
+                        <td>{{ number_format($value->discount) }} VND</td>
                         <td>{{ $value->start_date }}</td>
                         <td>{{ $value->end_date }}</td>
-                        <td class="d-flex align-items-center">
+                        <td style="gap: 0.5rem;" class="d-flex align-items-center">
                             <a class="btn btn-primary" href="{{ route('admin.sale.edit', $value->id) }}"><i
                                     class="fas fa-edit"></i></a>
                             <form action="{{ route('admin.sale.destroy', $value->id) }}" method="POST">

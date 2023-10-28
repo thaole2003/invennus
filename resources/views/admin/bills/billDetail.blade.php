@@ -4,10 +4,10 @@
 @endsection
 @section('content')
     <div class="m-10">
-        <h1 class="text-center">Danh sách sản phẩm</h1>
+        <h1 class="text-center">Danh sách đơn hàng</h1>
     </div>
     <div>
-        {{-- 
+        {{--
     @if (session('msg'))
         @if (session('msg')['success'])
             <div class="alert alert-success">{{ session('msg')['message'] }}</div>
@@ -22,13 +22,14 @@
             <thead>
                 <tr>
                     <th scope="col">Mã</th>
-                    <th scope="col">Name</th>
+                    <th scope="col">Khách hàng</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Payments Method</th>
-                    <th scope="col">Order Created Date</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Phương thức thanh toán</th>
+                    <th scope="col">Tổng tiền</th>
+                    <th scope="col">Ngày đặt</th>
                     <th></th>
                 </tr>
             </thead>
@@ -42,10 +43,10 @@
                         <td>{{ $value->phone }}</td>
                         <td>{{ $value->status }}</td>
                         <td>{{ $value->pay_method }}</td>
+                        <td>{{ number_format($value->total_price)  }} VND</td>
                         <td>{{ $value->created_at->format('d-m-Y') }}</td>
                         <td class="d-flex align-items-center">
-                            <a href="{{ route('admin.bill.product', $value->id) }}" class="remove border-0 bg-light"><i
-                                    class="far fa-trash-alt"></i></a>
+                            <a href="{{ route('admin.bill.product', $value->id) }}" class=""><i class="fas fa-eye"></i></a>
                         </td>
                     </tr>
                 @endforeach

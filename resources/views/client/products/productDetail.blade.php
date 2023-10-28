@@ -7,7 +7,7 @@
         <div class="page-title-area">
             <div class="container">
                 <ul>
-                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Trang chủ</a></li>
                     <li>{{ $product->title }}</li>
                 </ul>
             </div>
@@ -18,27 +18,22 @@
         <section class="products-details-area ptb-60">
             <div class="container">
                 <div class="row">
-                    {{-- @foreach ($product as $item) --}}
+                    <input type="hidden" id="product_id" value="{{ $product->id }}">
                     <div class="col-lg-8 col-md-12">
                         <div class="row">
                             <div class="col-lg-6 col-md-6">
                                 <div class="products-page-gallery">
                                     <div class="product-page-gallery-main">
-                                        <input type="hidden" id="product_id" value="{{ $product->id }}">
-
                                         @foreach ($product->images as $value)
                                             <div class="item">
-                                                <img src="{{ asset($value->image) }}" alt="image">
+                                                <img style="width:416px;height:508px" src="{{ asset($value->image)}}" alt="image">
                                             </div>
                                         @endforeach
-
                                     </div>
-
                                     <div class="product-page-gallery-preview">
-
                                         @foreach ($product->images as $value)
                                             <div class="item">
-                                                <img src="{{ asset($value->image) }}" alt="image">
+                                                <img  style="width:76px;height:92px" src="{{ asset($value->image) }}" alt="image">
                                             </div>
                                         @endforeach
                                     </div>
@@ -50,15 +45,8 @@
                                     <h3>{{ $product->title }}</h3>
 
                                     <div class="price">
-                                        <span id="newPrice" class="new-price">${{ $product->price }}</span>
+                                        <span id="newPrice" class="new-price">{{number_format( $product->price )}} VND</span>
                                     </div>
-                                    {{-- @foreach ($product->variants as $item)
-                                        @if ($item->storeVariant->quantity > 0)
-                                            <div>{{ $item->storeVariant->store->name }}</div>
-                                            <input type="hidden" id="storevariant_id"
-                                                value="{{ $item->storeVariant->id }}">
-                                        @endif
-                                    @endforeach --}}
                                     <ul class="product-info">
                                         <li><span>Vendor:</span> <a href="#">Lereve</a></li>
                                         <li><span>Sản phẩm:</span> <a href="#">Trong kho ({{ $totalQuantity }} sản
@@ -119,28 +107,13 @@
                                                 class="form-control text-center qty-input" value="1" step="1">
                                             <span class="plus-btn increment-btn"><i class="fas fa-plus"></i></span>
                                         </div>
-
-                                        <button type="submit" data-prod-var="" id="addtocart" class="btn btn-primary"><i
-                                                class="fas fa-cart-plus"></i> Thêm vào giỏ hàng</button>
                                     </div>
-                                    {{-- <div id="addtocart" class="btn">Add to cart</div> --}}
-
                                     <div class="buy-checkbox-btn">
                                         <div class="item">
-                                            <input class="inp-cbx" id="cbx" type="checkbox">
-                                            <label class="cbx" for="cbx">
-                                                <span>
-                                                    <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                                                    </svg>
-                                                </span>
-                                                <span>I agree with the terms and conditions</span>
-                                            </label>
+                                            <button type="submit" data-prod-var="" id="addtocart" class="btn btn-primary"><i
+                                                class="fas fa-cart-plus"></i> Thêm vào giỏ hàng</button>
                                         </div>
 
-                                        <div class="item">
-                                            <a href="#" class="btn btn-primary">Buy it now!</a>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -198,24 +171,11 @@
                                                                             @endforeach
                                                                         </td>
                                                                     </tr>
-                                                                    <tr>
-                                                                        <td>Dài:</td>
-                                                                        <td>{{ $product->length }}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Rộng</td>
-                                                                        <td>{{ $product->width }}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Nặng</td>
-                                                                        <td>{{ $product->weight }}</td>
-                                                                    </tr>
                                                                 </tbody>
                                                             </table>
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="tabs_item">
                                                     <div class="products-details-tab-content">
                                                         <div class="product-review-form">
@@ -428,11 +388,13 @@
 
                         <div class="product-single-aside">
                             <div>
-                                <h3>cửa hàng còn sản phẩm</h3>
+                                <h3>Sản phẩm có sẵn tại : </h3>
+                                <hr>
                             </div>
                             @if (count($stores) > 0)
                                 @foreach ($stores as $store)
                                     <h4>{{ $store->name }}</h4>
+                                    <hr>
                                 @endforeach
                             @endif
                             <div>
@@ -440,51 +402,30 @@
                             </div>
                             <div class="services-aside">
                                 <div class="facility-block">
-                                    <h3><i class="fas fa-plane"></i> Delivery</h3>
+                                    <h3><i class="fas fa-plane"></i>Miễn phí vận chuyển</h3>
 
-                                    <p>Free shipping on orders over $100.</p>
+                                    <p>Với đơn hàng trên 599.000 VND.</p>
                                 </div>
 
                                 <div class="facility-block">
-                                    <h3><i class="fas fa-headset"></i> Support 24/7</h3>
+                                    <h3><i class="fas fa-headset"></i>Hỗ trợ 24/7</h3>
 
-                                    <p>Contact us 24 hours a day, 7 days a week.</p>
+                                    <p>Liên hệ với chúng tôi.</p>
                                 </div>
 
                                 <div class="facility-block">
-                                    <h3><i class="fas fa-exchange-alt"></i> Return</h3>
+                                    <h3><i class="fas fa-exchange-alt"></i> Miễn phí đổi hàng</h3>
 
-                                    <p>Simply return it within 30 days for an exchange.</p>
-                                </div>
-                            </div>
-
-                            <div class="products-payments-info">
-                                <span>Guaranteed safe checkout</span>
-
-                                <div class="payments-type">
-                                    <a href="#"><img src="{{ asset('fe/assets/img/payment-image/1.svg') }}"
-                                            alt="image"></a>
-                                    <a href="#"><img src="{{ asset('fe/assets/img/payment-image/2.svg') }}"
-                                            alt="image"></a>
-                                    <a href="#"><img src="{{ asset('fe/assets/img/payment-image/3.svg') }}"
-                                            alt="image"></a>
-                                    <a href="#"><img src="{{ asset('fe/assets/img/payment-image/4.svg') }}"
-                                            alt="image"></a>
-                                    <a href="#"><img src="{{ asset('fe/assets/img/payment-image/5.svg') }}"
-                                            alt="image"></a>
-                                    <a href="#"><img src="{{ asset('fe/assets/img/payment-image/6.svg') }}"
-                                            alt="image"></a>
-                                    <a href="#"><img src="{{ asset('fe/assets/img/payment-image/7.svg') }}"
-                                            alt="image"></a>
+                                    <p>Trong 30 ngày kể từ ngày mua..</p>
                                 </div>
                             </div>
 
                             <div class="aside-trending-products">
-                                <img src="{{ asset('fe/assets/img/bestseller-hover-img1.jpg') }}" alt="image">
+                                <img src="https://scontent.fhan5-6.fna.fbcdn.net/v/t39.30808-6/342223368_162825819755433_5695418889023791058_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=5f2048&_nc_ohc=JKuuALvhb3EAX_tqpFK&_nc_ht=scontent.fhan5-6.fna&oh=00_AfAovCl_7qNpZ5fRd09dpzzgZ4K_63GsE62DD5FEKal5uw&oe=6540A2A3" alt="image">
 
                                 <div class="category">
-                                    <h4>Top Trending</h4>
-                                    <span>Spring/Summer 2018 Collection</span>
+                                    <h4>Có thể bạn quan tâm</h4>
+                                    <span>Cho quảng cáo</span>
                                 </div>
 
                                 <a href="#"></a>

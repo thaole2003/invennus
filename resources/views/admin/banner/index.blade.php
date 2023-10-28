@@ -35,14 +35,17 @@
                 @foreach ($data as $key => $value)
                     <tr>
                         <td scope="">{{ $key + 1 }}</td>
+                        <td>{{ $value->meta_title }}</td>
                         <td>{{ $value->title }}</td>
-                        <td><img class="" src="{{ asset($value->image) }}" alt="" width="300px"
+                        <td>{!! substr($value->description, 0, 20) !!}</td>
+                        <td>{{ $value->link }}</td>
+                        <td><img style="width:150px;height:80px" src="{{ asset($value->image) }}" alt="" width="300px"
                                 height="150px"></td>
                         <td>{!! $value->is_active == 1
                             ? '<button class="btn btn-success">Kích hoạt</button>'
                             : '<button class="btn btn-danger">Chưa kích hoạt</button>' !!}
                         </td>
-                        <td class="d-flex align-items-center">
+                        <td class="d-flex align-items-center " style="gap: 0.5rem;">
                             <a class="btn btn-primary" href="{{ route('admin.banner.edit', $value->id) }}"><i
                                     class="fas fa-edit"></i></a>
                             <form action="{{ route('admin.banner.destroy', $value->id) }}" method="POST">
