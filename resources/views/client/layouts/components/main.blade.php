@@ -24,22 +24,6 @@
                 </div>
             </div>
         @endforeach
-
-        {{--
-        <div class="banner-section item-bg6 jarallax" data-jarallax='{"speed": 0.3}'>
-            <div class="d-table">
-                <div class="d-table-cell">
-                    <div class="container">
-                        <div class="banner-content">
-                            <span class="sub-title">Limited Time Offer!</span>
-                            <h1>Clothing Made for You!</h1>
-                            <p>Take 20% Off ‘Sale Must-Haves'</p>
-                            <a href="#" class="btn btn-primary">Shop Men's</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
     </div>
     <section class="facility-area black-bg">
         <div class="container">
@@ -64,8 +48,6 @@
 
                     </div>
                 </div>
-
-
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="facility-box">
                         <div class="icon">
@@ -98,8 +80,8 @@
                 @if (count($category) > 0)
                     @foreach ($category as $item)
                         <div class="col-lg-3 col-sm-6 col-md-6">
-                            <div class="single-category-boxes w-100">
-                                <img class="" style="width:430px;height:350px"
+                            <div style="position: relative" class="single-category-boxes w-100">
+                                <img class="" style="width:100%;height:350px"
                                     src="{{ $item->image ? asset($item->image) : asset('fe/assets/img/category-products-img5.jpg') }}"
                                     alt="image">
 
@@ -109,7 +91,7 @@
                                 @csrf
                                 @method('post')
                                 <input type="" hidden name="category_id" value="{{ $item->id }}">
-                                <button class="shop-now-btn" style="border-radius:15px;margin-bottom:10px;margin-right:10px;">Xem ngay</button>
+                                <button class="shop-now-btn" style="border-radius:15px;position: absolute; bottom:10px;right:10px">Xem ngay</button>
                             </form>
                                 <a href="#" class="link-btn"></a>
                             </div>
@@ -169,29 +151,31 @@
                                                     <li><a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
                                                             data-tooltip="tooltip" data-placement="left"
                                                             title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                    {{-- <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                            title="Add to Compare"><i class="fas fa-sync"></i></a></li> --}}
                                                 </ul>
                                             </div>
-
                                             <div class="product-content">
                                                 <h3><a
                                                         href="{{ route('product.detail', $product->id) }}">{{ $product->title }}</a>
                                                 </h3>
-
-                                                <div class="product-price">
-                                                    <span class="new-price">${{ $product->price }}</span>
+                                                <div style="height: 50px" class="product-price">
+                                                    @if ($product->sales)
+                                                        @php
+                                                            $discountedPrice = $product->price - $product->sales->discount;
+                                                            $discountedPrice = max($discountedPrice, 0);
+                                                        @endphp
+                                                        <span style="text-decoration: line-through; " class="old-price">{{ number_format($product->price) }} VND</span><br>
+                                                        <span style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;" class="new-price">{{ number_format($discountedPrice) }} VND</span>
+                                                    @else
+                                                        <span style="" class="">{{ $product->metatitle}}</span><br>
+                                                        <span style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;" class="new-price">{{ number_format($product->price) }} VND</span>
+                                                    @endif
                                                 </div>
                                                 <a href="{{ route('product.detail', $product->id) }}" class="btn btn-light">Xem chi tiết</a>
                                             </div>
                                         </div>
                                     @endforeach
-
-
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -352,7 +336,7 @@
     <!-- End Partner Area -->
 
     <!-- Start Subscribe Area -->
-    <section class="subscribe-area ptb-60">
+    {{-- <section class="subscribe-area ptb-60">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
@@ -372,7 +356,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- End Subscribe Area -->
 
     <!-- Start Instagram Area -->

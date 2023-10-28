@@ -11,19 +11,11 @@
         @method('post')
         <div class="w-50 mx-auto border bg-light rounded h-100 p-4 mt-5">
             <div class="mb-3 mt-3">
-                <label for="" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Name:</label>
-                <input type="text" class="form-control" id="" placeholder="Enter name" name="name"
+                <label for="" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i>Tên :</label>
+                <input type="text" class="form-control" id="" placeholder="Nhập tên" name="name"
                     value="{{ old('name') }}">
             </div>
             @error('name')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-            <div class="mb-3 mt-3">
-                <label for="" class="form-label">Slug:</label>
-                <input type="text" class="form-control" id="" value="" placeholder="Enter slug" name="slug"
-                    value="{{ old('slug') }}">
-            </div>
-            @error('slug')
             <span class="text-danger">{{$message}}</span>
             @enderror
             <div class="mb-3 mt-3">
@@ -35,7 +27,7 @@
             @enderror
             <div class="mb-3 mt-3">
                 <label for="" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Địa chỉ:</label>
-                <input type="text" class="form-control" id="" placeholder="Enter address" name="address"
+                <input type="text" class="form-control" id="" placeholder="Nhập địa chỉ" name="address"
                     value="{{ old('address') }}">
             </div>
             @error('address')
@@ -43,7 +35,7 @@
             @enderror
             <div class="mb-3 mt-3">
                 <label for="" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Số điện thoại:</label>
-                <input type="text" class="form-control" id="" placeholder="Enter phone" name="phone"
+                <input type="text" class="form-control" id="" placeholder="Nhập số điện thoại" name="phone"
                     value="{{ old('phone') }}">
             </div>
             @error('phone')
@@ -51,22 +43,12 @@
             @enderror
             <div class="mb-3 mt-3">
                 <label for="" class="form-label"> <i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Email:</label>
-                <input type="email" class="form-control" id="" placeholder="Enter email" name="email"
+                <input type="email" class="form-control" id="" placeholder="Nhập email" name="email"
                     value="{{ old('email') }}">
             </div>
             @error('email')
             <span class="text-danger">{{$message}}</span>
             @enderror
-            <div class="mb-3 mt-3">
-                <label for="" class="form-label">Website:</label>
-                <input type="text" class="form-control" id="" placeholder="Enter website" name="website"
-                    value="{{ old('website') }}">
-            </div>
-            @error('website')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-
-
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>

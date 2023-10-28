@@ -38,7 +38,7 @@
                         <td>{{ $value->phone }}</td>
                         <td>{{ $value->email }}</td>
 
-                        <td class="d-flex align-items-center">
+                        <td style="gap: 0.5rem;" class="d-flex align-items-center">
                             <a class="btn btn-primary" href="{{ route('admin.vendors.edit', $value->id) }}"><i
                                     class="fas fa-edit"></i></a>
                             <form action="{{ route('admin.vendors.destroy', $value->id) }}" method="POST">

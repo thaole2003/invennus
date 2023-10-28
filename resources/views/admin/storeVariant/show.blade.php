@@ -16,7 +16,7 @@
                     <th scope="col">Màu</th>
                     <th scope="col">Kích cỡ</th>
                     <th scope="col">Giá tiền</th>
-                    <th scope="col">So luong</th>
+                    <th scope="col">Số lượng</th>
 
                 </tr>
             </thead>
@@ -29,7 +29,7 @@
                             <td>{{ $value->variant->color->name }}</td>
                             <td>{{ $value->variant->size->name }}</td>
                            <td>
-                            {{ $value->variant->price }} $
+                            {{ number_format($value->variant->price )}} VND
                            </td>
 
                             <td class="d-flex align-items-center">

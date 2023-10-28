@@ -17,19 +17,18 @@
         @endif
 
     </div>
-    <div class="w-80">
+    <div class="w-80 ">
         <table id="table" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Tên</th>
-                    <th scope="col">Slug</th>
-                    <th scope="col">Desc</th>
+                    <th scope="col">Cửa hàng</th>
+                    <th scope="col">Mô tả</th>
                     <th scope="col">Địa chỉ</th>
                     <th scope="col">Số điện thoại</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Website</th>
                     <th scope="col">Hoạt động</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -38,14 +37,11 @@
                     <tr>
                         <td scope="">{{ $key + 1 }}</td>
                         <td>{{ $value->name }}</td>
-                        <td>{{ $value->slug }}</td>
                         <td>{{ $value->description }}</td>
                         <td>{{ $value->address }}</td>
                         <td>{{ $value->phone }}</td>
                         <td>{{ $value->email }}</td>
-                        <td>{{ $value->website }}</td>
-
-                        <td class="d-flex align-items-center">
+                        <td class="d-flex align-items-center" style="gap: 0.5rem;">
                             <a class="btn btn-primary" href="{{ route('admin.store.edit', $value->id) }}"><i
                                     class="fas fa-edit"></i></a>
                             <form action="{{ route('admin.store.destroy', $value->id) }}" method="POST">
@@ -55,7 +51,7 @@
                                     class="btn btn-danger"><i class="fas fa-trash-alt"></i> </button>
                             </form>
                         </td>
-                        <td><a href="{{ route('admin.storevariant.show', $value->id) }}">xem sản phẩm</a></td>
+                        <td><a href="{{ route('admin.storevariant.show', $value->id) }}">Xem sản phẩm</a></td>
                     </tr>
                 @endforeach
 

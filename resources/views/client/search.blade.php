@@ -1,7 +1,9 @@
 @extends('client.layouts.master')
 @section('content')
     <div class="container mx-6" style="margin-top: 120px">
-
+        @php
+        $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
+        @endphp
         <!-- Start Page Title Area -->
         <div class="page-title-area">
             <div class="container">
@@ -19,7 +21,7 @@
 
                     @foreach ($products as $product)
                         <div class="col-lg-3 col-md-12">
-                            
+
                                     {{-- <div class="all-products-slides-two owl-carousel owl-theme"> --}}
                                         <div class="single-product-box">
                                             <div class="product-image">
@@ -47,9 +49,20 @@
                                                 <h3><a
                                                         href="{{ route('product.detail', $product->id) }}">{{ $product->title }}</a>
                                                 </h3>
-
-                                                <div class="product-price">
-                                                    <span class="new-price">${{ $product->price }}</span>
+                                                <div style="height: 50px" class="product-price">
+                                                    @php
+                                                    $discountedPrice = $product->price - $product->sales->discount;
+                                                    $discountedPrice = max($discountedPrice, 0);
+                                                @endphp
+                                                    @if ($product->sales &&
+                                                    $product->sales->start_date <= $currentDateTime &&
+                                                     $product->sales->end_date >= $currentDateTime)
+                                                        <span style="text-decoration: line-through; " class="old-price">{{ number_format($product->price) }} VND</span><br>
+                                                        <span style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;" class="new-price">{{ number_format($discountedPrice) }} VND</span>
+                                                    @else
+                                                    <span style="" class="">{{ $product->metatitle}}</span><br>
+                                                        <span style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;" class="new-price">{{ number_format($product->price) }} VND</span>
+                                                    @endif
                                                 </div>
                                                 <a href="{{ route('product.detail', $product->id) }}"
                                                     class="btn btn-light">Xem chi tiết</a>
@@ -57,7 +70,7 @@
                                         </div>
                                     {{-- </div> --}}
                                 </div>
-                    
+
                     @endforeach
 
 

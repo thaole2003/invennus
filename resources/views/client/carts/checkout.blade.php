@@ -1,13 +1,15 @@
 @extends('client.layouts.master')
 
 @section('content')
+    @php
+    $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
+    @endphp
     <section class="checkout-area ptb-60">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="user-actions">
                         <i class="fas fa-sign-in-alt"></i>
-                        <span>Returning customer? <a href="#">Click here to login</a></span>
                     </div>
                 </div>
             </div>
@@ -26,6 +28,9 @@
                                         <label>Họ tên người nhận <span class="required">*</span></label>
                                         <input name="name" value="{{ auth()->user()->name }}" type="text"
                                             class="form-control">
+                                            @error('name')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                     </div>
                                 </div>
 
@@ -34,14 +39,20 @@
                                         <label>Địa chỉ <span class="required">*</span></label>
                                         <input name="address" type="text" value="{{ auth()->user()->address }}"
                                             class="form-control">
+                                            @error('address')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6 col-md-6">
                                     <div class="form-group">
-                                        <label>Email Address <span class="required">*</span></label>
+                                        <label>Địa chỉ email <span class="required">*</span></label>
                                         <input name="email" type="email" value="{{ auth()->user()->email }}"
                                             class="form-control">
+                                            @error('email')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                     </div>
                                 </div>
 
@@ -50,6 +61,9 @@
                                         <label>Phone <span class="required">*</span></label>
                                         <input name="phone" type="text" value="{{ auth()->user()->phone }}"
                                             class="form-control">
+                                            @error('phone')
+                                            <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
@@ -64,7 +78,7 @@
 
                     <div class="col-lg-6 col-md-12">
                         <div class="order-details">
-                            <h3 class="title">Your Order</h3>
+                            <h3 class="title">Đơn của bạn</h3>
 
                             <div class="order-table table-responsive">
                                 <table class="table table-bordered">
@@ -86,7 +100,16 @@
 
                                                 <td class="product-total">
                                                     <span
-                                                        class="subtotal-amount">{{ number_format($subtotal = $value->quantity * $value->ProductVariant->price) }}</span>
+                                                        class="subtotal-amount">
+                                                        @if ($value->ProductVariant->product->sales &&
+                                                        $value->ProductVariant->product->sales &&
+                                                        $value->ProductVariant->product->sales->start_date <= $currentDateTime &&
+                                                         $value->ProductVariant->product->sales->end_date >= $currentDateTime)
+                                                        {{ number_format($subtotal=max($value->quantity * ($value->ProductVariant->price - $value->ProductVariant->product->sales->discount), 0)) }} VND
+                                                        @else
+                                                            {{ number_format($subtotal=$value->quantity * $value->ProductVariant->price) }} VND
+                                                        @endif
+                                                    </span>
                                                 </td>
                                             </tr>
                                             <div class="d-none">
@@ -96,7 +119,7 @@
                                         @endforeach
 
                                         <td class="order-subtotal">
-                                            <span>Cart Subtotal</span>
+                                            <span>Tạm tính</span>
                                         </td>
 
                                         <td class="order-subtotal-price">
@@ -105,22 +128,22 @@
                                         </tr>
                                         <tr>
                                             <td class="order-shipping">
-                                                <span>Shipping</span>
+                                                <span>Vận chuyển</span>
                                             </td>
 
                                             <td class="shipping-price">
-                                                <span>{{ $ship = 0 }}</span>
+                                                <span>N/A</span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="total-price">
-                                                <span>Tổng tiền</span>
+                                                <span>Thành tiền</span>
                                             </td>
 
                                             <td class="product-subtotal">
                                                 <span
-                                                    class="subtotal-amount">{{ number_format($totalAmount + $ship) }}</span>
-                                                <input type="text" name="total_price" value="{{ $totalAmount + $ship }}"
+                                                    class="subtotal-amount">{{ number_format($totalAmount) }}</span>
+                                                <input type="text" name="total_price" value="{{ $totalAmount }}"
                                                     hidden>
                                             </td>
                                         </tr>
@@ -141,7 +164,7 @@
 
                             </div>
 
-                            <button href="#" class="btn btn-primary order-btn">Place Order</button>
+                            <button href="#" class="btn btn-primary order-btn">Đặt hàng</button>
                         </div>
                     </div>
                 </div>

@@ -34,10 +34,11 @@
                     <tr>
                         <td scope="">{{ $value->id }}</td>
                         <td>{{ $value->name }}</td>
+                        <td>{{ $value->products_count. ' sản phẩm' }}</td>
                         <td>{{ $value->slug }}</td>
                         <td><img class="" src="{{ asset($value->image) }}" alt=""
                                 style="width: 80px;height: 80px"></td>
-                        <td class="d-flex align-items-center">
+                        <td style="gap: 0.5rem;" class="d-flex align-items-center">
                             <a class="btn btn-primary" href="{{ route('admin.category.edit', $value->id) }}"><i
                                     class="fas fa-edit"></i></a>
                             <form action="{{ route('admin.category.destroy', $value->id) }}" method="POST">

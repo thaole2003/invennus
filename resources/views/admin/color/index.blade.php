@@ -23,7 +23,6 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Tên màu</th>
-                    <th scope="col">Mã màu</th>
                     <th scope="col">Hoạt động</th>
                 </tr>
             </thead>
@@ -32,11 +31,7 @@
                     <tr>
                         <td scope="">{{ $key + 1 }}</td>
                         <td>{{ $value->name }}</td>
-                        <td>
-                            <div class="" style="width: 50px; height:50px; background-color:{{ $value->code }}">
-                            </div>
-                        </td>
-                        <td class="d-flex align-items-center">
+                        <td style="gap: 0.5rem;" class="d-flex align-items-center">
                             <a class="btn btn-primary" href="{{ route('admin.color.edit', $value->id) }}"><i
                                     class="fas fa-edit"></i></a>
                             <form action="{{ route('admin.color.destroy', $value->id) }}" method="POST">

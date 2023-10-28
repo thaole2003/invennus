@@ -3,9 +3,9 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href>
         <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
+            <img style="width:50px;height:50px;border-radius:50%" src="{{ asset('img/logo.jpg') }}" alt="">
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">Invennus <sup>♣️</sup></div>
     </a>
 
     <!-- Divider -->
@@ -30,7 +30,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2"
             aria-expanded="true" aria-controls="collapseTwo2">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-store"></i>
             <span>Quản lý cửa hàng</span>
         </a>
         <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -135,7 +135,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('admin.storevariant.index') }}" data-toggle="" data-target="#"
             aria-expanded="true" aria-controls="">
-            <i class="fas fa-tshirt"></i>
+            <i class="fas fa-store-alt"></i>
             <span> Sản phẩm theo cửa hàng</span>
         </a>
         {{-- <div id="collapseTwo5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -159,16 +159,12 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo6"
+        <a class="nav-link collapsed" href="{{ route('admin.bill.detail') }}"
             aria-expanded="true" aria-controls="collapseTwo6">
             <i class="fas fa-wallet"></i>
             <span>Quản lý đơn hàng</span>
         </a>
-        {{-- <div id="collapseTwo6" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href>Danh sách đơn hàng</a>
-            </div>
-        </div> --}}
+
     </li>
 
 
