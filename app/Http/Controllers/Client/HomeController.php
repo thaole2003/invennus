@@ -14,6 +14,7 @@ use App\Models\StoreVariant;
 use App\Models\wishlist;
 use Illuminate\Http\Request;
 use stdClass;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -22,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $currentDateTime = Carbon::now()->tz('Asia/Ho_Chi_Minh');
         $category = Category::withCount('products')
             ->having('products_count', '>', 0)
             ->paginate(4);
@@ -32,7 +34,11 @@ class HomeController extends Controller
             },
             'images',
             'categories',
-        ])->paginate(6);
+            'sales' => function ($query) use ($currentDateTime) {
+                $query->where('start_date', '<=', $currentDateTime)
+                      ->where('end_date', '>=', $currentDateTime);
+            },
+        ])->latest()->paginate(6);
         $colorIds = ProductVariant::where('total_quantity_stock', '>', 0)
             ->where('product_id', 1)
             ->with('color')

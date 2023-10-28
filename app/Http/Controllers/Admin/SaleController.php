@@ -53,6 +53,7 @@ class SaleController extends Controller
     public function show(string $id)
     {
         //
+
     }
 
     /**
@@ -61,6 +62,8 @@ class SaleController extends Controller
     public function edit(string $id)
     {
         //
+        $data = Sale::findOrFail($id);
+        return view('admin.sale.edit',compact('data'));
     }
 
     /**
@@ -69,6 +72,11 @@ class SaleController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $data = Sale::findOrFail($id);
+        $data->fill($request->all());
+        $data->save();
+        toastr('Sửa thành công!','Đã sửa');
+        return to_route('admin.sale.index');
     }
 
     /**

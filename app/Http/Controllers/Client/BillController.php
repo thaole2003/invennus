@@ -39,7 +39,25 @@ class BillController extends Controller
      */
     public function store(Request $request)
     {
-
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'email' => 'required|email',
+            'phone' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (!preg_match('/^\+?[0-9-]+$/', $value)) {
+                        $fail("Số điện thoại không hợp lệ.");
+                    }
+                },
+            ],
+        ], [
+            'name.required' => 'Tên không được bỏ trống.',
+            'address.required' => 'Vui lòng nhập địa chỉ.',
+            'email.required' => 'Vui lòng nhập địa chỉ email.',
+            'email.email' => 'Địa chỉ email không hợp lệ.',
+            'phone.required' => 'Vui lòng nhập số điện thoại.',
+        ]);
         $model = new Bill();
         $model->fill($request->all());
         $model->user_id = auth()->user()->id;

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\ProductVariant;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class CartController extends Controller
 {
@@ -54,8 +55,9 @@ class CartController extends Controller
         // } else {
         //     return redirect()->route('loginUser');
         // }
+        $currentDateTime = Carbon::now()->tz('Asia/Ho_Chi_Minh');
         $carts = Cart::with('ProductVariant')
-            ->where('user_id', auth()->user()->id) // Thêm điều kiện user_id
+            ->where('user_id', auth()->user()->id)
             ->latest()
             ->get();
         return view('client.carts.viewcart', compact('carts'));

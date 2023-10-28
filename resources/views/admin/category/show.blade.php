@@ -18,7 +18,7 @@
 
         </div>
     <div class="w-80">
-        <table class="table">
+        <table id="table" class="table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -43,7 +43,7 @@
                             <td>{{ $value->metatitle }}</td>
                             <td>{{ $value->slug }}</td>
                             <td>{{ $value->description }}</td>
-                            <td><img class="w-50 h-50" src="{{ asset($value->image) }}" alt=""></td>
+                            <td><img  style="width: 80px;height: 80px" src="{{ asset($value->image) }}" alt=""></td>
                             <td class="d-flex align-items-center">
                                 <a  class="btn btn-primary" href="{{ route('admin.product.edit',$value->id) }}"><i class="fas fa-edit"></i></a>
                             <form action="{{ route('admin.product.destroy',$value->id) }}" method="POST">

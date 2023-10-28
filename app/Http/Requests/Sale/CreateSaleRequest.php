@@ -22,10 +22,28 @@ class CreateSaleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id'=> ['required'],
-            'discount'=> ['required'],
-            'start_date'=> ['required'],
-            'end_date'=> ['required'],
+            'product_id' => ['required','unique:sales'],
+            'discount' => ['required', 'numeric', 'min:1'], // Số lượng giảm giá phải lớn hơn 0
+            'start_date' => ['required', 'date', 'after_or_equal:today'], // Ngày bắt đầu phải lớn hơn hoặc bằng ngày hiện tại
+            'end_date' => ['required', 'date', 'after:start_date'], // Ngày kết thúc phải lớn hơn ngày bắt đầu
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'product_id.required' => 'Vui lòng chọn sản phẩm.',
+            'product_id.unique' => 'Sản phẩm này đang giảm giá.',
+            'discount.required' => 'Vui lòng nhập số tiền.',
+            'discount.numeric' => 'Tiền giảm phải là một số.',
+            'discount.min' => 'Tiền phải lớn hơn 0.',
+            'start_date.required' => 'Vui lòng chọn ngày bắt đầu.',
+            'start_date.date' => 'Ngày bắt đầu phải là một ngày hợp lệ.',
+            'start_date.after_or_equal' => 'Ngày bắt đầu phải lớn hơn hoặc bằng ngày hiện tại.',
+            'end_date.required' => 'Vui lòng chọn ngày kết thúc.',
+            'end_date.date' => 'Ngày kết thúc phải là một ngày hợp lệ.',
+            'end_date.after' => 'Ngày kết thúc phải lớn hơn ngày bắt đầu.',
+        ];
+    }
+
 }

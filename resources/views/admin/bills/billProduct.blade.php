@@ -6,10 +6,10 @@
 @endsection
 @section('content')
     <div class="m-10">
-        <h1 class="text-center">Danh sách sản phẩm</h1>
+        <h1 class="text-center">Chi tiết đơn hàng</h1>
     </div>
     <div>
-        {{-- 
+        {{--
     @if (session('msg'))
         @if (session('msg')['success'])
             <div class="alert alert-success">{{ session('msg')['message'] }}</div>
@@ -24,11 +24,11 @@
             <thead>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">IMAGE</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Unit Price</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Total</th>
+                    <th scope="col">Ảnh</th>
+                    <th scope="col">Sản phẩm</th>
+                    {{-- <th scope="col">Đơn giá</th>
+                    {{-- <th scope="col">Số lượng</th> --}}
+                    <th scope="col">Tổng tiền</th> --}}
                 </tr>
             </thead>
             <tbody>
@@ -41,17 +41,15 @@
                             <td class="">
                                 {{ $value->ProductVariant->product->title }}
                                 <ul>
-                                    <li>Color: <strong>{{ $value->ProductVariant->color->name }}</strong>
+                                    <li>Màu: <strong>{{ $value->ProductVariant->color->name }}</strong>
                                     </li>
-                                    <li>Size: <strong>{{ $value->ProductVariant->size->name }}</strong></li>
-                                    <li>Material: <strong>Cotton</strong></li>
+                                    <li>Kích cỡ: <strong>{{ $value->ProductVariant->size->name }}</strong></li>
                                 </ul>
                             </td>
 
-                            <td>{{ number_format($value->ProductVariant->price) }}vnd</td>
+                            {{-- <td>{{ number_format($value->ProductVariant->price) }} VND</td> --}}
                             <td>{{ $value->quantity }}</td>
-                            <td>{{ number_format($value->quantity * $value->ProductVariant->price) }}
-                                vnd</td>
+                            {{-- <td>{{ number_format($value->quantity * $value->ProductVariant->price) }} VND</td> --}}
 
                         </tr>
                     @endforeach

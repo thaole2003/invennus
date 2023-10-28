@@ -34,7 +34,7 @@
                         <td>{{ $value->name }}</td>
                         <td>{{ $value->description }}</td>
 
-                        <td class="d-flex align-items-center">
+                        <td style="gap: 0.5rem;" class="d-flex align-items-center">
                             <a class="btn btn-primary" href="{{ route('admin.size.edit', $value->id) }}"><i
                                     class="fas fa-edit"></i></a>
                             <form action="{{ route('admin.size.destroy', $value->id) }}" method="POST">
