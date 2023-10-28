@@ -62,11 +62,11 @@ class ProductController extends Controller
             $model->slug = $slug;
             $model->save();
             // $category = $request->input('category');
-            $categoryunique = collect($request->input('category'))->unique()->values()->all();
-            foreach ($categoryunique as $valuecate) {
-                $cate = Category::firstOrCreate(['name' => $valuecate]);
+            // $categoryunique = collect($request->input('category'))->unique()->values()->all();
+            foreach ($request->category as $valuecate) {
+                // $cate = Category::firstOrCreate(['name' => $valuecate]);
                 $modelProductCategory = new CategoryProduct();
-                $modelProductCategory->category_id = $cate->id;
+                $modelProductCategory->category_id = $valuecate;
                 $modelProductCategory->product_id = $model->id;
                 $modelProductCategory->save();
             }
@@ -79,21 +79,21 @@ class ProductController extends Controller
                 $imageModel->image = $filePathAfterUpload;
                 $imageModel->save();
             }
-            $size = $request->input('size');
-            $sizeunique = collect($size)->unique()->values()->all();
-            $color = $request->input('color');
-            $colorunique = collect($color)->unique()->values()->all();
+            // $size = $request->input('size');
+            // $sizeunique = collect($size)->unique()->values()->all();
+            // $color = $request->input('color');
+            // $colorunique = collect($color)->unique()->values()->all();
             if (count($request->input('store_id'))) {
                 foreach ($request->input('store_id') as $store) {
-                    foreach ($colorunique as $color) {
-                        $colorr = Color::firstOrCreate(['name' => $color]);
-                        foreach ($sizeunique as $size) {
-                            $sizee = Size::firstOrCreate(['name' => $size]);
+                    foreach ($request->color as $colors) {
+                        // $colorr = Color::firstOrCreate(['name' => $color]);
+                        foreach ($request->size as $sizes) {
+                            // $sizee = Size::firstOrCreate(['name' => $size]);
                             // Thêm biến thể vào bảng product_variants
                             $productVariant = new ProductVariant;
                             $productVariant->product_id = $model->id;
-                            $productVariant->size_id = $sizee->id; // Thay thế $sizeId bằng id của size tương ứng
-                            $productVariant->color_id = $colorr->id; // Thay thế $colorId bằng id của color tương ứng
+                            $productVariant->size_id = $sizes; // Thay thế $sizeId bằng id của size tương ứng
+                            $productVariant->color_id = $colors; // Thay thế $colorId bằng id của color tương ứng
                             $productVariant->price = $request->input('price'); // Thay thế $price bằng giá của biến thể
                             $productVariant->save();
                             // Thêm biến thể vào bảng store_variants
@@ -159,9 +159,8 @@ class ProductController extends Controller
         $categories = Category::query()->latest()->get();
         $categoryproducts = CategoryProduct::query()->where('product_id', $id)->get();
         foreach ($categoryproducts as $categoryproduct) {
-            $categoryArray[] = $categoryproduct->product_id;
+            $categoryArray[] = $categoryproduct->category_id;
         }
-        $categories = Category::query()->get();
         $sizes = Size::query()->get();
         $colors = Color::query()->get();
         return view('admin.product.edit', compact('data', 'categories', 'categoryArray'));

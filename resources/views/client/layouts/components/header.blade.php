@@ -53,7 +53,7 @@
                                 <a href="{{ route('home') }}" class="nav-link active">Trang Chủ</a>
                             </li>
                             <li class="nav-item p-relative">
-                                <a href="#" class="nav-link active">Yêu thích</a>
+                                <a href="{{ route('product.home') }}" class="nav-link active">Yêu thích</a>
                             </li>
                             <li class="nav-item p-relative">
                                 <a href="#" class="nav-link active">Tin tức</a>

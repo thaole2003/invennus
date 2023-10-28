@@ -26,7 +26,7 @@
 
                                                 <a href="#">
                                                     <img src="{{ $product->image }}" alt="image">
-                                                    <img src="{{ $product->images[0]->image }}" alt="image">
+                                                    {{-- <img src="{{ $product->images[0]->image }}" alt="image"> --}}
                                                 </a>
 
                                                 <ul>

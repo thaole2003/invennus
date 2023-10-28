@@ -18,6 +18,7 @@ use App\Http\Controllers\Client\BillController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\HomeController as ClientHomeController;
 use App\Http\Controllers\Client\WishlistController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,7 +41,9 @@ Auth::routes();
 //     return view('layouts.app');
 // })->name('home');
 
-
+Route::get('/dashboard', function () {
+    return view('admin.thongke.charts');
+});
 
 
 Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(function () {
@@ -71,7 +74,7 @@ Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(fu
 });
 Route::get('/', [ClientHomeController::class, 'index'])->name('home');
 Route::prefix('product')->name('product.')->group(function () {
-    // Route::post('search', [HomeController::class, 'productSearch'])->name('search');
+    Route::get('/', [ClientHomeController::class, 'allProduct'])->name('home');
     Route::get('/detail/{id}', [ClientHomeController::class, 'product'])->name('detail');
     Route::get('/QuickView/{id}', [ClientHomeController::class, 'products'])->name('QuickView');
     Route::get('check-detail-quantity', [ClientHomeController::class, 'checkQuantity'])->name('check-detail-quantity');
@@ -81,6 +84,7 @@ Route::prefix('bill')->name('bill.')->middleware('auth')->group(function () {
     Route::get('/product/{id}', [BillController::class, 'show'])->name('product');
     Route::post('/store', [BillController::class, 'store'])->name('store');
     Route::post('/momo_payment', [BillController::class, 'momoPayment'])->name('momo_payment');
+    Route::post('/vnpay_payment', [BillController::class, 'vnpayPayment'])->name('vnpay_payment');
 })->middleware('auth');
 Route::prefix('wishlist')->name('wishlist.')->middleware('auth')->group(function () {
     Route::get('/add-to-wishlist/{id}', [WishlistController::class, 'addToWishlist'])->name('add-to-wishlist');

@@ -129,29 +129,68 @@
                             </div>
                             <div class="payment-method">
                                 <p>
-                                    <input type="radio" id="direct-bank-transfer" name="pay_method" value="cod"
-                                        checked>
+                                    <input type="radio" id="direct-bank-transfer" name="pay_method" value="cod" checked>
                                     <label for="direct-bank-transfer">Thanh toán khi nhận hàng</label>
                                 </p>
                                 <p>
-                                    <input type="radio" id="paypal" name="pay_method" value="paypal"
-                                        name="radio-group">
-                                    <label for="paypal">PayPal</label>
+                                    <input type="radio" id="paypal-momo" name="pay_method" value="paypal-momo" name="radio-group">
+                                    <label for="paypal-momo">PayPal (Momo)</label>
                                 </p>
-
+                                <p>
+                                    <input type="radio" id="paypal-vnpay" name="pay_method" value="paypal-vnpay" name="radio-group">
+                                    <label for="paypal-vnpay">PayPal (VNPay)</label>
+                                </p>
                             </div>
 
-                            <button href="#" class="btn btn-primary order-btn">Place Order</button>
                         </div>
                     </div>
                 </div>
             </form>
-            <form action="{{ route('bill.momo_payment') }}" method="POST">
-                @csrf
-                @method('post')
-                <input type="hidden" name="total_momo" value="{{ $totalAmount }}">
-                <button class="brn btn-primary" name="payUrl">Thanh toán momo</button>
-            </form>
+            <div class="text-center">
+                <button href="#" class="btn btn-primary order-btn" id="codPaymentBtn">Place Order</button>
+        
+                <form action="{{ route('bill.momo_payment') }}" method="POST">
+                    @csrf
+                    @method('post')
+                    <input type="hidden" name="total_momo" value="{{ $totalAmount }}">
+                    <button class="btn btn-primary" name="payUrl" id="momoPaymentBtn">Thanh toán Momo</button>
+                </form>
+        
+                <form action="" method="POST">
+                    @csrf
+                    @method('post')
+                    <input type="hidden" name="total_vnpay" value="{{ $totalAmount }}">
+                    <button class="btn btn-primary" name="payUrl" id="vnPayPaymentBtn">Thanh toán VNPay</button>
+                </form>
+            </div>
+           
         </div>
     </section>
 @endsection
+@push('scripts')
+<script>
+    $(document).ready(function () {
+        // Ẩn các nút ban đầu
+        $('#momoPaymentBtn').hide();
+        $('#vnPayPaymentBtn').hide();
+        $('#codPaymentBtn').show();
+
+        // Sự kiện khi người dùng thay đổi lựa chọn thanh toán
+        $('input[name="pay_method"]').change(function () {
+            if ($(this).val() === 'cod') {
+                $('#momoPaymentBtn').hide();
+                $('#vnPayPaymentBtn').hide();
+                $('#codPaymentBtn').show();
+            } else if ($(this).val() === 'paypal-momo') {
+                $('#codPaymentBtn').hide();
+                $('#vnPayPaymentBtn').hide();
+                $('#momoPaymentBtn').show();
+            } else if ($(this).val() === 'paypal-vnpay') {
+                $('#codPaymentBtn').hide();
+                $('#momoPaymentBtn').hide();
+                $('#vnPayPaymentBtn').show();
+            }
+        });
+    });
+</script>
+@endpush
