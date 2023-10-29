@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
-    <h1 class=" bg-info fs-1 d-flex justify-content-center align-items-center text-white rounded" style="height: 100px">
+    <h1 class=" d-flex justify-content-center align-items-center" style="height: 80px">
         Thêm sản phẩm</h1>
 
     <form action="{{ route('admin.product.store') }}" method="post" enctype="multipart/form-data">
@@ -12,7 +12,7 @@
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
                             style="color: #ff6666;"></i> Mã sản phẩm:</label>
-                    <input type="text" class="form-control" id="" placeholder="SKU" name="sku"
+                    <input type="text" class="form-control" id="" placeholder="Nhập mã sản phẩm" name="sku"
                         value="{{ old('sku') }}">
                 </div>
                 @error('sku')
@@ -21,15 +21,16 @@
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
                             style="color: #ff6666;"></i> Tên:</label>
-                    <input type="text" class="form-control" id="" placeholder="Title" name="title"
+                    <input type="text" class="form-control" id="" placeholder="Tên sản phẩm" name="title"
                         value="{{ old('title') }}">
                 </div>
                 @error('title')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label">Tên ngắn:</label>
-                    <input type="text" class="form-control" id="" placeholder="Meta title" name="metatitle"
+                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
+                        style="color: #ff6666;"></i> Tên ngắn:</label>
+                    <input type="text" class="form-control" id="" placeholder="Tên ngắn" name="metatitle"
                         value="{{ old('metatitle') }}">
                 </div>
                 @error('metatitle')
@@ -38,18 +39,15 @@
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
                             style="color: #ff6666;"></i> Giá chung:</label>
-                    <input type="text" class="form-control" id="email" placeholder="Meta title" name="price"
+                    <input type="text" class="form-control" id="email" placeholder="Giá " name="price"
                         value="{{ old('price') }}">
                 </div>
                 @error('price')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
-            </div>
-            <div class="col-md-4">
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
-                            style="color: #ff6666;"></i> Description :</label>
-                    {{-- <textarea class="form-control" placeholder="Enter description" name="description">{{ old('description') }}</textarea> --}}
+                            style="color: #ff6666;"></i> Mô tả sản phẩm :</label>
                     <textarea id="description" name="description" class="form-control" cols="80" rows="10"
                         style="width: 100%;border-radius: 5px;">{{ old('description') }}</textarea>
 
@@ -57,6 +55,9 @@
                 @error('description')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
+            </div>
+            <div class="col-md-4">
+
                 <div class="mb-3 mt-3">
                     <div class="mb-3 mt-3">
                         <div class="category-container">
@@ -78,11 +79,10 @@
                 @error('category.*')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
-                <div class="d-flex j">
-                    <div class="mb-3 mt-3">
+                <div class="d-flex ">
+                    <div class="mb-3 mt-3 pr-3">
                         <div class="size-container">
-                            <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
-                                    style="color: #ff6666;"></i>Kích cỡ</label><br>
+                            <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Kích cỡ</label><br>
                             @if (count($sizes) > 0)
                                 @foreach ($sizes as $key => $size)
                                     <input type="checkbox" name="size[]" value="{{ $size->id }}" id=""
@@ -98,7 +98,7 @@
                     <div class="mb-3 mt-3">
                         <div class="color-container">
                             <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
-                                    style="color: #ff6666;"></i>Màu sắc</label><br>
+                                    style="color: #ff6666;"></i> Màu sắc</label><br>
                             @if (count($colors) > 0)
                                 @foreach ($colors as $key => $color)
                                     <input type="checkbox" name="color[]" value="{{ $color->id }}" id=""
@@ -160,7 +160,7 @@
             </div>
         </div>
         <div class="text-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Thêm</button>
         </div>
         {{-- <div class="w-50 mx-auto border bg-light rounded h-100 p-4 mt-5">
 

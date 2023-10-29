@@ -25,10 +25,10 @@
                     <th scope="col">Họ tên</th>
                     <th scope="col">Ảnh đại diện</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Sđt</th>
+                    <th scope="col">Số điện thoại</th>
                     <th scope="col">Địa chỉ</th>
                     <th scope="col">Chức danh</th>
-                    <th scope="col">Store</th>
+                    <th scope="col">Cửa hàng</th>
                     <th scope="col">Hoạt động</th>
                 </tr>
             </thead>

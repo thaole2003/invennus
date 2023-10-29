@@ -37,12 +37,13 @@ class PostCategoryController extends Controller
         try {
             $model = new PostCategories();
             $model->fill($request->all());
-
+            toastr()->success('Thêm thành công 1 danh mục của bài viết','Thành công');
             $model->save();
-            return to_route('admin.postCategory.index')->with('msg', ['success' => true, 'message' => 'Thêm thành công!']);
+            return to_route('admin.postCategory.index');
         } catch (\Exception $exception) {
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
             Log::error($exception->getMessage());
-            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+            return back();
         }
     }
 
@@ -72,6 +73,7 @@ class PostCategoryController extends Controller
         //
         $data = PostCategories::findOrFail($id);
         $data->fill($request->all());
+        toastr()->success('Sửa thành công 1 danh mục của bài viết','Thành công');
         $data->save();
         return to_route('admin.postCategory.index');
     }
@@ -84,10 +86,12 @@ class PostCategoryController extends Controller
         //
         try {
             $postCategory->delete();
-            return redirect()->back()->with('msg', ['success' => true, 'message' => 'Size deleted successfully']);
+            toastr()->success('Xóa thành công 1 danh mục của bài viết','Thành công');
+            return redirect()->back();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return back();
         }
     }
 }

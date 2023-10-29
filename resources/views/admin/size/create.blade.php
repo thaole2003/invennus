@@ -3,7 +3,7 @@
     Size
 @endsection
 @section('content')
-    <h1 class=" bg-info fs-1 d-flex justify-content-center align-items-center text-white rounded" style="height: 100px">
+    <h1 class=" d-flex justify-content-center align-items-center" style="height: 80px">
         Thêm kích cỡ</h1>
 
     <form action="{{ route('admin.size.store') }}" method="post">
@@ -13,7 +13,7 @@
 
             <div class="mb-3 mt-3">
                 <label for="" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Tên:</label>
-                <input type="text" class="form-control" id="" placeholder="Enter name" name="name"
+                <input type="text" class="form-control" id="" placeholder="Nhập tên" name="name"
                     value="{{ old('name') }}">
             </div>
             @error('name')
@@ -28,7 +28,7 @@
             @enderror
 
             <div class="text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Thêm</button>
             </div>
         </div>
     </form>

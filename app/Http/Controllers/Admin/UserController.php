@@ -55,10 +55,12 @@ class UserController extends Controller
                 $model->avt = $imageName;
             }
             $model->save();
-            return to_route('admin.users.index')->with('msg', ['success' => true, 'message' => 'Thêm thành công người dùng!']);
+            toastr()->success('Thêm thành công 1 người dùng !','Đã sửa');
+            return to_route('admin.users.index');
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return back();
         }
     }
 
@@ -115,10 +117,12 @@ class UserController extends Controller
                 $model->avt = $request->input('current_avt');
             }
             $model->save();
-            return to_route('admin.users.index')->with('msg', ['success' => true, 'message' => 'Sửa thành công người dùng!']);
+            toastr()->success('Sửa thành công 1 người dùng !','Đã sửa');
+            return to_route('admin.users.index');
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return back();
         }
     }
 
@@ -136,10 +140,12 @@ class UserController extends Controller
                     Storage::delete($oldFilePath);
                 }
             }
-            return redirect()->back()->with('msg', ['success' => true, 'message' => 'User deleted successfully']);
+            toastr()->success('Xóa thành công 1 người dùng !','Đã xóa');
+            return redirect()->back();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return back();
         }
     }
 }

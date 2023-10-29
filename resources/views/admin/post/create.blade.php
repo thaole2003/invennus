@@ -3,7 +3,7 @@
     Category
 @endsection
 @section('content')
-    <h1 class=" bg-info fs-1 d-flex justify-content-center align-items-center text-white rounded" style="height: 100px">
+    <h1 class=" d-flex justify-content-center align-items-center" style="height: 80px">
         Thêm danh mục</h1>
 
     <form action="{{ route('admin.post.store') }}" method="post" enctype="multipart/form-data">
@@ -52,7 +52,7 @@
                 @endif
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Thêm</button>
             </div>
         </div>
     </form>

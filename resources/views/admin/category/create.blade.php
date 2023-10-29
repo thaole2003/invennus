@@ -3,7 +3,7 @@
     Category
 @endsection
 @section('content')
-    <h1 class=" bg-info fs-1 d-flex justify-content-center align-items-center text-white rounded" style="height: 100px">
+    <h1 class=" d-flex justify-content-center align-items-center" style="height: 80px">
         Thêm danh mục</h1>
 
     <form action="{{ route('admin.category.store') }}" method="post" enctype="multipart/form-data">
@@ -12,7 +12,7 @@
         <div class="w-50 mx-auto border bg-light rounded h-100 p-4 mt-5">
             <div class="mb-3 mt-3">
                 <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i>Danh mục:</label>
-                <input type="text" class="form-control" id="email" placeholder="Enter name" name="name"
+                <input type="text" class="form-control" id="email" placeholder="Nhập tên" name="name"
                        value="{{ old('name') }}">
             </div>
             @error('name')

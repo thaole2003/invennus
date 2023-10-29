@@ -3,7 +3,7 @@
     Category
 @endsection
 @section('content')
-    <h1 class=" bg-info fs-1 d-flex justify-content-center align-items-center text-white rounded" style="height: 100px">
+    <h1 class=" d-flex justify-content-center align-items-center" style="height: 80px">
         Sửa danh mục</h1>
 
     <form action="{{ route('admin.category.update',$data->id) }}" method="post" enctype="multipart/form-data">
@@ -26,7 +26,7 @@
             </div>
             <div class="mb-3 mt-3">
                 <label for="email" class="form-label">Name:</label>
-                <input type="text" class="form-control" id="email" placeholder="Enter name" name="name"
+                <input type="text" class="form-control" id="email" placeholder="Nhập tên" name="name"
                     value="{{ $data->name }}">
             </div>
             @error('name')
@@ -49,7 +49,7 @@
             <span class="text-danger">{{$message}}</span>
             @enderror
             <div class="text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Cập nhật</button>
             </div>
         </div>
     </form>

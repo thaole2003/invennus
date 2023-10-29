@@ -41,10 +41,12 @@ class SizeController extends Controller
             $model->fill($request->all());
 
             $model->save();
-            return to_route('admin.size.index')->with('msg', ['success' => true, 'message' => 'Thêm thành công!']);
+            toastr()->success('Thêm thành công 1 kích cỡ','Thành công');
+            return to_route('admin.size.index');
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return back();
         }
     }
 
@@ -74,6 +76,7 @@ class SizeController extends Controller
         //
         $data = Size::findOrFail($id);
         $data->fill($request->all());
+        toastr()->success('Sửa thành công 1 kích cỡ','Thành công');
         $data->save();
         return to_route('admin.size.index');
     }
@@ -86,10 +89,12 @@ class SizeController extends Controller
         //
         try {
             $size->delete();
-            return redirect()->back()->with('msg', ['success' => true, 'message' => 'Size deleted successfully']);
+            toastr()->success('Xóa thành công 1 kích cỡ','Thành công');
+            return redirect()->back();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return back();
         }
     }
 }

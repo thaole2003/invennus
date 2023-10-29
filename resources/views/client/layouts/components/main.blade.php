@@ -86,7 +86,7 @@
                                     alt="image">
 
 
-                                <h3>{{ $item->name }}<span class="text-primary">( {{ $item->products_count }}SP)</span></h3>
+                                <h3>{{ $item->name }}<span class="text-white">( {{ $item->products_count }} Sản Phẩm)</span></h3>
                             <form action="{{ route('search') }}" method="POST" class="" >
                                 @csrf
                                 @method('post')
@@ -465,6 +465,7 @@
                 <div class="modal-body">
                     <h3>My Cart ({{ $countCart }})</h3>
                     <div class="product-cart-content">
+                        {{-- @if (count($carts)> 0 )
                         @foreach ($carts as $value)
                             <div class="product-cart">
                                 <div class="product-image">
@@ -483,6 +484,9 @@
                                 </div>
                             </div>
                         @endforeach
+
+                        @endif --}}
+
 
 
                     </div>
@@ -1142,7 +1146,7 @@
             }
         });
     </script>
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             let dataProduct = @json($product->variants);
             let color = $(this).val();
@@ -1215,5 +1219,5 @@
                 });
             });
         });
-    </script>
+    </script> --}}
 @endpush

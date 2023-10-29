@@ -50,11 +50,13 @@ class CategoryController extends Controller
             $imageName= 'storage/' . $imageName;
             $model->image = $imageName;
         }
+        toastr()->success('Thêm thành công danh mục','Thành công');
         $model->save();
-        return to_route('admin.category.index')->with('msg', ['success' => true, 'message' => 'Thêm thành công!']);
+        return to_route('admin.category.index');
     } catch (\Exception $exception) {
+        toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
         Log::error($exception->getMessage());
-        return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+        return back();
     }
     }
 
@@ -107,6 +109,7 @@ class CategoryController extends Controller
             $data->image =  $request->input('currentimage');
         }
         $data->save();
+        toastr()->success('Sửa thành công danh mục','Thành công');
         return to_route('admin.category.index');
     }
 
@@ -124,10 +127,12 @@ class CategoryController extends Controller
                     Storage::delete($oldFilePath);
                 }
             }
-            return redirect()->back()->with('msg', ['success' => true, 'message' => 'Category deleted successfully']);
+            toastr()->success('Xóa thành công 1 danh mục','Thành công');
+            return redirect()->back();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return back();
         }
     }
 }

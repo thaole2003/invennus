@@ -41,7 +41,19 @@
                         <td>{{ $value->email }}</td>
                         <td>{{ $value->address }}</td>
                         <td>{{ $value->phone }}</td>
-                        <td>{{ $value->status }}</td>
+                        <td>
+                            @php
+                            $payMethodMapping = [
+                                'pendding' => 'Chờ xử lý',
+                                'preparing' => 'Đang chuẩn bị',
+                                'shipping' => 'Đã gửi hàng',
+                                'delivered' => 'Đã giao hàng',
+                                'cancelled' => 'Đã hủy đơn hàng',
+                            ];
+                            @endphp
+                            {{ $payMethodMapping[$value->status] ??  $payMethodMapping[$value->status] }}
+                        </td>
+
                         <td>{{ $value->pay_method }}</td>
                         <td>{{ number_format($value->total_price)  }} VND</td>
                         <td>{{ $value->created_at->format('d-m-Y') }}</td>

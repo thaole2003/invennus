@@ -171,8 +171,6 @@
                 </div>
             </form>
             <div class="text-center">
-                <button href="#" class="btn btn-primary order-btn" id="codPaymentBtn">Place Order</button>
-
                 <form action="{{ route('bill.momo_payment') }}" method="POST">
                     @csrf
                     @method('post')

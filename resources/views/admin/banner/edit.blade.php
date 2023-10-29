@@ -3,7 +3,7 @@
     Banner
 @endsection
 @section('content')
-    <h1 class=" bg-info fs-1 d-flex justify-content-center align-items-center text-white rounded" style="height: 100px">
+    <h1 class=" d-flex justify-content-center align-items-center" style="height: 80px">
         Sửa hình ảnh</h1>
 
     <form action="{{ route('admin.banner.update', $data->id) }}" method="post" enctype="multipart/form-data">
@@ -11,7 +11,7 @@
         @method('put')
         <div class="w-50 mx-auto border bg-light rounded h-100 p-4 mt-5">
             <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Tiêu đề ngắn:</label>
+                <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Tiêu đề ngắn:</label>
                 <input type="text" class="form-control" id="" placeholder="Nhập tiêu đề ngắn" name="meta_title"
                     value="{{ $data->meta_title }}">
             </div>
@@ -19,7 +19,7 @@
             <span class="text-danger">{{$message}}</span>
             @enderror
             <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Tiêu đề:</label>
+                <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Tiêu đề:</label>
                 <input type="text" class="form-control" id="" placeholder="Nhập tiêu đề" name="title"
                     value="{{ $data->title }}">
             </div>
@@ -28,7 +28,7 @@
             @enderror
 
             <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Mô tả:</label>
+                <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Mô tả:</label>
                 <textarea wrap="10" name="description"
                 >{{ $data->description }}
                 </textarea>
@@ -67,7 +67,7 @@
                     alt="">
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Cập nhật</button>
             </div>
         </div>
     </form>
