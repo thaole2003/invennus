@@ -3,7 +3,7 @@
     Sale
 @endsection
 @section('content')
-    <h1 class=" bg-info fs-1 d-flex justify-content-center align-items-center text-white rounded" style="height: 100px">
+    <h1 class=" d-flex justify-content-center align-items-center" style="height: 80px">
         Thêm sản phẩm giảm giá</h1>
 
     <form action="{{ route('admin.sale.store') }}" method="post" enctype="multipart/form-data">
@@ -25,7 +25,7 @@
             <span class="text-danger">{{$message}}</span>
             @enderror
             <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Số tiền giảm :</label>
+                <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i>  Số tiền giảm :</label>
                 <input type="text" class="form-control" id="email" placeholder="Nhập số tiền" name="discount"
                     value="{{ old('discount') }}">
             </div>
@@ -33,7 +33,7 @@
             <span class="text-danger">{{$message}}</span>
             @enderror
             <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Ngày bắt đầu :</label>
+                <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i>  Ngày bắt đầu :</label>
                 <input type="datetime-local" class="form-control" name="start_date" id="end_date"
                 placeholder="Enter title" value="{{old('start_date')}}">
             </div>
@@ -41,7 +41,7 @@
             <span class="text-danger">{{$message}}</span>
             @enderror
             <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Ngày kết thúc :</label>
+                <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i>  Ngày kết thúc :</label>
                 <input type="datetime-local" class="form-control" name="end_date" id="end_date"
                 placeholder="Enter title" value="{{old('end_date')}}">
             </div>

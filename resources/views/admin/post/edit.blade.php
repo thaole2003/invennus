@@ -3,7 +3,7 @@
     Post
 @endsection
 @section('content')
-    <h1 class=" bg-info fs-1 d-flex justify-content-center align-items-center text-white rounded" style="height: 100px">
+    <h1 class=" d-flex justify-content-center align-items-center" style="height: 80px">
         Sửa bài viết</h1>
 
     <form action="{{ route('admin.post.update', $data->id) }}" method="post" enctype="multipart/form-data">
@@ -26,7 +26,7 @@
             </div>
             <div class="mb-3 mt-3">
                 <label for="email" class="form-label">Name:</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter name" name="title"
+                <input type="text" class="form-control" id="name" placeholder="Nhập tên" name="title"
                     value="{{ $data->title }}">
             </div>
             @error('title')
@@ -50,13 +50,13 @@
                             value="{{ $value->id }}" id="">
                         {{ $value->name }} <br>
                     @endforeach
-                  
+
                 @else
                     <span>Hãy thêm 1 cửa hàng!</span>
                 @endif
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Cập nhật</button>
             </div>
         </div>
     </form>

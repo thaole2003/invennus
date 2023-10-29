@@ -4,10 +4,9 @@
 @endsection
 @section('content')
     <div class="m-10">
-        <h1 class="text-center">Danh sách cửa hàng</h1>
+        <h1  class="text-center">Danh sách cửa hàng</h1>
     </div>
     <div>
-
         @if (session('msg'))
             @if (session('msg')['success'])
                 <div class="alert alert-success">{{ session('msg')['message'] }}</div>
@@ -51,7 +50,7 @@
                                     class="btn btn-danger"><i class="fas fa-trash-alt"></i> </button>
                             </form>
                         </td>
-                        <td><a href="{{ route('admin.storevariant.show', $value->id) }}">Xem sản phẩm</a></td>
+                        <td class=""><a class="btn btn-primary" href="{{ route('admin.storevariant.show', $value->id) }}">Xem sản phẩm</a></td>
                     </tr>
                 @endforeach
 

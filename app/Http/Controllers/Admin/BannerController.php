@@ -54,10 +54,11 @@ class BannerController extends Controller
             }
             toastr()->success('Thêm thành công 1 banner','Thành công');
             $model->save();
-            return to_route('admin.banner.index')->with('msg', ['success' => true, 'message' => 'Thêm thành công!']);
+            return to_route('admin.banner.index');
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return back();
         }
     }
 
@@ -89,7 +90,7 @@ class BannerController extends Controller
         $data->fill($request->all());
         if ($request->hasFile('newimage')) {
             if ($data->image) {
-                $oldFilePath = str_replace('storage/', '', $data->image); // Loại bỏ 'storage/' từ đường dẫn
+                $oldFilePath = str_replace('storage/', '', $data->image);
                 if (Storage::exists($oldFilePath)) {
                     Storage::delete($oldFilePath);
                 }
@@ -102,6 +103,7 @@ class BannerController extends Controller
         } else {
             $data->image =  $request->input('currentimage');
         }
+        toastr()->success('Đã sửa banner','Thành công');
         $data->save();
         return to_route('admin.banner.index');
     }
@@ -119,11 +121,13 @@ class BannerController extends Controller
                     Storage::delete($oldFilePath);
                 }
             }
+            toastr()->success('Đã xóa banner','Thành công');
             $banner->delete();
-            return redirect()->back()->with('msg', ['success' => true, 'message' => 'Banner deleted successfully']);
+            return redirect()->back();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return back();
         }
     }
 }

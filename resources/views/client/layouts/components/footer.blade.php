@@ -56,7 +56,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6">
-                    <p>Copyright @2021 Comero. All Rights Reserved</p>
+                    <p>Invennus @2023</p>
                 </div>
 
                 <div class="col-lg-6 col-md-6">

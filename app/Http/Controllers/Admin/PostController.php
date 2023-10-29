@@ -59,11 +59,12 @@ class PostController extends Controller
                     $PostCategoryPost->save();
                 }
             }
-            // dd($request->all());
-            return to_route('admin.post.index')->with('msg', ['success' => true, 'message' => 'Thêm thành công!']);
+            toastr()->success('Thêm thành công 1 bài viết','Thành công');
+            return to_route('admin.post.index');
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return back();
         }
     }
 
@@ -115,6 +116,7 @@ class PostController extends Controller
         } else {
             $data->image =  $request->input('currentimage');
         }
+        toastr()->success('Sửa thành công 1 bài viết','Thành công');
         $data->save();
         $data->category_posts()->sync($request->postCate);
         return to_route('admin.post.index');
@@ -134,10 +136,12 @@ class PostController extends Controller
                     Storage::delete($oldFilePath);
                 }
             }
-            return redirect()->back()->with('msg', ['success' => true, 'message' => 'Category deleted successfully']);
+            toastr()->success('Xóa thành công 1 bài viết','Thành công');
+            return redirect()->back();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return back();
         }
     }
 }

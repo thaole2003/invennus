@@ -13,7 +13,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Cửa hàng</th>
-                    <th scope="col">Chọn</th>
+                    <th scope="col">Chọn để xem sản phẩm</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,7 +21,7 @@
                     <tr>
                         <td scope="">{{ $key + 1 }}</td>
                         <td>{{ $value->name }}</td>
-                        <td><a href="{{ route('admin.storevariant.show', $value->id) }}">Xem sản phẩm</a></td>
+                        <td><a class="btn btn-primary" href="{{ route('admin.storevariant.show', $value->id) }}">Xem sản phẩm</a></td>
 
                     </tr>
                 @endforeach

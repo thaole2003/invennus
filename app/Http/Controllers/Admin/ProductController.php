@@ -61,10 +61,7 @@ class ProductController extends Controller
             $slug = Str::slug($request->title);
             $model->slug = $slug;
             $model->save();
-            // $category = $request->input('category');
-            // $categoryunique = collect($request->input('category'))->unique()->values()->all();
             foreach ($request->category as $valuecate) {
-                // $cate = Category::firstOrCreate(['name' => $valuecate]);
                 $modelProductCategory = new CategoryProduct();
                 $modelProductCategory->category_id = $valuecate;
                 $modelProductCategory->product_id = $model->id;
@@ -106,10 +103,12 @@ class ProductController extends Controller
                     }
                 }
             }
-            return to_route('admin.product.index')->with('msg', ['success' => true, 'message' => 'User deleted successfully']);
+            toastr()->success('Thêm thành công 1 sản phẩm','Thành công');
+            return to_route('admin.product.index');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect()->back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return redirect();
         }
     }
 
@@ -128,11 +127,12 @@ class ProductController extends Controller
             $productDetail->update([
                 'price' => $request->price,
             ]);
-            return back()->with('msg', ['success' => true, 'message' => 'Đã sửa giá']);
+            toastr()->success('Đã sửa giá 1 sản phẩm','Thành công');
+            return back();
         } catch (\Exception $exception) {
             Log::error('Exception', [$exception]);
-
-            return back()->with('msg', 'Thao tác thất bại!');
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return back();
         }
     }
     public function updatequantitystock(Request $request, $id)
@@ -141,11 +141,12 @@ class ProductController extends Controller
             $productVariant = ProductVariant::findOrFail($id);
             $productVariant->total_quantity_stock = $request->total_quantity_stock;
             $productVariant->save();
-            return back()->with('msg', ['success' => true, 'message' => 'Đã sửa số lượng !']);
+            toastr()->success('Đã sửa số lượng sản phẩm','Thành công');
+            return back();
         } catch (\Exception $exception) {
             Log::error('Exception', [$exception]);
-
-            return back()->with('msg', ['success' => false, 'message' => 'Thao tác thất bại !']);
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return back();
         }
     }
     /**
@@ -202,10 +203,12 @@ class ProductController extends Controller
                     $imageModel->save();
                 }
             }
-            return to_route('admin.product.index')->with('msg', ['success' => true, 'message' => 'Thao tác thành công']);
+            toastr()->success('Đã sửa thông tin sản phẩm','Thành công');
+            return to_route('admin.product.index');
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return back();
         }
     }
 
@@ -217,10 +220,12 @@ class ProductController extends Controller
         //
         try {
             $product->delete();
-            return redirect()->back()->with('msg', ['success' => true, 'message' => 'User deleted successfully']);
+            toastr()->success('Đã xóa 1 sản phẩm','Thành công');
+            return redirect()->back();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return back();
         }
     }
 }

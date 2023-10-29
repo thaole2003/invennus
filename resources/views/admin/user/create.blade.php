@@ -3,7 +3,7 @@
     User
 @endsection
 @section('content')
-    <h1 class=" bg-info fs-1 d-flex justify-content-center align-items-center text-white rounded" style="height: 100px">
+    <h1 class=" d-flex justify-content-center align-items-center" style="height: 80px">
     Thêm người dùng</h1>
 
     <form action="{{ route('admin.users.store') }}" method="post" enctype="multipart/form-data">
@@ -13,8 +13,8 @@
             <div class="col-md-8">
 
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Name:</label>
-                    <input type="text" class="form-control" id="email" placeholder="Enter name" name="name"
+                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Họ tên:</label>
+                    <input type="text" class="form-control" id="email" placeholder="Nhập tên" name="name"
                         value="{{ old('name') }}">
                 </div>
                 @error('name')
@@ -22,31 +22,31 @@
                 @enderror
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Email:</label>
-                    <input type="text" class="form-control" id="email" placeholder="Enter slug" name="email"
+                    <input type="text" class="form-control" id="email" placeholder="Nhập email" name="email"
                         value="{{ old('email') }}">
                 </div>
                 @error('email')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> SĐT:</label>
-                    <input type="text" class="form-control" id="email" placeholder="Enter slug" name="phone"
+                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Số điện thoại:</label>
+                    <input type="text" class="form-control" id="email" placeholder="Nhập số điện thoại" name="phone"
                         value="{{ old('phone') }}">
                 </div>
                 @error('phone')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Address:</label>
-                    <input type="text" class="form-control" id="email" placeholder="Enter slug" name="address"
+                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Địa chỉ:</label>
+                    <input type="text" class="form-control" id="email" placeholder="Nhập địa chỉ" name="address"
                         value="{{ old('address') }}">
                 </div>
                 @error('address')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Password:</label>
-                    <input type="text" class="form-control" id="email" placeholder="Enter slug" name="password"
+                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Mật khẩu:</label>
+                    <input type="text" class="form-control" id="email" placeholder="Nhập mật khẩu" name="password"
                         value="{{ old('password') }}">
                 </div>
                 @error('password')
@@ -86,7 +86,7 @@
                 @enderror
 
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label">Image:</label>
+                    <label for="email" class="form-label">Ảnh đại diện:</label>
                     <input type="file" class="form-control" name="avt" accept="image/*" id="image-input"
                         placeholder="Enter title" value="{{ old('avt') }}">
                 </div>
@@ -102,7 +102,7 @@
             </div>
         </div>
         <div class="text-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Thêm</button>
         </div>
         {{-- <div class="w-50 mx-auto border bg-light rounded h-100 p-4 mt-5">
 

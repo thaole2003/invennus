@@ -32,7 +32,6 @@
                 </tr>
             </thead>
             <tbody>
-{{--            {{dd($data)}}--}}
                 @if (count($data) > 0)
                     @foreach ($data as $item)
                      @foreach ($item->products as $value)

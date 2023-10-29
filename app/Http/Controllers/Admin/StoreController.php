@@ -46,10 +46,12 @@ class StoreController extends Controller
             $slug = Str::slug($request->name);
             $model->slug = $slug;
             $model->save();
-            return to_route('admin.store.index')->with('msg', ['success' => true, 'message' => 'Thêm thành công!']);
+            toastr()->success('Thêm thành công 1 cửa hàng!','Đã thêm');
+            return to_route('admin.store.index');
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return back();
         }
     }
 
@@ -82,6 +84,7 @@ class StoreController extends Controller
         $slug = Str::slug($request->name);
         $data->slug = $slug;
         $data->save();
+        toastr()->success('Sửa thành công 1 cửa hàng!','Đã sửa');
         return to_route('admin.store.index');
     }
 
@@ -93,10 +96,12 @@ class StoreController extends Controller
         //
         try {
             $store->delete();
-            return redirect()->back()->with('msg', ['success' => true, 'message' => 'Store deleted successfully']);
+            toastr()->success('Xóa thành công 1 cửa hàng!','Đã xóa');
+            return redirect()->back();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return back();
         }
     }
 }
