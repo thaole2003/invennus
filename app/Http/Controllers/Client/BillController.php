@@ -63,7 +63,7 @@ class BillController extends Controller
         $model->user_id = auth()->user()->id;
         $model->save();
         $cart_user = Cart::with('ProductVariant')
-            ->where('user_id', auth()->user()->id) // Thêm điều kiện user_id
+            ->where('user_id', auth()->user()->id)
             ->latest()
             ->get();
         foreach ($cart_user as $value) {
@@ -77,6 +77,8 @@ class BillController extends Controller
             $productVariant->save();
             Cart::destroy($value['id']);
         }
+        toastr()->success('Tạo thành công 1 đơn hàng','Thành công');
+        return to_route('home');
     }
 
     /**
@@ -166,7 +168,7 @@ class BillController extends Controller
             $payment->save();
             $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html"; // url chuyển đến trang thanh toán
             $vnp_Returnurl = "http://datn-webstie-tro-oi1.test/vnpay-return"; // url redirect sau khi thanh toán xong
-            $vnp_TmnCode = "M4WVGGAX"; //Mã website tại VNPAY 
+            $vnp_TmnCode = "M4WVGGAX"; //Mã website tại VNPAY
             $vnp_HashSecret = "GCJDLQSWQXFNASGVNESEOJRUUNQUZJYO"; //Chuỗi bí mật
 
             // $vnp_TxnRef = $_POST['order_id']; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
@@ -225,7 +227,7 @@ class BillController extends Controller
 
             $vnp_Url = $vnp_Url . "?" . $query;
             if (isset($vnp_HashSecret)) {
-                $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret); //  
+                $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret); //
                 $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
             }
             // $returnData = array(
