@@ -3,93 +3,124 @@
     Nhập kho
 @endsection
 @section('content')
-<div class="container">
-    <input type="text" id="searchInput" placeholder="Tìm kiếm..." />
-    <div id="suggestions"></div>
-    <table id="selectedSuggestions">
-      <thead>
-        <tr>
-          <th>Gợi ý đã chọn</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-</div>
-
+    <div class="container">
+        <input type="text" id="searchInput" placeholder="Tìm kiếm..." />
+        <div id="suggestions"></div>
+        <div id="selectedSuggestions">
+            <table>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
-<script>
-    const searchInput = document.getElementById("searchInput");
-    const suggestions = document.getElementById("suggestions");
-    const selectedSuggestionsTable = document
-      .getElementById("selectedSuggestions")
-      .getElementsByTagName("tbody")[0];
+    <script>
+        const searchInput = document.getElementById("searchInput");
+        const suggestions = document.getElementById("suggestions");
+        const selectedSuggestionsTable = document.querySelector("#selectedSuggestions table tbody");
 
-    // Một danh sách ví dụ cho gợi ý
-    const suggestionList =  {!! json_encode($products) !!};
-    console.log(suggestionList);
-    // const suggestionList =  suggestion.title;
+        // Một danh sách ví dụ cho gợi ý
+        const suggestionList = {!! json_encode($productVariants) !!};
+        const selectedSuggestions = [];
 
-    const selectedSuggestions = [];
+        const updateSuggestionsDisplay = () => {
+            suggestions.innerHTML = "";
 
-    // Xử lý sự kiện nhập vào trường tìm kiếm
-    searchInput.addEventListener("input", function () {
-      const searchText = searchInput.value.toLowerCase();
-      suggestions.innerHTML = "";
+            suggestionList.forEach((suggestion) => {
+                const suggestionItem = document.createElement("div");
+                suggestionItem.classList.add("suggestion-item");
 
-      if (searchText.length === 0) {
-        suggestions.style.display = "none";
-        return;
-      }
+                const suggestionCheckbox = document.createElement("input");
+                suggestionCheckbox.type = "checkbox";
+                suggestionItem.appendChild(suggestionCheckbox);
 
-      const filteredSuggestions = suggestionList.filter((item) =>
-        item.toLowerCase().includes(searchText)
-      );
-      if (filteredSuggestions.length > 0) {
-        filteredSuggestions.forEach((suggestion) => {
-          const suggestionItem = document.createElement("div");
-          const suggestionCheckbox = document.createElement("input");
-          suggestionCheckbox.type = "checkbox";
-          suggestionItem.textContent = suggestion;
-          suggestionItem.insertBefore(
-            suggestionCheckbox,
-            suggestionItem.firstChild
-          );
-          suggestions.appendChild(suggestionItem);
+                const suggestionInfo = document.createElement("div");
+                suggestionInfo.classList.add("suggestion-info");
 
-          suggestionCheckbox.addEventListener("change", function () {
-            if (suggestionCheckbox.checked) {
-              selectedSuggestions.push(suggestion);
-              // Xóa ô checkbox và gợi ý đã chọn
-              suggestionItem.remove();
-              // Kiểm tra xem còn gợi ý nào không, nếu không thì tắt trường suggestions
-              if (suggestions.children.length === 0) {
+                const suggestionTitle = document.createElement("span");
+                suggestionTitle.classList.add("suggestion-title");
+                suggestionTitle.textContent = suggestion.title;
+
+                const suggestionSize = document.createElement("span");
+                suggestionSize.classList.add("suggestion-size");
+                suggestionSize.textContent = `Size: ${suggestion.size_id}`;
+
+                const suggestionColor = document.createElement("span");
+                suggestionColor.classList.add("suggestion-color");
+                suggestionColor.textContent = `Color: ${suggestion.color_id}`;
+
+                suggestionInfo.appendChild(suggestionTitle);
+                suggestionInfo.appendChild(suggestionSize);
+                suggestionInfo.appendChild(suggestionColor);
+
+                suggestionItem.appendChild(suggestionInfo);
+                suggestions.appendChild(suggestionItem);
+
+                suggestionCheckbox.addEventListener("change", function() {
+                    if (suggestionCheckbox.checked) {
+                        selectedSuggestions.push(suggestion);
+                        suggestionItem.remove();
+                        if (suggestions.children.length === 0) {
+                            suggestions.style.display = "none";
+                        }
+                    }
+                    searchInput.value = "";
+                    suggestions.style.display = "none";
+                    updateSelectedSuggestionsTable();
+                });
+            });
+
+            suggestions.style.display = "block";
+        };
+
+        // Xử lý sự kiện nhập vào trường tìm kiếm
+        searchInput.addEventListener("input", function() {
+            const searchText = searchInput.value.toLowerCase();
+            suggestions.innerHTML = "";
+
+            const filteredSuggestions = suggestionList.filter((item) =>
+                item.title.toLowerCase().includes(searchText)
+            );
+
+            if (searchText.length === 0 || filteredSuggestions.length === 0) {
                 suggestions.style.display = "none";
-              }
+            } else {
+                updateSuggestionsDisplay();
             }
-            // Reset giá trị của trường nhập (searchInput) thành chuỗi trống
-            searchInput.value = "";
-            suggestions.style.display = "none";
-
-            updateSelectedSuggestionsTable();
-          });
         });
 
-        suggestions.style.display = "block";
-      } else {
-        suggestions.style.display = "none";
-      }
-    });
+        // Cập nhật bảng hiển thị các gợi ý đã chọn
+        function updateSelectedSuggestionsTable() {
+            selectedSuggestionsTable.innerHTML = "";
 
-    // Cập nhật bảng hiển thị các gợi ý đã chọn
-    function updateSelectedSuggestionsTable() {
-      selectedSuggestionsTable.innerHTML = "";
-      selectedSuggestions.forEach((suggestion) => {
-        const row = selectedSuggestionsTable.insertRow();
-        const cell = row.insertCell(0);
-        cell.textContent = suggestion;
-      });
-    }
-  </script>
+            selectedSuggestions.forEach((suggestion) => {
+                const row = selectedSuggestionsTable.insertRow();
+
+                // Tạo các ô cột tương ứng
+                const titleCell = row.insertCell(0);
+                const sizeCell = row.insertCell(1);
+                const colorCell = row.insertCell(2);
+                const quantityCell = row.insertCell(3);
+                const priceCell = row.insertCell(4);
+
+                // Gán giá trị cho từng ô cột
+                titleCell.textContent = suggestion.title;
+                sizeCell.textContent = suggestion.size_id;
+                colorCell.textContent = suggestion.color_id;
+
+                // Tạo input để nhập số lượng
+                const quantityInput = document.createElement("input");
+                quantityInput.type = "number";
+                quantityInput.value = 1; // Giá trị mặc định là 1
+                quantityCell.appendChild(quantityInput);
+
+                // Tạo input để nhập giá tiền
+                const priceInput = document.createElement("input");
+                priceInput.type = "number";
+                priceInput.value = 0; // Giá trị mặc định là 0
+                priceCell.appendChild(priceInput);
+            });
+        }
+    </script>
 @endpush

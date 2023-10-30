@@ -14,9 +14,12 @@ class InventoryEntryController extends Controller
      */
     public function index()
     {
-        $products = Product::query()
-            ->pluck('title'); // Lấy trường 'title' và 'id' của sản phẩm
-        return view('admin.InventoryEntry.index', compact('products'));
+        $productVariants = ProductVariant::query()
+            ->join('products', 'product_variants.product_id', '=', 'products.id')
+            ->select('products.title', 'product_variants.color_id', 'product_variants.size_id')
+            ->get();
+        // dd($productVariants);
+        return view('admin.InventoryEntry.index', compact('productVariants'));
     }
 
     /**
