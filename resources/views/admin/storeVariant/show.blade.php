@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="m-10">
-        <h1 class="text-center">Sản phẩm của cửa hàng {{ $data[0]->store->name }}</h1>
+        <h1 class="text-center">Sản phẩm của cửa hàng</h1>
     </div>
     <div class="w-80">
         <table class="table" id="myTable">
@@ -17,7 +17,6 @@
                     <th scope="col">Kích cỡ</th>
                     <th scope="col">Giá tiền</th>
                     <th scope="col">Số lượng</th>
-
                 </tr>
             </thead>
             <tbody>
@@ -28,10 +27,9 @@
                             <td>{{ $value->variant->product->sku }}</td>
                             <td>{{ $value->variant->color->name }}</td>
                             <td>{{ $value->variant->size->name }}</td>
-                           <td>
-                            {{ number_format($value->variant->price )}} VND
-                           </td>
-
+                            <td>
+                                {{ number_format($value->variant->price )}} VND
+                            </td>
                             <td class="d-flex align-items-center">
                                 <form action="{{ route('admin.storevariant.update', $value->id) }}" method="POST">
                                     @csrf

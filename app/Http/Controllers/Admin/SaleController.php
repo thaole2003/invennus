@@ -44,7 +44,8 @@ class SaleController extends Controller
         $data->start_date = $request->start_date;
         $data->end_date = $request->end_date;
         $data->save();
-        return redirect()->route('admin.sale.index')->with('success','Sale Added Successfully');
+        toastr()->success('Thêm thành công 1 giảm giá','Thành công');
+        return redirect()->route('admin.sale.index');
     }
 
     /**
@@ -75,7 +76,7 @@ class SaleController extends Controller
         $data = Sale::findOrFail($id);
         $data->fill($request->all());
         $data->save();
-        toastr('Sửa thành công!','Đã sửa');
+        toastr()->success('Sửa thành công 1 giảm giá!','Đã sửa');
         return to_route('admin.sale.index');
     }
 
@@ -86,11 +87,13 @@ class SaleController extends Controller
     {
         //
         try {
-           $sale->delete();
-            return redirect()->back()->with('msg', ['success' => true, 'message' => 'Sale deleted successfully']);
+            $sale->delete();
+            toastr()->success('Xóa thành công 1 giảm giá!','Đã xóa');
+            return redirect()->back();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return back();
         }
     }
 }

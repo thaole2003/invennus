@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="m-10">
-        <h1 class="text-center">Danh sách danh mục sản phẩm</h1>
+        <h1 class="text-center">Danh sách bài viết</h1>
     </div>
     <div>
 
@@ -46,7 +46,7 @@
                             </td>
                         </tr>
                     @endforeach
-             
+
 
 
             </tbody>

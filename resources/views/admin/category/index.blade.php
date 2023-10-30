@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="m-10">
-        <h1 class="text-center">Danh sách danh mục sản phẩm</h1>
+        <h1 class="text-center">Danh mục sản phẩm</h1>
     </div>
     <div>
 
@@ -24,7 +24,6 @@
                     <th scope="col">#</th>
                     <th scope="col">Tên danh mục</th>
                     <th scope="col">Sản phẩm</th>
-                    <th scope="col">Slug</th>
                     <th scope="col">Hình ảnh</th>
                     <th scope="col">Hoạt động</th>
                 </tr>
@@ -35,7 +34,6 @@
                         <td scope="">{{ $value->id }}</td>
                         <td>{{ $value->name }}</td>
                         <td>{{ $value->products_count. ' sản phẩm' }}</td>
-                        <td>{{ $value->slug }}</td>
                         <td><img class="" src="{{ asset($value->image) }}" alt=""
                                 style="width: 80px;height: 80px"></td>
                         <td style="gap: 0.5rem;" class="d-flex align-items-center">

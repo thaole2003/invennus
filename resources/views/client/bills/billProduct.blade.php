@@ -8,17 +8,15 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="cart-table table-responsive">
                         <table class="table table-bordered">
+                            <a class="btn btn-primary mb-5" href="{{ route('bill.index') }}">Trở lại</a>
                             <thead>
                                 <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">IMAGE</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Unit Price</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Total</th>
+                                    <th scope="col">STT</th>
+                                    <th scope="col">Ảnh</th>
+                                    <th scope="col">Sản phẩm</th>
+                                    <th scope="col">Số lượng</th>
                                 </tr>
                             </thead>
-
                             <tbody>
                                 <?php
                                 $sumTotal = 0;
@@ -45,52 +43,20 @@
                                                 </ul>
                                             </td>
 
-                                            <td class="product-price">
-                                                <span class="unit-amount">{{ number_format($value->ProductVariant->price) }}
-                                                    vnd</span>
 
-                                            </td>
 
                                             <td class="product-quantity">
                                                 <span class="unit-amount">{{ $value->quantity }}
                                                 </span>
 
                                             </td>
-                                        {{-- </form> --}}
-
-                                        <td class="product-subtotal">
-                                            <span
-                                                class="subtotal-amount">{{ number_format($value->quantity * $value->ProductVariant->price) }}
-                                                vnd</span>
-
-                                        </td>
 
                                         <div class="d-none">
-                                            {{ $sumTotal += $value->quantity * $value->ProductVariant->price }}</div>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-
-                    {{-- <div class="row align-items-center">
-                        <div class="col-lg-7 col-md-7">
-                            <div class="continue-shopping-box">
-                                <span>${{ number_format($sumTotal) }} vnd</span>
-                                <a href="#" class="btn btn-light">Continue Shopping</a>
-                            </div>
-                        </div>
-                    </div> --}}
-                </div>
-                <div class="cart-totals">
-                    <h3>Bill Totals</h3>
-
-                    <ul>
-                        <li>Subtotal <span>${{ number_format($sumTotal) }} vnd</span></li>
-                        <li>Shipping <span>0</span></li>
-                        <li>Total <span><b>{{ number_format($sumTotal) }} vnd</b></span></li>
-                    </ul>
-                    {{-- <a href="{{ route('checkout') }}" class="btn btn-light">Proceed to Checkout</a> --}}
                 </div>
             </div>
         </div>

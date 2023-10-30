@@ -3,7 +3,7 @@
     Color
 @endsection
 @section('content')
-    <h1 class=" bg-info fs-1 d-flex justify-content-center align-items-center text-white rounded" style="height: 100px">
+    <h1 class=" d-flex justify-content-center align-items-center" style="height: 80px">
         Sửa màu</h1>
 
     <form action="{{ route('admin.postCategory.update', $data->id) }}" method="post">
@@ -27,7 +27,7 @@
             <span code="text-danger">{{$message}}</span>
             @enderror
             <div class="text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Cập nhật</button>
             </div>
         </div>
     </form>

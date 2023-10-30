@@ -40,10 +40,12 @@ class ColorController extends Controller
             $model = new Color();
             $model->fill($request->all());
             $model->save();
-            return to_route('admin.color.index')->with('msg', ['success' => true, 'message' => 'Thêm thành công!']);
+            toastr()->success('Thêm thành công 1 màu','Thành công');
+            return to_route('admin.color.index');
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return back();
         }
     }
 
@@ -73,6 +75,7 @@ class ColorController extends Controller
         //
         $data = Color::findOrFail($id);
         $data->fill($request->all());
+        toastr()->success('Sửa thành công 1 màu','Thành công');
         $data->save();
         return to_route('admin.color.index');
     }
@@ -85,10 +88,12 @@ class ColorController extends Controller
         //
         try {
             $color->delete();
-            return redirect()->back()->with('msg', ['success' => true, 'message' => 'Xóa màu thành công']);
+            toastr()->success('Xóa thành công 1 màu','Thành công');
+            return redirect()->back();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            return back()->with('msg', ['success' => false, 'message' => 'Thao tác không thành công']);
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            return back();
         }
     }
 }

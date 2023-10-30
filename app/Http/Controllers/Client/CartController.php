@@ -65,8 +65,8 @@ class CartController extends Controller
 
     public function delCart(string $id)
     {
-        // dd(Cart::query()->find($id));
         Cart::find($id)->delete();
+        toastr()->success('Đã xóa sản phẩm khỏi giỏ hàng','Thành công');
         return back();
     }
     public function getTotalPrice(Request $request)

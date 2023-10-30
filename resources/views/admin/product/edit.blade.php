@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
-    <h1 class=" bg-info fs-1 d-flex justify-content-center align-items-center text-white rounded" style="height: 100px">
+    <h1 class="d-flex justify-content-center align-items-center" style="height: 80px">
         Sửa sản phẩm</h1>
     <div class="d-flex">
         <form class="col-md-10" action="{{ route('admin.product.update', $data->id) }}" method="post"
@@ -87,7 +87,7 @@
 
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Cập nhật</button>
             </div>
 
         </form>

@@ -11,19 +11,16 @@
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Payment Methods</th>
-                                    <th scope="col">Order Created Date
+                                    <th scope="col">Thông tin</th>
+                                    <th scope="col">Tổng tiền</th>
+                                    <th scope="col">Trạng thái</th>
+                                    <th scope="col">Phương thức thanh toán</th>
+                                    <th scope="col">Ngày tạo đơn
                                     </th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                <?php
-                                $sumTotal = 0;
-                                ?>
-
                                 @foreach ($bills as $key => $value)
                                     <tr>
 
@@ -32,7 +29,7 @@
                                             <td style="width: 5%">{{ $key + 1 }}</td>
 
 
-                                            <td class="product-name" style="width: 50%">
+                                            <td class="product-name" style="width: 25%">
                                                 <a href="#">{{ $value->name }}</a>
                                                 <ul>
                                                     <li>Phone: <strong>{{ $value->phone }}</strong>
@@ -41,7 +38,9 @@
                                                     <li>Address: <strong>{{ $value->address }}</strong></li>
                                                 </ul>
                                             </td>
-
+                                            <td class="product-price">
+                                                <span class="unit-amount">{{ number_format($value->total_price) }} VND</span>
+                                            </td>
                                             <td class="product-price">
                                                 <span class="unit-amount">{{ $value->status }}</span>
                                             </td>
@@ -52,35 +51,17 @@
                                             <td class="product-subtotal">
                                                 <span class="unit-amount">{{ $value->created_at->format('d-m-Y') }}</span>
                                             </td>
-                                            <td class="product-subtotal" style="width: 5%">
-                                                <a href="{{ route('bill.product', $value->id) }}"
-                                                    class="remove border-0 bg-light"><i class="far fa-trash-alt"></i></a>
+                                            <td class="" style="width: 15%">
+                                                <a class="btn btn-primary" href="{{ route('bill.product', $value->id) }}"
+                                                    class="remove border-0 bg-light">Xem chi tiết</a>
                                             </td>
                                         </form>
                                     </tr>
-
-                                    {{-- <td class="product-subtotal">
-                                        <span
-                                            class="subtotal-amount">{{ number_format($value->quantity * $value->ProductVariant->price) }}
-                                            vnd</span>
-
-                                    </td> --}}
-                                    {{-- <td>
-                                        <form action="{{ route('del-cart', $value->id) }}" method="post">
-                                            @csrf
-                                            @method('Delete')
-                                            <button class="remove border-0 bg-light"><i
-                                                    class="far fa-trash-alt"></i></button>
-                                        </form>
-                                    </td>
-                                    <div class="d-none">
-                                        {{ $sumTotal += $value->quantity * $value->ProductVariant->price }}</div>
-                                    </tr> --}}
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-                    {{-- 
+                    {{--
                     <div class="cart-buttons">
                         <div class="row align-items-center">
                             <div class="col-lg-7 col-md-7">

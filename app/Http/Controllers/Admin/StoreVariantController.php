@@ -62,6 +62,7 @@ class StoreVariantController extends Controller
         $data = StoreVariant::findOrFail($id);
         $data->fill($request->all());
         $data->save();
+        toastr()->success('Cập nhật thành công !','Đã sửa');
         return back();
     }
 

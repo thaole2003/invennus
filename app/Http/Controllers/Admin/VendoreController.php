@@ -74,6 +74,7 @@ class VendoreController extends Controller
         $data = Vendor::findOrFail($id);
         $data->fill($request->all());
         $data->save();
+        toastr()->success('Sửa thành công nhà cung cấp!','Thành công');
         return to_route('admin.vendors.index');
     }
 
@@ -85,9 +86,11 @@ class VendoreController extends Controller
         //
         try {
             $vendor->delete();
-            return redirect()->back()->with('msg', ['success' => true, 'message' => 'Vendor deleted successfully']);
+            toastr()->success('Xóa thành công nhà cung cấp!','Thành công');
+            return redirect()->back();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
+            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
             return back();
         }
     }
