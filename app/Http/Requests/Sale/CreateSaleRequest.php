@@ -23,9 +23,9 @@ class CreateSaleRequest extends FormRequest
     {
         return [
             'product_id' => ['required','unique:sales'],
-            'discount' => ['required', 'numeric', 'min:1'], // Số lượng giảm giá phải lớn hơn 0
-            'start_date' => ['required', 'date', 'after_or_equal:today'], // Ngày bắt đầu phải lớn hơn hoặc bằng ngày hiện tại
-            'end_date' => ['required', 'date', 'after:start_date'], // Ngày kết thúc phải lớn hơn ngày bắt đầu
+            'discount' => ['required', 'numeric', 'min:1'],
+            'start_date' => ['required', 'date', 'after_or_equal:today'],
+            'end_date' => ['required', 'date', 'after:start_date'],
         ];
     }
 

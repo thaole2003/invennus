@@ -29,4 +29,10 @@ class UpdateSizeRequest extends FormRequest
             'description'=>['nullable']
         ];
     }
+    public function messages()
+    {
+        return [
+            'name.required' => 'Tên kích thước là bắt buộc.',
+        ];
+    }
 }

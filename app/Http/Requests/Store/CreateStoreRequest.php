@@ -24,9 +24,9 @@ class CreateStoreRequest extends FormRequest
         return [
             'name' => ['required', 'unique:stores,name'],
             'slug' => ['unique:stores,slug'],
-            'address' => ['required', 'unique:stores,slug', 'min:5'],
-            'phone' => ['required', 'unique:users,phone', 'regex:/^[0-9]{10}$/u'],
-            'email' => ['required', 'unique:users,email', 'email'],
+            'address' => ['required', 'min:5'],
+            'phone' => ['required', 'unique:stores,phone', 'regex:/^[0-9]{10}$/u'],
+            'email' => ['required', 'unique:stores,email', 'email'],
         ];
     }
     public function messages()
