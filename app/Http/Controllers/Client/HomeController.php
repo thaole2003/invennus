@@ -28,6 +28,20 @@ class HomeController extends Controller
             ->having('products_count', '>', 0)
             ->paginate(4);
         $banner = Banner::latest('id')->paginate(2);
+        $product_sale = Product::with([
+            'variants' => function ($query) {
+                $query->with('color', 'size');
+            },
+            'images',
+            'categories',
+            'sales'
+        ])
+        ->whereHas('sales', function ($query) use ($currentDateTime) {
+            $query->where('start_date', '<=', $currentDateTime)
+                  ->where('end_date', '>=', $currentDateTime);
+        })
+        ->latest()
+        ->paginate(6);
         $products = Product::with([
             'variants' => function ($query) {
                 $query->with('color', 'size');
@@ -39,7 +53,8 @@ class HomeController extends Controller
                       ->where('end_date', '>=', $currentDateTime);
             },
         ])->latest()->paginate(6);
-        $colorIds = ProductVariant::where('total_quantity_stock', '>', 0)
+        $colorIds = ProductVariant
+        ::where('total_quantity_stock', '>', 0)
             ->where('product_id', 1)
             ->with('color')
             ->groupBy('color_id')
@@ -55,7 +70,7 @@ class HomeController extends Controller
         $countCart = Cart::query()->count();
         $wishlists = wishlist::query()->latest()->where('user_id', 1)->get();
 
-        return view('client.layouts.components.main', compact('category', 'products', 'banners', 'carts', 'countCart', 'wishlists', 'colorIds', 'sizeIds'));
+        return view('client.layouts.components.main', compact('category', 'products', 'banners', 'product_sale','carts', 'countCart', 'wishlists', 'colorIds', 'sizeIds'));
     }
 
     /**
@@ -112,6 +127,9 @@ class HomeController extends Controller
             'images',
             'categories',
         ])->findOrFail($id);
+        $products = Product::whereHas('categories', function ($query) use ($product) {
+            $query->whereIn('category_id', $product->categories->pluck('id'));
+        })->paginate(4);
         $totalQuantity = ProductVariant::where('product_id', $id)->sum('total_quantity_stock');
         $groupbyColors = [];
         $groupbySizes = [];
@@ -128,7 +146,7 @@ class HomeController extends Controller
                 $groupbySizes[] = $size;
             }
         }
-        return view('client.products.productDetail', compact('product', 'groupbyColors', 'groupbySizes', 'stores', 'totalQuantity'));
+        return view('client.products.productDetail', compact('product', 'products', 'groupbyColors', 'groupbySizes', 'stores', 'totalQuantity'));
     }
 
     public function checkQuantity(Request $request)

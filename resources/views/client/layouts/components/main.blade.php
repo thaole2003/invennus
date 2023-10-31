@@ -118,23 +118,66 @@
                                     <span class="dot"></span> Sản phẩm mới nhất
                                 </a></li>
 
-                            <li><a href="#">
+                            {{-- <li><a href="#">
                                     <span class="dot"></span> Sản phẩm bán chạy nhất
-                                </a></li>
+                                </a></li> --}}
 
                             <li><a href="#">
-                                    <span class="dot"></span> Giảm sâu
+                                    <span class="dot"></span>Sản phẩm giảm sâu
                                 </a></li>
                         </ul>
                     </div>
-
                     <div class="col-lg-12 col-md-12">
                         <div class="tab_content">
                             <div class="tabs_item">
-
                                 <img src="" class="" alt="">
                                 <div class="all-products-slides-two owl-carousel owl-theme">
                                     @foreach ($products as $product)
+                                        <div class="single-product-box">
+                                            <div class="product-image">
+
+                                                <a href="#">
+                                                    <img src="{{ $product->image }}" alt="image">
+                                                    <img src="{{ isset($product->images[0]->image) ? $product->images[0]->image : asset('img/logo.jpg') }}" alt="image">
+                                                </a>
+
+                                                <ul>
+                                                    <li><a href="#" data-tooltip="tooltip" data-placement="left"
+                                                            title="Quick View" data-bs-toggle="modal"
+                                                            data-bs-target="#productQuickView{{ $product->id }}"><i
+                                                                class="far fa-eye"></i></a></li>
+                                                    <li><a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
+                                                            data-tooltip="tooltip" data-placement="left"
+                                                            title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="product-content">
+                                                <h3><a
+                                                        href="{{ route('product.detail', $product->id) }}">{{ $product->title }}</a>
+                                                </h3>
+                                                <div style="height: 50px" class="product-price">
+                                                    @if ($product->sales)
+                                                        @php
+                                                            $discountedPrice = $product->price - $product->sales->discount;
+                                                            $discountedPrice = max($discountedPrice, 0);
+                                                        @endphp
+                                                        <span style="text-decoration: line-through; " class="old-price">{{ number_format($product->price) }} VND</span><br>
+                                                        <span style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;" class="new-price">{{ number_format($discountedPrice) }} VND</span>
+                                                    @else
+                                                        <span style="" class="">{{ $product->metatitle}}</span><br>
+                                                        <span style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;" class="new-price">{{ number_format($product->price) }} VND</span>
+                                                    @endif
+                                                </div>
+                                                <a href="{{ route('product.detail', $product->id) }}" class="btn btn-light">Xem chi tiết</a>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="tabs_item">
+                                <img src="" class="" alt="">
+                                <div class="all-products-slides-two owl-carousel owl-theme">
+                                    @foreach ($product_sale as $product)
                                         <div class="single-product-box">
                                             <div class="product-image">
 
