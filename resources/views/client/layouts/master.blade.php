@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Poly Perfume</title>
+    <title>Invennus</title>
     <meta name="author" content="SEIKO">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -52,7 +52,7 @@
 
 
 
-   
+
     <!-- Start Footer Area -->
     @include('client.layouts.components.footer')
     <!-- End Footer Area -->
