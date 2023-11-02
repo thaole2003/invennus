@@ -1,6 +1,9 @@
 @extends('client.layouts.master')
 
 @section('content')
+@php
+$currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
+@endphp
     <div class="container mx-6" style="margin-top: 120px">
 
         <!-- Start Page Title Area -->
@@ -48,7 +51,7 @@
                                         <span id="newPrice" class="new-price">{{number_format( $product->price )}} VND</span>
                                     </div>
                                     <ul class="product-info">
-                                        <li><span>Vendor:</span> <a href="#">Lereve</a></li>
+                                        {{-- <li><span>Vendor:</span> <a href="#">Lereve</a></li> --}}
                                         <li><span>Sản phẩm:</span> <a href="#">Trong kho ({{ $totalQuantity }} sản
                                                 phẩm)</a></li>
                                         <li><span>Danh mục:</span>
@@ -434,16 +437,49 @@
                     </div>
                 </div>
             </div>
+            @if(count($products)> 0)
             <div class="related-products-area">
                 <div class="container">
                     <div class="section-title">
-                        <h2><span class="dot"></span> Related Products</h2>
+                        <h2><span class="dot"></span> Sản phẩm tương tự</h2>
                     </div>
 
                     <div class="row">
                         <div class="trending-products-slides-two owl-carousel owl-theme">
+                            @foreach ($products as $product)
                             <div class="col-lg-12 col-md-12">
                                 <div class="single-product-box">
+                                    <div class="product-image">
+
+                                        <a href="#">
+                                            <img src="{{asset($product->image) }}" alt="image">
+                                            <img src="{{ isset($product->images[0]->image) ? asset($product->images[0]->image) : asset('img/logo.jpg') }}" alt="image">
+                                        </a>
+
+
+                                    </div>
+                                    <div class="product-content">
+                                        <h3><a
+                                                href="{{ route('product.detail', $product->id) }}">{{ $product->title }}</a>
+                                        </h3>
+                                        <div style="height: 50px" class="product-price">
+                                            @if ($product->sales &&   $product->sales->start_date <= $currentDateTime &&
+                                            $product->sales->end_date >= $currentDateTime)
+                                                @php
+                                                    $discountedPrice = $product->price - $product->sales->discount;
+                                                    $discountedPrice = max($discountedPrice, 0);
+                                                @endphp
+                                                <span style="text-decoration: line-through; " class="old-price">{{ number_format($product->price) }} VND</span><br>
+                                                <span style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;" class="new-price">{{ number_format($discountedPrice) }} VND</span>
+                                            @else
+                                                <span style="" class="">{{ $product->metatitle}}</span><br>
+                                                <span style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;" class="new-price">{{ number_format($product->price) }} VND</span>
+                                            @endif
+                                        </div>
+                                        <a href="{{ route('product.detail', $product->id) }}" class="btn btn-light">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                                {{-- <div class="single-product-box">
                                     <div class="product-image">
                                         <a href="#">
                                             <img src="assets/img/trending-img5.jpg" alt="image">
@@ -478,175 +514,15 @@
 
                                         <a href="#" class="btn btn-light">Add to Cart</a>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
-
-                            <div class="col-lg-12 col-md-12">
-                                <div class="single-product-box">
-                                    <div class="product-image">
-                                        <a href="#">
-                                            <img src="assets/img/trending-img6.jpg" alt="image">
-                                            <img src="assets/img/trending-hover-img6.jpg" alt="image">
-                                        </a>
-
-                                        <ul>
-                                            <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                    title="Quick View" data-bs-toggle="modal"
-                                                    data-bs-target="#productQuickView"><i class="far fa-eye"></i></a></li>
-                                            <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                    title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                            <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                    title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="product-content">
-                                        <h3><a href="#">Belted chino trousers polo</a></h3>
-
-                                        <div class="product-price">
-                                            <span class="old-price">$200.00</span>
-                                            <span class="new-price">$191.00</span>
-                                        </div>
-
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                        </div>
-
-                                        <a href="#" class="btn btn-light">Add to Cart</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12 col-md-12">
-                                <div class="single-product-box">
-                                    <div class="product-image">
-                                        <a href="#">
-                                            <img src="assets/img/bestseller-img5.jpg" alt="image">
-                                            <img src="assets/img/bestseller-hover-img5.jpg" alt="image">
-                                        </a>
-
-                                        <ul>
-                                            <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                    title="Quick View" data-bs-toggle="modal"
-                                                    data-bs-target="#productQuickView"><i class="far fa-eye"></i></a></li>
-                                            <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                    title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                            <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                    title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                        </ul>
-
-                                        <div class="sale-tag">
-                                            Sale
-                                        </div>
-                                    </div>
-
-                                    <div class="product-content">
-                                        <h3><a href="#">Belted chino trousers polo</a></h3>
-
-                                        <div class="product-price">
-                                            <span class="new-price">$191.00</span>
-                                        </div>
-
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                        </div>
-
-                                        <a href="#" class="btn btn-light">Add to Cart</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12 col-md-12">
-                                <div class="single-product-box">
-                                    <div class="product-image">
-                                        <a href="#">
-                                            <img src="assets/img/trending-img8.jpg" alt="image">
-                                            <img src="assets/img/trending-hover-img8.jpg" alt="image">
-                                        </a>
-
-                                        <ul>
-                                            <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                    title="Quick View" data-bs-toggle="modal"
-                                                    data-bs-target="#productQuickView"><i class="far fa-eye"></i></a></li>
-                                            <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                    title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                            <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                    title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="product-content">
-                                        <h3><a href="#">Belted chino trousers polo</a></h3>
-
-                                        <div class="product-price">
-                                            <span class="new-price">$191.00</span>
-                                        </div>
-
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                        </div>
-
-                                        <a href="#" class="btn btn-light">Add to Cart</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12 col-md-12">
-                                <div class="single-product-box">
-                                    <div class="product-image">
-                                        <a href="#">
-                                            <img src="assets/img/img2.jpg" alt="image">
-                                            <img src="assets/img/img-hover2.jpg" alt="image">
-                                        </a>
-
-                                        <ul>
-                                            <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                    title="Quick View" data-bs-toggle="modal"
-                                                    data-bs-target="#productQuickView"><i class="far fa-eye"></i></a></li>
-                                            <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                    title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                            <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                    title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    {{-- @if ($auth()->user()->id)
-                                        <input type="text" id='user_id' hidden value="{{ auth()->user()->id }}">
-                                    @endif --}}
-                                    <div class="product-content">
-                                        <h3><a href="#">Belted chino trousers polo</a></h3>
-
-                                        <div class="product-price">
-                                            <span class="new-price">$191.00</span>
-                                        </div>
-
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                        </div>
-
-                                        <a href="#" class="btn btn-light">Add to Cart</a>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
+            @endif
+
         </section>
         <!-- End Products Details Area -->
 

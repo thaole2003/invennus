@@ -29,4 +29,11 @@ class UpdateColorRequest extends FormRequest
             'code'=> ['required',Rule::unique($table)->ignore(request()->segment('3'))],
         ];
     }
+    public function messages()
+    {
+        return [
+            'name.required' => 'Tên màu sắc là bắt buộc.',
+            'code.required' => 'Mã màu sắc là bắt buộc.',
+        ];
+    }
 }

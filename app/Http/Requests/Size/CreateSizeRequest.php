@@ -26,4 +26,11 @@ class CreateSizeRequest extends FormRequest
             'description'=>['nullable']
         ];
     }
+    public function messages()
+    {
+        return [
+            'name.required' => 'Tên kích thước là bắt buộc.',
+            'name.unique' => 'Kích thước này đã tồn tại trong hệ thống, vui lòng chọn một tên khác.',
+        ];
+    }
 }

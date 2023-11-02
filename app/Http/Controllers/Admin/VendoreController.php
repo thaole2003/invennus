@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Vendor\CreateVendorRequest;
+use App\Http\Requests\Vendor\UpdateVendorRequest;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -32,7 +34,7 @@ class VendoreController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateVendorRequest $request)
     {
         try {
             $model = new Vendor();
@@ -68,7 +70,7 @@ class VendoreController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateVendorRequest $request, string $id)
     {
         //
         $data = Vendor::findOrFail($id);

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Events\NotificationEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Bill;
 use App\Models\BillDetails;
 use App\Models\Cart;
 use App\Models\ProductVariant;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class BillController extends Controller
@@ -78,6 +80,12 @@ class BillController extends Controller
             Cart::destroy($value['id']);
         }
         toastr()->success('Tạo thành công 1 đơn hàng','Thành công');
+        $content = [
+            'title' => 'Bạn có 1 đơn hàng',
+            'message' => "Người dùng " . auth()->user()->name . " vừa tạo 1 đơn hàng , vui lòng truy cập để xem thông tin đơn hàng"
+        ];
+        $user = User::where('role', 'admin')->first();
+        event(new NotificationEvent($user, $content));
         return to_route('home');
     }
 

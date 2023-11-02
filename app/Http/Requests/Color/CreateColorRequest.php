@@ -26,4 +26,13 @@ class CreateColorRequest extends FormRequest
             'code'=> ['required','unique:colors,code'],
         ];
     }
+    public function messages()
+    {
+        return [
+            'name.required' => 'Tên màu sắc là bắt buộc.',
+            'name.unique' => 'Màu này đã tồn tại trong hệ thống, vui lòng chọn một tên khác.',
+            'code.required' => 'Mã màu sắc là bắt buộc.',
+            'code.unique' => 'Màu này đã tồn tại trong hệ thống, vui lòng chọn một mã khác.',
+        ];
+    }
 }
