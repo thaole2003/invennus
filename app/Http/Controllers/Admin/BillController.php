@@ -24,4 +24,13 @@ class BillController extends Controller
         ])->first();
         return view('admin.bills.billProduct', compact('bills'));
     }
+
+    public function updateStatus(Request $request)
+    {
+        $bill = Bill::find($request->id);
+        $bill->status = $request->status;
+        $bill->save();
+
+        return response()->json($bill);
+    }
 }

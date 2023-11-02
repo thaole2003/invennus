@@ -86,13 +86,16 @@
                                     alt="image">
 
 
-                                <h3>{{ $item->name }}<span class="text-white">( {{ $item->products_count }} Sản Phẩm)</span></h3>
-                            <form action="{{ route('search') }}" method="POST" class="" >
-                                @csrf
-                                @method('post')
-                                <input type="" hidden name="category_id" value="{{ $item->id }}">
-                                <button class="shop-now-btn" style="border-radius:15px;position: absolute; bottom:10px;right:10px">Xem ngay</button>
-                            </form>
+                                <h3>{{ $item->name }}<span class="text-white">( {{ $item->products_count }} Sản
+                                        Phẩm)</span></h3>
+                                <form action="{{ route('search') }}" method="POST" class="">
+                                    @csrf
+                                    @method('post')
+                                    <input type="" hidden name="category_id" value="{{ $item->id }}">
+                                    <button class="shop-now-btn"
+                                        style="border-radius:15px;position: absolute; bottom:10px;right:10px">Xem
+                                        ngay</button>
+                                </form>
                                 <a href="#" class="link-btn"></a>
                             </div>
                         </div>
@@ -140,7 +143,8 @@
 
                                                 <a href="#">
                                                     <img src="{{ $product->image }}" alt="image">
-                                                    <img src="{{ isset($product->images[0]->image) ? $product->images[0]->image : asset('img/logo.jpg') }}" alt="image">
+                                                    <img src="{{ isset($product->images[0]->image) ? $product->images[0]->image : asset('img/logo.jpg') }}"
+                                                        alt="image">
                                                 </a>
 
                                                 <ul>
@@ -148,9 +152,34 @@
                                                             title="Quick View" data-bs-toggle="modal"
                                                             data-bs-target="#productQuickView{{ $product->id }}"><i
                                                                 class="far fa-eye"></i></a></li>
-                                                    <li><a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
-                                                            data-tooltip="tooltip" data-placement="left"
-                                                            title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                    <?php
+                                                    $user_id = null;
+                                                    $wishlist = false;
+                                                    
+                                                    if (Auth::check()) {
+                                                        $user_id = auth()->user()->id;
+                                                        $wishlist = \App\Models\wishlist::where('user_id', $user_id)
+                                                            ->where('product_id', $product->id)
+                                                            ->exists();
+                                                    }
+                                                    ?>
+                                                    @if ($wishlist)
+                                                        <form
+                                                            action="{{ route('wishlist.del-to-wishlist', $product->id) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <li><a href="" data-tooltip="tooltip"
+                                                                    data-placement="left" title="Remove from Wishlist"><i
+                                                                        class="fa-solid fa-heart"></i></a>
+                                                            </li>
+                                                        </form>
+                                                    @else
+                                                        <li><a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
+                                                                data-tooltip="tooltip" data-placement="left"
+                                                                title="Add to Wishlist"><i class="far fa-heart"></i></a>
+                                                        </li>
+                                                    @endif
                                                 </ul>
                                             </div>
                                             <div class="product-content">
@@ -163,14 +192,24 @@
                                                             $discountedPrice = $product->price - $product->sales->discount;
                                                             $discountedPrice = max($discountedPrice, 0);
                                                         @endphp
-                                                        <span style="text-decoration: line-through; " class="old-price">{{ number_format($product->price) }} VND</span><br>
-                                                        <span style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;" class="new-price">{{ number_format($discountedPrice) }} VND</span>
+                                                        <span style="text-decoration: line-through; "
+                                                            class="old-price">{{ number_format($product->price) }}
+                                                            VND</span><br>
+                                                        <span
+                                                            style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;"
+                                                            class="new-price">{{ number_format($discountedPrice) }}
+                                                            VND</span>
                                                     @else
-                                                        <span style="" class="">{{ $product->metatitle}}</span><br>
-                                                        <span style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;" class="new-price">{{ number_format($product->price) }} VND</span>
+                                                        <span style=""
+                                                            class="">{{ $product->metatitle }}</span><br>
+                                                        <span
+                                                            style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;"
+                                                            class="new-price">{{ number_format($product->price) }}
+                                                            VND</span>
                                                     @endif
                                                 </div>
-                                                <a href="{{ route('product.detail', $product->id) }}" class="btn btn-light">Xem chi tiết</a>
+                                                <a href="{{ route('product.detail', $product->id) }}"
+                                                    class="btn btn-light">Xem chi tiết</a>
                                             </div>
                                         </div>
                                     @endforeach
@@ -465,7 +504,7 @@
                 <div class="modal-body">
                     <h3>My Cart ({{ $countCart }})</h3>
                     <div class="product-cart-content">
-                        {{-- @if (count($carts)> 0 )
+                        {{-- @if (count($carts) > 0)
                         @foreach ($carts as $value)
                             <div class="product-cart">
                                 <div class="product-image">

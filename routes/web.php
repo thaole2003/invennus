@@ -9,6 +9,7 @@ use App\Http\Controllers\admin\InventoryEntryController;
 use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\StoreController;
@@ -45,10 +46,14 @@ Auth::routes();
 Route::get('/dashboard', function () {
     return view('admin.thongke.charts');
 });
-// Route::get('/InventoryEntry', function () {
-//     return view('admin.InventoryEntry.index');
+// Route::get('/thongke', function () {
+//     return view('admin.InventoryEntry.thongke');
 // });
 Route::get('/InventoryEntry', [InventoryEntryController::class, 'index'])->name('InventoryEntry');
+Route::get('/report-revenue', [ReportController::class, 'reportRevenue'])->name('report-revenue');
+Route::post('/filter-revenue', [ReportController::class, 'filterRevenue'])->name('filter-revenue');
+Route::get('/report-product', [ReportController::class, 'reportProduct'])->name('report-product');
+Route::post('/filter-product', [ReportController::class, 'filterProduct'])->name('filter-product');
 
 
 Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(function () {
@@ -75,6 +80,7 @@ Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(fu
     Route::prefix('bill')->name('bill.')->group(function () {
         Route::get('/', [AdminBillController::class, 'index'])->name('detail');
         Route::get('/product/{id}', [AdminBillController::class, 'show'])->name('product');
+        Route::post('/update-status', [AdminBillController::class, 'updateStatus'])->name('update-status');
     });
 });
 Route::get('/', [ClientHomeController::class, 'index'])->name('home');
@@ -94,6 +100,8 @@ Route::prefix('bill')->name('bill.')->middleware('auth')->group(function () {
 Route::prefix('wishlist')->name('wishlist.')->middleware('auth')->group(function () {
     Route::get('/add-to-wishlist/{id}', [WishlistController::class, 'addToWishlist'])->name('add-to-wishlist');
     Route::delete('/del-to-wishlist/{id}', [WishlistController::class, 'destroy'])->name('del-to-wishlist');
+    // Route::delete('/del-to-wishlist/{id}', [WishlistController::class, 'destroy'])->name('del-to-wishlist');
+
 });
 Route::prefix('cart')->name('cart.')->middleware('auth')->group(function () {
     Route::get('view-cart', [CartController::class, 'viewCart'])->name('view-cart');

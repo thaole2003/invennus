@@ -42,23 +42,27 @@
                         <td>{{ $value->address }}</td>
                         <td>{{ $value->phone }}</td>
                         <td>
-                            @php
-                            $payMethodMapping = [
-                                'pendding' => 'Chờ xử lý',
-                                'preparing' => 'Đang chuẩn bị',
-                                'shipping' => 'Đã gửi hàng',
-                                'delivered' => 'Đã giao hàng',
-                                'cancelled' => 'Đã hủy đơn hàng',
-                            ];
-                            @endphp
-                            {{ $payMethodMapping[$value->status] ??  $payMethodMapping[$value->status] }}
+                            <select class="payment_status" data-id="{{ $value->id }}">
+                                <option value="pendding" {{ $value->status == 'pendding' ? 'selected' : '' }}>Chờ xử lý
+                                </option>
+                                <option value="preparing" {{ $value->status == 'preparing' ? 'selected' : '' }}>Đang chuẩn
+                                    bị</option>
+                                <option value="shipping" {{ $value->status == 'shipping' ? 'selected' : '' }}>Đã gửi hàng
+                                </option>
+                                <option value="delivered" {{ $value->status == 'delivered' ? 'selected' : '' }}>Đã giao hàng
+                                </option>
+                                <option value="cancelled" {{ $value->status == 'cancelled' ? 'selected' : '' }}>Đã hủy đơn
+                                    hàng</option>
+                            </select>
+
                         </td>
 
                         <td>{{ $value->pay_method }}</td>
-                        <td>{{ number_format($value->total_price)  }} VND</td>
+                        <td>{{ number_format($value->total_price) }} VND</td>
                         <td>{{ $value->created_at->format('d-m-Y') }}</td>
                         <td class="d-flex align-items-center">
-                            <a href="{{ route('admin.bill.product', $value->id) }}" class=""><i class="fas fa-eye"></i></a>
+                            <a href="{{ route('admin.bill.product', $value->id) }}" class=""><i
+                                    class="fas fa-eye"></i></a>
                         </td>
                     </tr>
                 @endforeach
@@ -66,3 +70,28 @@
         </table>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.payment_status').on('change', function() {
+                let status = $(this).val();
+                let id = $(this).data('id');
+                $.ajax({
+                    url: '{{ route('admin.bill.update-status') }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}', // Thêm CSRF token để bảo vệ khỏi tấn công CSRF
+                        status: status,
+                        id: id
+                    },
+                    success: function(response) {
+                        console.log(response);
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

@@ -698,7 +698,7 @@
                         })
                         dataProduct.forEach(function(data) {
                             if (data.color_id == color && data.size_id == size) {
-                                // console.log(data);
+                                console.log(data);
                                 document.getElementById('newPrice').innerHTML = data
                                     .price;
                             }

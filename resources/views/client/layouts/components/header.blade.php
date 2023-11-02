@@ -37,7 +37,8 @@
     <div class="navbar-area bg-black">
         <div class="comero-mobile-nav">
             <div class="logo">
-                <a href="{{ route('home') }}"><img style="width:35px;height:35px" src="{{ asset('img/logo.jpg') }}" alt="logo"></a>
+                <a href="{{ route('home') }}"><img style="width:35px;height:35px" src="{{ asset('img/logo.jpg') }}"
+                        alt="logo"></a>
             </div>
         </div>
 
@@ -45,7 +46,7 @@
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-md navbar-light">
                     <a class="navbar-brand" style="width:70px" href="{{ route('home') }}"><img
-                            src="{{  asset('img/logo.jpg') }}" alt="logo"></a>
+                            src="{{ asset('img/logo.jpg') }}" alt="logo"></a>
 
                     <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                         <ul class="navbar-nav">
@@ -134,6 +135,7 @@
                             </li>
                         </ul>
 
+
                         <div class="others-option">
                             <div class="option-item"><i class="search-btn fas fa-search"></i>
                                 <i class="close-btn fas fa-times"></i>
@@ -153,39 +155,46 @@
                                 </div>
                             </div>
                             @if (auth()->check())
-                                @if (auth()->user()->role==='admin' || auth()->user()->role==='employ')
-                                <div class="option-item">
-                                    <a href="{{ route('admin.home') }}">Quản lí cửa hàng </a>
-                                </div>
+                                @if (auth()->user()->role === 'admin' || auth()->user()->role === 'employ')
+                                    <div class="option-item">
+                                        <a href="{{ route('admin.home') }}">Quản lí cửa hàng </a>
+                                    </div>
                                 @endif
                             @endif
                             <div class="option-item">
                                 @php
-                                use App\Models\Cart;
-                                $countCart = 0;
-                                if (auth()->check()) {
-                                    $countCart = Cart::where('user_id', auth()->user()->id)->sum('quantity');
-                                }
+                                    use App\Models\Cart;
+                                    $countCart = 0;
+                                    if (auth()->check()) {
+                                        $countCart = Cart::where('user_id', auth()->user()->id)->sum('quantity');
+                                    }
                                 @endphp
 
-                            <a href="{{ route('cart.view-cart') }}">Giỏ hàng ({{ $countCart }}) <i class="fas fa-shopping-bag"></i></a>
+                                <a href="{{ route('cart.view-cart') }}">Giỏ hàng ({{ $countCart }}) <i
+                                        class="fas fa-shopping-bag"></i></a>
+
+                            </div>
+                            <div class="option-item"> 
+                                <a href="#" data-bs-toggle="modal"
+                                    data-bs-target="#shoppingWishlistModal">Wishlist <i class="far fa-heart"></i></a>
                             </div>
 
                             <div class="option-item">
                                 @guest
-                                <div class="d-flex">
-                                    @if (Route::has('login'))
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                        </li>
-                                    @endif
+                                    <div class="d-flex">
+                                        @if (Route::has('login'))
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                            </li>
+                                        @endif
 
-                                    @if (Route::has('register'))
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                        </li>
-                                    @endif
-                                </div>
+                                        @if (Route::has('register'))
+                                            <li class="nav-item">
+                                                <a class="nav-link"
+                                                    href="{{ route('register') }}">{{ __('Register') }}</a>
+                                            </li>
+                                        @endif
+                                    </div>
                                 @else
                                     <li class="nav-item dropdown">
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#"
@@ -194,10 +203,12 @@
                                             {{ Auth::user()->name }}
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                            <a style="color: black ; font-size: 0.875rem;line-height: 1.25rem;" class="dropdown-item" href="{{ route('bill.index') }}">
+                                            <a style="color: black ; font-size: 0.875rem;line-height: 1.25rem;"
+                                                class="dropdown-item" href="{{ route('bill.index') }}">
                                                 Đơn hàng
-                                        </a>
-                                            <a style="color: black ; font-size: 0.875rem;line-height: 1.25rem;" class="dropdown-item" href="{{ route('logout') }}"
+                                            </a>
+                                            <a style="color: black ; font-size: 0.875rem;line-height: 1.25rem;"
+                                                class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
                                                 {{ __('Đăng xuất') }}

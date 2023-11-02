@@ -1,34 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bill;
-use App\Models\Product;
-use App\Models\ProductVariant;
+use App\Models\BillDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class InventoryEntryController extends Controller
+class ReportController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $productVariants = ProductVariant::query()
-            ->join('products', 'product_variants.product_id', '=', 'products.id')
-            ->select('products.title', 'product_variants.color_id', 'product_variants.size_id')
-            ->get();
-        // dd($productVariants);
-        return view('admin.InventoryEntry.index', compact('productVariants'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-
-    public function calculateMonthlyRevenue()
+    public function reportRevenue()
     {
         $revenueData = Bill::select(DB::raw('MONTH(created_at) as month'))
             ->selectRaw('SUM(total_price) as revenue')
@@ -39,7 +21,7 @@ class InventoryEntryController extends Controller
         return view('admin.InventoryEntry.thongke', compact('revenueData'));
     }
 
-    public function filter(Request $request)
+    public function filterRevenue(Request $request)
     {
         $date_start = $request->input('date_start');
         $date_end = $request->input('date_end');
@@ -58,5 +40,16 @@ class InventoryEntryController extends Controller
                 ->get();
         }
         return view('admin.InventoryEntry.thongke', compact('revenueData'));
+    }
+
+    public function reportProduct()
+    {
+        $topProducts = BillDetails::select('product_variant_id', BillDetails::raw('SUM(quantity) as total_quantity'))
+            ->groupBy('product_variant_id')
+            ->orderBy('total_quantity', 'desc')
+            ->take(5)
+            ->get();
+    
+        return view('admin.InventoryEntry.product', compact('topProducts'));
     }
 }
