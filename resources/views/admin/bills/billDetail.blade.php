@@ -42,20 +42,21 @@
                         <td>{{ $value->address }}</td>
                         <td>{{ $value->phone }}</td>
                         <td>
-                            <select class="payment_status" data-id="{{ $value->id }}">
-                                <option value="pendding" {{ $value->status == 'pendding' ? 'selected' : '' }}>Chờ xử lý
-                                </option>
-                                <option value="preparing" {{ $value->status == 'preparing' ? 'selected' : '' }}>Đang chuẩn
-                                    bị</option>
-                                <option value="shipping" {{ $value->status == 'shipping' ? 'selected' : '' }}>Đã gửi hàng
-                                </option>
-                                <option value="delivered" {{ $value->status == 'delivered' ? 'selected' : '' }}>Đã giao hàng
-                                </option>
-                                <option value="cancelled" {{ $value->status == 'cancelled' ? 'selected' : '' }}>Đã hủy đơn
-                                    hàng</option>
-                            </select>
-
+                            @if($value->status == 'cancelled' || $value->status == 'shipping')
+                                <span class="label label-{{ $value->status == 'cancelled' ? 'danger' : 'success' }}">
+                                    {{ $value->status == 'cancelled' ? 'Đã hủy đơn hàng' : 'Đã gửi hàng' }}
+                                </span>
+                            @else
+                                <select class="payment_status" data-id="{{ $value->id }}">
+                                    <option value="pendding" {{ $value->status == 'pendding' ? 'selected' : '' }}>Chờ xử lý</option>
+                                    <option value="preparing" {{ $value->status == 'preparing' ? 'selected' : '' }}>Đang chuẩn bị</option>
+                                    <option value="shipping" {{ $value->status == 'shipping' ? 'selected' : '' }}>Đã gửi hàng</option>
+                                    <option value="cancelled" {{ $value->status == 'cancelled' ? 'selected' : '' }}>Hủy đơn</option>
+                                </select>
+                            @endif
                         </td>
+
+
 
                         <td>{{ $value->pay_method }}</td>
                         <td>{{ number_format($value->total_price) }} VND</td>

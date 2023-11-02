@@ -41,10 +41,20 @@
                                             <td class="product-price">
                                                 <span class="unit-amount">{{ number_format($value->total_price) }} VND</span>
                                             </td>
-                                            <td class="product-price">
-                                                <span class="unit-amount">{{ $value->status }}</span>
-                                            </td>
+                                            @php
+                                            $statusLabels = [
+                                                'pendding' => 'Chờ xử lý',
+                                                'preparing' => 'Đang chuẩn bị',
+                                                'shipping' => 'Đã gửi hàng',
+                                                'cancelled' => 'Hủy đơn'
+                                            ];
+                                            @endphp
 
+                                            <td class="product-price">
+                                                @if (array_key_exists($value->status, $statusLabels))
+                                                    <span class="label label-default">{{ $statusLabels[$value->status] }}</span>
+                                                @endif
+                                            </td>
                                             <td class="product-subtotal">
                                                 <span class="unit-amount">{{ $value->pay_method }}</span>
                                             </td>

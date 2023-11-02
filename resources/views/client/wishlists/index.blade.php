@@ -90,7 +90,7 @@
                         <div class="row align-items-center">
                             <div class="col-lg-7 col-md-7">
                                 <div class="continue-shopping-box">
-                                    <a href="#" class="btn btn-light">Continue Shopping</a>
+                                    <a href="#" class="btn btn-light">Tiếp tục mua hàng</a>
                                 </div>
                             </div>
                         </div>

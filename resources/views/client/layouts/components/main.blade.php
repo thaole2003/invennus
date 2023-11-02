@@ -153,7 +153,7 @@
                                                     <?php
                                                     $user_id = null;
                                                     $wishlist = false;
-                                                    
+
                                                     if (Auth::check()) {
                                                         $user_id = auth()->user()->id;
                                                         $wishlist = \App\Models\wishlist::where('user_id', $user_id)
@@ -634,7 +634,7 @@
                     </div>
 
                     <div class="product-cart-btn">
-                        <a href="#" class="btn btn-light">Continue Shopping</a>
+                        <a href="{{ route('home') }}" class="btn btn-light">Tiếp tục mua hàng</a>
                     </div>
                 </div>
             </div>

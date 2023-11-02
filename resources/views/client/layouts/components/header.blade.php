@@ -174,9 +174,9 @@
                                         class="fas fa-shopping-bag"></i></a>
 
                             </div>
-                            <div class="option-item"> 
+                            <div class="option-item">
                                 <a href="#" data-bs-toggle="modal"
-                                    data-bs-target="#shoppingWishlistModal">Wishlist <i class="far fa-heart"></i></a>
+                                    data-bs-target="#shoppingWishlistModal">Yêu thích <i class="far fa-heart"></i></a>
                             </div>
 
                             <div class="option-item">
@@ -184,14 +184,14 @@
                                     <div class="d-flex">
                                         @if (Route::has('login'))
                                             <li class="nav-item">
-                                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                                <a class="nav-link" href="{{ route('login') }}">{{ __('Đăng nhập') }}</a>
                                             </li>
                                         @endif
 
                                         @if (Route::has('register'))
                                             <li class="nav-item">
                                                 <a class="nav-link"
-                                                    href="{{ route('register') }}">{{ __('Register') }}</a>
+                                                    href="{{ route('register') }}">{{ __('Đăng ký') }}</a>
                                             </li>
                                         @endif
                                     </div>

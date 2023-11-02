@@ -42,7 +42,7 @@
             {{ $content['title'] }}
         </h2>
         <p>{{ $content['message'] }}</p>
-       <a href="localhost:8000"> <p>Vui lòng truy cập website để xem thông tin đơn hàng </p></a>
+        <p>Vui lòng truy cập website để xem thông tin đơn hàng: <a href="http://localhost:8000">Bấm ở đây!</a></p>
         <div class="sender-info">
             <p>Người gửi: Công ty Invennus</p>
             <p>Số điện thoại: 0332132912</p>
