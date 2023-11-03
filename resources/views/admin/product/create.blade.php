@@ -70,7 +70,7 @@
                                     {{ $category->name }} <br>
                                 @endforeach
                             @else
-                                <span>Hãy thêm 1 cửa hàng!</span>
+                                <span>Hãy thêm 1 danh mục trước!</span>
                             @endif
                         </div>
 
@@ -79,18 +79,21 @@
                 @error('category.*')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
-                <div class="d-flex ">
                     <div class="mb-3 mt-3 pr-3">
                         <div class="size-container">
                             <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Kích cỡ</label><br>
                             @if (count($sizes) > 0)
+                            <div class="d-flex flex-row flex-wrap">
                                 @foreach ($sizes as $key => $size)
-                                    <input type="checkbox" name="size[]" value="{{ $size->id }}" id=""
-                                        {{ in_array($size->id, old('size', [])) ? 'checked' : '' }}>
-                                    {{ $size->name }} <br>
+                                    <div class="mr-3 mb-3">
+                                        <input type="checkbox" name="size[]" value="{{ $size->id }}" id=""
+                                            {{ in_array($size->id, old('size', [])) ? 'checked' : '' }}>
+                                        {{ $size->name }}
+                                    </div>
                                 @endforeach
+                            </div>
                             @else
-                                <span>Hãy thêm 1 cửa hàng!</span>
+                                <span>Hãy thêm kích thước trước!</span>
                             @endif
                         </div>
                     </div>
@@ -100,18 +103,22 @@
                             <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
                                     style="color: #ff6666;"></i> Màu sắc</label><br>
                             @if (count($colors) > 0)
+                            <div class="d-flex flex-row flex-wrap">
                                 @foreach ($colors as $key => $color)
-                                    <input type="checkbox" name="color[]" value="{{ $color->id }}" id=""
-                                        {{ in_array($color->id, old('color', [])) ? 'checked' : '' }}>
-                                    {{ $color->name }} <br>
+                                    <div class="mr-3 mb-3">
+                                        <input type="checkbox" name="color[]" value="{{ $color->id }}" id=""
+                                            {{ in_array($color->id, old('color', [])) ? 'checked' : '' }}>
+                                        {{ $color->name }}
+                                    </div>
                                 @endforeach
+                            </div>
+
                             @else
-                                <span>Hãy thêm 1 cửa hàng!</span>
+                                <span>Hãy thêm 1 màu sắc trước!</span>
                             @endif
                         </div>
                     </div>
 
-                </div>
                 @error('color.*')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror

@@ -587,12 +587,33 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
                 size = $(this).val();
                 dataProduct.forEach(function(data) {
                     if (data.color_id == color && data.size_id == size) {
-                        document.getElementById('newPrice').innerHTML = data.price;
+                        var formattedPrice = number_format(data.price, 2, '.', ',');
+                        document.getElementById('newPrice').innerHTML = formattedPrice;
                     }
                 });
             })
 
+            function number_format(number, decimals, dec_point, thousands_sep) {
+                number = parseFloat(number);
+                if (isNaN(number)) {
+                    return '';
+                }
 
+                decimals = !isFinite(decimals) ? 2 : decimals;
+                dec_point = typeof dec_point === 'undefined' ? '.' : dec_point;
+                thousands_sep = typeof thousands_sep === 'undefined' ? ',' : thousands_sep;
+
+                var parts = number.toFixed(decimals).toString().split('.');
+                parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousands_sep);
+
+                // Loại bỏ ".00" nếu tồn tại
+                var formattedPrice = parts.join(dec_point).replace('.00', '');
+
+                // Thêm "VND" vào giá trị định dạng
+                formattedPrice += ' VND';
+
+                return formattedPrice;
+            }
         })
         $(function() {
             $(document).on('click', '#addtocart', function() {

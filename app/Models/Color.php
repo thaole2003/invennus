@@ -12,4 +12,6 @@ class Color extends Model
         'name',
         'code',
     ];
+    public $timestamps = true;
+
 }

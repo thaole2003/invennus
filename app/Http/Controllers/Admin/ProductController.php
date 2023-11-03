@@ -26,7 +26,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $data = Product::latest('created_at')->paginate(5);
+        $data = Product::latest('created_at')->get();
         return view('admin.product.index', compact('data'));
     }
 

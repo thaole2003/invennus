@@ -18,7 +18,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data=Category::withCount('products')->latest('created_at')->paginate(5);
+        $data=Category::withCount('products')->latest('created_at')->get();
         return view('admin.category.index',compact('data'));
     }
 
@@ -68,7 +68,7 @@ class CategoryController extends Controller
         //
         $data=Category::with('products')
         ->where('id',$id)
-        ->latest('created_at')->paginate(5);
+        ->latest('created_at')->get();
         return view('admin.category.show',compact('data'));
     }
 

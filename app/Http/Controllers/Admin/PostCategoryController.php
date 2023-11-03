@@ -15,7 +15,7 @@ class PostCategoryController extends Controller
     public function index()
     {
 
-        $data = PostCategories::latest('created_at')->paginate(5);
+        $data = PostCategories::latest('created_at')->get();
         return view('admin.postCategory.index', compact('data'));
     }
 

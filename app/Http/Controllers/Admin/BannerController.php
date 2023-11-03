@@ -18,7 +18,7 @@ class BannerController extends Controller
     public function index()
     {
         //
-        $data = Banner::latest('created_at')->paginate(5);
+        $data = Banner::latest('created_at')->get();
         return view('admin.banner.index', compact('data'));
     }
 

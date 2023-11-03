@@ -13,5 +13,7 @@ class Size extends Model
         'name',
         'description',
     ];
-   
+    public $timestamps = true;
+
+
 }

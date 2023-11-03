@@ -18,7 +18,7 @@ class StoreController extends Controller
     public function index()
     {
         //
-        $data = Store::latest('created_at')->paginate(5);
+        $data = Store::latest('created_at')->get();
         return view('admin.store.index', compact('data'));
     }
 

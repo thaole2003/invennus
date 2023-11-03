@@ -17,7 +17,7 @@ class SizeController extends Controller
     public function index()
     {
         //
-        $data = Size::latest('created_at')->paginate(5);
+        $data = Size::latest('created_at')->get();
         return view('admin.size.index', compact('data'));
     }
 

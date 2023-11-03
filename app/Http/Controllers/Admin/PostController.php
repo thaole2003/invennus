@@ -20,7 +20,7 @@ class PostController extends Controller
     public function index()
     {
         //
-        $data = Post::latest('created_at')->paginate(5);
+        $data = Post::latest('created_at')->get();
         return view('admin.post.index', compact('data'));
     }
 

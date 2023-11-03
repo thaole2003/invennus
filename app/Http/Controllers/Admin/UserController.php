@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        $data=User::with('store')->latest('created_at')->paginate(5);
+        $data=User::with('store')->latest('created_at')->get();
         return view('admin.user.index',compact('data'));
     }
 
