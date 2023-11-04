@@ -27,7 +27,9 @@ class HomeController extends Controller
         $category = Category::withCount('products')
             ->having('products_count', '>', 0)
             ->paginate(4);
-        $banner = Banner::latest('id')->paginate(2);
+            $banners = Banner::where('is_active', 1) // Lấy các bản ghi có is_active = 1 (true)
+            ->latest('id')
+            ->paginate(2);
         $product_sale = Product::with([
             'variants' => function ($query) {
                 $query->with('color', 'size');
@@ -65,10 +67,16 @@ class HomeController extends Controller
             ->groupBy('size_id')
             ->pluck('size_id');
         // dd($products->variants->product_id);
-        $banners = Banner::all();
         $carts = Cart::query()->latest()->get();
         $countCart = Cart::query()->count();
-        $wishlists = wishlist::query()->latest()->where('user_id', 1)->get();
+        if (auth()->check()){
+        $wishlists = Wishlist::query()
+            ->latest()
+            ->where('user_id', auth()->user()->id)
+            ->get();
+        }else{
+            $wishlists = collect(); // Tạo một mảng trống
+        }
 
         return view('client.layouts.components.main', compact('category', 'products', 'banners', 'product_sale','carts', 'countCart', 'wishlists', 'colorIds', 'sizeIds'));
     }

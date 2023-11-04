@@ -22,10 +22,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Tiêu đề ngắn</th>
                     <th scope="col">Tiêu đề</th>
-                    <th scope="col">Mô tả</th>
-                    <th scope="col">Đường dẫn</th>
                     <th scope="col">Hình ảnh</th>
                     <th scope="col">Trạng thái</th>
                     <th scope="col">Hoạt động</th>
@@ -35,10 +32,7 @@
                 @foreach ($data as $key => $value)
                     <tr>
                         <td scope="">{{ $key + 1 }}</td>
-                        <td>{{ $value->meta_title }}</td>
                         <td>{{ $value->title }}</td>
-                        <td>{!! substr($value->description, 0, 20) !!}</td>
-                        <td>{{ $value->link }}</td>
                         <td><img style="width:150px;height:80px" src="{{ asset($value->image) }}" alt="" width="300px"
                                 height="150px"></td>
                         <td>{!! $value->is_active == 1

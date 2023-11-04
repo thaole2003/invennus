@@ -6,19 +6,12 @@
     <!-- End Navbar Area -->
 
     <div class="home-slides-two owl-carousel owl-theme">
-
         @foreach ($banners as $banner)
             <div class="banner-section jarallax" style="background-image: url({{ $banner->image }})"
                 data-jarallax='{"speed": 0.3}'>
                 <div class="d-table">
                     <div class="d-table-cell">
                         <div class="container">
-                            <div class="banner-content">
-                                <span class="sub-title">{{ $banner->meta_title }}</span>
-                                <h1>{{ $banner->title }}</h1>
-                                <p>{{ $banner->description }}</p>
-                                {{-- <a href="#" class="btn btn-primary">Shop women's</a> --}}
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -152,26 +145,25 @@
                                                                 class="far fa-eye"></i></a></li>
                                                     <?php
                                                     $user_id = null;
-                                                    $wishlist = false;
 
                                                     if (Auth::check()) {
                                                         $user_id = auth()->user()->id;
-                                                        $wishlist = \App\Models\wishlist::where('user_id', $user_id)
-                                                            ->where('product_id', $product->id)
-                                                            ->exists();
+                                                        $wishlistcheck = \App\Models\wishlist::where('user_id', $user_id)
+                                                            ->where('product_id', $product->id)->first();
                                                     }
                                                     ?>
-                                                    @if ($wishlist)
-                                                        <form
-                                                            action="{{ route('wishlist.del-to-wishlist', $product->id) }}"
-                                                            method="post">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <li><a href="" data-tooltip="tooltip"
-                                                                    data-placement="left" title="Remove from Wishlist"><i
-                                                                        class="fa-solid fa-heart"></i></a>
-                                                            </li>
-                                                        </form>
+                                                    @if ($wishlistcheck)
+                                                    <form id="removeFromWishlistForm" action="{{ route('wishlist.del-to-wishlist', $wishlistcheck->id) }}" method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <li><a id="removeFromWishlist" data-tooltip="tooltip" data-placement="left" title="Remove from Wishlist"><i class="fas fa-heart"></i></a></li>
+                                                    </form>
+                                                    <script>
+                                                        document.getElementById('removeFromWishlist').addEventListener('click', function(event) {
+                                                            event.preventDefault();
+                                                            document.getElementById('removeFromWishlistForm').submit();
+                                                        });
+                                                    </script>
                                                     @else
                                                         <li><a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
                                                                 data-tooltip="tooltip" data-placement="left"
@@ -597,10 +589,11 @@
                         aria-hidden="true">&times;</span></button>
 
                 <div class="modal-body">
-                    <h3>My Wish List (3)</h3>
+                    <h3>Sản phẩm yêu thích</h3>
 
                     <div class="product-cart-content">
-                        @foreach ($wishlists as $wishlist)
+                        @if(count($wishlists)>0)
+                            @foreach ($wishlists as $wishlist)
                             <div class="product-cart d-flex justify-content-between align-items-center">
                                 <div class="">
                                     <div class="product-image">
@@ -628,7 +621,11 @@
                                     {{-- <i class="far fa-trash-alt"></i> --}}
                                 </div>
                             </div>
-                        @endforeach
+                            @endforeach
+                            @else
+                                Bạn chưa lưu sản phẩm nào!
+                        @endif
+
 
 
                     </div>
