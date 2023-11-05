@@ -13,7 +13,7 @@
             <div class="col-md-8">
 
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Name:</label>
+                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Họ tên:</label>
                     <input type="text" class="form-control" id="email" placeholder="Nhập tên" name="name"
                         value="{{ $model->name }}">
                 </div>
@@ -37,7 +37,7 @@
                 <span class="text-danger">{{$message}}</span>
                 @enderror
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Address:</label>
+                    <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Địa chỉ:</label>
                     <input type="text" class="form-control" id="email" placeholder="Nhập địa chỉ" name="address"
                         value="{{ $model->address  }}">
                 </div>
@@ -87,10 +87,10 @@
                 @enderror
 
                 <div class="mb-3 mt-3">
-                    <label for="email" class="form-label">Image:</label>
+                    <label for="email" class="form-label">Ảnh đại diện:</label>
                     <input type="text" name="current_avt" value="{{ $model->avt }}" hidden>
                     <input type="file" class="form-control" name="new_avt" accept="image/*" id="image-input"
-                        placeholder="Enter title" value="{{ old('avt') }}">
+                        placeholder="Nhập tiêu đề" value="{{ old('avt') }}">
                 </div>
                 @error('avt')
                 <span class="text-danger">{{$message}}</span>

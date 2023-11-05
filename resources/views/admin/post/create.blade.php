@@ -14,7 +14,7 @@
             <div class="mb-3 mt-3">
                 <label for="email" class="form-label">Image:</label>
                 <input type="file" class="form-control" name="image" accept="image/*" id="image-input"
-                    placeholder="Enter title" value="{{ old('image') }}">
+                    placeholder="Nhập tiêu đề" value="{{ old('image') }}">
             </div>
             @error('image')
                 <span class="text-danger">{{ $message }}</span>
@@ -26,7 +26,7 @@
 
             <div class="mb-3 mt-3">
                 <label for="email" class="form-label">Name:</label>
-                <input type="text" class="form-control" id="email" placeholder="Enter title" name="title"
+                <input type="text" class="form-control" id="email" placeholder="Nhập tiêu đề" name="title"
                     value="{{ old('title') }}">
             </div>
             @error('slug')

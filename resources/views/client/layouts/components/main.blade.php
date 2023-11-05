@@ -143,27 +143,31 @@
                                                             title="Quick View" data-bs-toggle="modal"
                                                             data-bs-target="#productQuickView{{ $product->id }}"><i
                                                                 class="far fa-eye"></i></a></li>
-                                                    <?php
-                                                    $user_id = null;
+                                                                <?php
+                                                                $user_id = null;
+                                                                $wishlistcheck = null; // Define it here with a default value
 
-                                                    if (Auth::check()) {
-                                                        $user_id = auth()->user()->id;
-                                                        $wishlistcheck = \App\Models\wishlist::where('user_id', $user_id)
-                                                            ->where('product_id', $product->id)->first();
-                                                    }
-                                                    ?>
-                                                    @if ($wishlistcheck)
-                                                    <form id="removeFromWishlistForm" action="{{ route('wishlist.del-to-wishlist', $wishlistcheck->id) }}" method="post">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <li><a id="removeFromWishlist" data-tooltip="tooltip" data-placement="left" title="Remove from Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                    </form>
-                                                    <script>
-                                                        document.getElementById('removeFromWishlist').addEventListener('click', function(event) {
-                                                            event.preventDefault();
-                                                            document.getElementById('removeFromWishlistForm').submit();
-                                                        });
-                                                    </script>
+                                                                if (Auth::check()) {
+                                                                    $user_id = auth()->user()->id;
+                                                                    $wishlistcheck = \App\Models\wishlist::where('user_id', $user_id)
+                                                                        ->where('product_id', $product->id)->first();
+                                                                }
+                                                                ?>
+
+                                                                @if ($wishlistcheck)
+                                                                <form id="removeFromWishlistForm" action="{{ route('wishlist.del-to-wishlist', $wishlistcheck->id) }}" method="post">
+                                                                    @csrf
+                                                                    @method('delete')
+                                                                    <li><a id="removeFromWishlist" data-tooltip="tooltip" data-placement="left" title="Remove from Wishlist"><i class="fas fa-heart"></i></a></li>
+                                                                </form>
+
+                                                                <script>
+                                                                    document.getElementById('removeFromWishlist').addEventListener('click', function(event) {
+                                                                        event.preventDefault();
+                                                                        document.getElementById('removeFromWishlistForm').submit();
+                                                                    });
+                                                                </script>
+
                                                     @else
                                                         <li><a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
                                                                 data-tooltip="tooltip" data-placement="left"

@@ -144,7 +144,7 @@
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
                             style="color: #ff6666;"></i> Ảnh sản phẩm ( thêm nhiều ảnh):</label>
-                    <input type="file" class="form-control" name="images[]" placeholder="Enter title"
+                    <input type="file" class="form-control" name="images[]" placeholder="Nhập tiêu đề"
                         value="{{ old('images') }}" multiple>
                 </div>
                 @error('images[]')
@@ -154,7 +154,7 @@
                     <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
                             style="color: #ff6666;"></i> Ảnh chính:</label>
                     <input type="file" class="form-control" name="image" accept="image/*" id="image-input"
-                        placeholder="Enter title" value="{{ old('image') }}">
+                        placeholder="Nhập tiêu đề" value="{{ old('image') }}">
                 </div>
                 @error('image')
                     <span class="text-danger">{{ $message }}</span>

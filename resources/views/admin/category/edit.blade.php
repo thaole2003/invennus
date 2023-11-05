@@ -11,9 +11,9 @@
         @method('put')
         <div class="w-50 mx-auto border bg-light rounded h-100 p-4 mt-5">
             <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Image:</label>
+                <label for="email" class="form-label">Ảnh danh mục:</label>
                 <input type="file" class="form-control" name="newimage" accept="image/*" id="image-input"
-                    placeholder="Enter title" value="{{ old('image') }}">
+                    placeholder="Nhập tiêu đề" value="{{ old('image') }}">
                 <input type="text" class="form-control" name="currentimage"  hidden
                     value="{{ $data->image }}">
             </div>
@@ -25,7 +25,7 @@
                     id="show-image" alt="">
             </div>
             <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Name:</label>
+                <label for="email" class="form-label">Tên danh mục:</label>
                 <input type="text" class="form-control" id="email" placeholder="Nhập tên" name="name"
                     value="{{ $data->name }}">
             </div>
@@ -33,16 +33,8 @@
             <span class="text-danger">{{$message}}</span>
             @enderror
             <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Slug:</label>
-                <input type="text" class="form-control" id="email" placeholder="Enter slug" name="slug"
-                    value="{{ $data->slug }}" disabled>
-            </div>
-            @error('slug')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-            <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Description :</label>
-                <input type="text" class="form-control" id="email" placeholder="Enter description" name="description"
+                <label for="email" class="form-label">Mô tả :</label>
+                <input type="text" class="form-control" id="email" placeholder="Nhập mô tả" name="description"
                 value="{{ $data->description }}" >
             </div>
             @error('description')

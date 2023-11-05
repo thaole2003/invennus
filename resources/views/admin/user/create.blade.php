@@ -88,7 +88,7 @@
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">Ảnh đại diện:</label>
                     <input type="file" class="form-control" name="avt" accept="image/*" id="image-input"
-                        placeholder="Enter title" value="{{ old('avt') }}">
+                        placeholder="Nhập tiêu đề" value="{{ old('avt') }}">
                 </div>
                 @error('avt')
                 <span class="text-danger">{{$message}}</span>
