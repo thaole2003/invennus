@@ -15,25 +15,27 @@ class CartController extends Controller
     {
         // $request['user_id'] = auth()->id();
 
-        $size_id = $request['size'];
-        $color_id = $request['color'];
+        // $size_id = $request['size'];
+        // $color_id = $request['color'];
         $user_id = auth()->user()->id;
         $quantity = $request['quantity'];
+        $product_variant = $request['product_variant'];
 
-        $product_variant = ProductVariant::query()->where([
-            'size_id' => $size_id,
-            'color_id' => $color_id,
-        ])->first();
-        $cartItem = Cart::where('product_radiant', $product_variant->id)->first();
-        if($cartItem){
+        // $product_variant = ProductVariant::query()->where([
+        //     'size_id' => $size_id,
+        //     'color_id' => $color_id,
+        //     'product_id' => $$product_id,
+        // ])->first();
+        $cartItem = Cart::where('product_radiant', $product_variant)->first();
+        if ($cartItem) {
             $cartItem->quantity += $quantity;
             $cartItem->save();
-        }else{
+        } else {
             $cart = new Cart;
             $cart->fill(
                 [
                     'user_id' => $user_id,
-                    'product_radiant' => $product_variant->id,
+                    'product_radiant' => $product_variant,
                     'quantity' => $quantity,
                 ]
             );
@@ -66,20 +68,23 @@ class CartController extends Controller
     public function delCart(string $id)
     {
         Cart::find($id)->delete();
-        toastr()->success('Đã xóa sản phẩm khỏi giỏ hàng','Thành công');
+        toastr()->success('Đã xóa sản phẩm khỏi giỏ hàng', 'Thành công');
         return back();
     }
     public function getTotalPrice(Request $request)
     {
         $id = $request['id'];
         $quantity = $request['quantity'];
+        $product_radiant = $request['product_radiant'];
+        $product_radiants = $product_radiant->ProductVariant->total_quantity_stock;
         $cart = Cart::find($id);
         $cart->quantity = $quantity;
         $cart->save();
         return response()->json([
             'code' => 200,
             'data' => [
-                'cart' => $cart ?? 0
+                'cart' => $cart ?? 0,
+                'product_radiants' => $product_radiants
             ]
         ]);
     }
