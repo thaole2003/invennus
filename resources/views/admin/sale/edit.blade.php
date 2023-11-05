@@ -36,7 +36,7 @@
             <div class="mb-3 mt-3">
                 <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i>  Ngày kết thúc : </label>
                 <input type="datetime-local" class="form-control" name="end_date" id=""
-                placeholder="Enter title" value="{{$data->end_date}}">
+                placeholder="Nhập tiêu đề" value="{{$data->end_date}}">
             </div>
             @error('end_date')
             <span class="text-danger">{{$message}}</span>

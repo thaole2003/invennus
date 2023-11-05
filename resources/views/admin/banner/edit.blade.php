@@ -10,38 +10,13 @@
         @csrf
         @method('put')
         <div class="w-50 mx-auto border bg-light rounded h-100 p-4 mt-5">
+
             <div class="mb-3 mt-3">
-                <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Tiêu đề ngắn:</label>
-                <input type="text" class="form-control" id="" placeholder="Nhập tiêu đề ngắn" name="meta_title"
-                    value="{{ $data->meta_title }}">
-            </div>
-            @error('meta_title')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-            <div class="mb-3 mt-3">
-                <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Tiêu đề:</label>
+                <label for="email" class="form-label">Tiêu đề:</label>
                 <input type="text" class="form-control" id="" placeholder="Nhập tiêu đề" name="title"
                     value="{{ $data->title }}">
             </div>
             @error('title')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-
-            <div class="mb-3 mt-3">
-                <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Mô tả:</label>
-                <textarea wrap="10" name="description"
-                >{{ $data->description }}
-                </textarea>
-            </div>
-            @error('description')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-            <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Đường dẫn:</label>
-                <input type="text" class="form-control" id="" placeholder="Nhập đường dẫn" name="link"
-                    value="{{ $data->link }}">
-            </div>
-            @error('link')
             <span class="text-danger">{{$message}}</span>
             @enderror
             <div class="mb-3 mt-3">
@@ -54,7 +29,7 @@
             <div class="mb-3 mt-3">
                 <label for="" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Ảnh:</label>
                 <input type="file" class="form-control" name="newimage" accept="image/*" id="image-input"
-                    placeholder="Enter title" value="{{ old('image') }}">
+                    placeholder="Nhập tiêu đề" value="{{ old('image') }}">
                 <input type="text" class="form-control" name="currentimage" hidden value="{{ $data->image }}">
             </div>
             @error('newimage')

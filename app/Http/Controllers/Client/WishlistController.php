@@ -27,6 +27,7 @@ class WishlistController extends Controller
             ]
         );
         $model->save();
+        toastr()->success('Bạn vừa lưu 1 sản phẩm','Lưu thành công');
         return back();
     }
 
@@ -35,6 +36,7 @@ class WishlistController extends Controller
     function destroy(String $id)
     {
         wishlist::find($id)->delete();
+        toastr()->success('Bạn bỏ lưu 1 sản phẩm','Thành công');
         return back();
     }
 }

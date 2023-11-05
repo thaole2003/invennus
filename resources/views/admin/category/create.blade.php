@@ -20,7 +20,7 @@
             @enderror
             <div class="mb-3 mt-3">
                 <label for="email" class="form-label">Mô tả :</label>
-                <input type="text" class="form-control" id="email" placeholder="Enter description" name="description"
+                <input type="text" class="form-control" id="email" placeholder="Nhập mô tả" name="description"
                        value="{{ old('description') }}">
             </div>
             @error('description')
@@ -29,7 +29,7 @@
             <div class="mb-3 mt-3">
                 <label for="email" class="form-label">Ảnh:</label>
                 <input type="file" class="form-control" name="image" accept="image/*" id="image-input"
-                       placeholder="Enter title" value="{{ old('image') }}">
+                       placeholder="Nhập tiêu đề" value="{{ old('image') }}">
             </div>
             @error('image')
             <span class="text-danger">{{$message}}</span>

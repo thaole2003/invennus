@@ -25,9 +25,8 @@
                     <th scope="col">Mã</th>
                     <th scope="col">Tên SP</th>
                     <th scope="col">Tên ngắn</th>
-                    <th scope="col">slug</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">ảnh chính</th>
+                    <th scope="col">Mô tả</th>
+                    <th scope="col">Ảnh chính</th>
                     <th scope="col">Hành động</th>
                 </tr>
             </thead>
@@ -40,8 +39,7 @@
                             <td>{{ $value->sku }}</td>
                             <td>{{ $value->title }}</td>
                             <td>{{ $value->metatitle }}</td>
-                            <td>{{ $value->slug }}</td>
-                            <td>{{ $value->description }}</td>
+                            <td>{!! substr($value->description, 0, 20) !!}</td>
                             <td><img  style="width: 80px;height: 80px" src="{{ asset($value->image) }}" alt=""></td>
                             <td class="d-flex align-items-center">
                                 <a  class="btn btn-primary" href="{{ route('admin.product.edit',$value->id) }}"><i class="fas fa-edit"></i></a>
@@ -65,6 +63,6 @@
 
             </tbody>
         </table>
-        {{ $data->links() }}
+
     </div>
 @endsection

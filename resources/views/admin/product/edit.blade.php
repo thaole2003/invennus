@@ -16,26 +16,26 @@
                             value="{{ $data->sku }}">
                     </div>
                     <div class="mb-3 mt-3">
-                        <label for="email" class="form-label">Tên:</label>
-                        <input type="text" class="form-control" id="" placeholder="Title" name="title"
+                        <label for="email" class="form-label">Tiêu đề:</label>
+                        <input type="text" class="form-control" id="" placeholder="Tiêu đề" name="title"
                             value="{{ $data->title }}">
                     </div>
                     <div class="mb-3 mt-3">
-                        <label for="email" class="form-label">Tên ngắn:</label>
-                        <input type="text" class="form-control" id="" placeholder="Meta title" name="metatitle"
+                        <label for="email" class="form-label">Tiêu đề ngắn:</label>
+                        <input type="text" class="form-control" id="" placeholder="Tiêu đề ngắn" name="metatitle"
                             value="{{ $data->metatitle }}">
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="email" class="form-label">Giá chung:</label>
-                        <input type="text" class="form-control" id="email" placeholder="Meta title" name="price"
+                        <input type="text" class="form-control" id="email" placeholder="Giá ban đầu" name="price"
                             value="{{ $data->price }}">
                     </div>
 
                 </div>
                 <div class="col-md-4">
                     <div class="mb-3 mt-3">
-                        <label for="email" class="form-label">Description :</label>
-                        <textarea type="text" class="form-control" id="email" placeholder="Enter description" name="description"> {{ $data->description }}</textarea>
+                        <label for="email" class="form-label">Mô tả :</label>
+                        <textarea type="text" class="form-control" id="email" placeholder="Nhập mô tả" name="description"> {{ $data->description }}</textarea>
                     </div>
                     <div class="mb-3 mt-3">
                         <div class="mb-3 mt-3">
@@ -62,7 +62,7 @@
                     <div class="mb-3 mt-3">
                         <label for="email" class="form-label">Ảnh chính:</label>
                         <input type="file" class="form-control" name="newimage" accept="image/*" id="image-input"
-                            placeholder="Enter title" value="{{ old('image') }}">
+                            placeholder="Nhập tiêu đề" value="{{ old('image') }}">
                         <input type="text" name="currentimage" hidden value="{{ $data->image }}">
                     </div>
                     <div class="mb-3 mt-3" style="text-align:center;">
@@ -75,7 +75,7 @@
                     </div>
                     <div class="d-flex">
                         <label class="col-md-4" for="">Ảnh sản phẩm : </label><input type="file"
-                            class="form-control" name="images[]" placeholder="Enter title" value="{{ old('images') }}"
+                            class="form-control" name="images[]" placeholder="Nhập tiêu đề" value="{{ old('images') }}"
                             multiple>
                     </div>
 

@@ -53,9 +53,11 @@
                             <li class="nav-item p-relative">
                                 <a href="{{ route('home') }}" class="nav-link active">Trang Chủ</a>
                             </li>
+                            @if(auth()->check())
                             <li class="nav-item p-relative">
                                 <a href="{{ route('product.home') }}" class="nav-link active">Yêu thích</a>
                             </li>
+                            @endif
                             <li class="nav-item p-relative">
                                 <a href="#" class="nav-link active">Tin tức</a>
                             </li>
@@ -174,10 +176,13 @@
                                         class="fas fa-shopping-bag"></i></a>
 
                             </div>
+                            @if(auth()->check())
                             <div class="option-item">
                                 <a href="#" data-bs-toggle="modal"
                                     data-bs-target="#shoppingWishlistModal">Yêu thích <i class="far fa-heart"></i></a>
                             </div>
+
+                            @endif
 
                             <div class="option-item">
                                 @guest

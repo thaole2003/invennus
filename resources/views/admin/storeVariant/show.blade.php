@@ -47,7 +47,6 @@
                 @endif
             </tbody>
         </table>
-        {{-- {{ $data->links() }} --}}
     </div>
 @endsection
 @push('scripts')
