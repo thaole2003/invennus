@@ -37,10 +37,10 @@ class ProductController extends Controller
     {
         $store = Store::all();
         $categories = Category::query()->get();
-        $sizes = Size::query()->get();
-        $colors = Color::query()->get();
+        // $sizes = Size::query()->get();
+        // $colors = Color::query()->get();
         // dd($categories);
-        return view('admin.product.create', compact('store', 'categories', 'sizes', 'colors'));
+        return view('admin.product.create', compact('store', 'categories'));
     }
 
     /**
@@ -48,6 +48,7 @@ class ProductController extends Controller
      */
     public function store(CreateProductRequest $request)
     {
+        // dd($request->all());
         try {
             $model = new Product();
             $model->fill($request->all());
@@ -76,21 +77,21 @@ class ProductController extends Controller
                 $imageModel->image = $filePathAfterUpload;
                 $imageModel->save();
             }
-            // $size = $request->input('size');
-            // $sizeunique = collect($size)->unique()->values()->all();
-            // $color = $request->input('color');
-            // $colorunique = collect($color)->unique()->values()->all();
+            $size = $request->input('size');
+            $sizeunique = collect($size)->unique()->values()->all();
+            $color = $request->input('color');
+            $colorunique = collect($color)->unique()->values()->all();
             if (count($request->input('store_id'))) {
                 foreach ($request->input('store_id') as $store) {
-                    foreach ($request->color as $colors) {
-                        // $colorr = Color::firstOrCreate(['name' => $color]);
-                        foreach ($request->size as $sizes) {
-                            // $sizee = Size::firstOrCreate(['name' => $size]);
+                    foreach ($colorunique as $color) {
+                        $colorr = Color::firstOrCreate(['name' => $color]);
+                        foreach ($sizeunique as $size) {
+                            $sizee = Size::firstOrCreate(['name' => $size]);
                             // Thêm biến thể vào bảng product_variants
                             $productVariant = new ProductVariant;
                             $productVariant->product_id = $model->id;
-                            $productVariant->size_id = $sizes; // Thay thế $sizeId bằng id của size tương ứng
-                            $productVariant->color_id = $colors; // Thay thế $colorId bằng id của color tương ứng
+                            $productVariant->size_id = $sizee->id; // Thay thế $sizeId bằng id của size tương ứng
+                            $productVariant->color_id = $colorr->id; // Thay thế $colorId bằng id của color tương ứng
                             $productVariant->price = $request->input('price'); // Thay thế $price bằng giá của biến thể
                             $productVariant->save();
                             // Thêm biến thể vào bảng store_variants

@@ -63,12 +63,15 @@
                         <div class="category-container">
                             <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
                                     style="color: #ff6666;"></i> Danh mục</label><br>
-                            @if (count($store) > 0)
+                            @if (count($categories) > 0)
                                 @foreach ($categories as $key => $category)
-                                    <input type="checkbox" name="category[]" value="{{ $category->id }}" id=""
+                                    <input type="checkbox" name="category[]" value="{{ $category->id }}" id="category"
                                         {{ in_array($category->id, old('category', [])) ? 'checked' : '' }}>
                                     {{ $category->name }} <br>
                                 @endforeach
+                                @error('category')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             @else
                                 <span>Hãy thêm 1 danh mục trước!</span>
                             @endif
@@ -76,58 +79,34 @@
 
                     </div>
                 </div>
-                @error('category.*')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-                    <div class="mb-3 mt-3 pr-3">
-                        <div class="size-container">
-                            <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs" style="color: #ff6666;"></i> Kích cỡ</label><br>
-                            @if (count($sizes) > 0)
-                            <div class="d-flex flex-row flex-wrap">
-                                @foreach ($sizes as $key => $size)
-                                    <div class="mr-3 mb-3">
-                                        <input type="checkbox" name="size[]" value="{{ $size->id }}" id=""
-                                            {{ in_array($size->id, old('size', [])) ? 'checked' : '' }}>
-                                        {{ $size->name }}
-                                    </div>
-                                @endforeach
-                            </div>
-                            @else
-                                <span>Hãy thêm kích thước trước!</span>
-                            @endif
-                        </div>
-                    </div>
 
+                    <div class="mb-3 mt-3 pr-3">
+                        <div class="size-container ">
+                            <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
+                                    style="color: #ff6666;"></i> Kích cỡ :</label><br>
+                            <input class="p-1" type="text" name="size[]" placeholder="Kích thước"><br>
+                        </div>
+                        <label class="btn btn-primary mt-2" onclick="addSizeField()">Thêm Kích thước</label>
+                    </div>
+                    @error('size.*')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     <div class="mb-3 mt-3">
                         <div class="color-container">
                             <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
-                                    style="color: #ff6666;"></i> Màu sắc</label><br>
-                            @if (count($colors) > 0)
-                            <div class="d-flex flex-row flex-wrap">
-                                @foreach ($colors as $key => $color)
-                                    <div class="mr-3 mb-3">
-                                        <input type="checkbox" name="color[]" value="{{ $color->id }}" id=""
-                                            {{ in_array($color->id, old('color', [])) ? 'checked' : '' }}>
-                                        {{ $color->name }}
-                                    </div>
-                                @endforeach
-                            </div>
-
-                            @else
-                                <span>Hãy thêm 1 màu sắc trước!</span>
-                            @endif
+                                    style="color: #ff6666;"></i> Màu :</label><br>
+                            <input class="p-1" type="text" name="color[]" placeholder="Màu sắc">
                         </div>
+                        <label class="btn btn-primary mt-2" onclick="addColorField()">Thêm Màu</label>
                     </div>
 
                 @error('color.*')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
-                @error('size.*')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
+
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
-                            style="color: #ff6666;"></i> Cửa hàng có:</label><br>
+                            style="color: #ff6666;"></i> Cửa hàng:</label><br>
                     @if (count($store) > 0)
                         @foreach ($store as $key => $value)
                             <input type="checkbox" name="store_id[]" value="{{ $value->id }}" id=""
@@ -138,9 +117,9 @@
                         <span>Hãy thêm 1 cửa hàng!</span>
                     @endif
                 </div>
-                @foreach ($errors->get('store_id.*') as $error)
-                    <p>{{ $error }}</p>
-                @endforeach
+                @error('store_id')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label"><i class="fas fa-star-of-life fa-rotate-180 fa-xs"
                             style="color: #ff6666;"></i> Ảnh sản phẩm ( thêm nhiều ảnh):</label>
@@ -189,8 +168,8 @@
 
             var colorDiv = document.createElement('div');
             colorDiv.innerHTML = `
-            <input type="text" name="color[]" placeholder="Màu">
-            <button class="delete-button" onclick="deleteColorField(this)">Xóa</button>
+            <input class='mt-2 p-1' type="text" name="color[]" placeholder="Màu sắc">
+            <button class="delete-button btn btn-primary" onclick="deleteColorField(this)">Xóa</button>
         `;
 
             container.appendChild(colorDiv);
@@ -209,7 +188,7 @@
             var colorDiv = document.createElement('div');
             colorDiv.innerHTML = `
                 <input type="text" name="category[]" placeholder="Danh mục">
-                <button class="delete-button" onclick="deleteCategoryField(this)">Xóa</button>
+                <button class="delete-button btn btn-primary" onclick="deleteCategoryField(this)">Xóa</button>
             `;
 
             container.appendChild(colorDiv);
@@ -227,8 +206,8 @@
 
             var sizeDiv = document.createElement('div');
             sizeDiv.innerHTML = `
-            <input type="text" name="size[]" placeholder="Kích thước">
-            <button class="delete-button" onclick="deleteSizeField(this)">Xóa</button>
+            <input class='mt-2 p-1'  type="text" name="size[]" placeholder="Kích thước">
+            <button class="delete-button btn btn-primary" onclick="deleteSizeField(this)">Xóa</button>
         `;
 
             container.appendChild(sizeDiv);

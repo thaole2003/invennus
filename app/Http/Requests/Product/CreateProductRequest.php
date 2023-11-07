@@ -29,10 +29,10 @@ class CreateProductRequest extends FormRequest
             'image' => ['required'],
             'price' => ['required'],
             'images.*' => ['required'],
-            'store_id.*' => ['required'],
+            'store_id' => ['required'],
             'color.*' => ['required'],
             'size.*' => ['required'],
-            'category.*' => ['required'],
+            'category' => ['required'],
         ];
     }
 
@@ -48,10 +48,10 @@ class CreateProductRequest extends FormRequest
             'image.required' => 'Ảnh chính bắt buộc nhập.',
             'price.required' => 'Giá là bắt buộc.',
             'images.*.required' => 'Hình ảnh bắt buộc nhập (chọn nhiều ảnh).',
-            'store_id.*.required' => 'Chọn ít nhất 1 cửa hàng.',
-            'color.*.required' => 'Chọn màu sắc cho sản phẩm.',
-            'size.*.required' => 'Chọn kích cỡ cho sản phẩm.',
-            'category.*.required' => 'Chọn danh mục.',
+            'store_id.required' => 'Chọn ít nhất 1 cửa hàng.',
+            'color.*.required' => 'Thêm màu sắc cho sản phẩm.',
+            'size.*.required' => 'Thêm kích cỡ cho sản phẩm.',
+            'category.required' => 'Chọn danh mục cho sản phẩm.',
         ];
     }
 
