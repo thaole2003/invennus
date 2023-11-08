@@ -141,7 +141,7 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
                                                 <div class="tabs_item">
                                                     <div class="products-details-tab-content">
                                                         <p>
-                                                            {{ $product->description }}
+                                                            {!! $product->description !!}
                                                         </p>
                                                     </div>
                                                 </div>

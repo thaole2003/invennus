@@ -22,8 +22,9 @@ class CreateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sku' => ['required', 'unique:products,sku'],
-            'title' => ['required', 'unique:products,title'],
+            'sku' => ['required', 'unique:products,sku','max:10'],
+            'title' => ['required', 'unique:products,title','min:5','max:40'],
+            'metatitle' => ['required', 'unique:products,metatitle','min:5','max:20'],
             'slug' => ['unique:products,slug'],
             'description' => ['required'],
             'image' => ['required'],
@@ -41,8 +42,13 @@ class CreateProductRequest extends FormRequest
         return [
             'sku.required' => 'Bắt buộc nhập mã sản phẩm.',
             'sku.unique' => 'Mã sản phẩm này đã tồn tại trong hệ thống.',
+            'sku.max' => 'Mã sản phẩm nhiều nhất 10 kí tự.',
             'title.required' => 'Tiêu đề là bắt buộc nhập.',
             'title.unique' => 'Tiêu đề này đã tồn tại trong hệ thống.',
+            'title.min' => 'Tiêu đề ít nhất 5 kí tự.',
+            'title.max' => 'Tiêu đề nhiều nhất 40 kí tự.',
+            'metatitle.min' => 'Tiêu đề ít nhất 5 kí tự.',
+            'metatitle.max' => 'Tiêu đề nhiều nhất 20 kí tự.',
             'slug.unique' => 'Slug này đã tồn tại trong hệ thống.',
             'description.required' => 'Mô tả bắt buộc nhập.',
             'image.required' => 'Ảnh chính bắt buộc nhập.',

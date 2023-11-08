@@ -75,6 +75,7 @@ Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(fu
     Route::resource('post', PostController::class);
     Route::get('store/{storeid}/variant/{variantid}', [StoreVariantController::class, 'liststorevariant'])->name('store.variant.list');
     Route::resource('storevariant', StoreVariantController::class);
+    Route::get('showStoreVariant/{idStore}/{idProduct}',[StoreVariantController::class,'showStoreVariant'])->name('showStoreVariant');
     Route::put('editprice/{id}', [ProductController::class, 'updateprice'])->name('variant.editprice');
     Route::put('updatequantitystock/{id}', [ProductController::class, 'updatequantitystock'])->name('variant.updatequantitystock');
     Route::prefix('bill')->name('bill.')->group(function () {
