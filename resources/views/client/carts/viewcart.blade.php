@@ -175,7 +175,7 @@
                 let quantity = $(this).val();
                 let price = $('#price').val();
                 let product = $('#product').val();
-                let product_radiant = $('#ProductVariant').val();
+                // let product_radiant = $('#ProductVariant').val();
                 let id = $(this).closest('tr').data('id');
 
                 $.ajax({
@@ -185,20 +185,20 @@
                         id,
                         quantity,
                         product,
-                        product_radiant,
+                        // product_radiant,
                         price
                     },
                     dataType: 'json',
                     success: function(response) {
                         if (response.code === 200) {
                             $('.subtotal-amount').text(response.data.total)
-                            // location.reload();
+                            location.reload();
 
-                            let quantityStock = $('.quantity-stock').val();
-                            console.log(quantityStock);
-                            if (quantityStock = quantity) {
-                                $('.decrement-btn').css('pointer-events', 'none');
-                            }
+                            // let quantityStock = $('.quantity-stock').val();
+                            // console.log(quantityStock);
+                            // if (quantityStock = quantity) {
+                            //     $('.decrement-btn').css('pointer-events', 'none');
+                            // }
                         }
 
                     }

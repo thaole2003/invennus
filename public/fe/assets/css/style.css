@@ -9321,3 +9321,8 @@ Go Top CSS
   top: 50%;
 }
 /*# sourceMappingURL=style.css.map */
+
+.active-size { 
+  background-color: red;
+  color: white;
+}

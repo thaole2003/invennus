@@ -54,8 +54,8 @@
                                             VND</span>
                                     </div>
                                     <ul class="product-info">
-                                        {{-- <li><span>Vendor:</span> <a href="#">Lereve</a></li> --}}
-                                        <input type="text" id="product_variant">
+                                        <input type="hidden" id="product_variant">
+                                        <input type="hidden" id="quantity-stock">
 
                                         <li>Sản phẩm: Trong kho<span id="total-quantity-stock"> ({{ $totalQuantity }}
                                                 sản
@@ -76,10 +76,9 @@
                                         <h4>Màu:</h4>
                                         <div class="d-flex gap-1">
                                             @foreach ($groupbyColors as $color)
-                                                <label
-                                                    style="width: 40px; height:40px;border:1px solid grey;border-radius:50%">
-                                                    <input type="radio" name="color" id="color"
-                                                        value="{{ $color->id }}">
+                                                <label class="color-label" style="width: 40px; height:40px;">
+                                                    <input style="display: none" type="radio" name="color"
+                                                        id="color" value="{{ $color->id }}">
                                                     <div class="text-muted">{{ $color->name }}</div>
                                                 </label>
                                             @endforeach
@@ -90,10 +89,10 @@
                                         <h4>Kích cỡ:</h4>
                                         <ul>
                                             @foreach ($groupbySizes as $size)
-                                                <label id="label-size" class="labelSize"
-                                                    style="width: 40px; height:40px;background-color:grey ;border:1px solid grey;border-radius:50%">
-                                                    <input type="radio" name="size" class="size" id="size"
-                                                        value="{{ $size->id }}">
+                                                <label id="label-size gap-1" class="labelSize"
+                                                    style="width: 40px; height:40px;">
+                                                    <input style="display: none" type="radio" name="size"
+                                                        class="size" id="size" value="{{ $size->id }}">
                                                     <div class="">{{ $size->name }}</div>
                                                 </label>
                                             @endforeach
@@ -559,27 +558,21 @@
     </script>
     <script>
         $(function() {
-            let quantity = '';
-            let dataProduct = @json($product->variants);
+            var inputValue = parseInt($('#quantity').val());
+
+            // let quantity = '';
+            let dataProduct = @json($productvariants);
             console.log(dataProduct);
             let product_id = $("#product_id").val();
             console.log(product_id);
             let size = $("input[name='size']:checked").val();
-
-
-            // dataProduct.forEach(function(data) {
-            //     if (data.color_id == color && data.size_id == size) {
-            //         document.getElementById('newPrice').innerHTML = data
-            //             .price;
-            //         document.getElementById('total-quantity-stock')
-            //             .innerHTML = '( ' + data
-            //             .total_quantity_stock + ' sản phẩm)';
-            //     }
-            // });
-
             $(document).on('change', '#color', function() {
                 const color = $(this).val();
+                $('.color-label').removeClass('bg-danger text-light');
+                $(this).closest('.color-label').addClass('bg-danger text-light');
                 const sizeEl = $('input[name="size"]');
+                $("#quantity").val("1");
+                $('.increment-btn').css('pointer-events', 'auto')
                 $.ajax({
                     type: "GET",
                     url: "{{ route('product.check-detail-quantity') }}",
@@ -599,41 +592,38 @@
                             const val = Number($(this).val());
                             if (szIds.includes(val)) {
                                 $(this).attr('disabled', false)
-                                $(this).parent().addClass('bg-primary');
+                                $(this).parent().addClass('bg-primary text-light');
                             } else {
                                 $(this).attr('disabled', true)
-                                $(this).parent().removeClass('bg-primary');
+                                $(this).parent().removeClass('bg-primary text-light');
                             }
                         })
-
                     }
                 })
             })
             $(document).on('change', '#size', function() {
                 size = $(this).val();
+                $('.labelSize').removeClass('border border-warning');
+                $(this).closest('.labelSize').addClass('border border-warning');
+                $("#quantity").val("1");
+                $('.increment-btn').css('pointer-events', 'auto')
                 const selectedColor = $('input[name="color"]:checked').val();
-                // let product_id = $("#product_id").val();
-
-                // console.log(selectedColor);
-                // console.log(dataProduct);
                 dataProduct.forEach(function(data) {
-                    console.log(data.product_id);
-                    // if (data.color_id == selectedColor && data.size_id == size && data.product_id =
-                    //     product_id) {
-                    //     console.log(data);
+                    if (data.color_id == selectedColor && data.size_id == size) {
+                        $('#product_variant').val(data.id);
+                        var forPrice = number_format(data.price, 2, '.', ',');
 
-                    //     // var formattedPrice = number_format(data.price, 2, '.', ',');
-                    //     $('#product_variant').val(data.id);
-                    //     document.getElementById('newPrice').innerHTML = data.price;
-                    //     document.getElementById('total-quantity-stock').innerHTML = '( ' + data
-                    //         .total_quantity_stock + ' sản phẩm)';
+                        document.getElementById('newPrice').innerHTML = forPrice;
+                        document.getElementById('total-quantity-stock').innerHTML = '( ' + data
+                            .total_quantity_stock + ' sản phẩm)';
+                        document.getElementById('quantity-stock').value = data.total_quantity_stock;
+                        // quantity: $('.quantity-stock').val(),
 
-                    // }
+                    }
                 });
             })
             $('.increment-btn').on('click', function() {
-                var inputValue = parseInt($('#quantity').val());
-                console.log(quantity);
+                var quantity = $('#quantity-stock').val();
                 if (inputValue >= quantity) {
                     $(this).css('pointer-events', 'none');
                 } else {
@@ -650,17 +640,45 @@
                     data: {
                         product_variant: $("#product_variant").val(),
                         quantity: $('.qty-input').val(),
-                        // size: $("input[name='size']:checked").val(),
-                        // color: $("input[name='color']:checked").val(),
+                        size: $("input[name='size']:checked").val(),
+                        color: $("input[name='color']:checked").val(),
                     },
                     dataType: 'json',
                     success: function(response) {
                         console.log(response)
                         location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        var errorMessage = "Có lỗi xảy ra: " + error;
+                        console.log(errorMessage);
+                        // Hiển thị lỗi cho người dùng, ví dụ:
+                        alert("Sản phẩm không đủ số lượng trong kho hàng");
                     }
                 });
             });
         });
+
+        function number_format(number, decimals, dec_point, thousands_sep) {
+            number = parseFloat(number);
+            if (isNaN(number)) {
+                return '';
+            }
+
+            decimals = !isFinite(decimals) ? 2 : decimals;
+            dec_point = typeof dec_point === 'undefined' ? '.' : dec_point;
+            thousands_sep = typeof thousands_sep === 'undefined' ? ',' : thousands_sep;
+
+            var parts = number.toFixed(decimals).toString().split('.');
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousands_sep);
+
+            // Loại bỏ ".00" nếu tồn tại
+            var formattedPrice = parts.join(dec_point).replace('.00', '');
+
+            // Thêm "VND" vào giá trị định dạng
+            formattedPrice += ' VND';
+
+            return formattedPrice;
+        }
     </script>
 
     {{-- <script>
@@ -710,26 +728,6 @@
             });
         })
 
-        function number_format(number, decimals, dec_point, thousands_sep) {
-            number = parseFloat(number);
-            if (isNaN(number)) {
-                return '';
-            }
-
-            decimals = !isFinite(decimals) ? 2 : decimals;
-            dec_point = typeof dec_point === 'undefined' ? '.' : dec_point;
-            thousands_sep = typeof thousands_sep === 'undefined' ? ',' : thousands_sep;
-
-            var parts = number.toFixed(decimals).toString().split('.');
-            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousands_sep);
-
-            // Loại bỏ ".00" nếu tồn tại
-            var formattedPrice = parts.join(dec_point).replace('.00', '');
-
-            // Thêm "VND" vào giá trị định dạng
-            formattedPrice += ' VND';
-
-            return formattedPrice;
-        }
+        
     </script> --}}
 @endpush

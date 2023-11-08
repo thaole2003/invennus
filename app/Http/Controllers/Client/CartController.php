@@ -15,20 +15,27 @@ class CartController extends Controller
     {
         // $request['user_id'] = auth()->id();
 
-        // $size_id = $request['size'];
-        // $color_id = $request['color'];
+        $size_id = $request['size'];
+        $color_id = $request['color'];
         $user_id = auth()->user()->id;
         $quantity = $request['quantity'];
         $product_variant = $request['product_variant'];
-
-        // $product_variant = ProductVariant::query()->where([
-        //     'size_id' => $size_id,
-        //     'color_id' => $color_id,
-        //     'product_id' => $$product_id,
-        // ])->first();
+        $quantityStock = 3;
+        $product_variant = ProductVariant::query()->where([
+            'size_id' => $size_id,
+            'color_id' => $color_id,
+        ])->first();
         $cartItem = Cart::where('product_radiant', $product_variant)->first();
         if ($cartItem) {
-            $cartItem->quantity += $quantity;
+            $newQuantity = $cartItem->quantity + $quantity;
+
+            if ($newQuantity > $quantityStock) {
+                return response()->json([
+                    'error' => 'Sản phẩm vượt quá số lượng trong kho',
+                ], 400);
+            }
+
+            $cartItem->quantity = $newQuantity;
             $cartItem->save();
         } else {
             $cart = new Cart;
@@ -75,8 +82,8 @@ class CartController extends Controller
     {
         $id = $request['id'];
         $quantity = $request['quantity'];
-        $product_radiant = $request['product_radiant'];
-        $product_radiants = $product_radiant->ProductVariant->total_quantity_stock;
+        // $product_radiant = $request['product_radiant'];
+        // $product_radiants = $product_radiant->ProductVariant->total_quantity_stock;
         $cart = Cart::find($id);
         $cart->quantity = $quantity;
         $cart->save();
@@ -84,7 +91,7 @@ class CartController extends Controller
             'code' => 200,
             'data' => [
                 'cart' => $cart ?? 0,
-                'product_radiants' => $product_radiants
+                // 'product_radiants' => $product_radiants
             ]
         ]);
     }

@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Bill;
 use App\Models\BillDetails;
+// use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session as FacadesSession;
 
 class ReportController extends Controller
 {
@@ -25,6 +27,8 @@ class ReportController extends Controller
     {
         $date_start = $request->input('date_start');
         $date_end = $request->input('date_end');
+        FacadesSession::put('date_start', $request->input('date_start'));
+        FacadesSession::put('date_end', $request->input('date_end'));
         if ($date_start === null && $date_end === null) {
             $revenueData = Bill::select(DB::raw('MONTH(created_at) as month'))
                 ->selectRaw('SUM(total_price) as revenue')
@@ -49,7 +53,7 @@ class ReportController extends Controller
             ->orderBy('total_quantity', 'desc')
             ->take(5)
             ->get();
-    
+
         return view('admin.InventoryEntry.product', compact('topProducts'));
     }
 }
