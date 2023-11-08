@@ -22,7 +22,6 @@
                         <td scope="">{{ $key + 1 }}</td>
                         <td>{{ $value->name }}</td>
                         <td><a class="btn btn-primary" href="{{ route('admin.storevariant.show', $value->id) }}">Xem sản phẩm</a></td>
-
                     </tr>
                 @endforeach
 

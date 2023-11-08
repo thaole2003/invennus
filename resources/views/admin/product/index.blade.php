@@ -35,8 +35,8 @@
                     <tr>
                         <td scope="">{{ $key + 1 }}</td>
                         <td>{{ $value->sku }}</td>
-                        <td>{{ $value->title }}</td>
-                        <td>{{ $value->metatitle }}</td>
+                        <td>{!! substr($value->title, 0, 20) !!}</td>
+                        <td>{!! substr($value->metatitle, 0, 20) !!}</td>
                         <td>{!! substr($value->description, 0, 20) !!}</td>
                         <td><img style="width:80px;height:80px" src="{{ asset($value->image) }}" alt=""></td>
 

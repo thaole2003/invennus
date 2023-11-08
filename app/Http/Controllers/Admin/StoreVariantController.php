@@ -42,8 +42,24 @@ class StoreVariantController extends Controller
             ->where('store_id', $id)
             ->latest('created_at')
             ->get();
+            $productGroups = [];
 
-        return view('admin.storeVariant.show', compact('data'));
+            foreach ($data as $storeVariant) {
+                $product = $storeVariant->variant->product;
+                $productId = $product->id;
+                // Nếu sản phẩm đã tồn tại trong nhóm, thêm vào nhóm đó
+                if (isset($productGroups[$productId])) {
+                    $productGroups[$productId]['variants'][] = $storeVariant->variant;
+                } else {
+                    // Nếu sản phẩm chưa tồn tại trong nhóm, tạo một nhóm mới
+                    $productGroups[$productId] = [
+                        'product' => $product,
+                        'variants' => [$storeVariant->variant],
+                    ];
+                }
+            }
+            // dd($productGroups);
+        return view('admin.storeVariant.show', compact('data','id','productGroups'));
     }
 
     /**
@@ -51,7 +67,17 @@ class StoreVariantController extends Controller
      */
     public function edit(string $id)
     {
-
+    }
+    public function showStoreVariant($idStore, $idProduct)
+    {
+        $data = StoreVariant::with(['variant.product'])
+            ->where('store_id', $idStore)
+            ->whereHas('variant.product', function ($query) use ($idProduct) {
+                $query->where('id', $idProduct);
+            })
+            ->latest('created_at')
+            ->get();
+        return view('admin.storeVariant.showProduct', compact('data'));
     }
 
     /**
