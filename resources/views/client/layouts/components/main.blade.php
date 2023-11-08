@@ -178,7 +178,7 @@
                                             </div>
                                             <div class="product-content">
                                                 <h3><a
-                                                        href="{{ route('product.detail', $product->id) }}">{{ $product->title }}</a>
+                                                        href="{{ route('product.detail', $product->id) }}">{!! substr($product->title, 0, 25) !!}</a>
                                                 </h3>
                                                 <div style="height: 50px" class="product-price">
                                                     @if ($product->sales)
@@ -195,7 +195,7 @@
                                                             VND</span>
                                                     @else
                                                         <span style=""
-                                                            class="">{{ $product->metatitle }}</span><br>
+                                                            class="">{!! substr($product->metatitle, 0, 25) !!}</span><br>
                                                         <span
                                                             style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;"
                                                             class="new-price">{{ number_format($product->price) }}
@@ -263,7 +263,7 @@
     <!-- End all Products Area -->
 
     <!-- Start Products Offer Area -->
-    <section class="products-offer-area bg-image2 ptb-60 jarallax" data-jarallax='{"speed": 0.3}'>
+    {{-- <section class="products-offer-area bg-image2 ptb-60 jarallax" data-jarallax='{"speed": 0.3}'>
         <div class="container">
             <div class="products-offer-content">
                 <span class="sub-title">Tràn ngập ưu đãi!</span>
@@ -273,7 +273,7 @@
                 <a href="#" class="btn btn-primary">Quần vải</a>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- End Products Offer Area -->
 
     <!-- Start News Area -->
@@ -685,16 +685,14 @@
                                     <li><span>Product Type:</span> <a href="#">T-Shirt</a></li>
                                 </ul>
 
-                                <div class="product-color-switch">
+                                {{-- <div class="product-color-switch">
                                     <h4>Color:</h4>
                                     <div>
-                                        {{-- @foreach ($colorIds as $color)
-                                            <div>{{ $color }}</div>
-                                        @endforeach --}}
+
                                     </div>
                                     @foreach ($product->variants as $variant)
                                         @php
-                                            $rendered_colors = []; // Mảng để theo dõi các màu đã render
+                                            $rendered_colors = [];
                                         @endphp
 
                                         @foreach ($product->variants as $color)
@@ -708,41 +706,24 @@
                                                     <input type="radio" data-prod-id="{{ $color->product_id }}"
                                                         name="color" id="color" value="{{ $color->color->id }}">
                                                     <div class="">{{ $color->color->name }}</div>
-                                                    {{-- <input type="hidden" data-prod-id="{{ $color->product_id }}"
-                                                        class="product_id" value="{{ $color->product_id }}"> --}}
-
-                                                    {{-- {{ $color->product_id }} --}}
 
                                                 </label>
                                             @endif
                                         @endforeach
                                     @endforeach
-                                    {{-- <ul>
-                                        <li><a href="#" title="Black" class="color-black"></a></li>
-                                        <li><a href="#" title="White" class="color-white"></a></li>
-                                        <li class="active"><a href="#" title="Green" class="color-green"></a>
-                                        </li>
-                                        <li><a href="#" title="Yellow Green" class="color-yellowgreen"></a></li>
-                                        <li><a href="#" title="Teal" class="color-teal"></a></li>
-                                    </ul> --}}
-                                </div>
+                                </div> --}}
 
-                                <div class="product-size-wrapper">
+                                {{-- <div class="product-size-wrapper">
                                     <h4>Size:</h4>
-                                    {{-- <div>
-                                        @foreach ($sizeIds as $size)
-                                            <div>{{ $size }}</div>
-                                        @endforeach
-                                    </div> --}}
                                     @foreach ($product->variants as $variant)
                                         @php
-                                            $rendered_sizes = []; // Mảng để theo dõi các màu đã render
+                                            $rendered_sizes = [];
                                         @endphp
 
                                         @foreach ($product->variants as $size)
                                             @if (!in_array($size->size->id, $rendered_sizes))
                                                 @php
-                                                    $rendered_sizes[] = $size->size->id; // Đánh dấu màu đã render
+                                                    $rendered_sizes[] = $size->size->id;
                                                 @endphp
 
                                                 <label style="width: 40px; height: 40px;">
@@ -753,16 +734,9 @@
                                             @endif
                                         @endforeach
                                     @endforeach
-                                    {{-- <ul>
-                                        <li><a href="#">XS</a></li>
-                                        <li class="active"><a href="#">S</a></li>
-                                        <li><a href="#">M</a></li>
-                                        <li><a href="#">XL</a></li>
-                                        <li><a href="#">XXL</a></li>
-                                    </ul> --}}
-                                </div>
+                                </div> --}}
 
-                                <div class="product-add-to-cart">
+                                {{-- <div class="product-add-to-cart">
                                     <div class="input-counter">
                                         <span class="minus-btn"><i class="fas fa-minus"></i></span>
                                         <input type="text" class="qty-input" value="1" step="1">
@@ -773,9 +747,9 @@
                                             class="fas fa-cart-plus"></i> Add
                                         to
                                         Cart</button>
-                                </div>
+                                </div> --}}
 
-                                <a href="#" class="view-full-info">View full info</a>
+                                <a href="{{ route('product.detail',$product->id) }}" class="view-full-info">Xem chi tiết</a>
                             </div>
                         </div>
                     </div>
