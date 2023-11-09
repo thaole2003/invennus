@@ -18,7 +18,7 @@ class BillController extends Controller
      */
     public function index()
     {
-        $bills = Bill::query()->where('user_id', auth()->user()->id)->latest()->get();
+        $bills = Bill::query()->where('user_id', auth()->user()->id)->latest()->paginate(10);
         // dd($bills);
         return view('client.bills.billDetail', compact('bills'));
     }

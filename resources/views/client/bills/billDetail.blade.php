@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="cart-table table-responsive">
-                        <table class="table table-bordered">
+                        <table id="table" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
@@ -69,6 +69,7 @@
                                     </tr>
                                 @endforeach
                             </tbody>
+                            {{ $bills->links() }}
                         </table>
                     </div>
                     {{--

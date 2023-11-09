@@ -27,7 +27,7 @@ class HomeController extends Controller
         $category = Category::withCount('products')
             ->having('products_count', '>', 0)
             ->paginate(4);
-            $banners = Banner::where('is_active', 1) // Lấy các bản ghi có is_active = 1 (true)
+        $banners = Banner::where('is_active', 1) // Lấy các bản ghi có is_active = 1 (true)
             ->latest('id')
             ->paginate(2);
         $product_sale = Product::with([
@@ -38,12 +38,12 @@ class HomeController extends Controller
             'categories',
             'sales'
         ])
-        ->whereHas('sales', function ($query) use ($currentDateTime) {
-            $query->where('start_date', '<=', $currentDateTime)
-                  ->where('end_date', '>=', $currentDateTime);
-        })
-        ->latest()
-        ->paginate(6);
+            ->whereHas('sales', function ($query) use ($currentDateTime) {
+                $query->where('start_date', '<=', $currentDateTime)
+                    ->where('end_date', '>=', $currentDateTime);
+            })
+            ->latest()
+            ->paginate(6);
         $products = Product::with([
             'variants' => function ($query) {
                 $query->with('color', 'size');
@@ -52,11 +52,11 @@ class HomeController extends Controller
             'categories',
             'sales' => function ($query) use ($currentDateTime) {
                 $query->where('start_date', '<=', $currentDateTime)
-                      ->where('end_date', '>=', $currentDateTime);
+                    ->where('end_date', '>=', $currentDateTime);
             },
         ])->latest()->paginate(6);
         $colorIds = ProductVariant
-        ::where('total_quantity_stock', '>', 0)
+            ::where('total_quantity_stock', '>', 0)
             ->where('product_id', 1)
             ->with('color')
             ->groupBy('color_id')
@@ -69,16 +69,16 @@ class HomeController extends Controller
         // dd($products->variants->product_id);
         $carts = Cart::query()->latest()->get();
         $countCart = Cart::query()->count();
-        if (auth()->check()){
-        $wishlists = Wishlist::query()
-            ->latest()
-            ->where('user_id', auth()->user()->id)
-            ->get();
-        }else{
+        if (auth()->check()) {
+            $wishlists = Wishlist::query()
+                ->latest()
+                ->where('user_id', auth()->user()->id)
+                ->get();
+        } else {
             $wishlists = collect(); // Tạo một mảng trống
         }
 
-        return view('client.layouts.components.main', compact('category', 'products', 'banners', 'product_sale','carts', 'countCart', 'wishlists', 'colorIds', 'sizeIds'));
+        return view('client.layouts.components.main', compact('category', 'products', 'banners', 'product_sale', 'carts', 'countCart', 'wishlists', 'colorIds', 'sizeIds'));
     }
 
     /**
@@ -135,6 +135,7 @@ class HomeController extends Controller
             'images',
             'categories',
         ])->findOrFail($id);
+        $productvariants = $product->variants;
         $products = Product::whereHas('categories', function ($query) use ($product) {
             $query->whereIn('category_id', $product->categories->pluck('id'));
         })->paginate(4);
@@ -154,7 +155,7 @@ class HomeController extends Controller
                 $groupbySizes[] = $size;
             }
         }
-        return view('client.products.productDetail', compact('product', 'products', 'groupbyColors', 'groupbySizes', 'stores', 'totalQuantity'));
+        return view('client.products.productDetail', compact('productvariants', 'product', 'products', 'groupbyColors', 'groupbySizes', 'stores', 'totalQuantity'));
     }
 
     public function checkQuantity(Request $request)

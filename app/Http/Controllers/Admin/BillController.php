@@ -12,9 +12,10 @@ class BillController extends Controller
 {
     public function index()
     {
-        $bills = Bill::query()->latest()->get();
+        $bills = Bill::latest()->paginate(10);
         return view('admin.bills.billDetail', compact('bills'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -32,7 +33,7 @@ class BillController extends Controller
         $bill = Bill::find($request->id);
         $bill->status = $request->status;
         $bill->save();
-        toastr()->success('Sửa trạng thái thành công đơn hàng','Thành công');
+        toastr()->success('Sửa trạng thái thành công đơn hàng', 'Thành công');
         $content = [
             'title' => 'Đơn hàng của bạn đã được thay đổi trạng thái',
             'message' => "Đơn hàng của bạn đã được cập nhật,vui lòng truy cập website xem thông tin đơn hàng"

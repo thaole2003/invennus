@@ -1,9 +1,82 @@
 @extends('client.layouts.master')
 
 @section('content')
-@php
-$currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
-@endphp
+<style>
+    .variant{
+        border:1px solid grey;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px
+    }
+    .disableVariant{
+        opacity: 0.5; /* Làm mờ phần tử khi bị vô hiệu hóa */
+    text-decoration: line-through;
+    pointer-events: none;
+    border:1px solid grey;
+    display:flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px
+
+    }
+        .activeVariant {
+    position: relative;
+    border: 2px solid black;
+    }
+
+.activeVariant::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 20px 20px 0;
+  border-color: transparent transparent #000 transparent;
+  transform: rotate(-90deg);
+}
+
+.activeVariant::after {
+  content: '\2713'; /* Mã Unicode của dấu tích */
+  position: absolute;
+  bottom: 0px; /* Điều chỉnh vị trí dọc của dấu tích để nằm bên trong tam giác */
+  right: 1px; /* Điều chỉnh vị trí ngang của dấu tích để nằm bên trong tam giác */
+  font-size: 10px; /* Kích thước của dấu tích */
+  color: white; /* Màu chữ dấu tích */
+}
+.active-size {
+  position: relative;
+  border: 2px solid black;
+}
+
+.active-size::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 20px 20px 0;
+  border-color: transparent transparent #000 transparent;
+  transform: rotate(-90deg);
+}
+
+.active-size::after {
+  content: '\2713';
+  position: absolute;
+  bottom: 0px;
+  right: 1px;
+  font-size: 10px;
+  color: white;
+}
+
+</style>
+    @php
+        $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
+    @endphp
     <div class="container mx-6" style="margin-top: 120px">
 
         <!-- Start Page Title Area -->
@@ -29,14 +102,16 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
                                     <div class="product-page-gallery-main">
                                         @foreach ($product->images as $value)
                                             <div class="item">
-                                                <img style="width:416px;height:508px" src="{{ asset($value->image)}}" alt="image">
+                                                <img style="width:416px;height:508px" src="{{ asset($value->image) }}"
+                                                    alt="image">
                                             </div>
                                         @endforeach
                                     </div>
                                     <div class="product-page-gallery-preview">
                                         @foreach ($product->images as $value)
                                             <div class="item">
-                                                <img  style="width:76px;height:92px" src="{{ asset($value->image) }}" alt="image">
+                                                <img style="width:76px;height:92px" src="{{ asset($value->image) }}"
+                                                    alt="image">
                                             </div>
                                         @endforeach
                                     </div>
@@ -48,12 +123,16 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
                                     <h3>{{ $product->title }}</h3>
 
                                     <div class="price">
-                                        <span id="newPrice" class="new-price">{{number_format( $product->price )}} VND</span>
+                                        <span id="newPrice" class="new-price">{{ number_format($product->price) }}
+                                            VND</span>
                                     </div>
                                     <ul class="product-info">
-                                        {{-- <li><span>Vendor:</span> <a href="#">Lereve</a></li> --}}
-                                        <li><span>Sản phẩm:</span> <a href="#">Trong kho ({{ $totalQuantity }} sản
-                                                phẩm)</a></li>
+                                        <input type="hidden" id="product_variant">
+                                        <input type="hidden" id="quantity-stock">
+
+                                        <li>Sản phẩm: Trong kho<span id="total-quantity-stock"> ({{ $totalQuantity }}
+                                                sản
+                                                phẩm)</span></li>
                                         <li><span>Danh mục:</span>
                                             @foreach ($product->categories as $index => $categorie)
                                                 <a href="#">{{ $categorie->name }}</a>
@@ -70,10 +149,9 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
                                         <h4>Màu:</h4>
                                         <div class="d-flex gap-1">
                                             @foreach ($groupbyColors as $color)
-                                                <label
-                                                    style="width: 40px; height:40px;border:1px solid grey;border-radius:50%">
-                                                    <input type="radio" name="color" id="color"
-                                                        value="{{ $color->id }}">
+                                                <label class="color-label variant " style="width: auto;height:40px; padding-left: 20px; padding-right: 20px;">
+                                                    <input style="display: none" type="radio" name="color"
+                                                        id="color" value="{{ $color->id }}">
                                                     <div class="text-muted">{{ $color->name }}</div>
                                                 </label>
                                             @endforeach
@@ -82,12 +160,12 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
                                     </div>
                                     <div class="product-size-wrapper">
                                         <h4>Kích cỡ:</h4>
-                                        <ul>
+                                        <ul class="d-flex gap-1 " style="margin-left: 0.2px">
                                             @foreach ($groupbySizes as $size)
-                                                <label id="label-size"
-                                                    style="width: 40px; height:40px;background-color:grey ;border:1px solid grey;border-radius:50%">
-                                                    <input type="radio" name="size" id="size"
-                                                        value="{{ $size->id }}" >
+                                                <label  id="label-size gap-1" class="labelSize variant"
+                                                    style="width: auto; height:40px;  padding-left: 20px; padding-right: 20px;">
+                                                    <input style="display: none" type="radio" name="size"
+                                                        class="size" id="size" value="{{ $size->id }}">
                                                     <div class="">{{ $size->name }}</div>
                                                 </label>
                                             @endforeach
@@ -106,15 +184,17 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
                                     <div class="product-add-to-cart">
                                         <div class="input-counter">
                                             <span class="minus-btn decrement-btn"><i class="fas fa-minus"></i></span>
-                                            <input type="text" name="quantity" id="" min="1"
-                                                class="form-control text-center qty-input" value="1" step="1">
+                                            <input type="text" name="quantity" id="quantity" min="1"
+                                                class="form-control text-center qty-input" value="1" step="1"
+                                                readonly>
                                             <span class="plus-btn increment-btn"><i class="fas fa-plus"></i></span>
                                         </div>
                                     </div>
                                     <div class="buy-checkbox-btn">
                                         <div class="item">
-                                            <button type="submit" data-prod-var="" id="addtocart" class="btn btn-primary"><i
-                                                class="fas fa-cart-plus"></i> Thêm vào giỏ hàng</button>
+                                            <button type="submit" data-prod-var="" id="addtocart"
+                                                class="btn btn-primary"><i class="fas fa-cart-plus"></i> Thêm vào giỏ
+                                                hàng</button>
                                         </div>
 
                                     </div>
@@ -424,7 +504,8 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
                             </div>
 
                             <div class="aside-trending-products">
-                                <img src="https://scontent.fhan5-6.fna.fbcdn.net/v/t39.30808-6/342223368_162825819755433_5695418889023791058_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=5f2048&_nc_ohc=JKuuALvhb3EAX_tqpFK&_nc_ht=scontent.fhan5-6.fna&oh=00_AfAovCl_7qNpZ5fRd09dpzzgZ4K_63GsE62DD5FEKal5uw&oe=6540A2A3" alt="image">
+                                <img src="https://scontent.fhan5-6.fna.fbcdn.net/v/t39.30808-6/342223368_162825819755433_5695418889023791058_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=5f2048&_nc_ohc=JKuuALvhb3EAX_tqpFK&_nc_ht=scontent.fhan5-6.fna&oh=00_AfAovCl_7qNpZ5fRd09dpzzgZ4K_63GsE62DD5FEKal5uw&oe=6540A2A3"
+                                    alt="image">
 
                                 <div class="category">
                                     <h4>Có thể bạn quan tâm</h4>
@@ -437,90 +518,64 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
                     </div>
                 </div>
             </div>
-            @if(count($products)> 0)
-            <div class="related-products-area">
-                <div class="container">
-                    <div class="section-title">
-                        <h2><span class="dot"></span> Sản phẩm tương tự</h2>
-                    </div>
+            @if (count($products) > 0)
+                <div class="related-products-area">
+                    <div class="container">
+                        <div class="section-title">
+                            <h2><span class="dot"></span> Sản phẩm tương tự</h2>
+                        </div>
 
-                    <div class="row">
-                        <div class="trending-products-slides-two owl-carousel owl-theme">
-                            @foreach ($products as $product)
-                            <div class="col-lg-12 col-md-12">
-                                <div class="single-product-box">
-                                    <div class="product-image">
+                        <div class="row">
+                            <div class="trending-products-slides-two owl-carousel owl-theme">
+                                @foreach ($products as $product)
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="single-product-box">
+                                            <div class="product-image">
 
-                                        <a href="#">
-                                            <img src="{{asset($product->image) }}" alt="image">
-                                            <img src="{{ isset($product->images[0]->image) ? asset($product->images[0]->image) : asset('img/logo.jpg') }}" alt="image">
-                                        </a>
+                                                <a href="#">
+                                                    <img src="{{ asset($product->image) }}" alt="image">
+                                                    <img src="{{ isset($product->images[0]->image) ? asset($product->images[0]->image) : asset('img/logo.jpg') }}"
+                                                        alt="image">
+                                                </a>
 
 
-                                    </div>
-                                    <div class="product-content">
-                                        <h3><a
-                                                href="{{ route('product.detail', $product->id) }}">{{ $product->title }}</a>
-                                        </h3>
-                                        <div style="height: 50px" class="product-price">
-                                            @if ($product->sales &&   $product->sales->start_date <= $currentDateTime &&
-                                            $product->sales->end_date >= $currentDateTime)
-                                                @php
-                                                    $discountedPrice = $product->price - $product->sales->discount;
-                                                    $discountedPrice = max($discountedPrice, 0);
-                                                @endphp
-                                                <span style="text-decoration: line-through; " class="old-price">{{ number_format($product->price) }} VND</span><br>
-                                                <span style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;" class="new-price">{{ number_format($discountedPrice) }} VND</span>
-                                            @else
-                                                <span style="" class="">{{ $product->metatitle}}</span><br>
-                                                <span style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;" class="new-price">{{ number_format($product->price) }} VND</span>
-                                            @endif
+                                            </div>
+                                            <div class="product-content">
+                                                <h3><a
+                                                        href="{{ route('product.detail', $product->id) }}">{{ $product->title }}</a>
+                                                </h3>
+                                                <div style="height: 50px" class="product-price">
+                                                    @if ($product->sales && $product->sales->start_date <= $currentDateTime && $product->sales->end_date >= $currentDateTime)
+                                                        @php
+                                                            $discountedPrice = $product->price - $product->sales->discount;
+                                                            $discountedPrice = max($discountedPrice, 0);
+                                                        @endphp
+                                                        <span style="text-decoration: line-through; "
+                                                            class="old-price">{{ number_format($product->price) }}
+                                                            VND</span><br>
+                                                        <span
+                                                            style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;"
+                                                            class="new-price">{{ number_format($discountedPrice) }}
+                                                            VND</span>
+                                                    @else
+                                                        <span style=""
+                                                            class="">{{ $product->metatitle }}</span><br>
+                                                        <span
+                                                            style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;"
+                                                            class="new-price">{{ number_format($product->price) }}
+                                                            VND</span>
+                                                    @endif
+                                                </div>
+                                                <a href="{{ route('product.detail', $product->id) }}"
+                                                    class="btn btn-light">Xem chi tiết</a>
+                                            </div>
                                         </div>
-                                        <a href="{{ route('product.detail', $product->id) }}" class="btn btn-light">Xem chi tiết</a>
                                     </div>
-                                </div>
-                                {{-- <div class="single-product-box">
-                                    <div class="product-image">
-                                        <a href="#">
-                                            <img src="assets/img/trending-img5.jpg" alt="image">
-                                            <img src="assets/img/trending-hover-img5.jpg" alt="image">
-                                        </a>
-
-                                        <ul>
-                                            <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                    title="Quick View" data-bs-toggle="modal"
-                                                    data-bs-target="#productQuickView"><i class="far fa-eye"></i></a></li>
-                                            <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                    title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                            <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                    title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="product-content">
-                                        <h3><a href="#">Belted chino trousers polo</a></h3>
-
-                                        <div class="product-price">
-                                            <span class="new-price">$191.00</span>
-                                        </div>
-
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                        </div>
-
-                                        <a href="#" class="btn btn-light">Add to Cart</a>
-                                    </div>
-                                </div> --}}
+                                @endforeach
                             </div>
-                            @endforeach
                         </div>
                     </div>
                 </div>
-            </div>
             @endif
 
         </section>
@@ -539,15 +594,23 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
         });
     </script>
     <script>
-        $(document).ready(function() {
+        $(function() {
+            var inputValue = parseInt($('#quantity').val());
 
-            let dataProduct = @json($product->variants);
-            let color = $(this).val();
+            // let quantity = '';
+            let dataProduct = @json($productvariants);
+            console.log(dataProduct);
             let product_id = $("#product_id").val();
+            console.log(product_id);
             let size = $("input[name='size']:checked").val();
-
             $(document).on('change', '#color', function() {
-                color = $(this).val();
+
+                const color = $(this).val();
+                $('.color-label').removeClass('activeVariant');
+                $(this).closest('.color-label').addClass('activeVariant');
+                const sizeEl = $('input[name="size"]');
+                $("#quantity").val("1");
+                $('.increment-btn').css('pointer-events', 'auto')
                 $.ajax({
                     type: "GET",
                     url: "{{ route('product.check-detail-quantity') }}",
@@ -557,81 +620,162 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
                     },
                     dataType: 'json',
                     success: function(response) {
-                        let sizeIds = [];
-                        const res = response.data;
-                        for (const item of res) {
-                            sizeIds.push(item.size_id + '');
+                        const data = response.data;
+                        let szIds = [];
+                        for (const item of data) {
+                            szIds.push(item.size_id)
+                            console.log(item);
                         }
-                        $("input[name='size']").each(function() {
-                            $(this).prop('checked', false);
-                            if (sizeIds.includes($(this).val())) {
-                                $(this).removeAttr('disabled');
-                                $('#label-size').removeClass('bg-primary');
-                            } else {
-                                $(this).attr('disabled', true);
-                                $('#label-size').addClass('bg-primary');
-                            }
-                        })
-                        dataProduct.forEach(function(data) {
-                            if (data.color_id == color && data.size_id == size) {
-                                console.log(data);
-                                document.getElementById('newPrice').innerHTML = data
-                                    .price;
-                            }
-                        });
+                $('input.size').each(function() {
+                    const val = Number($(this).val());
+                    if (szIds.includes(val)) {
+                        $(this).prop('disabled', false)
+                        $('.labelSize').removeClass('disableVariant');
+                        $('input[name="size"]').prop('checked', false);
+                        $('.labelSize').removeClass('active-size');
+
+                    } else {
+                        $('input[name="size"]').prop('checked', false);
+                        $(this).prop('checked', false);
+                        $(this).prop('disabled', true);
+                        $('.labelSize').addClass('disableVariant');
+                        $('.labelSize').removeClass('active-size');
+                    }
+                });
+
                     }
                 })
             })
-
             $(document).on('change', '#size', function() {
+
                 size = $(this).val();
+                $('.labelSize').removeClass('active-size');
+                $(this).closest('.labelSize').addClass('active-size');
+                $("#quantity").val("1");
+                $('.increment-btn').css('pointer-events', 'auto')
+                const selectedColor = $('input[name="color"]:checked').val();
                 dataProduct.forEach(function(data) {
-                    if (data.color_id == color && data.size_id == size) {
-                        var formattedPrice = number_format(data.price, 2, '.', ',');
-                        document.getElementById('newPrice').innerHTML = formattedPrice;
+                    if (data.color_id == selectedColor && data.size_id == size) {
+                        $('#product_variant').val(data.id);
+                        var forPrice = number_format(data.price, 2, '.', ',');
+
+                        document.getElementById('newPrice').innerHTML = forPrice;
+                        document.getElementById('total-quantity-stock').innerHTML = '( ' + data
+                            .total_quantity_stock + ' sản phẩm)';
+                        document.getElementById('quantity-stock').value = data.total_quantity_stock;
+                        // quantity: $('.quantity-stock').val(),
+
                     }
                 });
             })
-
-            function number_format(number, decimals, dec_point, thousands_sep) {
-                number = parseFloat(number);
-                if (isNaN(number)) {
-                    return '';
+            $('.increment-btn').on('click', function() {
+                var inputValue = parseInt($('#quantity').val());
+                var quantity = $('#quantity-stock').val();
+                if (inputValue >= quantity) {
+                    $(this).css('pointer-events', 'none');
+                } else {
+                    $(this).css('pointer-events', 'fill');
                 }
+            });
 
-                decimals = !isFinite(decimals) ? 2 : decimals;
-                dec_point = typeof dec_point === 'undefined' ? '.' : dec_point;
-                thousands_sep = typeof thousands_sep === 'undefined' ? ',' : thousands_sep;
-
-                var parts = number.toFixed(decimals).toString().split('.');
-                parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousands_sep);
-
-                // Loại bỏ ".00" nếu tồn tại
-                var formattedPrice = parts.join(dec_point).replace('.00', '');
-
-                // Thêm "VND" vào giá trị định dạng
-                formattedPrice += ' VND';
-
-                return formattedPrice;
-            }
         })
+
         $(function() {
             $(document).on('click', '#addtocart', function() {
                 $.ajax({
                     type: 'GET',
                     url: "{{ route('cart.add-to-cart') }}",
                     data: {
+                        product_variant: $("#product_variant").val(),
+                        quantity_stock: $("#quantity-stock").val(),
                         quantity: $('.qty-input').val(),
-                        size: $("input[name='size']:checked").val(),
-                        color: $("input[name='color']:checked").val(),
                     },
                     dataType: 'json',
                     success: function(response) {
                         console.log(response)
                         location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        var errorMessage = "Có lỗi xảy ra: " + error;
+                        console.log(errorMessage);
+                        // Hiển thị lỗi cho người dùng, ví dụ:
+                        alert("Sản phẩm không đủ số lượng trong kho hàng");
                     }
                 });
             });
         });
+
+        function number_format(number, decimals, dec_point, thousands_sep) {
+            number = parseFloat(number);
+            if (isNaN(number)) {
+                return '';
+            }
+
+            decimals = !isFinite(decimals) ? 2 : decimals;
+            dec_point = typeof dec_point === 'undefined' ? '.' : dec_point;
+            thousands_sep = typeof thousands_sep === 'undefined' ? ',' : thousands_sep;
+
+            var parts = number.toFixed(decimals).toString().split('.');
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousands_sep);
+
+            // Loại bỏ ".00" nếu tồn tại
+            var formattedPrice = parts.join(dec_point).replace('.00', '');
+
+            // Thêm "VND" vào giá trị định dạng
+            formattedPrice += ' VND';
+
+            return formattedPrice;
+        }
     </script>
+
+    {{-- <script>
+        // $(document).on('change', '#size', function() {
+            //     size = $(this).val();
+            //     console.log(size);
+            //     dataProduct.forEach(function(data) {
+            //         if (data.color_id == color && data.size_id ==
+            //             size) {
+            // document.getElementById('total-quantity-stock').innerHTML ='( ' + data.total_quantity_stock + ' sản phẩm)';
+            //             quantity = data.total_quantity_stock;
+            //             var formattedPrice = number_format(data
+            //                 .price, 2, '.', ',');
+            //             document.getElementById('newPrice')
+            //                 .innerHTML = formattedPrice;
+            //         }
+            //     });
+            // })
+        $(function() {
+            let quantity;
+            let dataProduct = @json($product->variants);
+            let color = $(this).val();
+            let product_id = $("#product_id").val();
+            let size = $("input[name='size']:checked").val();
+
+
+
+            $(document).on('change', '#size', function() {
+                size = $(this).val();
+                dataProduct.forEach(function(data) {
+                    if (data.color_id == color && data.size_id == size) {
+                        document.getElementById('total-quantity-stock').innerHTML = '( ' + data
+                            .total_quantity_stock + ' sản phẩm)';
+                        quantity = data.total_quantity_stock;
+                        var formattedPrice = number_format(data.price, 2, '.', ',');
+                        document.getElementById('newPrice').innerHTML = formattedPrice;
+                    }
+                });
+            }) $('.increment-btn').on('click', function() {
+                var inputValue = parseInt($('#quantity').val());
+                console.log(quantity);
+                if (inputValue >= quantity) {
+                    $(this).css('pointer-events', 'none');
+                } else {
+                    $(this).css('pointer-events', 'auto');
+                }
+            });
+        })
+
+
+    </script> --}}
+
 @endpush

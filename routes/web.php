@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BillController as AdminBillController;
 use App\Http\Controllers\admin\CategoryController;
@@ -57,9 +58,7 @@ Route::post('/filter-product', [ReportController::class, 'filterProduct'])->name
 
 
 Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(function () {
-    Route::get('/', function () {
-        return view('admin.layouts.components.main');
-    })->name('home');
+    Route::get('/', [AdminHomeController::class, 'revenue7day'])->name('home');
 
     Route::resource('vendors', VendoreController::class);
     Route::resource('users', UserController::class);
@@ -75,7 +74,7 @@ Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(fu
     Route::resource('post', PostController::class);
     Route::get('store/{storeid}/variant/{variantid}', [StoreVariantController::class, 'liststorevariant'])->name('store.variant.list');
     Route::resource('storevariant', StoreVariantController::class);
-    Route::get('showStoreVariant/{idStore}/{idProduct}',[StoreVariantController::class,'showStoreVariant'])->name('showStoreVariant');
+    Route::get('showStoreVariant/{idStore}/{idProduct}', [StoreVariantController::class, 'showStoreVariant'])->name('showStoreVariant');
     Route::put('editprice/{id}', [ProductController::class, 'updateprice'])->name('variant.editprice');
     Route::put('updatequantitystock/{id}', [ProductController::class, 'updatequantitystock'])->name('variant.updatequantitystock');
     Route::prefix('bill')->name('bill.')->group(function () {

@@ -6,19 +6,8 @@
     <div class="m-10">
         <h1 class="text-center">Danh sách đơn hàng</h1>
     </div>
-    <div>
-        {{--
-    @if (session('msg'))
-        @if (session('msg')['success'])
-            <div class="alert alert-success">{{ session('msg')['message'] }}</div>
-        @else
-            <div class="alert alert-danger">{{ session('msg')['message'] }}</div>
-        @endif
-    @endif --}}
-
-    </div>
     <div class="w-80">
-        <table id="table" class="table table-striped" style="width:100%">
+        <table id="" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th scope="col">Mã</th>
@@ -34,30 +23,31 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($bills as $value)
+                @foreach ($bills as $key => $value)
                     <tr>
-                        <td scope="">{{ $value->id }}</td>
+                        <td>{{ $value->id }}</td>
                         <td>{{ $value->name }}</td>
                         <td>{{ $value->email }}</td>
                         <td>{{ $value->address }}</td>
                         <td>{{ $value->phone }}</td>
                         <td>
-                            @if($value->status == 'cancelled' || $value->status == 'shipping')
+                            @if ($value->status == 'cancelled' || $value->status == 'shipping')
                                 <span class="label label-{{ $value->status == 'cancelled' ? 'danger' : 'success' }}">
                                     {{ $value->status == 'cancelled' ? 'Đã hủy đơn hàng' : 'Đã gửi hàng' }}
                                 </span>
                             @else
                                 <select class="payment_status" data-id="{{ $value->id }}">
-                                    <option value="pendding" {{ $value->status == 'pendding' ? 'selected' : '' }}>Chờ xử lý</option>
-                                    <option value="preparing" {{ $value->status == 'preparing' ? 'selected' : '' }}>Đang chuẩn bị</option>
-                                    <option value="shipping" {{ $value->status == 'shipping' ? 'selected' : '' }}>Đã gửi hàng</option>
-                                    <option value="cancelled" {{ $value->status == 'cancelled' ? 'selected' : '' }}>Hủy đơn</option>
+                                    <option value="pendding" {{ $value->status == 'pendding' ? 'selected' : '' }}>Chờ xử lý
+                                    </option>
+                                    <option value="preparing" {{ $value->status == 'preparing' ? 'selected' : '' }}>Đang
+                                        chuẩn bị</option>
+                                    <option value="shipping" {{ $value->status == 'shipping' ? 'selected' : '' }}>Đã gửi
+                                        hàng</option>
+                                    <option value="cancelled" {{ $value->status == 'cancelled' ? 'selected' : '' }}>Hủy đơn
+                                    </option>
                                 </select>
                             @endif
                         </td>
-
-
-
                         <td>{{ $value->pay_method }}</td>
                         <td>{{ number_format($value->total_price) }} VND</td>
                         <td>{{ $value->created_at->format('d-m-Y') }}</td>
@@ -68,6 +58,7 @@
                     </tr>
                 @endforeach
             </tbody>
+            {{ $bills->links() }}
         </table>
     </div>
 @endsection

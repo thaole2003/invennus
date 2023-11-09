@@ -6,11 +6,11 @@
             @method('post')
             <div class="">
                 <label for="example-disable" class="form-label">Bắt đầu</label>
-                <input type="datetime-local" name="date_start" class="form-control" value="{{ old('date_start') }}">
+                <input type="datetime-local" name="date_start" class="form-control" value="{{ Session::get('date_start') }}">
             </div>
             <div class="">
                 <label for="example-disable" class="form-label">Kết thúc</label>
-                <input type="datetime-local" name="date_end" class="form-control" value="{{ old('date_end') }}">
+                <input type="datetime-local" name="date_end" class="form-control" value="{{ Session::get('date_end') }}">
             </div>
             <div class="mt-5">
                 <button type="submit" class="btn btn-primary waves-effect waves-light">Xem báo cáo</button>
