@@ -15,24 +15,17 @@ class CartController extends Controller
     {
         // $request['user_id'] = auth()->id();
 
-        $size_id = $request['size'];
-        $color_id = $request['color'];
-        $user_id = auth()->user()->id;
+      $user_id = auth()->user()->id;
         $quantity = $request['quantity'];
         $product_variant = $request['product_variant'];
-        $quantityStock = 3;
-        $product_variant = ProductVariant::query()->where([
-            'size_id' => $size_id,
-            'color_id' => $color_id,
-        ])->first();
+        $quantityStock = $request['quantity_stock'];
+
         $cartItem = Cart::where('product_radiant', $product_variant)->first();
         if ($cartItem) {
             $newQuantity = $cartItem->quantity + $quantity;
 
             if ($newQuantity > $quantityStock) {
-                return response()->json([
-                    'error' => 'Sản phẩm vượt quá số lượng trong kho',
-                ], 400);
+                toastr()->error('Không đủ số lượng trong kho','Thất bại');
             }
 
             $cartItem->quantity = $newQuantity;
@@ -47,6 +40,7 @@ class CartController extends Controller
                 ]
             );
             $cart->save();
+            toastr()->success('Thêm thành công giỏ hàng','Thành công');
         }
 
         return response()->json([

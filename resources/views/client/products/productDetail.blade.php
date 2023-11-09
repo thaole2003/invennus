@@ -1,6 +1,79 @@
 @extends('client.layouts.master')
 
 @section('content')
+<style>
+    .variant{
+        border:1px solid grey;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px
+    }
+    .disableVariant{
+        opacity: 0.5; /* Làm mờ phần tử khi bị vô hiệu hóa */
+    text-decoration: line-through;
+    pointer-events: none;
+    border:1px solid grey;
+    display:flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px
+
+    }
+        .activeVariant {
+    position: relative;
+    border: 2px solid black;
+    }
+
+.activeVariant::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 20px 20px 0;
+  border-color: transparent transparent #000 transparent;
+  transform: rotate(-90deg);
+}
+
+.activeVariant::after {
+  content: '\2713'; /* Mã Unicode của dấu tích */
+  position: absolute;
+  bottom: 0px; /* Điều chỉnh vị trí dọc của dấu tích để nằm bên trong tam giác */
+  right: 1px; /* Điều chỉnh vị trí ngang của dấu tích để nằm bên trong tam giác */
+  font-size: 10px; /* Kích thước của dấu tích */
+  color: white; /* Màu chữ dấu tích */
+}
+.active-size {
+  position: relative;
+  border: 2px solid black;
+}
+
+.active-size::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 20px 20px 0;
+  border-color: transparent transparent #000 transparent;
+  transform: rotate(-90deg);
+}
+
+.active-size::after {
+  content: '\2713';
+  position: absolute;
+  bottom: 0px;
+  right: 1px;
+  font-size: 10px;
+  color: white;
+}
+
+</style>
     @php
         $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
     @endphp
@@ -76,7 +149,7 @@
                                         <h4>Màu:</h4>
                                         <div class="d-flex gap-1">
                                             @foreach ($groupbyColors as $color)
-                                                <label class="color-label" style="width: 40px; height:40px;">
+                                                <label class="color-label variant " style="width: auto;height:40px; padding-left: 20px; padding-right: 20px;">
                                                     <input style="display: none" type="radio" name="color"
                                                         id="color" value="{{ $color->id }}">
                                                     <div class="text-muted">{{ $color->name }}</div>
@@ -87,10 +160,10 @@
                                     </div>
                                     <div class="product-size-wrapper">
                                         <h4>Kích cỡ:</h4>
-                                        <ul>
+                                        <ul class="d-flex gap-1 " style="margin-left: 0.2px">
                                             @foreach ($groupbySizes as $size)
-                                                <label id="label-size gap-1" class="labelSize"
-                                                    style="width: 40px; height:40px;">
+                                                <label  id="label-size gap-1" class="labelSize variant"
+                                                    style="width: auto; height:40px;  padding-left: 20px; padding-right: 20px;">
                                                     <input style="display: none" type="radio" name="size"
                                                         class="size" id="size" value="{{ $size->id }}">
                                                     <div class="">{{ $size->name }}</div>
@@ -497,42 +570,6 @@
                                                     class="btn btn-light">Xem chi tiết</a>
                                             </div>
                                         </div>
-                                        {{-- <div class="single-product-box">
-                                    <div class="product-image">
-                                        <a href="#">
-                                            <img src="assets/img/trending-img5.jpg" alt="image">
-                                            <img src="assets/img/trending-hover-img5.jpg" alt="image">
-                                        </a>
-
-                                        <ul>
-                                            <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                    title="Quick View" data-bs-toggle="modal"
-                                                    data-bs-target="#productQuickView"><i class="far fa-eye"></i></a></li>
-                                            <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                    title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                            <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                    title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="product-content">
-                                        <h3><a href="#">Belted chino trousers polo</a></h3>
-
-                                        <div class="product-price">
-                                            <span class="new-price">$191.00</span>
-                                        </div>
-
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="far fa-star"></i>
-                                        </div>
-
-                                        <a href="#" class="btn btn-light">Add to Cart</a>
-                                    </div>
-                                </div> --}}
                                     </div>
                                 @endforeach
                             </div>
@@ -567,9 +604,10 @@
             console.log(product_id);
             let size = $("input[name='size']:checked").val();
             $(document).on('change', '#color', function() {
+
                 const color = $(this).val();
-                $('.color-label').removeClass('bg-danger text-light');
-                $(this).closest('.color-label').addClass('bg-danger text-light');
+                $('.color-label').removeClass('activeVariant');
+                $(this).closest('.color-label').addClass('activeVariant');
                 const sizeEl = $('input[name="size"]');
                 $("#quantity").val("1");
                 $('.increment-btn').css('pointer-events', 'auto')
@@ -588,23 +626,31 @@
                             szIds.push(item.size_id)
                             console.log(item);
                         }
-                        $('input.size').each(function() {
-                            const val = Number($(this).val());
-                            if (szIds.includes(val)) {
-                                $(this).attr('disabled', false)
-                                $(this).parent().addClass('bg-primary text-light');
-                            } else {
-                                $(this).attr('disabled', true)
-                                $(this).parent().removeClass('bg-primary text-light');
-                            }
-                        })
+                $('input.size').each(function() {
+                    const val = Number($(this).val());
+                    if (szIds.includes(val)) {
+                        $(this).prop('disabled', false)
+                        $('.labelSize').removeClass('disableVariant');
+                        $('input[name="size"]').prop('checked', false);
+                        $('.labelSize').removeClass('active-size');
+
+                    } else {
+                        $('input[name="size"]').prop('checked', false);
+                        $(this).prop('checked', false);
+                        $(this).prop('disabled', true);
+                        $('.labelSize').addClass('disableVariant');
+                        $('.labelSize').removeClass('active-size');
+                    }
+                });
+
                     }
                 })
             })
             $(document).on('change', '#size', function() {
+
                 size = $(this).val();
-                $('.labelSize').removeClass('border border-warning');
-                $(this).closest('.labelSize').addClass('border border-warning');
+                $('.labelSize').removeClass('active-size');
+                $(this).closest('.labelSize').addClass('active-size');
                 $("#quantity").val("1");
                 $('.increment-btn').css('pointer-events', 'auto')
                 const selectedColor = $('input[name="color"]:checked').val();
@@ -623,15 +669,17 @@
                 });
             })
             $('.increment-btn').on('click', function() {
+                var inputValue = parseInt($('#quantity').val());
                 var quantity = $('#quantity-stock').val();
                 if (inputValue >= quantity) {
                     $(this).css('pointer-events', 'none');
                 } else {
-                    $(this).css('pointer-events', 'auto');
+                    $(this).css('pointer-events', 'fill');
                 }
             });
 
         })
+
         $(function() {
             $(document).on('click', '#addtocart', function() {
                 $.ajax({
@@ -639,9 +687,8 @@
                     url: "{{ route('cart.add-to-cart') }}",
                     data: {
                         product_variant: $("#product_variant").val(),
+                        quantity_stock: $("#quantity-stock").val(),
                         quantity: $('.qty-input').val(),
-                        size: $("input[name='size']:checked").val(),
-                        color: $("input[name='color']:checked").val(),
                     },
                     dataType: 'json',
                     success: function(response) {
@@ -696,7 +743,7 @@
             //                 .innerHTML = formattedPrice;
             //         }
             //     });
-            // }) 
+            // })
         $(function() {
             let quantity;
             let dataProduct = @json($product->variants);
@@ -704,7 +751,7 @@
             let product_id = $("#product_id").val();
             let size = $("input[name='size']:checked").val();
 
-            
+
 
             $(document).on('change', '#size', function() {
                 size = $(this).val();
@@ -728,6 +775,7 @@
             });
         })
 
-        
+
     </script> --}}
+
 @endpush

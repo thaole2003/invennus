@@ -12,7 +12,7 @@ class BillController extends Controller
 {
     public function index()
     {
-        $bills = Bill::latest()->get();
+        $bills = Bill::latest()->paginate(10);
         return view('admin.bills.billDetail', compact('bills'));
     }
 

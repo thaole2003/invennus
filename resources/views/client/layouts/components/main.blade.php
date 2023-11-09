@@ -601,7 +601,7 @@
                             <div class="product-cart d-flex justify-content-between align-items-center">
                                 <div class="">
                                     <div class="product-image">
-                                        <img src="{{ asset($wishlist->product->image) }}" alt="image">
+                                        <img style="width:50px;height:55px" src="{{ asset($wishlist->product->image) }}" alt="image">
                                     </div>
 
                                     <div class="product-content">

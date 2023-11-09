@@ -7,7 +7,7 @@
         <h1 class="text-center">Danh sách đơn hàng</h1>
     </div>
     <div class="w-80">
-        <table id="table" class="table table-striped" style="width:100%">
+        <table id="" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th scope="col">Mã</th>
@@ -58,6 +58,7 @@
                     </tr>
                 @endforeach
             </tbody>
+            {{ $bills->links() }}
         </table>
     </div>
 @endsection
