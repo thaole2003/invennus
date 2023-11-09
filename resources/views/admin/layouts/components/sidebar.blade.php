@@ -13,7 +13,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="{{route('admin.home')}}">
+        <a class="nav-link" href="{{ route('admin.home') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Bảng điều khiển</span></a>
     </li>
@@ -36,7 +36,7 @@
         <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href={{ route('admin.store.index') }}>Danh sách cửa hàng</a>
-                <a class="collapse-item"  href={{ route('admin.store.create') }}>Thêm mới cửa hàng</a>
+                <a class="collapse-item" href={{ route('admin.store.create') }}>Thêm mới cửa hàng</a>
             </div>
         </div>
     </li>
@@ -49,13 +49,13 @@
         <div id="collapseTwo11" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href={{ route('admin.vendors.index') }}>Danh sách nhà cung cấp</a>
-                <a class="collapse-item"  href={{ route('admin.vendors.create') }}>Thêm nhà cung cấp</a>
+                <a class="collapse-item" href={{ route('admin.vendors.create') }}>Thêm nhà cung cấp</a>
             </div>
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('admin.users.index') }}" data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="{{ route('admin.users.index') }}" data-toggle="collapse"
+            data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-user"></i>
             <span>Quản lý người dùng</span>
         </a>
@@ -88,8 +88,8 @@
         </a>
         <div id="collapseTw" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item"  href={{ route('admin.banner.index') }}>Danh sách ảnh banner</a>
-                <a class="collapse-item"  href={{ route('admin.banner.create') }}>Thêm mới ảnh banner</a>
+                <a class="collapse-item" href={{ route('admin.banner.index') }}>Danh sách ảnh banner</a>
+                <a class="collapse-item" href={{ route('admin.banner.create') }}>Thêm mới ảnh banner</a>
             </div>
         </div>
     </li>
@@ -101,8 +101,8 @@
         </a>
         <div id="collapseTwo3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item"  href={{ route('admin.size.index') }}>Danh sách kích cỡ</a>
-                <a class="collapse-item"  href={{ route('admin.size.create') }}>Thêm mới kích cỡ</a>
+                <a class="collapse-item" href={{ route('admin.size.index') }}>Danh sách kích cỡ</a>
+                <a class="collapse-item" href={{ route('admin.size.create') }}>Thêm mới kích cỡ</a>
             </div>
         </div>
     </li>
@@ -114,8 +114,8 @@
         </a>
         <div id="collapseTwo4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item"  href={{ route('admin.color.index') }}>Danh sách màu sắc</a>
-                <a class="collapse-item"  href={{ route('admin.color.create') }}>Thêm mới màu sắc</a>
+                <a class="collapse-item" href={{ route('admin.color.index') }}>Danh sách màu sắc</a>
+                <a class="collapse-item" href={{ route('admin.color.create') }}>Thêm mới màu sắc</a>
             </div>
         </div>
     </li>
@@ -127,8 +127,8 @@
         </a>
         <div id="collapseTwo5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item"  href={{ route('admin.product.index') }}>Danh sách sản phẩm</a>
-                <a class="collapse-item"  href={{ route('admin.product.create') }}>Thêm mới sản phẩm</a>
+                <a class="collapse-item" href={{ route('admin.product.index') }}>Danh sách sản phẩm</a>
+                <a class="collapse-item" href={{ route('admin.product.create') }}>Thêm mới sản phẩm</a>
             </div>
         </div>
     </li>
@@ -153,14 +153,27 @@
         </a>
         <div id="collapseTwo7" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item"  href={{ route('admin.sale.index') }}>Danh sách giảm giá</a>
-                <a class="collapse-item"  href={{ route('admin.sale.create') }}>Thêm mới giảm giá</a>
+                <a class="collapse-item" href={{ route('admin.sale.index') }}>Danh sách giảm giá</a>
+                <a class="collapse-item" href={{ route('admin.sale.create') }}>Thêm mới giảm giá</a>
             </div>
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('admin.bill.detail') }}"
-            aria-expanded="true" aria-controls="collapseTwo6">
+        <a class="nav-link collapsed" href="{{ route('InventoryEntry') }}" data-toggle="collapse"
+            data-target="#collapseTwo8" aria-expanded="true" aria-controls="collapseTwo8">
+            <i class="fab fa-salesforce"></i>
+            <span>Nhập kho</span>
+        </a>
+        <div id="collapseTwo8" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('InventoryEntry') }}">Danh sách giảm giá</a>
+                <a class="collapse-item" href={{ route('admin.sale.create') }}>Thêm mới giảm giá</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('admin.bill.detail') }}" aria-expanded="true"
+            aria-controls="collapseTwo6">
             <i class="fas fa-wallet"></i>
             <span>Quản lý đơn hàng</span>
         </a>
