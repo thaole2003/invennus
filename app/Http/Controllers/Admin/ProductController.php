@@ -82,27 +82,39 @@ class ProductController extends Controller
             $color = $request->input('color');
             $colorunique = collect($color)->unique()->values()->all();
             if (count($request->input('store_id'))) {
-                foreach ($request->input('store_id') as $store) {
-                    foreach ($colorunique as $color) {
-                        $colorr = Color::firstOrCreate(['name' => $color]);
-                        foreach ($sizeunique as $size) {
-                            $sizee = Size::firstOrCreate(['name' => $size]);
-                            // Thêm biến thể vào bảng product_variants
-                            $productVariant = new ProductVariant;
-                            $productVariant->product_id = $model->id;
-                            $productVariant->size_id = $sizee->id; // Thay thế $sizeId bằng id của size tương ứng
-                            $productVariant->color_id = $colorr->id; // Thay thế $colorId bằng id của color tương ứng
-                            $productVariant->price = $request->input('price'); // Thay thế $price bằng giá của biến thể
-                            $productVariant->save();
-                            // Thêm biến thể vào bảng store_variants
-                            $storeVariant = new StoreVariant;
-                            $storeVariant->store_id = $store; // Thay thế $storeId bằng id của cửa hàng tương ứng
-                            $storeVariant->variant_id = $productVariant->id;
-                            $storeVariant->quantity = 0; // Thay thế $quantity bằng số lượng của biến thể trong cửa hàng
-                            $storeVariant->save();
+                foreach ($colorunique as $color) {
+                    $colorr = Color::firstOrCreate(['name' => $color]);
+                    foreach ($sizeunique as $size) {
+                        $sizee = Size::firstOrCreate(['name' => $size]);
+
+                        // Thêm biến thể vào bảng product_variants
+                        $productVariant = new ProductVariant;
+                        $productVariant->product_id = $model->id;
+                        $productVariant->size_id = $sizee->id;
+                        $productVariant->color_id = $colorr->id;
+                        $productVariant->price = $request->input('price');
+                        $productVariant->save();
+
+                        // Tạo danh sách store_id tại đây để đảm bảo không lặp lại
+                        $uniqueStoreIds = [];
+
+                        foreach ($request->input('store_id') as $store) {
+                            // Kiểm tra xem cửa hàng đã được xử lý chưa
+                            if (!in_array($store, $uniqueStoreIds)) {
+                                // Thêm biến thể vào bảng store_variants
+                                $storeVariant = new StoreVariant;
+                                $storeVariant->store_id = $store;
+                                $storeVariant->variant_id = $productVariant->id;
+                                $storeVariant->quantity = 0;
+                                $storeVariant->save();
+
+                                // Đánh dấu cửa hàng đã được xử lý
+                                $uniqueStoreIds[] = $store;
+                            }
                         }
                     }
                 }
+
             }
             toastr()->success('Thêm thành công 1 sản phẩm','Thành công');
             return to_route('admin.product.index');
