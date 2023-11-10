@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Bill;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,12 +17,15 @@ class InventoryEntryController extends Controller
      */
     public function index()
     {
+
         $productVariants = ProductVariant::query()
             ->join('products', 'product_variants.product_id', '=', 'products.id')
             ->select('products.title', 'product_variants.color_id', 'product_variants.size_id')
+            ->where('total_quantity_stock', '>', 0)
             ->get();
-        // dd($productVariants);
-        return view('admin.InventoryEntry.index', compact('productVariants'));
+        $vender = Vendor::query()->get();
+        // dd($vender);
+        return view('admin.InventoryEntry.index', compact('productVariants', 'vender'));
     }
 
     /**

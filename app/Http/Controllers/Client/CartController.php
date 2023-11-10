@@ -15,7 +15,7 @@ class CartController extends Controller
     {
         // $request['user_id'] = auth()->id();
 
-      $user_id = auth()->user()->id;
+        $user_id = auth()->user()->id;
         $quantity = $request['quantity'];
         $product_variant = $request['product_variant'];
         $quantityStock = $request['quantity_stock'];
@@ -25,7 +25,10 @@ class CartController extends Controller
             $newQuantity = $cartItem->quantity + $quantity;
 
             if ($newQuantity > $quantityStock) {
-                toastr()->error('Không đủ số lượng trong kho','Thất bại');
+                toastr()->error('Không đủ số lượng trong kho', 'Thất bại');
+                return response()->json([
+                    'error' => 'Sản phẩm vượt quá số lượng trong kho',
+                ], 400);
             }
 
             $cartItem->quantity = $newQuantity;
@@ -40,7 +43,7 @@ class CartController extends Controller
                 ]
             );
             $cart->save();
-            toastr()->success('Thêm thành công giỏ hàng','Thành công');
+            toastr()->success('Thêm thành công giỏ hàng', 'Thành công');
         }
 
         return response()->json([

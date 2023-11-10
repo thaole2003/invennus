@@ -4,13 +4,17 @@
 @endsection
 @section('content')
     <div class="container">
-        <input type="text" id="searchInput" placeholder="Tìm kiếm..." />
-        <div id="suggestions"></div>
-        <div id="selectedSuggestions">
-            <table>
-                <tbody></tbody>
-            </table>
-        </div>
+        <form action="">
+            <input type="text" id="searchInput" placeholder="Tìm kiếm..." />
+            <div id="suggestions"></div>
+            <div id="selectedSuggestions">
+                <table class="table">
+                    <tbody></tbody>
+                </table>
+            </div>
+            {{-- .control --}}
+        </form>
+
     </div>
 @endsection
 
@@ -90,7 +94,6 @@
             }
         });
 
-        // Cập nhật bảng hiển thị các gợi ý đã chọn
         function updateSelectedSuggestionsTable() {
             selectedSuggestionsTable.innerHTML = "";
 
@@ -120,6 +123,13 @@
                 priceInput.type = "number";
                 priceInput.value = 0; // Giá trị mặc định là 0
                 priceCell.appendChild(priceInput);
+
+                // Gán class cho từng ô cột
+                titleCell.classList.add("selected-title");
+                sizeCell.classList.add("selected-size");
+                colorCell.classList.add("selected-color");
+                quantityCell.classList.add("selected-quantity");
+                priceCell.classList.add("selected-price");
             });
         }
     </script>
