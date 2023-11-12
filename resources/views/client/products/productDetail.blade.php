@@ -1,86 +1,79 @@
 @extends('client.layouts.master')
 
 @section('content')
-    <style>
-        .variant {
-            border: 1px solid grey;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 6px
-        }
+<style>
+    .variant{
+        border:1px solid grey;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px
+    }
+    .disableVariant{
+        opacity: 0.5; /* Làm mờ phần tử khi bị vô hiệu hóa */
+    text-decoration: line-through;
+    pointer-events: none;
+    border:1px solid grey;
+    display:flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px
 
-        .disableVariant {
-            opacity: 0.5;
-            /* Làm mờ phần tử khi bị vô hiệu hóa */
-            text-decoration: line-through;
-            pointer-events: none;
-            border: 1px solid grey;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 6px
-        }
-
+    }
         .activeVariant {
-            position: relative;
-            border: 2px solid black;
-        }
+    position: relative;
+    border: 2px solid black;
+    }
 
-        .activeVariant::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 0 20px 20px 0;
-            border-color: transparent transparent #000 transparent;
-            transform: rotate(-90deg);
-        }
+.activeVariant::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 20px 20px 0;
+  border-color: transparent transparent #000 transparent;
+  transform: rotate(-90deg);
+}
 
-        .activeVariant::after {
-            content: '\2713';
-            /* Mã Unicode của dấu tích */
-            position: absolute;
-            bottom: 0px;
-            /* Điều chỉnh vị trí dọc của dấu tích để nằm bên trong tam giác */
-            right: 1px;
-            /* Điều chỉnh vị trí ngang của dấu tích để nằm bên trong tam giác */
-            font-size: 10px;
-            /* Kích thước của dấu tích */
-            color: white;
-            /* Màu chữ dấu tích */
-        }
+.activeVariant::after {
+  content: '\2713'; /* Mã Unicode của dấu tích */
+  position: absolute;
+  bottom: 0px; /* Điều chỉnh vị trí dọc của dấu tích để nằm bên trong tam giác */
+  right: 1px; /* Điều chỉnh vị trí ngang của dấu tích để nằm bên trong tam giác */
+  font-size: 10px; /* Kích thước của dấu tích */
+  color: white; /* Màu chữ dấu tích */
+}
+.active-size {
+  position: relative;
+  border: 2px solid black;
+}
 
-        .active-size {
-            position: relative;
-            border: 2px solid black;
-        }
+.active-size::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 20px 20px 0;
+  border-color: transparent transparent #000 transparent;
+  transform: rotate(-90deg);
+}
 
-        .active-size::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 0 20px 20px 0;
-            border-color: transparent transparent #000 transparent;
-            transform: rotate(-90deg);
-        }
+.active-size::after {
+  content: '\2713';
+  position: absolute;
+  bottom: 0px;
+  right: 1px;
+  font-size: 10px;
+  color: white;
+}
 
-        .active-size::after {
-            content: '\2713';
-            position: absolute;
-            bottom: 0px;
-            right: 1px;
-            font-size: 10px;
-            color: white;
-        }
-    </style>
+</style>
     @php
         $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
     @endphp
@@ -156,8 +149,7 @@
                                         <h4>Màu:</h4>
                                         <div class="d-flex gap-1">
                                             @foreach ($groupbyColors as $color)
-                                                <label class="color-label variant "
-                                                    style="width: auto;height:40px; padding-left: 20px; padding-right: 20px;">
+                                                <label class="color-label variant " style="width: auto;height:40px; padding-left: 20px; padding-right: 20px;">
                                                     <input style="display: none" type="radio" name="color"
                                                         id="color" value="{{ $color->id }}">
                                                     <div class="text-muted">{{ $color->name }}</div>
@@ -170,7 +162,7 @@
                                         <h4>Kích cỡ:</h4>
                                         <ul class="d-flex gap-1 " style="margin-left: 0.2px">
                                             @foreach ($groupbySizes as $size)
-                                                <label id="label-size gap-1" class="labelSize variant"
+                                                <label  id="label-size gap-1" class="labelSize variant"
                                                     style="width: auto; height:40px;  padding-left: 20px; padding-right: 20px;">
                                                     <input style="display: none" type="radio" name="size"
                                                         class="size" id="size" value="{{ $size->id }}">
@@ -604,12 +596,15 @@
     <script>
         $(function() {
             var inputValue = parseInt($('#quantity').val());
+
+            // let quantity = '';
             let dataProduct = @json($productvariants);
-            // console.log(dataProduct);
+            console.log(dataProduct);
             let product_id = $("#product_id").val();
-            // console.log(product_id);
+            console.log(product_id);
             let size = $("input[name='size']:checked").val();
             $(document).on('change', '#color', function() {
+
                 const color = $(this).val();
                 $('.color-label').removeClass('activeVariant');
                 $(this).closest('.color-label').addClass('activeVariant');
@@ -629,26 +624,24 @@
                         let szIds = [];
                         for (const item of data) {
                             szIds.push(item.size_id)
-                            // console.log(item.size_id);
+                            console.log(item);
                         }
-                        sizeEl.each(function() {
-                            const val = Number($(this).val());
-                            // console.log(val);
-                            if (szIds.includes(val)) {
-                                // console.log(1);
-                                $(this).prop('disabled', false)
-                                $('.labelSize').removeClass('disableVariant');
-                                // $('input[name="size"]').prop('checked', false);
-                                $('.labelSize').removeClass('active-size');
+                $('input.size').each(function() {
+                    const val = Number($(this).val());
+                    if (szIds.includes(val)) {
+                        $(this).prop('disabled', false)
+                        $('.labelSize').removeClass('disableVariant');
+                        $('input[name="size"]').prop('checked', false);
+                        $('.labelSize').removeClass('active-size');
 
-                            } else {
-                                // $('input[name="size"]').prop('checked', false);
-                                // $(this).prop('checked', false);
-                                $(this).prop('disabled', true);
-                                $('.labelSize').addClass('disableVariant');
-                                $('.labelSize').removeClass('active-size');
-                            }
-                        });
+                    } else {
+                        $('input[name="size"]').prop('checked', false);
+                        $(this).prop('checked', false);
+                        $(this).prop('disabled', true);
+                        $('.labelSize').addClass('disableVariant');
+                        $('.labelSize').removeClass('active-size');
+                    }
+                });
 
                     }
                 })
@@ -677,24 +670,13 @@
             })
             $('.increment-btn').on('click', function() {
                 var inputValue = parseInt($('#quantity').val());
-                var quantity = parseInt($('#quantity-stock').val());
-
-                if (inputValue < quantity) {
-                    $('#quantity').val(inputValue);
+                var quantity = $('#quantity-stock').val();
+                if (inputValue >= quantity) {
+                    $(this).css('pointer-events', 'none');
+                } else {
+                    $(this).css('pointer-events', 'fill');
                 }
-                updatePointerEvents();
             });
-
-            $('.decrement-btn').on('click', function() {
-                var inputValue = parseInt($('#quantity').val());
-
-                if (inputValue > 1) {
-                    $('#quantity').val(inputValue);
-                }
-                updatePointerEvents();
-            });
-
-
 
         })
 
@@ -716,22 +698,12 @@
                     error: function(xhr, status, error) {
                         var errorMessage = "Có lỗi xảy ra: " + error;
                         console.log(errorMessage);
-                        location.reload();
-
                         // Hiển thị lỗi cho người dùng, ví dụ:
-                        // alert("Sản phẩm không đủ số lượng trong kho hàng");
+                        alert("Sản phẩm không đủ số lượng trong kho hàng");
                     }
                 });
             });
         });
-
-        function updatePointerEvents() {
-            var inputValue = parseInt($('#quantity').val());
-            var quantity = parseInt($('#quantity-stock').val());
-
-            $('.increment-btn').css('pointer-events', inputValue >= quantity ? 'none' : 'auto');
-            $('.decrement-btn').css('pointer-events', inputValue <= 1 ? 'none' : 'auto');
-        }
 
         function number_format(number, decimals, dec_point, thousands_sep) {
             number = parseFloat(number);
@@ -805,4 +777,5 @@
 
 
     </script> --}}
+
 @endpush

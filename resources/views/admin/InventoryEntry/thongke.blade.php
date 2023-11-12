@@ -12,7 +12,7 @@
                 <label for="example-disable" class="form-label">Kết thúc</label>
                 <input type="datetime-local" name="date_end" class="form-control" value="{{ Session::get('date_end') }}">
             </div>
-            <div class="" style="margin-top:32px;margin-left:10px">
+            <div class="mt-5">
                 <button type="submit" class="btn btn-primary waves-effect waves-light">Xem báo cáo</button>
             </div>
         </form>
