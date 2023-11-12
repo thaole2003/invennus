@@ -63,6 +63,6 @@
 
             </tbody>
         </table>
-
+        <a class="btn btn-primary ml-5" href="{{ route('admin.category.index') }}">Trở lại</a>
     </div>
 @endsection

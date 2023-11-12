@@ -62,6 +62,9 @@ Route::get('/dashboard', function () {
 //     return view('admin.InventoryEntry.thongke');
 // });
 Route::get('/InventoryEntry', [InventoryEntryController::class, 'index'])->name('InventoryEntry');
+Route::get('/InventoryEntryDetail/{id}', [InventoryEntryController::class, 'InventoryEntryDetail'])->name('InventoryEntryDetail');
+Route::get('/importStock', [InventoryEntryController::class, 'create'])->name('importStock');
+Route::post('/addStock', [InventoryEntryController::class, 'store'])->name('addStock');
 Route::get('/report-revenue', [ReportController::class, 'reportRevenue'])->name('report-revenue');
 Route::post('/filter-revenue', [ReportController::class, 'filterRevenue'])->name('filter-revenue');
 Route::get('/report-product', [ReportController::class, 'reportProduct'])->name('report-product');
