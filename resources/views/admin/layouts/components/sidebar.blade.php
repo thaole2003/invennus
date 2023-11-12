@@ -166,8 +166,8 @@
         </a>
         <div id="collapseTwo8" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('InventoryEntry') }}">Danh sách giảm giá</a>
-                <a class="collapse-item" href={{ route('admin.sale.create') }}>Thêm mới giảm giá</a>
+                <a class="collapse-item" href="{{ route('InventoryEntry') }}">Danh sách nhập kho</a>
+                <a class="collapse-item" href={{ route('importStock') }}>Thêm mới nhập kho</a>
             </div>
         </div>
     </li>

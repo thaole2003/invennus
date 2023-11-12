@@ -13,4 +13,9 @@ class Stock extends Model
         'type',
         'total_price',
     ];
+
+    public function vender()
+    {
+        return $this->belongsTo(Vendor::class, 'vender_id', 'id');
+    }
 }
