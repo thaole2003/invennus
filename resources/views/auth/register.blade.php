@@ -174,6 +174,19 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <div class="fxt-transformY-50 fxt-transition-delay-1">
+                        <input id="phone" type="text" placeholder="Địa chỉ"
+                            class="form-control @error('address') is-invalid @enderror" name="address"
+                            value="{{ old('address') }}" autocomplete="address">
+                        <i class="flaticon-envelope"></i>
+                        @error('address')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group">
                     <div class="fxt-transformY-50 fxt-transition-delay-2">
                         {{-- <input type="password" class="form-control" name="password" placeholder="Password"
                             required="required"> --}}
@@ -214,7 +227,7 @@
         </div>
         <div class="fxt-footer">
             <div class="fxt-transformY-50 fxt-transition-delay-8">
-                <h3>Or Login With:</h3>
+                <h3>Hoặc đăng nhập với:</h3>
             </div>
             <ul class="fxt-socials">
                 <li class="fxt-facebook fxt-transformY-50 fxt-transition-delay-9">

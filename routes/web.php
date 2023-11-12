@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\StoreVariantController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\Admin\VendoreController;
+use App\Http\Controllers\Client\AuthController;
 use App\Http\Controllers\Client\BillController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\HomeController as ClientHomeController;
@@ -43,7 +44,17 @@ Auth::routes();
 // Route::get('/home', function () {
 //     return view('layouts.app');
 // })->name('home');
-
+Route::get('/changeinfo', function () {
+    return view('auth.changeInfo');
+});
+Route::post('/changeinfo/{id}',[AuthController::class,'editInfo'])->name('changeInfo');
+Route::get('/dashboard', function () {
+    return view('admin.thongke.charts');
+});
+Route::get('/changepassword', function () {
+    return view('auth.changePassword');
+});
+Route::post('/changepassword/{id}',[AuthController::class,'editPassword'])->name('changePassword');
 Route::get('/dashboard', function () {
     return view('admin.thongke.charts');
 });
