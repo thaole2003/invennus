@@ -14,4 +14,8 @@ class StockDetail extends Model
         'price',
         'quantity'
     ];
+    public function productVariant()
+    {
+        return $this->belongsTo(ProductVariant::class);
+    }
 }

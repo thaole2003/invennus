@@ -56,5 +56,6 @@
 
             </tbody>
         </table>
+        <a class="btn btn-primary ml-5" href="{{ route('admin.product.index') }}">Trở lại</a>
     </div>
 @endsection
