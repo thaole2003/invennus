@@ -42,7 +42,7 @@ class InventoryEntryController extends Controller
             ->leftJoin('sizes', 'product_variants.size_id', '=', 'sizes.id')
             ->select(
                 'product_variants.id',
-                'products.title',
+                'products.sku',
                 'product_variants.color_id',
                 'product_variants.size_id',
                 'colors.name as color_name', // Lấy tên màu từ bảng colors

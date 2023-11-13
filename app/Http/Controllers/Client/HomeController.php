@@ -55,6 +55,17 @@ class HomeController extends Controller
                     ->where('end_date', '>=', $currentDateTime);
             },
         ])->latest()->paginate(6);
+        $productall = Product::with([
+            'variants' => function ($query) {
+                $query->with('color', 'size');
+            },
+            'images',
+            'categories',
+            'sales' => function ($query) use ($currentDateTime) {
+                $query->where('start_date', '<=', $currentDateTime)
+                    ->where('end_date', '>=', $currentDateTime);
+            },
+        ])->latest()->paginate(8);
         $colorIds = ProductVariant
             ::where('total_quantity_stock', '>', 0)
             ->where('product_id', 1)
@@ -77,8 +88,7 @@ class HomeController extends Controller
         } else {
             $wishlists = collect(); // Tạo một mảng trống
         }
-
-        return view('client.layouts.components.main', compact('category', 'products', 'banners', 'product_sale', 'carts', 'countCart', 'wishlists', 'colorIds', 'sizeIds'));
+        return view('client.layouts.components.main', compact('category', 'products', 'banners', 'product_sale','productall', 'carts', 'countCart', 'wishlists', 'colorIds', 'sizeIds'));
     }
 
     /**
