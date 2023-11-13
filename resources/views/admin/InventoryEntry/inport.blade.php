@@ -16,7 +16,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Tên sản phẩm</th>
+                            <th>Mã sản phẩm</th>
                             <th>Kích cỡ</th>
                             <th>Màu</th>
                             <th>Số lượng</th>
@@ -69,7 +69,7 @@
 
                 const suggestionTitle = document.createElement("span");
                 suggestionTitle.classList.add("suggestion-title");
-                suggestionTitle.textContent =`Sản phẩm: `+ suggestion.title;
+                suggestionTitle.textContent =`Sản phẩm: `+ suggestion.sku;
 
                 const suggestionSize = document.createElement("span");
                 suggestionSize.classList.add("suggestion-size");
@@ -109,7 +109,7 @@
             suggestions.innerHTML = "";
 
             const filteredSuggestions = suggestionList.filter((item) =>
-                item.title.toLowerCase().includes(searchText)
+                item.sku.toLowerCase().includes(searchText)
             );
 
             if (searchText.length === 0 || filteredSuggestions.length === 0) {
@@ -139,7 +139,7 @@
                 const deleteCell = row.insertCell(5); // Thêm một ô cột mới cho nút xoá
 
                 // Gán giá trị cho từng ô cột
-                titleCell.textContent = suggestion.title;
+                titleCell.textContent = suggestion.sku;
                 sizeCell.textContent = suggestion.size_name;
                 colorCell.textContent = suggestion.color_name;
 

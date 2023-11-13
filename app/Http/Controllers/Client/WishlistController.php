@@ -23,7 +23,7 @@ class WishlistController extends Controller
         $model->fill(
             [
                 'product_id' => $id,
-                'user_id' => 1,
+                'user_id' => auth()->user()->id,
             ]
         );
         $model->save();
