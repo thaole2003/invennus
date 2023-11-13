@@ -213,26 +213,16 @@
                                                 Đơn hàng
                                             </a>
                                             <a style="color: black ; font-size: 0.875rem;line-height: 1.25rem;"
-                                                class="dropdown-item" href="/changeinfo"
-                                              >
-                                                {{ __('Đổi thông tin') }}
+                                                class="dropdown-item" href="{{ route('logout') }}"
+                                                onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                                {{ __('Đăng xuất') }}
                                             </a>
-                                            <a style="color: black ; font-size: 0.875rem;line-height: 1.25rem;"
-                                                class="dropdown-item" href="/changepassword"
-                                              >
-                                                {{ __('Đổi mật khẩu') }}
-                                            </a>
-                                            <a style="color: black ; font-size: 0.875rem;line-height: 1.25rem;"
-                                            class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            {{ __('Đăng xuất') }}
-                                        </a>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                            class="d-none">
-                                            @csrf
-                                        </form>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                class="d-none">
+                                                @csrf
+                                            </form>
                                         </div>
                                     </li>
                                 @endguest
