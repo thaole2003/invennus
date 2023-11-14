@@ -7,6 +7,7 @@ use App\Models\Banner;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Image;
+use App\Models\Post;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\Store;
@@ -78,7 +79,9 @@ class HomeController extends Controller
             $wishlists = collect(); // Tạo một mảng trống
         }
 
-        return view('client.layouts.components.main', compact('category', 'products', 'banners', 'product_sale', 'carts', 'countCart', 'wishlists', 'colorIds', 'sizeIds'));
+        $posts = Post::query()->get();
+
+        return view('client.layouts.components.main', compact('category', 'products', 'banners', 'product_sale', 'carts', 'countCart', 'wishlists', 'colorIds', 'sizeIds', 'posts'));
     }
 
     /**
@@ -214,5 +217,19 @@ class HomeController extends Controller
         $products = $product->get();
         // dd($products);
         return view('client.search', compact('products'));
+    }
+
+
+    public function post()
+    {
+        $posts = Post::query()->paginate(5);
+        return view('client.posts.post', compact('posts'));
+    }
+
+    public function postDetail($id)
+    {
+        $post = Post::query()->findOrFail($id);
+        // dd($post);
+        return view('client.posts.postDettail', compact('post'));
     }
 }

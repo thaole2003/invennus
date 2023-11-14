@@ -143,31 +143,35 @@
                                                             title="Quick View" data-bs-toggle="modal"
                                                             data-bs-target="#productQuickView{{ $product->id }}"><i
                                                                 class="far fa-eye"></i></a></li>
-                                                                <?php
-                                                                $user_id = null;
-                                                                $wishlistcheck = null; // Define it here with a default value
+                                                    <?php
+                                                    $user_id = null;
+                                                    $wishlistcheck = null; // Define it here with a default value
+                                                    
+                                                    if (Auth::check()) {
+                                                        $user_id = auth()->user()->id;
+                                                        $wishlistcheck = \App\Models\wishlist::where('user_id', $user_id)
+                                                            ->where('product_id', $product->id)
+                                                            ->first();
+                                                    }
+                                                    ?>
 
-                                                                if (Auth::check()) {
-                                                                    $user_id = auth()->user()->id;
-                                                                    $wishlistcheck = \App\Models\wishlist::where('user_id', $user_id)
-                                                                        ->where('product_id', $product->id)->first();
-                                                                }
-                                                                ?>
+                                                    @if ($wishlistcheck)
+                                                        <form id="removeFromWishlistForm"
+                                                            action="{{ route('wishlist.del-to-wishlist', $wishlistcheck->id) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <li><a id="removeFromWishlist" data-tooltip="tooltip"
+                                                                    data-placement="left" title="Remove from Wishlist"><i
+                                                                        class="fas fa-heart"></i></a></li>
+                                                        </form>
 
-                                                                @if ($wishlistcheck)
-                                                                <form id="removeFromWishlistForm" action="{{ route('wishlist.del-to-wishlist', $wishlistcheck->id) }}" method="post">
-                                                                    @csrf
-                                                                    @method('delete')
-                                                                    <li><a id="removeFromWishlist" data-tooltip="tooltip" data-placement="left" title="Remove from Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                                </form>
-
-                                                                <script>
-                                                                    document.getElementById('removeFromWishlist').addEventListener('click', function(event) {
-                                                                        event.preventDefault();
-                                                                        document.getElementById('removeFromWishlistForm').submit();
-                                                                    });
-                                                                </script>
-
+                                                        <script>
+                                                            document.getElementById('removeFromWishlist').addEventListener('click', function(event) {
+                                                                event.preventDefault();
+                                                                document.getElementById('removeFromWishlistForm').submit();
+                                                            });
+                                                        </script>
                                                     @else
                                                         <li><a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
                                                                 data-tooltip="tooltip" data-placement="left"
@@ -218,7 +222,8 @@
 
                                                 <a href="#">
                                                     <img src="{{ $product->image }}" alt="image">
-                                                    <img src="{{ isset($product->images[0]->image) ? $product->images[0]->image : asset('img/logo.jpg') }}" alt="image">
+                                                    <img src="{{ isset($product->images[0]->image) ? $product->images[0]->image : asset('img/logo.jpg') }}"
+                                                        alt="image">
                                                 </a>
 
                                                 <ul>
@@ -241,14 +246,24 @@
                                                             $discountedPrice = $product->price - $product->sales->discount;
                                                             $discountedPrice = max($discountedPrice, 0);
                                                         @endphp
-                                                        <span style="text-decoration: line-through; " class="old-price">{{ number_format($product->price) }} VND</span><br>
-                                                        <span style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;" class="new-price">{{ number_format($discountedPrice) }} VND</span>
+                                                        <span style="text-decoration: line-through; "
+                                                            class="old-price">{{ number_format($product->price) }}
+                                                            VND</span><br>
+                                                        <span
+                                                            style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;"
+                                                            class="new-price">{{ number_format($discountedPrice) }}
+                                                            VND</span>
                                                     @else
-                                                        <span style="" class="">{{ $product->metatitle}}</span><br>
-                                                        <span style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;" class="new-price">{{ number_format($product->price) }} VND</span>
+                                                        <span style=""
+                                                            class="">{{ $product->metatitle }}</span><br>
+                                                        <span
+                                                            style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;"
+                                                            class="new-price">{{ number_format($product->price) }}
+                                                            VND</span>
                                                     @endif
                                                 </div>
-                                                <a href="{{ route('product.detail', $product->id) }}" class="btn btn-light">Xem chi tiết</a>
+                                                <a href="{{ route('product.detail', $product->id) }}"
+                                                    class="btn btn-light">Xem chi tiết</a>
                                             </div>
                                         </div>
                                     @endforeach
@@ -285,23 +300,24 @@
 
             <div class="row">
                 <div class="news-slides owl-carousel owl-theme">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="single-news-post">
-                            <div class="news-image">
-                                <a href="#"><img src="{{ asset('fe/assets/img/blog-img1.jpg') }}"
-                                        alt="image"></a>
-                            </div>
+                    @foreach ($posts as $post)
+                        <div class="col-lg-12 col-md-12">
+                            <div class="single-news-post">
+                                <div class="news-image">
+                                    <a href="#"><img src="{{ asset($post->image) }}" alt="image"></a>
+                                </div>
 
-                            <div class="news-content">
-                                <h3><a href="#">Styling White Jeans after Labor Day</a></h3>
-                                <span class="author">By <a href="#">Admin</a></span>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua.</p>
-                                <a href="#" class="btn btn-light">Read More</a>
+                                <div class="news-content">
+                                    <h3><a href="{{ route('post.detail', $post->id) }}">{{ $post->title }}</a></h3>
+                                    <span class="author">By <a href="#">{{ $post->user_id }}</a></span>
+                                    <p>{{ $post->name }}</p>
+                                    <a href="#" class="btn btn-light">Read More</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
 
+                    {{-- 
                     <div class="col-lg-12 col-md-12">
                         <div class="single-news-post">
                             <div class="news-image">
@@ -317,8 +333,8 @@
                                 <a href="#" class="btn btn-light">Read More</a>
                             </div>
                         </div>
-                    </div>
-
+                    </div> --}}
+                    {{-- 
                     <div class="col-lg-12 col-md-12">
                         <div class="single-news-post">
                             <div class="news-image">
@@ -368,7 +384,7 @@
                                 <a href="#" class="btn btn-light">Read More</a>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -596,38 +612,41 @@
                     <h3>Sản phẩm yêu thích</h3>
 
                     <div class="product-cart-content">
-                        @if(count($wishlists)>0)
+                        @if (count($wishlists) > 0)
                             @foreach ($wishlists as $wishlist)
-                            <div class="product-cart d-flex justify-content-between align-items-center">
-                                <div class="">
-                                    <div class="product-image">
-                                        <img style="width:50px;height:55px" src="{{ asset($wishlist->product->image) }}" alt="image">
-                                    </div>
+                                <div class="product-cart d-flex justify-content-between align-items-center">
+                                    <div class="">
+                                        <div class="product-image">
+                                            <img style="width:50px;height:55px"
+                                                src="{{ asset($wishlist->product->image) }}" alt="image">
+                                        </div>
 
-                                    <div class="product-content">
-                                        <h3><a
-                                                href="{{ route('product.detail', $wishlist->product_id) }}">{{ $wishlist->product->title }}</a>
-                                        </h3>
-                                        {{-- <span>Blue / XS</span> --}}
-                                        <div class="product-price">
-                                            {{-- <span>1</span>
+                                        <div class="product-content">
+                                            <h3><a
+                                                    href="{{ route('product.detail', $wishlist->product_id) }}">{{ $wishlist->product->title }}</a>
+                                            </h3>
+                                            {{-- <span>Blue / XS</span> --}}
+                                            <div class="product-price">
+                                                {{-- <span>1</span>
                                             <span>x</span> --}}
-                                            <span class="price">{{ $wishlist->product->price }}đ</span>
+                                                <span class="price">{{ $wishlist->product->price }}đ</span>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="">
+                                        <form action="{{ route('wishlist.del-to-wishlist', $wishlist->id) }}"
+                                            method="post">
+                                            @csrf
+                                            @method('Delete')
+                                            <button class="remove border-0 bg-light"><i
+                                                    class="far fa-trash-alt"></i></button>
+                                        </form>
+                                        {{-- <i class="far fa-trash-alt"></i> --}}
+                                    </div>
                                 </div>
-                                <div class="">
-                                    <form action="{{ route('wishlist.del-to-wishlist', $wishlist->id) }}" method="post">
-                                        @csrf
-                                        @method('Delete')
-                                        <button class="remove border-0 bg-light"><i class="far fa-trash-alt"></i></button>
-                                    </form>
-                                    {{-- <i class="far fa-trash-alt"></i> --}}
-                                </div>
-                            </div>
                             @endforeach
-                            @else
-                                Bạn chưa lưu sản phẩm nào!
+                        @else
+                            Bạn chưa lưu sản phẩm nào!
                         @endif
 
 
@@ -749,7 +768,8 @@
                                         Cart</button>
                                 </div> --}}
 
-                                <a href="{{ route('product.detail',$product->id) }}" class="view-full-info">Xem chi tiết</a>
+                                <a href="{{ route('product.detail', $product->id) }}" class="view-full-info">Xem chi
+                                    tiết</a>
                             </div>
                         </div>
                     </div>
