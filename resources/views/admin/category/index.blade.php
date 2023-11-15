@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    Category
+Danh mục
 @endsection
 @section('content')
     <div class="m-10">

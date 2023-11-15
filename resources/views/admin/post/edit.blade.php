@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    Post
+    Bài viết
 @endsection
 @section('content')
     <h1 class=" d-flex justify-content-center align-items-center" style="height: 80px">
@@ -11,7 +11,7 @@
         @method('put')
         <div class="w-50 mx-auto border bg-light rounded h-100 p-4 mt-5">
             <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Image:</label>
+                <label for="email" class="form-label">Ảnh bài viết:</label>
                 <input type="file" class="form-control" name="newimage" accept="image/*" id="image-input"
                     placeholder="Nhập tiêu đề" value="{{ old('image') }}">
                 <input type="text" class="form-control" name="currentimage" hidden value="{{ $data->image }}">
@@ -25,7 +25,7 @@
                     alt="">
             </div>
             <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Name:</label>
+                <label for="email" class="form-label">Tiêu đề:</label>
                 <input type="text" class="form-control" id="name" placeholder="Nhập tên" name="title"
                     value="{{ $data->title }}">
             </div>
@@ -34,7 +34,7 @@
             @enderror
 
             <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Description :</label>
+                <label for="email" class="form-label">Mô tả :</label>
                 {{-- <input type="text" class="form-control" id="email" placeholder="Nhập mô tả" name="description"
                     value="{{ $data->description }}"> --}}
                 <textarea id="description" name="description" class="form-control">{{ $data->description }}</textarea>

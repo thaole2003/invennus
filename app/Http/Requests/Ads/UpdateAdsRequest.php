@@ -34,7 +34,7 @@ class UpdateAdsRequest extends FormRequest
             'title.max' => 'Tiêu đề nhiều nhất 20 kí tự.',
             'description.required' => 'Bắt buộc nhập mô tả.',
             'description.min' => 'Tiêu đề ít nhất 20 kí tự.',
-            'description.max' => 'Tiêu đề nhiều nhất 200 kí tự.',
+            'description.max' => 'Tiêu đề nhiều nhất 60 kí tự.',
         ];
     }
 

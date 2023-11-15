@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    Color
+Màu sắc
 @endsection
 @section('content')
     <div class="m-10">

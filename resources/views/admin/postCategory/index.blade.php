@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    Color
+Danh mục bài viết
 @endsection
 @section('content')
     <div class="m-10">

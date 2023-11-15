@@ -1,4 +1,7 @@
 @extends('admin.layouts.master')
+@section('title')
+Sản phẩm
+@endsection
 @section('content')
     <div class="m-10">
         <h1 class="text-center">Cập nhật giá sản phẩm</h1>

@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    Banner
+Quảng cáo
 @endsection
 @section('content')
 <h1 class=" d-flex justify-content-center align-items-center" style="height: 80px">
@@ -29,7 +29,7 @@
             <div class="mb-3 mt-3">
                 <label for="email" class="form-label">Trạng thái:</label>
 
-                <select name="is_active" id="">
+                <select name="active" id="">
                     <option value="1">Kích hoạt</option>
                     <option value="2">Chưa kích hoạt</option>
                 </select>
