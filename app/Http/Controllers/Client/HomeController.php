@@ -56,6 +56,17 @@ class HomeController extends Controller
                     ->where('end_date', '>=', $currentDateTime);
             },
         ])->latest()->paginate(6);
+        $productall = Product::with([
+            'variants' => function ($query) {
+                $query->with('color', 'size');
+            },
+            'images',
+            'categories',
+            'sales' => function ($query) use ($currentDateTime) {
+                $query->where('start_date', '<=', $currentDateTime)
+                    ->where('end_date', '>=', $currentDateTime);
+            },
+        ])->latest()->paginate(8);
         $colorIds = ProductVariant
             ::where('total_quantity_stock', '>', 0)
             ->where('product_id', 1)
@@ -69,7 +80,6 @@ class HomeController extends Controller
             ->pluck('size_id');
         // dd($products->variants->product_id);
         $carts = Cart::query()->latest()->get();
-        $countCart = Cart::query()->count();
         if (auth()->check()) {
             $wishlists = Wishlist::query()
                 ->latest()
@@ -81,7 +91,7 @@ class HomeController extends Controller
 
         $posts = Post::query()->get();
 
-        return view('client.layouts.components.main', compact('category', 'products', 'banners', 'product_sale', 'carts', 'countCart', 'wishlists', 'colorIds', 'sizeIds', 'posts'));
+        return view('client.layouts.components.main', compact('category', 'products', 'banners', 'product_sale', 'productall', 'carts', 'wishlists', 'colorIds', 'sizeIds', 'posts'));
     }
 
     /**

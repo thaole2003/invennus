@@ -11,12 +11,14 @@ use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\AdsController;
 use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\StoreVariantController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\Admin\VendoreController;
+use App\Http\Controllers\Client\AuthController;
 use App\Http\Controllers\Client\BillController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\HomeController as ClientHomeController;
@@ -43,7 +45,17 @@ Auth::routes();
 // Route::get('/home', function () {
 //     return view('layouts.app');
 // })->name('home');
-
+Route::get('/changeinfo', function () {
+    return view('auth.changeInfo');
+});
+Route::post('/changeinfo/{id}',[AuthController::class,'editInfo'])->name('changeInfo');
+Route::get('/dashboard', function () {
+    return view('admin.thongke.charts');
+});
+Route::get('/changepassword', function () {
+    return view('auth.changePassword');
+});
+Route::post('/changepassword/{id}',[AuthController::class,'editPassword'])->name('changePassword');
 Route::get('/dashboard', function () {
     return view('admin.thongke.charts');
 });
@@ -64,6 +76,7 @@ Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(fu
     Route::get('/', [AdminHomeController::class, 'revenue7day'])->name('home');
 
     Route::resource('vendors', VendoreController::class);
+    Route::resource('ads', AdsController::class);
     Route::resource('users', UserController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('banner', BannerController::class);

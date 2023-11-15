@@ -512,7 +512,7 @@
                             </div>
 
                             <div class="aside-trending-products">
-                                <img src="https://scontent.fhan5-6.fna.fbcdn.net/v/t39.30808-6/342223368_162825819755433_5695418889023791058_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=5f2048&_nc_ohc=JKuuALvhb3EAX_tqpFK&_nc_ht=scontent.fhan5-6.fna&oh=00_AfAovCl_7qNpZ5fRd09dpzzgZ4K_63GsE62DD5FEKal5uw&oe=6540A2A3"
+                                <img src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_3000,h_2250,f_auto/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/x1nlzlyldasoj6pllfug/V%C3%A9V%C3%A0oC%E1%BB%95ngIMGWorldsofAdventure,Dubai-KlookVi%E1%BB%87tNam.jpg"
                                     alt="image">
 
                                 <div class="category">

@@ -3,34 +3,39 @@
     Nhập kho
 @endsection
 @section('content')
-    <div class="container">
-        <div class="row">
-            <input type="text" id="searchInput" placeholder="Tìm kiếm..." /><br>
-            <div id="suggestions"></div><br>
+    <div class="" style="margin-top:50px">
+        <h1 class="text-center">Nhập kho</h1>
+    </div>
+    <div class="" style="width:100%;display:grid; position: relative;" >
+        <div class="" style="width:30%;top:-50px; position: absolute;z-index:100;background-color:aliceblue">
+            <input style="width:100%; margin-left:10px" type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." /><br>
+            <div id="suggestions" style="text-align: center; display: flex; justify-content: center; align-items: center;"></div>
+        </div>
+        <div class="" style="width:100%;">
             <div id="selectedSuggestions">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Ten San Pham</th>
-                            <th>Size</th>
-                            <th>Color</th>
+                            <th>Mã sản phẩm</th>
+                            <th>Kích cỡ</th>
+                            <th>Màu</th>
                             <th>Số lượng</th>
-                            <th>Giá tiền</th>
+                            <th>Giá nhập</th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
             </div>
-            <div class="input-group">
+            <div class="input-group" style="margin-bottom:20px;margin-left:20px">
+                <span class="btn">Chọn nhà cung cấp</span>
                 <select name="vender" class="form-select" id="inputGroupSelect04">
-                    <option value="0">Chọn nhà cung cấp</option>
                     @foreach ($vender as $key => $value)
                         <option value="{{ $value->id }}">{{ $value->name }}</option>
                     @endforeach
                 </select>
             </div>
-            <button type="submit" id="button" class="btn btn-primary">Gửi</button>
+            <button type="submit" id="button" style="margin-left:20px" class="btn btn-primary">Tạo đơn</button>
         </div>
 
 
@@ -52,10 +57,11 @@
 
             suggestionList.forEach((suggestion) => {
                 const suggestionItem = document.createElement("div");
-                suggestionItem.classList.add("suggestion-item");
+                suggestionItem.classList.add("suggestion-item","d-flex","p-2", "m-2");
 
                 const suggestionCheckbox = document.createElement("input");
                 suggestionCheckbox.type = "checkbox";
+                suggestionCheckbox.classList.add("mr-2")
                 suggestionItem.appendChild(suggestionCheckbox);
 
                 const suggestionInfo = document.createElement("div");
@@ -63,15 +69,15 @@
 
                 const suggestionTitle = document.createElement("span");
                 suggestionTitle.classList.add("suggestion-title");
-                suggestionTitle.textContent = suggestion.title;
+                suggestionTitle.textContent =`Sản phẩm: `+ suggestion.sku;
 
                 const suggestionSize = document.createElement("span");
                 suggestionSize.classList.add("suggestion-size");
-                suggestionSize.textContent = `Size: ${suggestion.size_name}`;
+                suggestionSize.textContent = ` Kích cỡ: ${suggestion.size_name}`;
 
                 const suggestionColor = document.createElement("span");
                 suggestionColor.classList.add("suggestion-color");
-                suggestionColor.textContent = `Color: ${suggestion.color_name}`;
+                suggestionColor.textContent = ` Màu: ${suggestion.color_name}`;
 
                 suggestionInfo.appendChild(suggestionTitle);
                 suggestionInfo.appendChild(suggestionSize);
@@ -103,7 +109,7 @@
             suggestions.innerHTML = "";
 
             const filteredSuggestions = suggestionList.filter((item) =>
-                item.title.toLowerCase().includes(searchText)
+                item.sku.toLowerCase().includes(searchText)
             );
 
             if (searchText.length === 0 || filteredSuggestions.length === 0) {
@@ -113,7 +119,7 @@
             }
         });
 
-       
+
         let totalQuantity = 0;
         let totalPrice = 0;
 
@@ -133,14 +139,14 @@
                 const deleteCell = row.insertCell(5); // Thêm một ô cột mới cho nút xoá
 
                 // Gán giá trị cho từng ô cột
-                titleCell.textContent = suggestion.title;
+                titleCell.textContent = suggestion.sku;
                 sizeCell.textContent = suggestion.size_name;
                 colorCell.textContent = suggestion.color_name;
 
                 // Tạo input để nhập số lượng
                 const quantityInput = document.createElement("input");
                 quantityInput.type = "number";
-                quantityInput.value = suggestion.quantity || 1;
+                quantityInput.value = suggestion.quantity || 0;
                 quantityCell.appendChild(quantityInput);
 
                 // Tạo input để nhập giá tiền
@@ -152,6 +158,7 @@
                 // Thêm nút xoá và gán sự kiện click
                 const deleteButton = document.createElement("button");
                 deleteButton.textContent = "Xoá";
+                deleteButton.classList.add("btn","btn-danger");
                 deleteButton.addEventListener("click", function() {
                     // Xoá dòng và cập nhật mảng selectedSuggestions
                     row.remove();
@@ -194,37 +201,66 @@
                 totalPrice = 0;
                 selectedSuggestions.forEach((suggestion) => {
                     totalQuantity += parseFloat(suggestion.quantity);
-                    totalPrice += parseFloat(suggestion.price);
+                    totalPrice += parseFloat(suggestion.price*suggestion.quantity);
                 });
             }
 
-            // Log tổng để kiểm tra
             console.log("Total Quantity:", totalQuantity);
             console.log("Total Price:", totalPrice);
         }
-
         $(function() {
-            $(document).on('click', '#button', function() {
-                console.log("Total Quantity:", totalQuantity);
-                console.log("Total Price:", totalPrice);
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('addStock') }}",
-                    data: {
-                        vender: $('#inputGroupSelect04').val(),
-                        selectedSuggestions: selectedSuggestions,
-                        _token: '{{ csrf_token() }}',
-                        totalQuantity: totalQuantity,
-                        totalPrice: totalPrice,
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        console.log(response);
-                        location.reload();
-                    },
-                    error: function(xhr, status, error) {}
-                });
+        $(document).on('click', '#button', function() {
+            console.log("Total Quantity:", totalQuantity);
+            console.log("Total Price:", totalPrice);
+
+            // Validate quantity and price inputs
+            if (!validateInputs()) {
+                // If validation fails, do not proceed with the AJAX request
+                return;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('addStock') }}",
+                data: {
+                    vender: $('#inputGroupSelect04').val(),
+                    selectedSuggestions: selectedSuggestions,
+                    _token: '{{ csrf_token() }}',
+                    totalQuantity: totalQuantity,
+                    totalPrice: totalPrice,
+                },
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response);
+                    window.location.href = 'InventoryEntry';
+                },
+                error: function(xhr, status, error) {
+                    // Handle error scenarios
+                }
             });
         });
+    });
+
+    function validateInputs() {
+        if (selectedSuggestions.length === 0) {
+        // Display a Toastr notification or alert if no products are selected
+        alert('Bạn chưa chọn sản phẩm')
+        return false;
+        }
+    // Loop through each selected suggestion and validate its quantity and price
+    for (const suggestion of selectedSuggestions) {
+        const quantityInput = parseFloat(suggestion.quantity);
+        const priceInput = parseFloat(suggestion.price);
+
+        // Check if quantity and price are greater than 0
+        if (isNaN(quantityInput) || quantityInput <= 0 || isNaN(priceInput) || priceInput <= 0) {
+            alert('Số lượng và đơn giá phải lớn hơn 0');
+            return false;
+        }
+    }
+
+    return true; // All inputs are valid
+}
+
     </script>
 @endpush

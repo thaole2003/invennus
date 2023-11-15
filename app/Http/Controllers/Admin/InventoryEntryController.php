@@ -20,15 +20,15 @@ class InventoryEntryController extends Controller
      */
     public function index()
     {
-        $stocks = Stock::query()->get();
+        $stocks = Stock::query()->latest()->paginate(10);
         return view('admin.InventoryEntry.index', compact('stocks'));
     }
 
     public function InventoryEntryDetail($id)
     {
-        $stockDetails = StockDetail::query()->where([
+        $stockDetails = StockDetail::with('productVariant')->where([
             'stock_id' => $id
-        ])->first();
+        ])->get();
         return view('admin.InventoryEntry.detail', compact('stockDetails'));
     }
 
@@ -42,7 +42,7 @@ class InventoryEntryController extends Controller
             ->leftJoin('sizes', 'product_variants.size_id', '=', 'sizes.id')
             ->select(
                 'product_variants.id',
-                'products.title',
+                'products.sku',
                 'product_variants.color_id',
                 'product_variants.size_id',
                 'colors.name as color_name', // Lấy tên màu từ bảng colors
@@ -79,6 +79,7 @@ class InventoryEntryController extends Controller
             $productVariant->total_quantity_stock += $suggestion['quantity'];
             $productVariant->save();
         }
+        toastr()->success('Tạo thành công 1 đơn nhập','Thành công');
         return response()->json(['data' => $selectedSuggestions, 'vender' => $vender]);
     }
 

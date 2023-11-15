@@ -70,8 +70,10 @@
         <div class="container-fluid">
             <div class="row">
                 {{-- đổ dữ liệu category --}}
+                {{-- <table> --}}
                 @if (count($category) > 0)
                     @foreach ($category as $item)
+
                         <div class="col-lg-3 col-sm-6 col-md-6">
                             <div style="position: relative" class="single-category-boxes w-100">
                                 <img class="" style="width:100%;height:350px"
@@ -94,6 +96,8 @@
                         </div>
                     @endforeach
                 @endif
+            {{-- </table> --}}
+                {{ $category->links() }}
             </div>
         </div>
     </section>
@@ -146,7 +150,7 @@
                                                     <?php
                                                     $user_id = null;
                                                     $wishlistcheck = null; // Define it here with a default value
-                                                    
+
                                                     if (Auth::check()) {
                                                         $user_id = auth()->user()->id;
                                                         $wishlistcheck = \App\Models\wishlist::where('user_id', $user_id)
@@ -275,6 +279,119 @@
             </div>
         </div>
     </section>
+    <section class="all-products-area pb-60">
+        <div class="container">
+            <div class="tab products-category-tab">
+                <div class="section-title">
+                    <h2>Tất cả sản phẩm</h2>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        {{-- <ul class="tabs without-bg">
+                            <li><a href="#">
+                                    <span class="dot"></span> Sản phẩm mới nhất
+                                </a></li>
+
+                            <li><a href="#">
+                                    <span class="dot"></span>Sản phẩm giảm sâu
+                                </a></li>
+                        </ul>
+                    </div> --}}
+                    <div class="col-lg-12 col-md-12">
+                        <div class="tab_content">
+                            <div class="tabs_item">
+                                <img src="" class="" alt="">
+                                <div class="d-flex flex-wrap ">
+                                    @foreach ($productall as $product)
+                                        <div class="single-product-box p-2 col-lg-3">
+                                            <div class="product-image">
+
+                                                <a href="#">
+                                                    <img src="{{ $product->image }}" alt="image">
+                                                    <img src="{{ isset($product->images[0]->image) ? $product->images[0]->image : asset('img/logo.jpg') }}"
+                                                        alt="image">
+                                                </a>
+
+                                                <ul>
+                                                    <li><a href="#" data-tooltip="tooltip" data-placement="left"
+                                                            title="Quick View" data-bs-toggle="modal"
+                                                            data-bs-target="#productQuickView{{ $product->id }}"><i
+                                                                class="far fa-eye"></i></a></li>
+                                                                <?php
+                                                                $user_id = null;
+                                                                $wishlistcheck = null; // Define it here with a default value
+
+                                                                if (Auth::check()) {
+                                                                    $user_id = auth()->user()->id;
+                                                                    $wishlistcheck = \App\Models\wishlist::where('user_id', $user_id)
+                                                                        ->where('product_id', $product->id)->first();
+                                                                }
+                                                                ?>
+
+                                                                @if ($wishlistcheck)
+                                                                <form id="removeFromWishlistForm" action="{{ route('wishlist.del-to-wishlist', $wishlistcheck->id) }}" method="post">
+                                                                    @csrf
+                                                                    @method('delete')
+                                                                    <li><a id="removeFromWishlist" data-tooltip="tooltip" data-placement="left" title="Remove from Wishlist"><i class="fas fa-heart"></i></a></li>
+                                                                </form>
+
+                                                                <script>
+                                                                    document.getElementById('removeFromWishlist').addEventListener('click', function(event) {
+                                                                        event.preventDefault();
+                                                                        document.getElementById('removeFromWishlistForm').submit();
+                                                                    });
+                                                                </script>
+
+                                                    @else
+                                                        <li><a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
+                                                                data-tooltip="tooltip" data-placement="left"
+                                                                title="Add to Wishlist"><i class="far fa-heart"></i></a>
+                                                        </li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                            <div class="product-content">
+                                                <h3><a
+                                                        href="{{ route('product.detail', $product->id) }}">{!! substr($product->title, 0, 25) !!}</a>
+                                                </h3>
+                                                <div style="height: 50px" class="product-price">
+                                                    @if ($product->sales)
+                                                        @php
+                                                            $discountedPrice = $product->price - $product->sales->discount;
+                                                            $discountedPrice = max($discountedPrice, 0);
+                                                        @endphp
+                                                        <span style="text-decoration: line-through; "
+                                                            class="old-price">{{ number_format($product->price) }}
+                                                            VND</span><br>
+                                                        <span
+                                                            style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;"
+                                                            class="new-price">{{ number_format($discountedPrice) }}
+                                                            VND</span>
+                                                    @else
+                                                        <span style=""
+                                                            class="">{!! substr($product->metatitle, 0, 25) !!}</span><br>
+                                                        <span
+                                                            style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;"
+                                                            class="new-price">{{ number_format($product->price) }}
+                                                            VND</span>
+                                                    @endif
+                                                </div>
+                                                <a href="{{ route('product.detail', $product->id) }}"
+                                                    class="btn btn-light">Xem chi tiết</a>
+                                            </div>
+                                        </div>
+                                    @endforeach
+
+                                </div>
+                                {{ $productall->links() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- End all Products Area -->
 
     <!-- Start Products Offer Area -->
@@ -317,7 +434,7 @@
                         </div>
                     @endforeach
 
-                    {{-- 
+                    {{--
                     <div class="col-lg-12 col-md-12">
                         <div class="single-news-post">
                             <div class="news-image">
@@ -334,7 +451,7 @@
                             </div>
                         </div>
                     </div> --}}
-                    {{-- 
+                    {{--
                     <div class="col-lg-12 col-md-12">
                         <div class="single-news-post">
                             <div class="news-image">
@@ -557,7 +674,7 @@
                         aria-hidden="true">&times;</span></button>
 
                 <div class="modal-body">
-                    <h3>My Cart ({{ $countCart }})</h3>
+                    <h3>My Cart </h3>
                     <div class="product-cart-content">
                         {{-- @if (count($carts) > 0)
                         @foreach ($carts as $value)
@@ -629,7 +746,7 @@
                                             <div class="product-price">
                                                 {{-- <span>1</span>
                                             <span>x</span> --}}
-                                                <span class="price">{{ $wishlist->product->price }}đ</span>
+                                                <span class="price">{{ number_format($wishlist->product->price )}}đ</span>
                                             </div>
                                         </div>
                                     </div>
@@ -680,6 +797,7 @@
 
                         <div class="col-lg-6 col-md-6">
                             <div class="product-content">
+                                <h2><a href="#">{{ $product->metatitle }}</a></h2>
 
                                 <h3><a href="#">{{ $product->title }}</a></h3>
 
@@ -687,7 +805,7 @@
                                     <span id="newPrice" class="new-price">${{ $product->price }}</span>
                                 </div>
 
-                                <div class="product-review">
+                                {{-- <div class="product-review">
                                     <div class="rating">
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>
@@ -696,12 +814,12 @@
                                         <i class="fas fa-star-half-alt"></i>
                                     </div>
                                     <a href="#" class="rating-count">3 reviews</a>
-                                </div>
+                                </div> --}}
 
                                 <ul class="product-info">
-                                    <li><span>Vendor:</span> <a href="#">Lereve</a></li>
-                                    <li><span>Availability:</span> <a href="#">In stock (7 items)</a></li>
-                                    <li><span>Product Type:</span> <a href="#">T-Shirt</a></li>
+                                    {{-- <li><span>Vendor:</span> <a href="#">Lereve</a></li> --}}
+                                    {{-- <li><span>Availability:</span> <a href="#">In stock (7 items)</a></li> --}}
+                                    {{-- <li><span>Product Type:</span> <a href="#">T-Shirt</a></li> --}}
                                 </ul>
 
                                 {{-- <div class="product-color-switch">

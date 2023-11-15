@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="m-10">
-        <h1 class="text-center">Danh sách đơn hàng</h1>
+        <h1 class="text-center">Lịch sử nhập kho</h1>
     </div>
     <div class="w-80">
         <table id="" class="table table-striped" style="width:100%">
@@ -12,10 +12,9 @@
                 <tr>
                     <th scope="col">Mã</th>
                     <th scope="col">Tên nhà cung cấp</th>
-                    <th scope="col">Ngày nhập</th>
                     <th scope="col">Kiểu</th>
                     <th scope="col">Tổng tiền</th>
-
+                    <th scope="col">Ngày nhập</th>
                     <th></th>
                 </tr>
             </thead>
@@ -24,8 +23,8 @@
                     <tr>
                         <td>{{ $stock->id }}</td>
                         <td>{{ $stock->vender->name }}</td>
-                        <td>{{ $stock->type }}</td>
-                        <td>{{ $stock->total_price }}</td>
+                        <td>{{ $stock->type =='import' ? 'Nhập kho' : 'Xuất kho' }}</td>
+                        <td>{{ number_format($stock->total_price) }} VND</td>
                         <td>{{ $stock->created_at }}</td>
 
                         {{-- <td>
@@ -54,7 +53,7 @@
                     </tr>
                 @endforeach
             </tbody>
-            {{-- {{ $stocks->links() }} --}}
+            {{ $stocks->links() }}
         </table>
     </div>
 @endsection
