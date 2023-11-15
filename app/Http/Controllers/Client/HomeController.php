@@ -79,7 +79,6 @@ class HomeController extends Controller
             ->pluck('size_id');
         // dd($products->variants->product_id);
         $carts = Cart::query()->latest()->get();
-        $countCart = Cart::query()->count();
         if (auth()->check()) {
             $wishlists = Wishlist::query()
                 ->latest()
@@ -88,7 +87,7 @@ class HomeController extends Controller
         } else {
             $wishlists = collect(); // Tạo một mảng trống
         }
-        return view('client.layouts.components.main', compact('category', 'products', 'banners', 'product_sale','productall', 'carts', 'countCart', 'wishlists', 'colorIds', 'sizeIds'));
+        return view('client.layouts.components.main', compact('category', 'products', 'banners', 'product_sale','productall', 'carts', 'wishlists', 'colorIds', 'sizeIds'));
     }
 
     /**

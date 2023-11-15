@@ -658,7 +658,7 @@
                         aria-hidden="true">&times;</span></button>
 
                 <div class="modal-body">
-                    <h3>My Cart ({{ $countCart }})</h3>
+                    <h3>My Cart </h3>
                     <div class="product-cart-content">
                         {{-- @if (count($carts) > 0)
                         @foreach ($carts as $value)

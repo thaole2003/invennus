@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\AdsController;
 use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\StoreController;
@@ -75,6 +76,7 @@ Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(fu
     Route::get('/', [AdminHomeController::class, 'revenue7day'])->name('home');
 
     Route::resource('vendors', VendoreController::class);
+    Route::resource('ads', AdsController::class);
     Route::resource('users', UserController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('banner', BannerController::class);

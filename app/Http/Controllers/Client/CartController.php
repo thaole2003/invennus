@@ -94,6 +94,11 @@ class CartController extends Controller
     }
     public function checkout()
     {
+        $countCart = Cart::where('user_id', auth()->user()->id)->sum('quantity');
+        if ($countCart == 0) {
+        toastr()->error('Giỏ hàng của bạn đang trống. Vui lòng thêm sản phẩm vào giỏ hàng trước khi tạo đơn hàng.', 'Không thành công');
+        return back();
+    }
         $carts = Cart::with('ProductVariant')
             ->where('user_id', auth()->user()->id) // Thêm điều kiện user_id
             ->latest()
