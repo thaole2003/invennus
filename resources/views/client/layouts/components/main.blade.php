@@ -420,20 +420,20 @@
                     @foreach ($posts as $post)
                         <div class="col-lg-12 col-md-12">
                             <div class="single-news-post">
-                                <div class="news-image">
-                                    <a href="#"><img src="{{ asset($post->image) }}" alt="image"></a>
+                                <div class="news-image" style="">
+                                    <a href="#"><img style="height:340px" src="{{ asset($post->image) }}" alt="image"></a>
                                 </div>
 
                                 <div class="news-content">
                                     <h3><a href="{{ route('post.detail', $post->id) }}">{{ $post->title }}</a></h3>
-                                    <span class="author">By <a href="#">{{ $post->user_id }}</a></span>
+                                    <span class="author">Người đăng : <a href="#">{{ $post->user->name }}</a></span>
                                     <p>{{ $post->name }}</p>
-                                    <a href="#" class="btn btn-light">Read More</a>
+                                    <a href="{{ route('post.detail', $post->id) }}" class="btn btn-light">Đọc chi tiết</a>
                                 </div>
                             </div>
                         </div>
                     @endforeach
-
+{{ $posts->links() }}
                     {{--
                     <div class="col-lg-12 col-md-12">
                         <div class="single-news-post">

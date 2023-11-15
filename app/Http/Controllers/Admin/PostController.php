@@ -41,7 +41,7 @@ class PostController extends Controller
         try {
             $model = new Post();
             $model->fill($request->all());
-            $model->slug = Str::slug($request->name);
+            $model->slug = Str::slug($request->title);
             // $model->user_id = ;
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
@@ -103,9 +103,10 @@ class PostController extends Controller
         $data->slug = $slug;
         if ($request->hasFile('newimage')) {
             $image = $request->file('newimage');
-            $folder = 'images/categories';
+            $folder = 'images/post';
             $imageName = Storage::put($folder, $image);
             $imageName = 'storage/' . $imageName;
+
             if ($data->image) {
                 $oldFilePath = str_replace('storage/', '', $data->image); // Loại bỏ 'storage/' từ đường dẫn
                 if (Storage::exists($oldFilePath)) {
@@ -113,6 +114,7 @@ class PostController extends Controller
                 }
             }
             $data->image = $imageName;
+
         } else {
             $data->image =  $request->input('currentimage');
         }

@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    Banner
+    Quảng cáo
 @endsection
 @section('content')
     <h1 class=" d-flex justify-content-center align-items-center" style="height: 80px">
@@ -29,9 +29,9 @@
                 @enderror
             <div class="mb-3 mt-3">
                 <label for="email" class="form-label">Trạng thái:</label>
-                <select name="is_active" id="">
-                    <option value="1" {{ $data->is_active == 1 ? 'checked' : false }}>Kích hoạt</option>
-                    <option value="2" {{ $data->is_active == 2 ? 'checked' : false }}>Chưa kích hoạt</option>
+                <select name="active" id="">
+                    <option value="1" {{ $data->active == 1 ? 'checked' : false }}>Kích hoạt</option>
+                    <option value="2" {{ $data->active == 2 ? 'checked' : false }}>Chưa kích hoạt</option>
                 </select>
             </div>
             <div class="mb-3 mt-3">

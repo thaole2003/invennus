@@ -59,7 +59,7 @@
                             </li>
                             @endif
                             <li class="nav-item p-relative">
-                                <a href="#" class="nav-link active">Tin tức</a>
+                                <a href="/post" class="nav-link active">Tin tức</a>
                             </li>
                             <li class="nav-item megamenu"><a href="#" class="nav-link">Shop <i
                                         class="fas fa-chevron-down"></i></a>
