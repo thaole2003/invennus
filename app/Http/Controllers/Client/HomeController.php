@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Ads;
 use App\Models\Banner;
 use App\Models\Cart;
 use App\Models\Category;
@@ -28,7 +29,7 @@ class HomeController extends Controller
         $category = Category::withCount('products')
             ->having('products_count', '>', 0)
             ->paginate(4);
-        $banners = Banner::where('is_active', 1) // Lấy các bản ghi có is_active = 1 (true)
+        $banners = Banner::where('is_active', 1)
             ->latest('id')
             ->paginate(2);
         $product_sale = Product::with([
@@ -89,7 +90,7 @@ class HomeController extends Controller
             $wishlists = collect(); // Tạo một mảng trống
         }
 
-        $posts = Post::query()->get();
+        $posts = Post::query()->paginate(3);
 
         return view('client.layouts.components.main', compact('category', 'products', 'banners', 'product_sale', 'productall', 'carts', 'wishlists', 'colorIds', 'sizeIds', 'posts'));
     }
@@ -155,6 +156,10 @@ class HomeController extends Controller
         $totalQuantity = ProductVariant::where('product_id', $id)->sum('total_quantity_stock');
         $groupbyColors = [];
         $groupbySizes = [];
+        $ads = Ads::where('active', 1)
+        ->inRandomOrder()
+        ->limit(1)
+        ->get();
         // dd($product->variants);
         foreach ($product->variants as $variant) {
 
@@ -168,7 +173,7 @@ class HomeController extends Controller
                 $groupbySizes[] = $size;
             }
         }
-        return view('client.products.productDetail', compact('productvariants', 'product', 'products', 'groupbyColors', 'groupbySizes', 'stores', 'totalQuantity'));
+        return view('client.products.productDetail', compact('productvariants', 'ads', 'product', 'products', 'groupbyColors', 'groupbySizes', 'stores', 'totalQuantity'));
     }
 
     public function checkQuantity(Request $request)
@@ -233,13 +238,21 @@ class HomeController extends Controller
     public function post()
     {
         $posts = Post::query()->paginate(5);
-        return view('client.posts.post', compact('posts'));
+        $ads = Ads::where('active', 1)
+        ->inRandomOrder()
+        ->limit(1)
+        ->get();
+        return view('client.posts.post', compact('posts','ads'));
     }
 
     public function postDetail($id)
     {
-        $post = Post::query()->findOrFail($id);
-        // dd($post);
-        return view('client.posts.postDettail', compact('post'));
+        $post = Post::findOrFail($id);
+        $posts = Post::where('id', '!=', $id)->paginate(5);
+        $ads = Ads::where('active', 1)
+            ->inRandomOrder()
+            ->limit(1)
+            ->get();
+        return view('client.posts.postDettail', compact('post','posts','ads'));
     }
 }

@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    Color
+    Màu sắc
 @endsection
 @section('content')
     <h1 class=" d-flex justify-content-center align-items-center" style="height: 80px">

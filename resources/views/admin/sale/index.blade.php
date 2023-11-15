@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    Sale
+Giảm giá
 @endsection
 @section('content')
     <div class="m-10">

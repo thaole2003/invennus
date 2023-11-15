@@ -511,17 +511,23 @@
                                 </div>
                             </div>
 
-                            <div class="aside-trending-products">
-                                <img src="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_3000,h_2250,f_auto/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/x1nlzlyldasoj6pllfug/V%C3%A9V%C3%A0oC%E1%BB%95ngIMGWorldsofAdventure,Dubai-KlookVi%E1%BB%87tNam.jpg"
-                                    alt="image">
+                            @foreach ($ads as $item)
+                            <div class="product-single-aside" style="margin-top:20px" >
 
-                                <div class="category">
-                                    <h4>Có thể bạn quan tâm</h4>
-                                    <span>Cho quảng cáo</span>
+                                <div class="aside-trending-products">
+                                    <img src="{{ asset($item->image)  }}"
+                                        alt="image">
+
+                                    <div class="category">
+                                        <h4>{{ $item->title }}</h4>
+                                        <span>{{ $item->description }}</span>
+                                        <span>{{ strlen($item->description) }}</span>
+                                    </div>
+
+                                    <a href="#"></a>
                                 </div>
-
-                                <a href="#"></a>
                             </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

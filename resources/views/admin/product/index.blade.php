@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    Product
+    Sản phẩm
 @endsection
 @section('content')
     <div class="m-10">
@@ -28,6 +28,7 @@
                     <th scope="col">Mô tả</th>
                     <th scope="col">Ảnh chính</th>
                     <th scope="col">Hành động</th>
+                    <th scope="col">Kho</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,10 +50,11 @@
                                 <button type="submit" onclick="return confirm('chắc chắn xóa?')" class="btn btn-danger"
                                     class="btn btn-danger"><i class="fas fa-trash-alt"></i> </button>
                             </form>
-                            <a class="btn btn-primary" href="{{ route('admin.product.show', $value->id) }}"><i
-                                    class="fas fa-eye"></i></a>
 
                         </td>
+                        <td>  <a class="btn btn-primary" href="{{ route('admin.product.show', $value->id) }}"><i
+                            class="fas fa-eye"></i></a>
+</td>
                     </tr>
                 @endforeach
             </tbody>

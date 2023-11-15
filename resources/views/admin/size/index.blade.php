@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    Size
+Kích cỡ
 @endsection
 @section('content')
     <div class="m-10">
