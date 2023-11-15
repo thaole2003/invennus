@@ -63,7 +63,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
     <script src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> --}}
     <script>
         CKEDITOR.replace('description', {
             filebrowserBrowseUrl: '{{ asset('ckfinder/ckfinder.html') }}',
@@ -74,6 +73,10 @@
             filebrowserFlashUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}'
         });
     </script>
+    // <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    // <script>
+    //     CKEDITOR.replace('editor1');
+    // </script>
     <script>
         $(() => {
             function readURL(input) {
@@ -89,9 +92,6 @@
             $("#image-input").change(function() {
                 readURL(this);
             });
-
-
-
         });
     </script>
 @endpush

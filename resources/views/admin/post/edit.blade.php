@@ -35,8 +35,10 @@
 
             <div class="mb-3 mt-3">
                 <label for="email" class="form-label">Description :</label>
-                <input type="text" class="form-control" id="email" placeholder="Nhập mô tả" name="description"
-                    value="{{ $data->description }}">
+                {{-- <input type="text" class="form-control" id="email" placeholder="Nhập mô tả" name="description"
+                    value="{{ $data->description }}"> --}}
+                <textarea id="description" name="description" class="form-control">{{ $data->description }}</textarea>
+
             </div>
             @error('description')
                 <span class="text-danger">{{ $message }}</span>
@@ -50,7 +52,6 @@
                             value="{{ $value->id }}" id="">
                         {{ $value->name }} <br>
                     @endforeach
-
                 @else
                     <span>Hãy thêm 1 cửa hàng!</span>
                 @endif
@@ -66,6 +67,17 @@
     <!-- Page level plugins -->
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
+    <script src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('description', {
+            filebrowserBrowseUrl: '{{ asset('ckfinder/ckfinder.html') }}',
+            filebrowserImageBrowseUrl: '{{ asset('ckfinder/ckfinder.html?type=Images') }}',
+            filebrowserFlashBrowseUrl: '{{ asset('ckfinder/ckfinder.html?type=Flash') }}',
+            filebrowserUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}',
+            filebrowserImageUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images') }}',
+            filebrowserFlashUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}'
+        });
+    </script>
     <script>
         $(() => {
             function readURL(input) {
