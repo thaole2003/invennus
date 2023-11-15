@@ -71,14 +71,23 @@
                                             </td>
                                             <input type="hidden" id="ProductVariant"
                                                 value="{{ $value->product_radiant }}">
+                                            <input type="hidden" id="quantity-stock"
+                                                value="{{ $value->ProductVariant->total_quantity_stock }}">
                                             <td class="product-quantity">
 
                                                 <div class="input-counter">
-                                                    <span class="minus-btn increment-btn"><i
+                                                    {{-- <span class="minus-btn increment-btn"><i
                                                             class="fas fa-minus"></i></span>
                                                     <input type="text" min="0" class="qty-input"
                                                         value="{{ $value->quantity }}">
-                                                    <span class="plus-btn decrement-btn"><i class="fas fa-plus"></i></span>
+                                                    <span class="plus-btn decrement-btn"><i class="fas fa-plus"></i></span> --}}
+
+                                                    <span class="minus-btn decrement-btn"><i
+                                                            class="fas fa-minus"></i></span>
+                                                    <input type="text" name="quantity" id="quantity" min="1"
+                                                        class="form-control text-center qty-input"
+                                                        value="{{ $value->quantity }}" step="1" readonly>
+                                                    <span class="plus-btn increment-btn"><i class="fas fa-plus"></i></span>
                                                 </div>
                                             </td>
                                         </form>
@@ -138,9 +147,9 @@
             <h3>Giỏ hàng của bạn</h3>
 
             <ul>
-                <li>Tổng tiền<span>{{ number_format($sumTotal) }} vnd</span></li>
+                <li>Tổng tiền<span id="totalPriceForUser">{{ number_format($sumTotal) }} vnd</span></li>
                 <li>Phí vận chuyển <span>N/A</span></li>
-                <li>Thành tiền <span><b>{{ number_format($sumTotal) }} vnd</b></span></li>
+                <li>Thành tiền <span id="totalPriceForUser"><b>{{ number_format($sumTotal) }} vnd</b></span></li>
             </ul>
             <a href="{{ route('cart.checkout') }}" class="btn btn-light">Tiếp tục</a>
         </div>
@@ -159,23 +168,30 @@
         });
     </script>
     <script>
-        $(function() {
-            // $('.decrement-btn').on('click', function() {
-            //     // var inputValue = parseInt($('#quantity').val());
-            //     let quantityStock = $('.quantity-stock').val();
-            //     let quantity = $('.qty-input').val();
-            //     if (quantityStock <= quantity) {
-            //         $(this).css('pointer-events', 'none');
-            //     } else {
-            //         $(this).css('pointer-events', 'auto');
-            //     }
-            // });
+        $(document).ready(function() {
+            $('.increment-btn').on('click', function() {
+                var inputValue = parseInt($('#quantity').val());
+                var quantity = parseInt($('#quantity-stock').val());
+
+                if (inputValue < quantity) {
+                    $('#quantity').val(inputValue);
+                }
+                updatePointerEvents();
+            });
+
+            $('.decrement-btn').on('click', function() {
+                var inputValue = parseInt($('#quantity').val());
+
+                if (inputValue > 1) {
+                    $('#quantity').val(inputValue);
+                }
+                updatePointerEvents();
+            });
             $(document).on('change', '.qty-input', function(e) {
                 e.preventDefault();
                 let quantity = $(this).val();
                 let price = $('#price').val();
                 let product = $('#product').val();
-                // let product_radiant = $('#ProductVariant').val();
                 let id = $(this).closest('tr').data('id');
 
                 $.ajax({
@@ -185,26 +201,51 @@
                         id,
                         quantity,
                         product,
-                        // product_radiant,
                         price
                     },
                     dataType: 'json',
                     success: function(response) {
                         if (response.code === 200) {
-                            $('.subtotal-amount').text(response.data.total)
-                            location.reload();
-
-                            // let quantityStock = $('.quantity-stock').val();
-                            // console.log(quantityStock);
-                            // if (quantityStock = quantity) {
-                            //     $('.decrement-btn').css('pointer-events', 'none');
-                            // }
+                            var totalValue = response.total;
+                            var formattedTotal = number_format(totalValue);
+                            $(this).closest('tr').find('.subtotal-amount').text(formattedTotal);
+                            // var totalValue = response.total;
+                            var sumFormattedTotal = number_format(response.totalPrice);
+                            $('span#totalPriceForUser').text(sumFormattedTotal);
                         }
-
-                    }
+                    }.bind(this)
                 });
             })
 
+            function updatePointerEvents() {
+                var inputValue = parseInt($('#quantity').val());
+                var quantity = parseInt($('#quantity-stock').val());
+
+                $('.increment-btn').css('pointer-events', inputValue >= quantity ? 'none' : 'auto');
+                $('.decrement-btn').css('pointer-events', inputValue <= 1 ? 'none' : 'auto');
+            }
+
+            function number_format(number, decimals, dec_point, thousands_sep) {
+                number = parseFloat(number);
+                if (isNaN(number)) {
+                    return '';
+                }
+
+                decimals = !isFinite(decimals) ? 2 : decimals;
+                dec_point = typeof dec_point === 'undefined' ? '.' : dec_point;
+                thousands_sep = typeof thousands_sep === 'undefined' ? ',' : thousands_sep;
+
+                var parts = number.toFixed(decimals).toString().split('.');
+                parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousands_sep);
+
+                // Loại bỏ ".00" nếu tồn tại
+                var formattedPrice = parts.join(dec_point).replace('.00', '');
+
+                // Thêm "VND" vào giá trị định dạng
+                formattedPrice += ' VND';
+
+                return formattedPrice;
+            }
         });
     </script>
 @endpush
