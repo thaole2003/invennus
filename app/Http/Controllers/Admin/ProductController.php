@@ -24,6 +24,10 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('permission:products.resource', ['only' => ['index', 'create', 'store', 'edit', 'update', 'destroy', 'updatequantitystock']]);
+    }
     public function index()
     {
         $data = Product::latest('created_at')->get();

@@ -24,6 +24,9 @@ use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\HomeController as ClientHomeController;
 use App\Http\Controllers\Client\WishlistController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -73,7 +76,15 @@ Route::post('/filter-product', [ReportController::class, 'filterProduct'])->name
 
 
 Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(function () {
-    Route::get('/', [AdminHomeController::class, 'index'])->name('home');
+    Route::get('/', [AdminHomeController::class, 'revenue7day'])->name('home');
+    Route::resource('roles', RoleController::class);
+    Route::resource('permissions', PermissionController::class);
+
+    Route::resource('admins', AdminController::class);
+
+    Route::get('permissions-import', [PermissionController::class, 'importPermission'])->name('permissions-import');
+    Route::get('permissions-export', [PermissionController::class, 'Export'])->name('permissions-export');
+    Route::post('permissions-import', [PermissionController::class, 'Import'])->name('import');
 
     Route::resource('vendors', VendoreController::class);
     Route::resource('ads', AdsController::class);
@@ -98,7 +109,7 @@ Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(fu
         Route::get('/product/{id}', [AdminBillController::class, 'show'])->name('product');
         Route::post('/update-status', [AdminBillController::class, 'updateStatus'])->name('update-status');
     });
-});
+})->middleware('auth');
 Route::get('/', [ClientHomeController::class, 'index'])->name('home');
 Route::prefix('product')->name('product.')->group(function () {
     Route::get('/', [ClientHomeController::class, 'allProduct'])->name('home');
@@ -142,6 +153,9 @@ Route::post('search', [ClientHomeController::class, 'search'])->name('search');
 
 Route::middleware(['auth', 'store.access:admin'])->group(function () {
     // Các route chỉ có quyền truy cập cho admin
+
+
+    // vai trò
 });
 
 Route::middleware(['auth', 'store.access:employee'])->group(function () {
@@ -151,3 +165,5 @@ Route::middleware(['auth', 'store.access:employee'])->group(function () {
 Route::middleware(['auth', 'store.access:user'])->group(function () {
     // Các route cho phép cả admin, employee và user, nhưng user chỉ có quyền truy cập tài khoản của mình
 });
+
+

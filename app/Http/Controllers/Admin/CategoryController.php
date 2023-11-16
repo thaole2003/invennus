@@ -16,10 +16,14 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('permission:categories.resource', ['only' => ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']]);
+    }
     public function index()
     {
-        $data=Category::withCount('products')->latest('created_at')->get();
-        return view('admin.category.index',compact('data'));
+        $data = Category::withCount('products')->latest('created_at')->get();
+        return view('admin.category.index', compact('data'));
     }
 
     /**
@@ -29,7 +33,6 @@ class CategoryController extends Controller
     {
         //
         return view('admin.category.create');
-
     }
 
     /**
@@ -38,26 +41,26 @@ class CategoryController extends Controller
     public function store(CreateCategoryRequest $request)
     {
         //
-        try{
-        $model = new Category();
-        $model->fill($request->all());
-        $slug = Str::slug($request->name);
+        try {
+            $model = new Category();
+            $model->fill($request->all());
+            $slug = Str::slug($request->name);
             $model->slug = $slug;
-        if($request->hasFile('image')){
-            $image = $request->file('image');
-            $folder = 'images/categories';
-            $imageName =Storage::put($folder,$image);
-            $imageName= 'storage/' . $imageName;
-            $model->image = $imageName;
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $folder = 'images/categories';
+                $imageName = Storage::put($folder, $image);
+                $imageName = 'storage/' . $imageName;
+                $model->image = $imageName;
+            }
+            toastr()->success('Thêm thành công danh mục', 'Thành công');
+            $model->save();
+            return to_route('admin.category.index');
+        } catch (\Exception $exception) {
+            toastr()->error('Đã có lỗi xảy ra', 'Thử lại sau');
+            Log::error($exception->getMessage());
+            return back();
         }
-        toastr()->success('Thêm thành công danh mục','Thành công');
-        $model->save();
-        return to_route('admin.category.index');
-    } catch (\Exception $exception) {
-        toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
-        Log::error($exception->getMessage());
-        return back();
-    }
     }
 
     /**
@@ -66,10 +69,10 @@ class CategoryController extends Controller
     public function show(string $id)
     {
         //
-        $data=Category::with('products')
-        ->where('id',$id)
-        ->latest('created_at')->get();
-        return view('admin.category.show',compact('data'));
+        $data = Category::with('products')
+            ->where('id', $id)
+            ->latest('created_at')->get();
+        return view('admin.category.show', compact('data'));
     }
 
     /**
@@ -78,8 +81,8 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         //
-        $data= Category::findOrFail($id);
-        return view('admin.category.edit',compact('data'));
+        $data = Category::findOrFail($id);
+        return view('admin.category.edit', compact('data'));
     }
 
     /**
@@ -88,16 +91,16 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, string $id)
     {
         //
-        $data= Category::findOrFail($id);
+        $data = Category::findOrFail($id);
         $data->fill($request->all());
         $slug = Str::slug($request->name);
         $data->slug = $slug;
-        if($request->hasFile('newimage')){
+        if ($request->hasFile('newimage')) {
 
             $image = $request->file('newimage');
             $folder = 'images/categories';
-            $imageName =Storage::put($folder,$image);
-            $imageName= 'storage/' . $imageName;
+            $imageName = Storage::put($folder, $image);
+            $imageName = 'storage/' . $imageName;
             if ($data->image) {
                 $oldFilePath = str_replace('storage/', '', $data->image); // Loại bỏ 'storage/' từ đường dẫn
                 if (Storage::exists($oldFilePath)) {
@@ -105,11 +108,11 @@ class CategoryController extends Controller
                 }
             }
             $data->image = $imageName;
-        }else{
+        } else {
             $data->image =  $request->input('currentimage');
         }
         $data->save();
-        toastr()->success('Sửa thành công danh mục','Thành công');
+        toastr()->success('Sửa thành công danh mục', 'Thành công');
         return to_route('admin.category.index');
     }
 
@@ -127,11 +130,11 @@ class CategoryController extends Controller
                     Storage::delete($oldFilePath);
                 }
             }
-            toastr()->success('Xóa thành công 1 danh mục','Thành công');
+            toastr()->success('Xóa thành công 1 danh mục', 'Thành công');
             return redirect()->back();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            toastr()->error('Đã có lỗi xảy ra', 'Thử lại sau');
             return back();
         }
     }

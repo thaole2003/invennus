@@ -12,7 +12,11 @@ use Illuminate\Support\Facades\Storage;
 
 class AdsController extends Controller
 {
-    //
+    public function __construct()
+    {
+        $this->middleware('permission:ads.resource', ['only' => ['index', 'create', 'store', 'edit', 'update', 'destroy']]);
+    }
+
     public function index()
     {
         //
