@@ -167,7 +167,3 @@ Route::middleware(['auth', 'store.access:user'])->group(function () {
 });
 
 
-
-
-// Vai trò và quyền
-// Route::resource('roles-permissions', RolePermissionController::class);
