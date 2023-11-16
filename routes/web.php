@@ -11,12 +11,14 @@ use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\AdsController;
 use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\StoreVariantController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\Admin\VendoreController;
+use App\Http\Controllers\Client\AuthController;
 use App\Http\Controllers\Client\BillController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\HomeController as ClientHomeController;
@@ -46,7 +48,17 @@ Auth::routes();
 // Route::get('/home', function () {
 //     return view('layouts.app');
 // })->name('home');
-
+Route::get('/changeinfo', function () {
+    return view('auth.changeInfo');
+});
+Route::post('/changeinfo/{id}',[AuthController::class,'editInfo'])->name('changeInfo');
+Route::get('/dashboard', function () {
+    return view('admin.thongke.charts');
+});
+Route::get('/changepassword', function () {
+    return view('auth.changePassword');
+});
+Route::post('/changepassword/{id}',[AuthController::class,'editPassword'])->name('changePassword');
 Route::get('/dashboard', function () {
     return view('admin.thongke.charts');
 });
@@ -54,6 +66,9 @@ Route::get('/dashboard', function () {
 //     return view('admin.InventoryEntry.thongke');
 // });
 Route::get('/InventoryEntry', [InventoryEntryController::class, 'index'])->name('InventoryEntry');
+Route::get('/InventoryEntryDetail/{id}', [InventoryEntryController::class, 'InventoryEntryDetail'])->name('InventoryEntryDetail');
+Route::get('/importStock', [InventoryEntryController::class, 'create'])->name('importStock');
+Route::post('/addStock', [InventoryEntryController::class, 'store'])->name('addStock');
 Route::get('/report-revenue', [ReportController::class, 'reportRevenue'])->name('report-revenue');
 Route::post('/filter-revenue', [ReportController::class, 'filterRevenue'])->name('filter-revenue');
 Route::get('/report-product', [ReportController::class, 'reportProduct'])->name('report-product');
@@ -74,7 +89,9 @@ Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(fu
     Route::post('permissions-import', [PermissionController::class, 'Import'])->name('import');
 
 
+
     Route::resource('vendors', VendoreController::class);
+    Route::resource('ads', AdsController::class);
     Route::resource('users', UserController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('banner', BannerController::class);
@@ -103,6 +120,12 @@ Route::prefix('product')->name('product.')->group(function () {
     Route::get('/detail/{id}', [ClientHomeController::class, 'product'])->name('detail');
     Route::get('/QuickView/{id}', [ClientHomeController::class, 'products'])->name('QuickView');
     Route::get('check-detail-quantity', [ClientHomeController::class, 'checkQuantity'])->name('check-detail-quantity');
+});
+Route::prefix('post')->name('post.')->group(function () {
+    Route::get('/', [ClientHomeController::class, 'post'])->name('home');
+    Route::get('/detail/{id}', [ClientHomeController::class, 'postDetail'])->name('detail');
+    // Route::get('/QuickView/{id}', [ClientHomeController::class, 'products'])->name('QuickView');
+    // Route::get('check-detail-quantity', [ClientHomeController::class, 'checkQuantity'])->name('check-detail-quantity');
 });
 Route::prefix('bill')->name('bill.')->middleware('auth')->group(function () {
     Route::get('/detail', [BillController::class, 'index'])->name('detail');

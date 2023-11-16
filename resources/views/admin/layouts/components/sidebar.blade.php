@@ -17,6 +17,11 @@
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Bảng điều khiển</span></a>
     </li>
+    <li class="nav-item active">
+        <a class="nav-link" href="/report-revenue">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Thống kê</span></a>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -45,22 +50,22 @@
             </div>
         </div>
     </li>
-      <!-- Nav Item - Pages Collapse Menu -->
-      @if (Auth::user()->can('admins.resource'))
-      <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo00"
-              aria-expanded="true" aria-controls="collapseTwo00">
-              <i class="fas fa-store"></i>
-              <span>Quản lý admin</span>
-          </a>
-          <div id="collapseTwo00" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                  <a class="collapse-item" href={{ route('admin.admins.index') }}>Danh sách admin</a>
-                  <a class="collapse-item" href={{ route('admin.admins.create') }}>Thêm mới admin</a>
-              </div>
-          </div>
-      </li>
-      @endif
+    <!-- Nav Item - Pages Collapse Menu -->
+    @if (Auth::user()->can('admins.resource'))
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo00"
+                aria-expanded="true" aria-controls="collapseTwo00">
+                <i class="fas fa-store"></i>
+                <span>Quản lý admin</span>
+            </a>
+            <div id="collapseTwo00" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href={{ route('admin.admins.index') }}>Danh sách admin</a>
+                    <a class="collapse-item" href={{ route('admin.admins.create') }}>Thêm mới admin</a>
+                </div>
+            </div>
+        </li>
+    @endif
     <!-- Nav Item - Pages Collapse Menu -->
     @if (Auth::user()->can('stores.resource'))
         <li class="nav-item">
@@ -214,19 +219,19 @@
         </li>
     @endif
     @if (Auth::user()->can('inventoryentrys.resource'))
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('InventoryEntry') }}" data-toggle="collapse"
-            data-target="#collapseTwo8" aria-expanded="true" aria-controls="collapseTwo8">
-            <i class="fab fa-salesforce"></i>
-            <span>Nhập kho</span>
-        </a>
-        <div id="collapseTwo8" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('InventoryEntry') }}">Danh sách giảm giá</a>
-                <a class="collapse-item" href={{ route('admin.sale.create') }}>Thêm mới giảm giá</a>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('InventoryEntry') }}" data-toggle="collapse"
+                data-target="#collapseTwo8" aria-expanded="true" aria-controls="collapseTwo8">
+                <i class="fab fa-salesforce"></i>
+                <span>Nhập kho</span>
+            </a>
+            <div id="collapseTwo8" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('InventoryEntry') }}">Danh sách giảm giá</a>
+                    <a class="collapse-item" href={{ route('admin.sale.create') }}>Thêm mới giảm giá</a>
+                </div>
             </div>
-        </div>
-    </li>
+        </li>
     @endif
     @if (Auth::user()->can('bills.resource'))
         <li class="nav-item">
@@ -239,6 +244,59 @@
         </li>
     @endif
 
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwooo"
+            aria-expanded="true" aria-controls="collapseTwo7">
+            <i class="fas fa-calendar"></i>
+            <span>Danh mục bài viết</span>
+        </a>
+        <div id="collapseTwooo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href={{ route('admin.postCategory.index') }}>Danh sách </a>
+                <a class="collapse-item" href={{ route('admin.postCategory.create') }}>Thêm mới</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoo"
+            aria-expanded="true" aria-controls="collapseTwo7">
+            <i class="fab fa-salesforce"></i>
+            <span>Bài viết</span>
+        </a>
+        <div id="collapseTwoo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href={{ route('admin.post.index') }}>Danh sách bài viết</a>
+                <a class="collapse-item" href={{ route('admin.post.create') }}>Thêm mới bài viết</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('InventoryEntry') }}" data-toggle="collapse"
+            data-target="#collapseTwo8" aria-expanded="true" aria-controls="collapseTwo8">
+            <i class="fab fa-salesforce"></i>
+            <span>Nhập kho</span>
+        </a>
+        <div id="collapseTwo8" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('InventoryEntry') }}">Danh sách nhập kho</a>
+                <a class="collapse-item" href={{ route('importStock') }}>Thêm mới nhập kho</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTw11"
+            aria-expanded="true" aria-controls="collapseTw">
+            <i class="fas fa-images"></i>
+            <span>Thuê quảng cáo</span>
+        </a>
+        <div id="collapseTw11" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href={{ route('admin.ads.index') }}>Danh sách </a>
+                <a class="collapse-item" href={{ route('admin.ads.create') }}>Thêm mới</a>
+            </div>
+        </div>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">

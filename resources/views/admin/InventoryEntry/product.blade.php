@@ -34,7 +34,7 @@
                         <a href="javascript:void(0);" class="dropdown-item">Separated link</a>
                     </div>
                 </div>
-                <h4 class="header-title mt-0">Doanh thu theo tháng</h4>
+                <h4 class="header-title mt-0">Top 5 sản phẩm bán chạy nhất</h4>
                 <div id="morris-bar-example" style="height: 300px;" class="morris-chart"></div>
             </div>
         </div>
@@ -51,8 +51,11 @@
 
         // Tạo mảng dữ liệu cho biểu đồ
         var data = topProducts.map(function(product) {
+            var title = product.product_name + ' - ' + product.size + ' - ' + product.color;
             return {
                 product_variant_id: product.product_variant_id,
+                product_name: title,
+                price: product.price,
                 total_quantity: product.total_quantity
             };
         });
@@ -60,13 +63,26 @@
         new Morris.Bar({
             element: 'morris-bar-example',
             data: data,
-            xkey: 'product_variant_id',
+            xkey: 'product_name',
             ykeys: ['total_quantity'],
             labels: ['Số lượng'],
             barColors: ['#ffbd4a'],
             hideHover: 'auto',
             resize: true,
-            xLabelAngle: 35
+            xLabelAngle: 0,
+            hoverCallback: function(index, options, content, row) {
+                var formattedPrice = new Intl.NumberFormat('vi-VN', {
+                    style: 'currency',
+                    currency: 'VND'
+                }).format(row.price * row.total_quantity);
+
+                var tooltipContent = '<div class="morris-hover-row-label">' + row.product_name + '</div>' +
+                    '<div class="morris-hover-point" style="color: #ffbd4a">Số lượng: ' + row.total_quantity +
+                    '</div>' +
+                    '<div class="morris-hover-point" style="color: #ffbd4a">Giá: ' + formattedPrice + '</div>';
+
+                return tooltipContent;
+            }
         });
     </script>
 @endpush

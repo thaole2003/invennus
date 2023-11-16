@@ -17,7 +17,7 @@
                     <th scope="col">Tên ngắn</th>
                     <th scope="col">Mô tả</th>
                     <th scope="col">Ảnh chính</th>
-                    <th scope="col">Sửa số lượng của cửa hàng</th>
+                    <th scope="col">Số lượng theo cửa hàng</th>
                 </tr>
             </thead>
             <tbody>

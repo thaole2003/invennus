@@ -1,10 +1,10 @@
 @extends('admin.layouts.master')
 @section('title')
-    Category
+    Bài viết
 @endsection
 @section('content')
     <h1 class=" d-flex justify-content-center align-items-center" style="height: 80px">
-        Thêm danh mục</h1>
+        Thêm bài viết</h1>
 
     <form action="{{ route('admin.post.store') }}" method="post" enctype="multipart/form-data">
         @csrf
@@ -12,7 +12,7 @@
         <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
         <div class="w-50 mx-auto border bg-light rounded h-100 p-4 mt-5">
             <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Image:</label>
+                <label for="email" class="form-label">Ảnh:</label>
                 <input type="file" class="form-control" name="image" accept="image/*" id="image-input"
                     placeholder="Nhập tiêu đề" value="{{ old('image') }}">
             </div>
@@ -25,7 +25,7 @@
             </div>
 
             <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Name:</label>
+                <label for="email" class="form-label">Tiêu đề:</label>
                 <input type="text" class="form-control" id="email" placeholder="Nhập tiêu đề" name="title"
                     value="{{ old('title') }}">
             </div>
@@ -33,7 +33,7 @@
                 <span class="text-danger">{{ $message }}</span>
             @enderror
             <div class="mb-3 mt-3">
-                <label for="content" class="form-label">Description :</label>
+                <label for="content" class="form-label">Bài viết :</label>
                 <textarea id="description" name="description" class="form-control">{{ old('content') }}</textarea>
             </div>
             @error('description')
@@ -48,7 +48,7 @@
                         {{ $value->name }} <br>
                     @endforeach
                 @else
-                    <span>Hãy thêm 1 cửa hàng!</span>
+                    <span>Hãy thêm 1 danh mục!</span>
                 @endif
             </div>
             <div class="text-center">
@@ -63,10 +63,20 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
     <script src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> --}}
     <script>
-        CKEDITOR.replace('description');
+        CKEDITOR.replace('description', {
+            filebrowserBrowseUrl: '{{ asset('ckfinder/ckfinder.html') }}',
+            filebrowserImageBrowseUrl: '{{ asset('ckfinder/ckfinder.html?type=Images') }}',
+            filebrowserFlashBrowseUrl: '{{ asset('ckfinder/ckfinder.html?type=Flash') }}',
+            filebrowserUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}',
+            filebrowserImageUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images') }}',
+            filebrowserFlashUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}'
+        });
     </script>
+    // <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    // <script>
+    //     CKEDITOR.replace('editor1');
+    // </script>
     <script>
         $(() => {
             function readURL(input) {
@@ -82,9 +92,6 @@
             $("#image-input").change(function() {
                 readURL(this);
             });
-
-
-
         });
     </script>
 @endpush

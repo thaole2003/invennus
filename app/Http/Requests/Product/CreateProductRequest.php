@@ -44,6 +44,7 @@ class CreateProductRequest extends FormRequest
             'sku.unique' => 'Mã sản phẩm này đã tồn tại trong hệ thống.',
             'sku.max' => 'Mã sản phẩm nhiều nhất 10 kí tự.',
             'title.required' => 'Tiêu đề là bắt buộc nhập.',
+            'metatitle.required' => 'Tiêu đề ngắn là bắt buộc nhập.',
             'title.unique' => 'Tiêu đề này đã tồn tại trong hệ thống.',
             'title.min' => 'Tiêu đề ít nhất 5 kí tự.',
             'title.max' => 'Tiêu đề nhiều nhất 40 kí tự.',
