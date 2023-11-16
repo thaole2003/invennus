@@ -14,6 +14,10 @@ class SizeController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('permission:sizes.resource', ['only' => ['index', 'create', 'store', 'edit', 'update', 'destroy']]);
+    }
     public function index()
     {
         //

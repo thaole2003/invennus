@@ -15,6 +15,10 @@ class VendoreController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('permission:vendors.resource', ['only' => ['index', 'create', 'store', 'edit', 'update', 'destroy']]);
+    }
     public function index()
     {
         //

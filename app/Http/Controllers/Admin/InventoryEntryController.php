@@ -14,6 +14,10 @@ class InventoryEntryController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('permission:inventoryentrys.resource', ['only' => ['index', 'calculateMonthlyRevenue', 'filter']]);
+    }
     public function index()
     {
         $productVariants = ProductVariant::query()

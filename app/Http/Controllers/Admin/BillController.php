@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class BillController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:bills.resource', ['only' => ['index', 'show', 'updateStatus']]);
+    }
+
     public function index()
     {
         $bills = Bill::latest()->paginate(10);

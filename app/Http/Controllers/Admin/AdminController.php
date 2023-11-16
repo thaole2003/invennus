@@ -1,31 +1,34 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\CreateUserRequest;
-use App\Http\Requests\User\UpdateUserRequest;
-use App\Models\Store;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use App\Rules\EmployeeStoreRule;
 
-class UserController extends Controller
+
+use App\Models\User;
+
+class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:admins.resource', ['only' => ['index', 'create', 'store', 'edit', 'update', 'destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */
-    public function __construct()
-    {
-        $this->middleware('permission:users.resource', ['only' => ['index', 'create', 'store', 'edit', 'update', 'destroy']]);
-    }
     public function index()
     {
-        //
-        $data = User::with('store')->latest('created_at')->get();
-        return view('admin.user.index', compact('data'));
+        $data = User::query()
+            ->where('role', 'admin')
+            ->where('name', '!=', 'Super Admin')
+            ->latest()
+            ->get();
+        return view('admin.admin.index', compact('data'));
     }
 
     /**
@@ -33,35 +36,36 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
-        $data = Store::all();
-        return view('admin.user.create', compact('data'));
+        $roles = Role::query()
+        ->where('name', '!=', 'super-admin')
+        ->latest()
+        ->get();
+        return view('admin.admin.create', compact('roles'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateUserRequest $request)
+    public function store(Request $request)
     {
-        //
-        // dd($request->all());
-        $request->validate([
-            'role' => ['required', 'in:admin,user,employee'],
-            'store_id' => ['nullable', new EmployeeStoreRule],
-        ]);
         try {
             $model = new User();
             $model->fill($request->all());
+            $model->role = 'admin';
             if ($request->hasFile('avt')) {
                 $image = $request->file('avt');
-                $folder = 'images/user';
+                $folder = 'images/admin';
                 $imageName = Storage::put($folder, $image);
                 $imageName = 'storage/' . $imageName;
                 $model->avt = $imageName;
             }
             $model->save();
-            toastr()->success('Thêm thành công 1 người dùng !', 'Đã sửa');
-            return to_route('admin.users.index');
+            $role = Role::find($request->roles); // Lấy vai trò từ ID
+            if ($role) {
+                $model->assignRole($role); // Gán vai trò cho người dùng
+            }
+            toastr()->success('Thêm thành công admin !', 'Đã sửa');
+            return to_route('admin.admins.index');
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             toastr()->error('Đã có lỗi xảy ra', 'Thử lại sau');
@@ -75,7 +79,6 @@ class UserController extends Controller
     public function show(string $id)
     {
         //
-
     }
 
     /**
@@ -83,34 +86,28 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
-        $data = Store::all();
-
         $model = User::findOrFail($id);
-        return view('admin.user.edit', compact('data', 'model'));
+        $roles = Role::query()
+        ->where('name', '!=', 'super-admin')
+        ->latest()
+        ->get();
+        return view('admin.admin.edit', compact('model', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request, string $id)
+    public function update(Request $request, string $id)
     {
-        //
-        // dd($request->all());
-        $request->validate([
-            'role' => ['required', 'in:admin,user,employee'],
-            'store_id' => ['nullable', new EmployeeStoreRule],
-        ]);
         try {
             $model = User::findOrFail($id);
+            $model->role = 'admin';
             $model->fill($request->all());
             $model->fill($request->all());
-            if ($model->role == 'user' || $model->role == 'admin') {
-                $model->store_id = null;
-            }
+
             if ($request->hasFile('new_avt')) {
                 $image = $request->file('new_avt');
-                $folder = 'images/user';
+                $folder = 'images/admin';
                 $imageName = Storage::put($folder, $image);
                 $imageName = 'storage/' . $imageName;
                 $oldFilePath = str_replace('storage/', '', $model->avt); // Loại bỏ 'storage/' từ đường dẫn
@@ -122,8 +119,15 @@ class UserController extends Controller
                 $model->avt = $request->input('current_avt');
             }
             $model->save();
-            toastr()->success('Sửa thành công 1 người dùng !', 'Đã sửa');
-            return to_route('admin.users.index');
+
+            $model->roles()->detach();
+
+            $role = Role::find($request->roles); // Lấy vai trò từ ID
+            if ($role) {
+                $model->assignRole($role); // Gán vai trò cho người dùng
+            }
+            toastr()->success('Sửa thành công admin !', 'Đã sửa');
+            return to_route('admin.admins.index');
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             toastr()->error('Đã có lỗi xảy ra', 'Thử lại sau');
@@ -134,18 +138,18 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(string $id)
     {
-        //
         try {
-            $user->delete();
-            if ($user->avt) {
-                $oldFilePath = str_replace('storage/', '', $user->avt); // Loại bỏ 'storage/' từ đường dẫn
+            $data = User::query()->findOrFail($id);
+            $data->delete();
+            if ($data->avt) {
+                $oldFilePath = str_replace('storage/', '', $data->avt);
                 if (Storage::exists($oldFilePath)) {
                     Storage::delete($oldFilePath);
                 }
             }
-            toastr()->success('Xóa thành công 1 người dùng !', 'Đã xóa');
+            toastr()->success('Xóa thành công admin!', 'Đã xóa');
             return redirect()->back();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());

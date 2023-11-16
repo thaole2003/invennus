@@ -13,6 +13,10 @@ class StoreVariantController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('permission:storevariants.resource', ['only' => ['index', 'show', 'showStoreVariant', 'update']]);
+    }
     public function index()
     {
         //
@@ -42,24 +46,24 @@ class StoreVariantController extends Controller
             ->where('store_id', $id)
             ->latest('created_at')
             ->get();
-            $productGroups = [];
+        $productGroups = [];
 
-            foreach ($data as $storeVariant) {
-                $product = $storeVariant->variant->product;
-                $productId = $product->id;
-                // Nếu sản phẩm đã tồn tại trong nhóm, thêm vào nhóm đó
-                if (isset($productGroups[$productId])) {
-                    $productGroups[$productId]['variants'][] = $storeVariant->variant;
-                } else {
-                    // Nếu sản phẩm chưa tồn tại trong nhóm, tạo một nhóm mới
-                    $productGroups[$productId] = [
-                        'product' => $product,
-                        'variants' => [$storeVariant->variant],
-                    ];
-                }
+        foreach ($data as $storeVariant) {
+            $product = $storeVariant->variant->product;
+            $productId = $product->id;
+            // Nếu sản phẩm đã tồn tại trong nhóm, thêm vào nhóm đó
+            if (isset($productGroups[$productId])) {
+                $productGroups[$productId]['variants'][] = $storeVariant->variant;
+            } else {
+                // Nếu sản phẩm chưa tồn tại trong nhóm, tạo một nhóm mới
+                $productGroups[$productId] = [
+                    'product' => $product,
+                    'variants' => [$storeVariant->variant],
+                ];
             }
-            // dd($productGroups);
-        return view('admin.storeVariant.show', compact('data','id','productGroups'));
+        }
+        // dd($productGroups);
+        return view('admin.storeVariant.show', compact('data', 'id', 'productGroups'));
     }
 
     /**
@@ -88,7 +92,7 @@ class StoreVariantController extends Controller
         $data = StoreVariant::findOrFail($id);
         $data->fill($request->all());
         $data->save();
-        toastr()->success('Cập nhật thành công !','Đã sửa');
+        toastr()->success('Cập nhật thành công !', 'Đã sửa');
         return back();
     }
 
