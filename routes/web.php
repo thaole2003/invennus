@@ -82,13 +82,9 @@ Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(fu
 
     Route::resource('admins', AdminController::class);
 
-
-
     Route::get('permissions-import', [PermissionController::class, 'importPermission'])->name('permissions-import');
     Route::get('permissions-export', [PermissionController::class, 'Export'])->name('permissions-export');
     Route::post('permissions-import', [PermissionController::class, 'Import'])->name('import');
-
-
 
     Route::resource('vendors', VendoreController::class);
     Route::resource('ads', AdsController::class);
