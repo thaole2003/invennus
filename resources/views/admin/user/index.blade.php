@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    User
+Tài khoản
 @endsection
 @section('content')
     <div class="m-10">

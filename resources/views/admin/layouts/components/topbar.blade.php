@@ -169,21 +169,21 @@
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->name }}</span>
                 <img class="img-profile rounded-circle"
-                     src="{{auth()->user()->avatar? auth()->user()->avatar : asset('img/avt.png') }}">
+                     src="{{auth()->user()->avt ? auth()->user()->avt : asset('img/avt.png') }}">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                  aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Thông tin
-                </a>
-
                 {{-- <div class="dropdown-divider"></div> --}}
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                <a class="dropdown-item" href="#" data-toggle="modal"  onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();"  data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Logout
+                    Đăng xuất
                 </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            class="d-none">
+                                            @csrf
+                                        </form>
             </div>
         </li>
 

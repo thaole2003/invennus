@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Ads;
 use App\Models\Banner;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Image;
+use App\Models\Post;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\Store;
@@ -27,7 +29,7 @@ class HomeController extends Controller
         $category = Category::withCount('products')
             ->having('products_count', '>', 0)
             ->paginate(4);
-        $banners = Banner::where('is_active', 1) // Lấy các bản ghi có is_active = 1 (true)
+        $banners = Banner::where('is_active', 1)
             ->latest('id')
             ->paginate(2);
         $product_sale = Product::with([
@@ -55,6 +57,17 @@ class HomeController extends Controller
                     ->where('end_date', '>=', $currentDateTime);
             },
         ])->latest()->paginate(6);
+        $productall = Product::with([
+            'variants' => function ($query) {
+                $query->with('color', 'size');
+            },
+            'images',
+            'categories',
+            'sales' => function ($query) use ($currentDateTime) {
+                $query->where('start_date', '<=', $currentDateTime)
+                    ->where('end_date', '>=', $currentDateTime);
+            },
+        ])->latest()->paginate(8);
         $colorIds = ProductVariant
             ::where('total_quantity_stock', '>', 0)
             ->where('product_id', 1)
@@ -68,7 +81,6 @@ class HomeController extends Controller
             ->pluck('size_id');
         // dd($products->variants->product_id);
         $carts = Cart::query()->latest()->get();
-        $countCart = Cart::query()->count();
         if (auth()->check()) {
             $wishlists = Wishlist::query()
                 ->latest()
@@ -78,7 +90,9 @@ class HomeController extends Controller
             $wishlists = collect(); // Tạo một mảng trống
         }
 
-        return view('client.layouts.components.main', compact('category', 'products', 'banners', 'product_sale', 'carts', 'countCart', 'wishlists', 'colorIds', 'sizeIds'));
+        $posts = Post::query()->paginate(3);
+
+        return view('client.layouts.components.main', compact('category', 'products', 'banners', 'product_sale', 'productall', 'carts', 'wishlists', 'colorIds', 'sizeIds', 'posts'));
     }
 
     /**
@@ -142,6 +156,10 @@ class HomeController extends Controller
         $totalQuantity = ProductVariant::where('product_id', $id)->sum('total_quantity_stock');
         $groupbyColors = [];
         $groupbySizes = [];
+        $ads = Ads::where('active', 1)
+        ->inRandomOrder()
+        ->limit(1)
+        ->get();
         // dd($product->variants);
         foreach ($product->variants as $variant) {
 
@@ -155,7 +173,7 @@ class HomeController extends Controller
                 $groupbySizes[] = $size;
             }
         }
-        return view('client.products.productDetail', compact('productvariants', 'product', 'products', 'groupbyColors', 'groupbySizes', 'stores', 'totalQuantity'));
+        return view('client.products.productDetail', compact('productvariants', 'ads', 'product', 'products', 'groupbyColors', 'groupbySizes', 'stores', 'totalQuantity'));
     }
 
     public function checkQuantity(Request $request)
@@ -215,43 +233,26 @@ class HomeController extends Controller
         // dd($products);
         return view('client.search', compact('products'));
     }
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+
+
+    public function post()
     {
-        //
+        $posts = Post::query()->paginate(5);
+        $ads = Ads::where('active', 1)
+        ->inRandomOrder()
+        ->limit(1)
+        ->get();
+        return view('client.posts.post', compact('posts','ads'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function postDetail($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $post = Post::findOrFail($id);
+        $posts = Post::where('id', '!=', $id)->paginate(5);
+        $ads = Ads::where('active', 1)
+            ->inRandomOrder()
+            ->limit(1)
+            ->get();
+        return view('client.posts.postDettail', compact('post','posts','ads'));
     }
 }

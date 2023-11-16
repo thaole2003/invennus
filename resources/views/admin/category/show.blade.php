@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    Product
+Danh mục
 @endsection
 @section('content')
     <div class="m-10">
@@ -63,6 +63,6 @@
 
             </tbody>
         </table>
-
+        <a class="btn btn-primary ml-5" href="{{ route('admin.category.index') }}">Trở lại</a>
     </div>
 @endsection

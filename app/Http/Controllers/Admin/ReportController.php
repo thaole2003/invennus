@@ -48,12 +48,25 @@ class ReportController extends Controller
 
     public function reportProduct()
     {
-        $topProducts = BillDetails::select('product_variant_id', BillDetails::raw('SUM(quantity) as total_quantity'))
-            ->groupBy('product_variant_id')
+        $topProducts = BillDetails::select(
+            'product_variants.product_id',
+            'products.title as product_name',
+            'sizes.name as size',
+            'colors.name as color',
+            'product_variants.price',
+            'product_variant_id',
+            BillDetails::raw('SUM(quantity) as total_quantity')
+        )
+            ->join('product_variants', 'product_variants.id', '=', 'bill_details.product_variant_id')
+            ->join('products', 'products.id', '=', 'product_variants.product_id')
+            ->join('sizes', 'sizes.id', '=', 'product_variants.size_id')
+            ->join('colors', 'colors.id', '=', 'product_variants.color_id')
+            ->groupBy('product_variant_id', 'products.title', 'sizes.name', 'colors.name', 'product_variants.price', 'product_variants.product_id')
             ->orderBy('total_quantity', 'desc')
             ->take(5)
             ->get();
 
+        // dd($topProducts);
         return view('admin.InventoryEntry.product', compact('topProducts'));
     }
 }

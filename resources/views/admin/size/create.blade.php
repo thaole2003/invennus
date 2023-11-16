@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    Size
+Kích cỡ
 @endsection
 @section('content')
     <h1 class=" d-flex justify-content-center align-items-center" style="height: 80px">
