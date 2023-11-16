@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Role\CreateRoleRequest;
+use App\Http\Requests\Role\UpdateRoleRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Role;
@@ -87,7 +88,7 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRoleRequest $request, string $id)
     {
         try {
         // Lấy thông tin của vai trò cần cập nhật
