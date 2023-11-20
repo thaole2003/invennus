@@ -170,7 +170,8 @@
                                         <h4>Kích cỡ:</h4>
                                         <ul class="d-flex gap-1 " style="margin-left: 0.2px">
                                             @foreach ($groupbySizes as $size)
-                                                <label id="label-size gap-1" class="labelSize variant"
+                                                <label id="label-size gap-1 product-size-{{ $size->id }}"
+                                                    class="labelSize variant"
                                                     style="width: auto; height:40px;  padding-left: 20px; padding-right: 20px;">
                                                     <input style="display: none" type="radio" name="size"
                                                         class="size" id="size" value="{{ $size->id }}">
@@ -512,21 +513,20 @@
                             </div>
 
                             @foreach ($ads as $item)
-                            <div class="product-single-aside" style="margin-top:20px" >
+                                <div class="product-single-aside" style="margin-top:20px">
 
-                                <div class="aside-trending-products">
-                                    <img src="{{ asset($item->image)  }}"
-                                        alt="image">
+                                    <div class="aside-trending-products">
+                                        <img src="{{ asset($item->image) }}" alt="image">
 
-                                    <div class="category">
-                                        <h4>{{ $item->title }}</h4>
-                                        <span>{{ $item->description }}</span>
-                                        <span>{{ strlen($item->description) }}</span>
+                                        <div class="category">
+                                            <h4>{{ $item->title }}</h4>
+                                            <span>{{ $item->description }}</span>
+                                            <span>{{ strlen($item->description) }}</span>
+                                        </div>
+
+                                        <a href="#"></a>
                                     </div>
-
-                                    <a href="#"></a>
                                 </div>
-                            </div>
                             @endforeach
                         </div>
                     </div>
@@ -635,27 +635,17 @@
                         let szIds = [];
                         for (const item of data) {
                             szIds.push(item.size_id)
-                            // console.log(item.size_id);
                         }
                         sizeEl.each(function() {
                             const val = Number($(this).val());
-                            // console.log(val);
+                            $('.labelSize').removeClass('active-size');
+                            $(this).prop('checked', false);
                             if (szIds.includes(val)) {
-                                // console.log(1);
-                                $(this).prop('disabled', false)
-                                $('.labelSize').removeClass('disableVariant');
-                                // $('input[name="size"]').prop('checked', false);
-                                $('.labelSize').removeClass('active-size');
-
+                                $(this).parent().removeClass('disableVariant');
                             } else {
-                                // $('input[name="size"]').prop('checked', false);
-                                // $(this).prop('checked', false);
-                                $(this).prop('disabled', true);
-                                $('.labelSize').addClass('disableVariant');
-                                $('.labelSize').removeClass('active-size');
+                                $(this).parent().addClass('disableVariant');
                             }
                         });
-
                     }
                 })
             })

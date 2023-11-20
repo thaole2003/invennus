@@ -82,51 +82,13 @@
             </div>
         </li>
     @endif
-
-    @if (Auth::user()->can('vendors.resource'))
+    @if (Auth::user()->can('bills.resource'))
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo11"
-                aria-expanded="true" aria-controls="collapseTwo11">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Quản lý nhà cung cấp</span>
+            <a class="nav-link collapsed" href="{{ route('admin.bill.detail') }}" aria-expanded="true"
+                aria-controls="collapseTwo6">
+                <i class="fas fa-wallet"></i>
+                <span>Quản lý đơn hàng</span>
             </a>
-            <div id="collapseTwo11" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href={{ route('admin.vendors.index') }}>Danh sách nhà cung cấp</a>
-                    <a class="collapse-item" href={{ route('admin.vendors.create') }}>Thêm nhà cung cấp</a>
-                </div>
-            </div>
-        </li>
-    @endif
-    @if (Auth::user()->can('users.resource'))
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('admin.users.index') }}" data-toggle="collapse"
-                data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-user"></i>
-                <span>Quản lý người dùng</span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('admin.users.index') }}">Danh sách người dùng</a>
-                    <a class="collapse-item" href="{{ route('admin.users.create') }}">Thêm mới người dùng</a>
-                </div>
-            </div>
-        </li>
-    @endif
-
-    @if (Auth::user()->can('vendors.resource'))
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTw"
-                aria-expanded="true" aria-controls="collapseTw">
-                <i class="fas fa-images"></i>
-                <span>Quản lý ảnh banner</span>
-            </a>
-            <div id="collapseTw" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href={{ route('admin.banner.index') }}>Danh sách ảnh banner</a>
-                    <a class="collapse-item" href={{ route('admin.banner.create') }}>Thêm mới ảnh banner</a>
-                </div>
-            </div>
         </li>
     @endif
     @if (Auth::user()->can('categories.resource'))
@@ -140,36 +102,6 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{ route('admin.category.index') }}">Danh sách danh mục</a>
                     <a class="collapse-item" href="{{ route('admin.category.create') }}">Thêm mới danh mục</a>
-                </div>
-            </div>
-        </li>
-    @endif
-    @if (Auth::user()->can('banners.resource'))
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo3"
-                aria-expanded="true" aria-controls="collapseTwo3">
-                <i class="fas fa-ruler"></i>
-                <span>Quản lý kích cỡ</span>
-            </a>
-            <div id="collapseTwo3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href={{ route('admin.size.index') }}>Danh sách kích cỡ</a>
-                    <a class="collapse-item" href={{ route('admin.size.create') }}>Thêm mới kích cỡ</a>
-                </div>
-            </div>
-        </li>
-    @endif
-    @if (Auth::user()->can('sizes.resource'))
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo4"
-                aria-expanded="true" aria-controls="collapseTwo4">
-                <i class="fas fa-palette"></i>
-                <span>Quản lý màu sắc</span>
-            </a>
-            <div id="collapseTwo4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href={{ route('admin.color.index') }}>Danh sách màu sắc</a>
-                    <a class="collapse-item" href={{ route('admin.color.create') }}>Thêm mới màu sắc</a>
                 </div>
             </div>
         </li>
@@ -204,6 +136,52 @@
         </div> --}}
         </li>
     @endif
+    @if (Auth::user()->can('inventoryentrys.resource'))
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('InventoryEntry') }}" data-toggle="collapse"
+                data-target="#collapseTwo8" aria-expanded="true" aria-controls="collapseTwo8">
+                <i class="fab fa-salesforce"></i>
+                <span>Nhập kho</span>
+            </a>
+            <div id="collapseTwo8" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('InventoryEntry') }}">Danh sách nhập kho</a>
+                    <a class="collapse-item" href={{ route('importStock') }}>Thêm mới nhập kho</a>
+                </div>
+            </div>
+        </li>
+    @endif
+    @if (Auth::user()->can('vendors.resource'))
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo11"
+                aria-expanded="true" aria-controls="collapseTwo11">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Quản lý nhà cung cấp</span>
+            </a>
+            <div id="collapseTwo11" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href={{ route('admin.vendors.index') }}>Danh sách nhà cung cấp</a>
+                    <a class="collapse-item" href={{ route('admin.vendors.create') }}>Thêm nhà cung cấp</a>
+                </div>
+            </div>
+        </li>
+    @endif
+    @if (Auth::user()->can('users.resource'))
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('admin.users.index') }}" data-toggle="collapse"
+                data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-user"></i>
+                <span>Quản lý người dùng</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('admin.users.index') }}">Danh sách người dùng</a>
+                    <a class="collapse-item" href="{{ route('admin.users.create') }}">Thêm mới người dùng</a>
+                </div>
+            </div>
+        </li>
+    @endif
+
     @if (Auth::user()->can('sales.resource'))
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo7"
@@ -219,14 +197,19 @@
             </div>
         </li>
     @endif
-
-    @if (Auth::user()->can('bills.resource'))
+    @if (Auth::user()->can('vendors.resource'))
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('admin.bill.detail') }}" aria-expanded="true"
-                aria-controls="collapseTwo6">
-                <i class="fas fa-wallet"></i>
-                <span>Quản lý đơn hàng</span>
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTw"
+                aria-expanded="true" aria-controls="collapseTw">
+                <i class="fas fa-images"></i>
+                <span>Quản lý ảnh banner</span>
             </a>
+            <div id="collapseTw" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href={{ route('admin.banner.index') }}>Danh sách ảnh banner</a>
+                    <a class="collapse-item" href={{ route('admin.banner.create') }}>Thêm mới ảnh banner</a>
+                </div>
+            </div>
         </li>
     @endif
     @if (Auth::user()->can('post-categories.resource'))
@@ -259,22 +242,36 @@
             </div>
         </li>
     @endif
-    @if (Auth::user()->can('inventoryentrys.resource'))
+    @if (Auth::user()->can('banners.resource'))
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('InventoryEntry') }}" data-toggle="collapse"
-                data-target="#collapseTwo8" aria-expanded="true" aria-controls="collapseTwo8">
-                <i class="fab fa-salesforce"></i>
-                <span>Nhập kho</span>
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo3"
+                aria-expanded="true" aria-controls="collapseTwo3">
+                <i class="fas fa-ruler"></i>
+                <span>Quản lý kích cỡ</span>
             </a>
-            <div id="collapseTwo8" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div id="collapseTwo3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ route('InventoryEntry') }}">Danh sách nhập kho</a>
-                    <a class="collapse-item" href={{ route('importStock') }}>Thêm mới nhập kho</a>
+                    <a class="collapse-item" href={{ route('admin.size.index') }}>Danh sách kích cỡ</a>
+                    <a class="collapse-item" href={{ route('admin.size.create') }}>Thêm mới kích cỡ</a>
                 </div>
             </div>
         </li>
     @endif
-
+    @if (Auth::user()->can('sizes.resource'))
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo4"
+                aria-expanded="true" aria-controls="collapseTwo4">
+                <i class="fas fa-palette"></i>
+                <span>Quản lý màu sắc</span>
+            </a>
+            <div id="collapseTwo4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href={{ route('admin.color.index') }}>Danh sách màu sắc</a>
+                    <a class="collapse-item" href={{ route('admin.color.create') }}>Thêm mới màu sắc</a>
+                </div>
+            </div>
+        </li>
+    @endif
     @if (Auth::user()->can('ads.resource'))
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTw11"
@@ -290,6 +287,12 @@
             </div>
         </li>
     @endif
+
+
+
+
+
+
 
     <!-- Divider -->
     <hr class="sidebar-divider">

@@ -54,12 +54,12 @@ class AdsController extends Controller
                 }
                 $model->image = $imageName;
             }
-            toastr()->success('Thêm thành công','Thành công');
+            toastr()->success('Thêm thành công', 'Thành công');
             $model->save();
             return to_route('admin.ads.index');
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            toastr()->error('Đã có lỗi xảy ra', 'Thử lại sau');
             return back();
         }
     }
@@ -90,6 +90,7 @@ class AdsController extends Controller
         //
         $data = Ads::findOrFail($id);
         $data->fill($request->all());
+        // dd($request->all());
         if ($request->hasFile('newimage')) {
             if ($data->image) {
                 $oldFilePath = str_replace('storage/', '', $data->image);
@@ -105,7 +106,7 @@ class AdsController extends Controller
         } else {
             $data->image =  $request->input('currentimage');
         }
-        toastr()->success('Đã sửa banner','Thành công');
+        toastr()->success('Đã sửa banner', 'Thành công');
         $data->save();
         return to_route('admin.ads.index');
     }
@@ -123,12 +124,12 @@ class AdsController extends Controller
                     Storage::delete($oldFilePath);
                 }
             }
-            toastr()->success('Đã xóa banner','Thành công');
+            toastr()->success('Đã xóa banner', 'Thành công');
             $ads->delete();
             return redirect()->back();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            toastr()->error('Đã có lỗi xảy ra', 'Thử lại sau');
             return back();
         }
     }
