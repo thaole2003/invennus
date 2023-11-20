@@ -76,7 +76,7 @@ Route::post('/filter-product', [ReportController::class, 'filterProduct'])->name
 
 
 Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(function () {
-    Route::get('/', [AdminHomeController::class, 'revenue7day'])->name('home');
+    Route::get('/', [AdminHomeController::class, 'index'])->name('home');
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
 
