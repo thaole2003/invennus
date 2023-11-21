@@ -1,6 +1,9 @@
 @extends('client.layouts.master')
 
 @section('content')
+@php
+$currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
+@endphp
     <style>
         .variant {
             border: 1px solid grey;
@@ -130,8 +133,17 @@
                                     <h3>{{ $product->title }}</h3>
 
                                     <div class="price">
-                                        <span id="newPrice" class="new-price">{{ number_format($product->price) }}
-                                            VND</span>
+                                        @if (
+                                            $product->sales &&
+                                                $product->sales &&
+                                                $product->sales->start_date <= $currentDateTime &&
+                                                $product->sales->end_date >= $currentDateTime)
+                                                <input type="hidden" name="" id="sale_pro" value="{{ $product->sales->discount }}">
+                                             <h5 style="text-decoration: line-through; "> {{ $product->price   }}VND </h5>
+                                            <h4 id="newPrice" class="new-price" class="" style="font-weight: bold; color: red; line-height: 1.75rem;"> {{ number_format(max($product->price - $product->sales->discount, 0)) }}VND</h4>
+                                        @else
+                                         <h4 id="newPrice" class="new-price" style="font-weight: bold; color: red; line-height: 1.75rem;">{{ number_format($product->price) }} VND</h4>
+                                        @endif
                                     </div>
                                     <ul class="product-info">
                                         <input type="hidden" id="product_variant">
@@ -632,6 +644,7 @@
                     dataType: 'json',
                     success: function(response) {
                         const data = response.data;
+                        // console.log(response.data);
                         let szIds = [];
                         for (const item of data) {
                             szIds.push(item.size_id)
@@ -660,8 +673,12 @@
                 dataProduct.forEach(function(data) {
                     if (data.color_id == selectedColor && data.size_id == size) {
                         $('#product_variant').val(data.id);
-                        var forPrice = number_format(data.price, 2, '.', ',');
-
+                        let forPrice;
+                        if($("#sale_pro").val()>0){
+                             forPrice = number_format(Math.max((data.price-$("#sale_pro").val()),0), 2, '.', ',');
+                        }else{
+                            forPrice = number_format(data.price, 2, '.', ',');
+                        }
                         document.getElementById('newPrice').innerHTML = forPrice;
                         document.getElementById('total-quantity-stock').innerHTML = '( ' + data
                             .total_quantity_stock + ' sản phẩm)';
