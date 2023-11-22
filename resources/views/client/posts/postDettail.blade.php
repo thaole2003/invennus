@@ -71,7 +71,7 @@
                             <div class="product-single-aside"  style="margin-top:20px">
 
                                 <div class="aside-trending-products">
-                                    <img src="{{ asset($item->image)  }}"
+                                    <img style="width:380px;height:415px" src="{{ asset($item->image)  }}"
                                         alt="image">
 
                                     <div class="category">

@@ -138,6 +138,10 @@ class UserController extends Controller
     {
         //
         try {
+            if($user->id===1){
+                toastr()->error('Bạn không thể xóa quản trị viên này!', 'Thao tác thất bại');
+                return redirect()->back();
+            }
             $user->delete();
             if ($user->avt) {
                 $oldFilePath = str_replace('storage/', '', $user->avt); // Loại bỏ 'storage/' từ đường dẫn

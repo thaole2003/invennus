@@ -31,7 +31,7 @@
                                                     {{-- <img src="{{ $product->images[0]->image }}" alt="image"> --}}
                                                 </a>
 
-                                                <ul>
+                                                {{-- <ul>
                                                     <li><a href="#" data-tooltip="tooltip" data-placement="left"
                                                             title="Quick View" data-bs-toggle="modal"
                                                             data-bs-target="#productQuickView{{ $product->id }}"><i
@@ -42,13 +42,13 @@
                                                     </li>
                                                     <li><a href="#" data-tooltip="tooltip" data-placement="left"
                                                             title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                                </ul>
+                                                </ul> --}}
                                             </div>
 
                                             <div class="product-content">
                                                 <h3><a
-                                                        href="{{ route('product.detail', $product->id) }}">{{ $product->title }}</a>
-                                                </h3>
+                                                    href="{{ route('product.detail', $product->id) }}">{!! substr($product->title, 0, 25) !!}</a>
+                                            </h3>
                                                 <div style="height: 50px" class="product-price">
                                                     @if ($product->sales &&
                                                     $product->sales->start_date <= $currentDateTime &&
