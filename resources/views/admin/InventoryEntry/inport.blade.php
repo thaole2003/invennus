@@ -9,7 +9,7 @@
     <div class="" style="width:100%;display:grid; position: relative;" >
         <div class="" style="width:30%;top:-50px; position: absolute;z-index:100;background-color:aliceblue">
             <input style="width:100%; margin-left:10px" type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." /><br>
-            <div id="suggestions" style="text-align: center; display: flex; justify-content: center; align-items: center;"></div>
+            <div id="suggestions" style="text-align: center; display: flex; justify-content: center; align-items: center;max-height: 90vh;overflow: auto;"></div>
         </div>
         <div class="" style="width:100%;">
             <div id="selectedSuggestions">

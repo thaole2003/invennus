@@ -45,42 +45,6 @@
     <div class="sidebar-heading">
         Quản lý
     </div>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo0"
-            aria-expanded="true" aria-controls="collapseTwo0">
-            <i class="fas fa-store"></i>
-            <span>Phân quyền</span>
-        </a>
-        <div id="collapseTwo0" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                @if (Auth::user()->can('permissions.resource'))
-                    <a class="collapse-item" href={{ route('admin.permissions.create') }}>Thêm mới quyền</a>
-                    <a class="collapse-item" href={{ route('admin.permissions.index') }}>Danh sách quyền</a>
-                @endif
-                @if (Auth::user()->can('roles.resource'))
-                    <a class="collapse-item" href={{ route('admin.roles.index') }}>Vai trò và quyền</a>
-                    <a class="collapse-item" href={{ route('admin.roles.create') }}>Thêm vai trò</a>
-                @endif
-
-            </div>
-        </div>
-    </li>
-    <!-- Nav Item - Pages Collapse Menu -->
-    @if (Auth::user()->can('admins.resource'))
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo00"
-                aria-expanded="true" aria-controls="collapseTwo00">
-                <i class="fas fa-store"></i>
-                <span>Quản lý admin</span>
-            </a>
-            <div id="collapseTwo00" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href={{ route('admin.admins.index') }}>Danh sách admin</a>
-                    <a class="collapse-item" href={{ route('admin.admins.create') }}>Thêm mới admin</a>
-                </div>
-            </div>
-        </li>
-    @endif
     <!-- Nav Item - Pages Collapse Menu -->
     @if (Auth::user()->can('stores.resource'))
         <li class="nav-item">
@@ -197,6 +161,43 @@
         </li>
     @endif
 
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo0"
+            aria-expanded="true" aria-controls="collapseTwo0">
+            <i class="fas fa-store"></i>
+            <span>Phân quyền</span>
+        </a>
+        <div id="collapseTwo0" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                @if (Auth::user()->can('permissions.resource'))
+                    <a class="collapse-item" href={{ route('admin.permissions.create') }}>Thêm mới quyền</a>
+                    <a class="collapse-item" href={{ route('admin.permissions.index') }}>Danh sách quyền</a>
+                @endif
+                @if (Auth::user()->can('roles.resource'))
+                    <a class="collapse-item" href={{ route('admin.roles.index') }}>Vai trò và quyền</a>
+                    <a class="collapse-item" href={{ route('admin.roles.create') }}>Thêm vai trò</a>
+                @endif
+
+            </div>
+        </div>
+    </li>
+    <!-- Nav Item - Pages Collapse Menu -->
+    @if (Auth::user()->can('admins.resource'))
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo00"
+                aria-expanded="true" aria-controls="collapseTwo00">
+                <i class="fas fa-store"></i>
+                <span>Quản lý admin</span>
+            </a>
+            <div id="collapseTwo00" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href={{ route('admin.admins.index') }}>Danh sách admin</a>
+                    <a class="collapse-item" href={{ route('admin.admins.create') }}>Thêm mới admin</a>
+                </div>
+            </div>
+        </li>
+    @endif
+
     @if (Auth::user()->can('sales.resource'))
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo7"
@@ -302,6 +303,7 @@
             </div>
         </li>
     @endif
+
 
 
 

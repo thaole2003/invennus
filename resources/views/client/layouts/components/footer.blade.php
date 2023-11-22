@@ -1,51 +1,38 @@
 <footer class="footer-area">
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="single-footer-widget">
-                    <div class="logo">
-                        <a href="#"><img src="{{asset('fe/assets/img/logo.png')}}" alt="logo"></a>
-                    </div>
+                    <h3>Invennus</h3>
 
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.</p>
+                    <p>Với thông điểm “ Be yourself Be beautiful”, Chúng tôi mong muốn đem đến cho khách hàng một phong cách thoải mái thể hiện cái tôi cá nhân bằng các sản phẩm thời trang tinh tế.</p>
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="single-footer-widget">
-                    <h3>Quick Links</h3>
+                    <h3>Nhóm liên kết</h3>
 
                     <ul class="quick-links">
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="faq.html">FAQ's</a></li>
-                        <li><a href="customer-service.html">Customer Services</a></li>
-                        <li><a href="contact-us.html">Contact Us</a></li>
+                        <li><a href="about.html">Tìm kiếm</a></li>
+                        <li><a href="faq.html">Giới thiệu</a></li>
+                        <li><a href="customer-service.html">Chính sách đổi trả</a></li>
+                        <li><a href="contact-us.html">Chính sách bảo mật</a></li>
+                        <li><a href="contact-us.html">Tuyển dụng</a></li>
+                        <li><a href="contact-us.html">Liên hệ</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="single-footer-widget">
-                    <h3>Information</h3>
+                    <h3>Thông tin liên hệ</h3>
 
                     <ul class="information-links">
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="faq.html">FAQ's</a></li>
-                        <li><a href="customer-service.html">Customer Services</a></li>
-                        <li><a href="contact-us.html">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="single-footer-widget">
-                    <h3>Contact Us</h3>
-
-                    <ul class="footer-contact-info">
-                        <li><i class="fas fa-map-marker-alt"></i> Location: 2750 Quadra Street Victoria, Canada</li>
-                        <li><i class="fas fa-phone"></i> Call Us: <a href="#">(+123) 456-7898</a></li>
-                        <li><i class="far fa-envelope"></i> Email Us: <a href="#"><span class="__cf_email__" data-cfemail="c1b2b4b1b1aeb3b581a2aeaca4b3aeefa2aeac">[email&#160;protected]</span></a></li>
-                        <li><i class="fas fa-fax"></i> Fax: <a href="#">+123456</a></li>
+                        <li><a href="about.html">Địa chỉ: Nguyễn Trãi, Thanh Xuân, Hà Nội</a></li>
+                        <li><a href="faq.html">Điện thoại: 0332132912</a></li>
+                        <li><a href="faq.html">Fax: 0332132912</a></li>
+                        <li><a href="customer-service.html">Email: cskh@invennus.com</a></li>
                     </ul>
                 </div>
             </div>

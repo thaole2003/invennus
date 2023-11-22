@@ -48,12 +48,15 @@
                                 </select>
                             @endif
                         </td>
-                        <td>{{ $value->pay_method }}</td>
+                        <td>{{ $value->pay_method === 'cod' ? 'Khi nhận hàng' : 'Chuyển khoản' }}</td>
                         <td>{{ number_format($value->total_price) }} VND</td>
                         <td>{{ $value->created_at->format('d-m-Y') }}</td>
                         <td class="d-flex align-items-center">
                             <a href="{{ route('admin.bill.product', $value->id) }}" class=""><i
-                                    class="fas fa-eye"></i></a>
+                                    class="fas fa-eye fa-lg"></i></a>
+                          @if ($value->status==='pendding')
+                           <a style="padding-bottom:3px;padding-left:10px" href="{{ route('admin.bill.admin-edit-bill', $value->id) }}" class=""><i class="fas fa-user-edit fa-lg"></i></a>
+                          @endif
                         </td>
                     </tr>
                 @endforeach

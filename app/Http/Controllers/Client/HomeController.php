@@ -137,7 +137,7 @@ class HomeController extends Controller
     // }
     public function product(string $id)
     {
-
+        $currentDateTime = Carbon::now()->tz('Asia/Ho_Chi_Minh');
         $store_isset = StoreVariant::whereHas('variant', function ($query) use ($id) {
             $query->where('product_id', $id);
         })->where('quantity', '>', 0)->pluck('store_id')->unique();
@@ -148,11 +148,18 @@ class HomeController extends Controller
             },
             'images',
             'categories',
+            'sales' => function ($query) use ($currentDateTime) {
+                $query->where('start_date', '<=', $currentDateTime)
+                    ->where('end_date', '>=', $currentDateTime);
+            }
         ])->findOrFail($id);
         $productvariants = $product->variants;
         $products = Product::whereHas('categories', function ($query) use ($product) {
             $query->whereIn('category_id', $product->categories->pluck('id'));
-        })->paginate(4);
+        })
+        ->where('id', '!=', $id)
+        ->paginate(6);
+
         $totalQuantity = ProductVariant::where('product_id', $id)->sum('total_quantity_stock');
         $groupbyColors = [];
         $groupbySizes = [];
@@ -178,14 +185,15 @@ class HomeController extends Controller
 
     public function checkQuantity(Request $request)
     {
-        $getsizes = ProductVariant::query()
+        $getsizes = ProductVariant::query()->with('product')
             ->where([
                 'product_id' => $request->product_id,
                 'color_id' => $request->color,
             ])->where('total_quantity_stock', '>', 0)->get();
-
+        // $sale = $getsizes->product->sales;
         return response()->json([
             'data' => $getsizes,
+            'sale'=>1
         ]);
     }
     public function search(Request $request)

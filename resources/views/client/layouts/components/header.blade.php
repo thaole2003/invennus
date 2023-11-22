@@ -55,99 +55,25 @@
                             </li>
                             @if(auth()->check())
                             <li class="nav-item p-relative">
-                                <a href="{{ route('product.home') }}" class="nav-link active">Yêu thích</a>
+                                <a href="{{ route('product.home') }}" class="nav-link active">Liên hệ</a>
                             </li>
                             @endif
                             <li class="nav-item p-relative">
                                 <a href="/post" class="nav-link active">Tin tức</a>
                             </li>
-                            <li class="nav-item megamenu"><a href="#" class="nav-link">Shop <i
-                                        class="fas fa-chevron-down"></i></a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <h6 class="submenu-title">Danh mục</h6>
-
-                                                    <ul class="megamenu-submenu">
-                                                        <li><a href="collections-style-1.html">Collections Type 1</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-
-                                                <div class="col">
-                                                    <h6 class="submenu-title">Hướng dẫn thanh toán</h6>
-
-                                                    <ul class="megamenu-submenu">
-                                                        <li><a href="product-type-1.html">Product Type 1</a></li>
-                                                    </ul>
-                                                </div>
-
-                                                <div class="col">
-                                                    <h6 class="submenu-title">Giới thiệu</h6>
-
-                                                    <ul class="megamenu-submenu">
-                                                        <li><a href="cart.html">Giới thiệu</a></li>
-
-                                                        <li><a href="checkout.html">Liên hệ</a></li>
-
-                                                    </ul>
-                                                </div>
-
-                                                <div class="col">
-                                                    <h6 class="submenu-title">Top Brands</h6>
-
-                                                    <ul class="megamenu-submenu top-brands">
-                                                        <li><a href="#">
-                                                                <img src="{{ asset('fe/assets/img/partner1.png') }}"
-                                                                    alt="image">
-                                                            </a></li>
-
-                                                        <li><a href="#">
-                                                                <img src="{{ asset('fe/assets/img/partner2.png') }}"
-                                                                    alt="image">
-                                                            </a></li>
-
-                                                        <li><a href="#">
-                                                                <img src="{{ asset('fe/assets/img/partner3.png') }}"
-                                                                    alt="image">
-                                                            </a></li>
-
-                                                        <li><a href="#">
-                                                                <img src="{{ asset('fe/assets/img/partner4.png') }}"
-                                                                    alt="image">
-                                                            </a></li>
-
-                                                        <li><a href="#">
-                                                                <img src="{{ asset('fe/assets/img/partner5.png') }}"
-                                                                    alt="image">
-                                                            </a></li>
-
-                                                        <li><a href="#">
-                                                                <img src="{{ asset('fe/assets/img/partner6.png') }}"
-                                                                    alt="image">
-                                                            </a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
                         </ul>
 
 
                         <div class="others-option">
-                            <div class="option-item"><i class="search-btn fas fa-search"></i>
-                                <i class="close-btn fas fa-times"></i>
+                            <div class="option-item"><i class="search-btn fas fa-search fa-lg"></i>
+                                <i class="close-btn fas fa-times  fa-lg"></i>
 
-                                <div class="search-overlay search-popup">
-                                    <div class='search-box'>
+                                <div  style="width:500px" class="search-overlay search-popup">
+                                    <div style="border:solid 1px black" class='search-box'>
                                         <form action="{{ route('search') }}" class="search-form" method="POST">
                                             @csrf
                                             @method('POST')
-                                            <input class="search-input" name="keyword" placeholder="Search"
+                                            <input class="search-input" name="keyword" placeholder="Tìm kiếm"
                                                 type="text">
 
                                             <button class="search-button" type="submit"><i
@@ -242,6 +168,7 @@
                 </nav>
             </div>
         </div>
+
     </div>
 </header>
 

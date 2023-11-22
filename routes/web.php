@@ -106,6 +106,8 @@ Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(fu
     Route::put('updatequantitystock/{id}', [ProductController::class, 'updatequantitystock'])->name('variant.updatequantitystock');
     Route::prefix('bill')->name('bill.')->group(function () {
         Route::get('/', [AdminBillController::class, 'index'])->name('detail');
+        Route::get('/edit/{id}', [AdminBillController::class, 'edit'])->name('admin-edit-bill');
+        Route::put('/update/{id}', [AdminBillController::class, 'update'])->name('admin-update-bill');
         Route::get('/product/{id}', [AdminBillController::class, 'show'])->name('product');
         Route::post('/update-status', [AdminBillController::class, 'updateStatus'])->name('update-status');
     });
@@ -145,6 +147,7 @@ Route::prefix('cart')->name('cart.')->middleware('auth')->group(function () {
 })->middleware('auth');
 // Route::get('checkout', [CartController::class, 'checkout'])->name('checkout')->middleware('auth');
 Route::resource('bill', BillController::class);
+Route::put('bill/{id}', [BillController::class,'update'])->name('bill-client-update');;
 // Route::get('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
 // Route::delete('del-cart/{id}', [CartController::class, 'delCart'])->name('del-cart')->middleware('auth');
 // Route::get('view-cart', [CartController::class, 'viewCart'])->name('view-cart')->middleware('auth');
