@@ -17,12 +17,27 @@
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Bảng điều khiển</span></a>
     </li>
-    <li class="nav-item active">
+    {{-- <li class="nav-item active">
         <a class="nav-link" href="/report-revenue">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Thống kê</span></a>
+    </li> --}}
+    {{-- <div class="sidebar-heading">
+        Thống kê
+    </div> --}}
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo0111"
+            aria-expanded="true" aria-controls="collapseTwo0111">
+            <i class="fas fa-store"></i>
+            <span>Thống kê</span>
+        </a>
+        <div id="collapseTwo0111" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href={{ route('report-revenue') }}>Doanh thu</a>
+                <a class="collapse-item" href={{ route('report-product') }}>Sản phẩm</a>
+            </div>
+        </div>
     </li>
-
     <!-- Divider -->
     <hr class="sidebar-divider">
 

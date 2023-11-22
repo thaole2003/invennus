@@ -65,8 +65,6 @@ class ReportController extends Controller
             ->orderBy('total_quantity', 'desc')
             ->take(5)
             ->get();
-
-        // dd($topProducts);
         return view('admin.InventoryEntry.product', compact('topProducts'));
     }
 }

@@ -670,6 +670,11 @@
 
                     }
                 });
+                var inputValue = parseInt($('#quantity').val());
+                var quantity = parseInt($('#quantity-stock').val());
+                if (inputValue = quantity) {
+                    updatePointerEvents();
+                }
             })
             $('.increment-btn').on('click', function() {
                 var inputValue = parseInt($('#quantity').val());

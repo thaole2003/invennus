@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bill;
+use App\Models\BillDetails;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\User;
@@ -25,7 +26,31 @@ class HomeController extends Controller
             ->groupBy(DB::raw('DATE(created_at)'))
             ->orderBy(DB::raw('DATE(created_at)'))
             ->get();
-        // dd($last7DaysData);
-        return view('admin.layouts.components.main', compact('product', 'post', 'user', 'vender', 'last7DaysData'));
+
+
+        // thống kê 7 sản phẩm được bán nhiều nhất trong 7 ngày gần nhất
+        // Thời điểm 7 ngày trước từ ngày hiện tại
+        $sevenDaysAgo = now()->subDays(7);
+
+        $top7Products = BillDetails::select(
+            'product_variants.product_id',
+            'products.title as product_name',
+            'sizes.name as size',
+            'colors.name as color',
+            'product_variants.price',
+            'product_variant_id',
+            BillDetails::raw('SUM(quantity) as total_quantity')
+        )
+            ->join('product_variants', 'product_variants.id', '=', 'bill_details.product_variant_id')
+            ->join('products', 'products.id', '=', 'product_variants.product_id')
+            ->join('sizes', 'sizes.id', '=', 'product_variants.size_id')
+            ->join('colors', 'colors.id', '=', 'product_variants.color_id')
+            ->where('bill_details.created_at', '>=', $sevenDaysAgo) // Thêm điều kiện về thời gian
+            ->groupBy('product_variant_id', 'products.title', 'sizes.name', 'colors.name', 'product_variants.price', 'product_variants.product_id')
+            ->orderBy('total_quantity', 'desc')
+            ->take(7) // Lấy 7 sản phẩm
+            ->get();
+        $fixedColors = ['#4e73df', '#1cc88a', '#36b9cc', '#d9534f', '#5bc0de', '#f0ad4e', '#5cb85c'];
+        return view('admin.layouts.components.main', compact('product', 'post', 'user', 'vender', 'last7DaysData', 'top7Products', 'fixedColors'));
     }
 }
