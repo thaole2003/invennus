@@ -83,8 +83,10 @@ class ProductController extends Controller
             }
             $size = $request->input('size');
             $sizeunique = collect($size)->unique()->values()->all();
+            $sizeunique = array_map('strtoupper', array_map('trim', $sizeunique));
             $color = $request->input('color');
             $colorunique = collect($color)->unique()->values()->all();
+            $colorunique = array_map('strtoupper', array_map('trim', $colorunique));
             if (count($request->input('store_id'))) {
                 foreach ($colorunique as $color) {
                     $colorr = Color::firstOrCreate(['name' => $color]);
@@ -118,13 +120,12 @@ class ProductController extends Controller
                         }
                     }
                 }
-
             }
-            toastr()->success('Thêm thành công 1 sản phẩm','Thành công');
+            toastr()->success('Thêm thành công 1 sản phẩm', 'Thành công');
             return to_route('admin.product.index');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            toastr()->error('Đã có lỗi xảy ra', 'Thử lại sau');
             return redirect();
         }
     }
@@ -144,11 +145,11 @@ class ProductController extends Controller
             $productDetail->update([
                 'price' => $request->price,
             ]);
-            toastr()->success('Đã sửa giá 1 sản phẩm','Thành công');
+            toastr()->success('Đã sửa giá 1 sản phẩm', 'Thành công');
             return back();
         } catch (\Exception $exception) {
             Log::error('Exception', [$exception]);
-            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            toastr()->error('Đã có lỗi xảy ra', 'Thử lại sau');
             return back();
         }
     }
@@ -158,11 +159,11 @@ class ProductController extends Controller
             $productVariant = ProductVariant::findOrFail($id);
             $productVariant->total_quantity_stock = $request->total_quantity_stock;
             $productVariant->save();
-            toastr()->success('Đã sửa số lượng sản phẩm','Thành công');
+            toastr()->success('Đã sửa số lượng sản phẩm', 'Thành công');
             return back();
         } catch (\Exception $exception) {
             Log::error('Exception', [$exception]);
-            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            toastr()->error('Đã có lỗi xảy ra', 'Thử lại sau');
             return back();
         }
     }
@@ -220,11 +221,11 @@ class ProductController extends Controller
                     $imageModel->save();
                 }
             }
-            toastr()->success('Đã sửa thông tin sản phẩm','Thành công');
+            toastr()->success('Đã sửa thông tin sản phẩm', 'Thành công');
             return to_route('admin.product.index');
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            toastr()->error('Đã có lỗi xảy ra', 'Thử lại sau');
             return back();
         }
     }
@@ -237,11 +238,11 @@ class ProductController extends Controller
         //
         try {
             $product->delete();
-            toastr()->success('Đã xóa 1 sản phẩm','Thành công');
+            toastr()->success('Đã xóa 1 sản phẩm', 'Thành công');
             return redirect()->back();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            toastr()->error('Đã có lỗi xảy ra','Thử lại sau');
+            toastr()->error('Đã có lỗi xảy ra', 'Thử lại sau');
             return back();
         }
     }

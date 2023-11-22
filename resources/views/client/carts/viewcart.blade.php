@@ -66,28 +66,24 @@
                                                         {{ number_format($value->ProductVariant->price) }} VND
                                                     @endif
                                                 </span>
-                                                <input type="hidden" id="price"
+                                                <input type="hidden" class="price"
                                                     value="{{ $value->ProductVariant->price }}">
                                             </td>
-                                            <input type="hidden" id="ProductVariant"
+                                            <input type="hidden" class="ProductVariant"
                                                 value="{{ $value->product_radiant }}">
-                                            <input type="hidden" id="quantity-stock"
+                                            {{-- <td> --}}
+                                            <input type="hidden" class="quantity-stock"
                                                 value="{{ $value->ProductVariant->total_quantity_stock }}">
+                                            {{-- </td> --}}
                                             <td class="product-quantity">
-
                                                 <div class="input-counter">
-                                                    {{-- <span class="minus-btn increment-btn"><i
-                                                            class="fas fa-minus"></i></span>
-                                                    <input type="text" min="0" class="qty-input"
-                                                        value="{{ $value->quantity }}">
-                                                    <span class="plus-btn decrement-btn"><i class="fas fa-plus"></i></span> --}}
-
                                                     <span class="minus-btn decrement-btn"><i
                                                             class="fas fa-minus"></i></span>
                                                     <input type="text" name="quantity" id="quantity" min="1"
                                                         class="form-control text-center qty-input"
                                                         value="{{ $value->quantity }}" step="1" readonly>
-                                                    <span class="plus-btn increment-btn"><i class="fas fa-plus"></i></span>
+                                                    <span class="plus-btn increment-btn" id="plusBtn"><i
+                                                            class="fas fa-plus"></i></span>
                                                 </div>
                                             </td>
                                         </form>
@@ -169,61 +165,71 @@
     </script>
     <script>
         $(document).ready(function() {
-            $('.increment-btn').on('click', function() {
-                var inputValue = parseInt($('#quantity').val());
-                var quantity = parseInt($('#quantity-stock').val());
-
-                if (inputValue < quantity) {
-                    $('#quantity').val(inputValue);
-                }
-                updatePointerEvents();
-            });
-
-            $('.decrement-btn').on('click', function() {
-                var inputValue = parseInt($('#quantity').val());
-
-                if (inputValue > 1) {
-                    $('#quantity').val(inputValue);
-                }
-                updatePointerEvents();
-            });
-            $(document).on('change', '.qty-input', function(e) {
-                e.preventDefault();
-                let quantity = $(this).val();
-                let price = $('#price').val();
-                let product = $('#product').val();
-                let id = $(this).closest('tr').data('id');
-
-                $.ajax({
-                    type: 'GET',
-                    url: "{{ route('cart.get-total-price') }}",
-                    data: {
-                        id,
-                        quantity,
-                        product,
-                        price
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        if (response.code === 200) {
-                            var totalValue = response.total;
-                            var formattedTotal = number_format(totalValue);
-                            $(this).closest('tr').find('.subtotal-amount').text(formattedTotal);
-                            // var totalValue = response.total;
-                            var sumFormattedTotal = number_format(response.totalPrice);
-                            $('span#totalPriceForUser').text(sumFormattedTotal);
-                        }
-                    }.bind(this)
+            var quantityStates = {};
+            $(document).ready(function() {
+                $('.qty-input').each(function() {
+                    checkAndUpdateButtonState($(this).closest('tr'));
                 });
-            })
 
-            function updatePointerEvents() {
-                var inputValue = parseInt($('#quantity').val());
-                var quantity = parseInt($('#quantity-stock').val());
+                $(document).on('change', '.qty-input', function(e) {
+                    e.preventDefault();
+                    let id = $(this).closest('tr').data('id');
+                    let quantity = $(this).val();
+                    let price = $('.price').val();
+                    let product = $('.product').val();
 
-                $('.increment-btn').css('pointer-events', inputValue >= quantity ? 'none' : 'auto');
-                $('.decrement-btn').css('pointer-events', inputValue <= 1 ? 'none' : 'auto');
-            }
+                    $.ajax({
+                        type: 'GET',
+                        url: "{{ route('cart.get-total-price') }}",
+                        data: {
+                            id,
+                            quantity,
+                            product,
+                            price
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.code === 200) {
+                                location.reload();
+                                // var totalValue = response.total;
+                                // var formattedTotal = number_format(totalValue);
+                                // $(this).closest('tr').find('.subtotal-amount').text(
+                                //     formattedTotal);
+                                // var totalValue = response.total;
+                                var sumFormattedTotal = number_format(response
+                                    .totalPrice);
+                                $('span#totalPriceForUser').text(sumFormattedTotal);
+                                quantityStates[id] = quantity;
+                                checkAndUpdateButtonState($(this).closest('tr'));
+                            }
+                        }.bind(this)
+                    });
+                });
+                function checkAndUpdateButtonState(row) {
+                    var quantityInStock = parseInt(row.find('.quantity-stock').val(), 10);
+                    var quantityInCart = parseInt(row.find('.qty-input').val(), 10);
+                    var addButton = row.find('.plus-btn');
+                    var previousQuantity = quantityStates[row.data('id')] || quantityInCart;
+
+                    if (quantityInStock <= previousQuantity) {
+                        addButton.css('pointer-events', 'none');
+                        addButton.css('cursor', 'not-allowed');
+                    } else {
+                        addButton.css('pointer-events', 'auto');
+                        addButton.css('cursor', 'pointer');
+                    }
+
+                }
+            });
+
+
+            // function updatePointerEvents() {
+            //     var inputValue = parseInt($('#quantity').val());
+            //     var quantity = parseInt($('#quantity-stock').val());
+
+            //     $('.increment-btn').css('pointer-events', inputValue >= quantity ? 'none' : 'auto');
+            //     $('.decrement-btn').css('pointer-events', inputValue <= 1 ? 'none' : 'auto');
+            // }
 
             function number_format(number, decimals, dec_point, thousands_sep) {
                 number = parseFloat(number);

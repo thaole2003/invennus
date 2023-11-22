@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 @section('content')
     <div class="col-xl-12">
-        <form class="d-flex gap-2 mb-2" action="" method="post">
+        {{-- <form class="d-flex gap-2 mb-2" action="" method="post">
             @csrf
             @method('post')
             <div class="">
@@ -15,7 +15,7 @@
             <div class="mt-5">
                 <button type="submit" class="btn btn-primary waves-effect waves-light">Xem báo cáo</button>
             </div>
-        </form>
+        </form> --}}
         <div class="card">
             <div class="card-body">
                 <div class="dropdown float-end">
