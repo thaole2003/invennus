@@ -105,7 +105,7 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
             <div class="container">
                 <div class="row">
                     <input type="hidden" id="product_id" value="{{ $product->id }}">
-                    <div class="col-lg-8 col-md-12">
+                    <div style="border-right: 1px solid #ebebeb;" class="col-lg-8 col-md-12">
                         <div class="row">
                             <div class="col-lg-6 col-md-6">
                                 <div class="products-page-gallery">
@@ -527,8 +527,8 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
                             @foreach ($ads as $item)
                                 <div class="product-single-aside" style="margin-top:20px">
 
-                                    <div class="aside-trending-products">
-                                        <img src="{{ asset($item->image) }}" alt="image">
+                                    <div  class="aside-trending-products">
+                                        <img style="width:380px;height:415px" src="{{ asset($item->image) }}" alt="image">
 
                                         <div class="category">
                                             <h4>{{ $item->title }}</h4>
@@ -568,7 +568,7 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
                                             </div>
                                             <div class="product-content">
                                                 <h3><a
-                                                        href="{{ route('product.detail', $product->id) }}">{{ $product->title }}</a>
+                                                    href="{{ route('product.detail', $product->id) }}">{!! substr($product->title, 0, 25) !!}</a>
                                                 </h3>
                                                 <div style="height: 50px" class="product-price">
                                                     @if ($product->sales && $product->sales->start_date <= $currentDateTime && $product->sales->end_date >= $currentDateTime)

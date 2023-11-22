@@ -156,7 +156,10 @@ class HomeController extends Controller
         $productvariants = $product->variants;
         $products = Product::whereHas('categories', function ($query) use ($product) {
             $query->whereIn('category_id', $product->categories->pluck('id'));
-        })->paginate(4);
+        })
+        ->where('id', '!=', $id)
+        ->paginate(6);
+
         $totalQuantity = ProductVariant::where('product_id', $id)->sum('total_quantity_stock');
         $groupbyColors = [];
         $groupbySizes = [];

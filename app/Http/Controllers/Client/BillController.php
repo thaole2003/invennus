@@ -22,7 +22,6 @@ class BillController extends Controller
         // dd($bills);
         return view('client.bills.billDetail', compact('bills'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -35,7 +34,48 @@ class BillController extends Controller
         // dd($bills->billDetail);
         return view('client.bills.billProduct', compact('bills'));
     }
-
+    public function edit($id)
+    {
+        $bills = Bill::findOrFail($id);
+        return view('client.bills.changeInfo', compact('bills'));
+    }
+    public function update(Request $request,string $id){
+       $bill = Bill::findOrFail($id);
+       if($bill->status==='pendding'){
+        if($request->status=='cancelled'){
+            $bill->fill($request->all());
+            $bill->save();
+            toastr()->success('Đã hủy đơn hàng!','Thành công');
+        return to_route('bill.index');
+        }
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'email' => 'required|email',
+            'phone' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (!preg_match('/^\+?[0-9-]+$/', $value)) {
+                        $fail("Số điện thoại không hợp lệ.");
+                    }
+                },
+            ],
+        ], [
+            'name.required' => 'Tên không được bỏ trống.',
+            'address.required' => 'Vui lòng nhập địa chỉ.',
+            'email.required' => 'Vui lòng nhập địa chỉ email.',
+            'email.email' => 'Địa chỉ email không hợp lệ.',
+            'phone.required' => 'Vui lòng nhập số điện thoại.',
+        ]);
+        $bill->fill($request->all());
+        $bill->save();
+        toastr()->success('Cập nhật thông tin thành công!','Thành công');
+        return to_route('bill.index');
+       }else{
+        toastr()->error('Bạn chỉ có thể cập nhật khi đơn hàng chờ xử lí!','Thất bại');
+        return to_route('bill.index');
+       }
+    }
     /**
      * Store a newly created resource in storage.
      */

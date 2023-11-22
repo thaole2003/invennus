@@ -49,8 +49,62 @@
     @include('client.layouts.components.header')
 
     @yield('content')
+    @php
+        $wishlists = auth()->check()
+            ? \App\Models\Wishlist::latest()->where('user_id', auth()->user()->id)->get()
+            : collect();
+    @endphp
+    <div class="modal right fade shoppingWishlistModal" id="shoppingWishlistModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
 
+                <div class="modal-body">
+                    <h3>Sản phẩm yêu thích</h3>
 
+                    <div class="product-cart-content">
+                        @if (count($wishlists) > 0)
+                            @foreach ($wishlists as $wishlist)
+                                <div class="product-cart d-flex justify-content-between align-items-center">
+                                    <div class="">
+                                        <div class="product-image">
+                                            <img style="width:50px;height:55px"
+                                                src="{{ asset($wishlist->product->image) }}" alt="image">
+                                        </div>
+
+                                        <div class="product-content">
+                                            <h3><a
+                                                    href="{{ route('product.detail', $wishlist->product_id) }}">{{ $wishlist->product->title }}</a>
+                                            </h3>
+                                            <div class="product-price">
+                                                <span class="price">{{ number_format($wishlist->product->price )}} VND</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <form action="{{ route('wishlist.del-to-wishlist', $wishlist->id) }}"
+                                            method="post">
+                                            @csrf
+                                            @method('Delete')
+                                            <button class="remove border-0 bg-light"><i
+                                                    class="far fa-trash-alt"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            Bạn chưa lưu sản phẩm nào!
+                        @endif
+                    </div>
+
+                    <div class="product-cart-btn">
+                        <a href="{{ route('home') }}" class="btn btn-light">Tiếp tục mua hàng</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Start Footer Area -->
