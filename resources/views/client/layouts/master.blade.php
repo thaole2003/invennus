@@ -51,7 +51,9 @@
     @yield('content')
     @php
         $wishlists = auth()->check()
-            ? \App\Models\Wishlist::latest()->where('user_id', auth()->user()->id)->get()
+            ? \App\Models\Wishlist::latest()
+                ->where('user_id', auth()->user()->id)
+                ->get()
             : collect();
     @endphp
     <div class="modal right fade shoppingWishlistModal" id="shoppingWishlistModal" tabindex="-1" role="dialog">
@@ -78,7 +80,8 @@
                                                     href="{{ route('product.detail', $wishlist->product_id) }}">{{ $wishlist->product->title }}</a>
                                             </h3>
                                             <div class="product-price">
-                                                <span class="price">{{ number_format($wishlist->product->price )}} VND</span>
+                                                <span class="price">{{ number_format($wishlist->product->price) }}
+                                                    VND</span>
                                             </div>
                                         </div>
                                     </div>
@@ -106,6 +109,13 @@
         </div>
     </div>
 
+    <!-- Messenger Plugin chat Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your Plugin chat code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
 
     <!-- Start Footer Area -->
     @include('client.layouts.components.footer')
@@ -113,6 +123,31 @@
 
     <div class="go-top"><i class="fas fa-arrow-up"></i><i class="fas fa-arrow-up"></i></div>
 
+
+    <script>
+        var chatbox = document.getElementById('fb-customer-chat');
+        chatbox.setAttribute("page_id", "102664425547952");
+        chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+
+    <!-- Your SDK code -->
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                xfbml: true,
+                version: 'v18.0'
+            });
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
     <!-- JQuery Min Js -->
     <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="{{ asset('fe/assets/js/jquery.min.js') }}"></script>
