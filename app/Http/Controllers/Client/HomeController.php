@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Events\NotificationEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Ads;
 use App\Models\Banner;
@@ -13,6 +14,7 @@ use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\Store;
 use App\Models\StoreVariant;
+use App\Models\User;
 use App\Models\wishlist;
 use Illuminate\Http\Request;
 use stdClass;
@@ -230,6 +232,13 @@ class HomeController extends Controller
     }
     public function contactForm(Request $request)
     {
-        dd($request->all());
+        $user = User::where('role', 'admin')->first();
+        $content = [
+            'title' => 'Liên hệ làm việc',
+            'message' => "Xin chào, tôi là " . $request->name . " tôi gửi mail này cho bạn với lời nhắn : ". $request->message . ' nếu bạn thấy phù hợp hãy liên lạc lại với tôi qua email: '. $request->email.' hoặc số điện thoại '. $request->phone_number,
+        ];
+        event(new NotificationEvent($user, $content));
+        toastr()->success('Lời nhắn đã dược gửi, chúng tôi sẽ liên hệ sớm','Thành công');
+        return to_route('home');
     }
 }

@@ -50,9 +50,9 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateProductRequest $request)
+    public function store(Request $request)
     {
-        // dd($request->all());
+
         try {
             $model = new Product();
             $model->fill($request->all());
@@ -81,12 +81,30 @@ class ProductController extends Controller
                 $imageModel->image = $filePathAfterUpload;
                 $imageModel->save();
             }
+            function ucwordsVietnamese($str) {
+                $str = mb_strtolower($str, 'UTF-8');
+                $str = ucwords($str);
+
+                // Xử lý chữ cái đặc biệt trong tiếng Việt
+                $str = preg_replace_callback('/\b(đ|d|Đ|ch|Ch|CH|nh|Nh|NH|ph|Ph|PH|th|Th|TH|gh|Gh|GH|kh|Kh|KH|qu|Qu|QU|tr|Tr|TR)\w*/u', function ($matches) {
+                    return mb_convert_case($matches[0], MB_CASE_TITLE, 'UTF-8');
+                }, $str);
+
+                return $str;
+            }
             $size = $request->input('size');
-            $sizeunique = collect($size)->unique()->values()->all();
-            $sizeunique = array_map('strtoupper', array_map('trim', $sizeunique));
             $color = $request->input('color');
-            $colorunique = collect($color)->unique()->values()->all();
-            $colorunique = array_map('strtoupper', array_map('trim', $colorunique));
+
+            $size = array_map(function ($value) {
+                return ucwordsVietnamese(trim($value));
+            }, $size);
+
+            $color = array_map(function ($value) {
+                return ucwordsVietnamese(trim($value));
+            }, $color);
+            $sizeunique = array_unique($size);
+            $colorunique = array_unique($color);
+
             if (count($request->input('store_id'))) {
                 foreach ($colorunique as $color) {
                     $colorr = Color::firstOrCreate(['name' => $color]);

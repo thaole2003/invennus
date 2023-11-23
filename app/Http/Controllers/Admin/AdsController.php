@@ -40,9 +40,9 @@ class AdsController extends Controller
     {
         //
         try {
-            // dd($request->all());
             $model = new Ads();
             $model->fill($request->all());
+            $model->active = $request->active;;
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $folder = 'images/ads';
@@ -90,7 +90,7 @@ class AdsController extends Controller
         //
         $data = Ads::findOrFail($id);
         $data->fill($request->all());
-        // dd($request->all());
+        $data->active = $request->active;;
         if ($request->hasFile('newimage')) {
             if ($data->image) {
                 $oldFilePath = str_replace('storage/', '', $data->image);
@@ -106,7 +106,7 @@ class AdsController extends Controller
         } else {
             $data->image =  $request->input('currentimage');
         }
-        toastr()->success('Đã sửa banner', 'Thành công');
+        toastr()->success('Đã sửa quảng cáo', 'Thành công');
         $data->save();
         return to_route('admin.ads.index');
     }
