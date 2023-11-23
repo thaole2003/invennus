@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="col-lg-5 col-md-12">
                         <div class="contact-info">
-                            <h3>Here to Help</h3>
+                            <h3>Về chúng tôi</h3>
                             <p>Have a question? You may find an answer in our FAQs. But you can also contact us.</p>
 
                             <ul class="contact-list">
@@ -34,17 +34,12 @@
                                 </li>
                                 <li><i class="fas fa-fax"></i> Fax: <a href="#">(+84) 3321 329 12</a></li>
                             </ul>
-
-                            <h3>Opening Hours:</h3>
+                            <h3>Thời gian mở cửa:</h3>
                             <ul class="opening-hours">
-                                <li><span>Monday:</span> 8AM - 6AM</li>
-                                <li><span>Tuesday:</span> 8AM - 6AM</li>
-                                <li><span>Wednesday:</span> 8AM - 6AM</li>
-                                <li><span>Thursday - Friday:</span> 8AM - 6AM</li>
-                                <li><span>Sunday:</span> Closed</li>
+                                <li><span>Hàng ngày:</span> 9 giờ - 22 giờ</li>
                             </ul>
 
-                            <h3>Follow Us:</h3>
+                            <h3>Theo dõi:</h3>
                             <ul class="social">
                                 <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
                                 <li><a href="#"><i class="fab fa-twitter"></i></a></li>
@@ -66,18 +61,15 @@
 
                     <div class="col-lg-7 col-md-12">
                         <div class="contact-form">
-                            <h3>Drop Us A Line</h3>
-                            <p>We’re happy to answer any questions you have or provide you with an estimate. Just send us a
-                                message in the form below with any questions you may have.</p>
-
-                            <form action="{{ route('contact-form') }}" method="POST">
+                            <h3>Gửi tin nhắn cho chúng tôi</h3>
+                            <form class="pt-5" action="{{ route('contact-form') }}" method="POST">
                                 @csrf
                                 @method('post')
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12">
                                         <div class="form-group">
                                             <label>Họ và tên <span class="text-danger fs-5">*</span></label>
-                                            <input type="text" name="name" id="name" class="form-control"
+                                            <input required type="text" name="name" id="name" class="form-control"
                                                 placeholder="Nhập họ tên của bạn">
                                         </div>
                                     </div>
@@ -85,7 +77,7 @@
                                     <div class="col-lg-12 col-md-12">
                                         <div class="form-group">
                                             <label>Email <span class="text-danger fs-5">*</span></label>
-                                            <input type="email" name="email" id="email" class="form-control"
+                                            <input required type="email" name="email" id="email" class="form-control"
                                                 placeholder="Nhập địa chỉ email">
                                         </div>
                                     </div>
@@ -93,7 +85,7 @@
                                     <div class="col-lg-12 col-md-12">
                                         <div class="form-group">
                                             <label>Số điện thoại <span class="text-danger fs-5">*</span></label>
-                                            <input type="text" name="phone_number" id="phone_number" class="form-control"
+                                            <input required type="tel" name="phone_number" id="phone_number" class="form-control"
                                                 placeholder="Nhập số điện thoại">
                                         </div>
                                     </div>

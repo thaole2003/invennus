@@ -36,15 +36,15 @@
 </head>
 <body>
     <div class="email-container">
-        <img class="logo" src="https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/7e6cee7879157a2c0945a6a0b557a700~c5_100x100.jpeg?x-expires=1699027200&x-signature=7NR%2BF4xDTofdxldEsrmTwXGhCJ0%3D" alt="Logo">
+        <img class="logo" src="{{ asset('img/logo.jpg') }}" alt="Logo">
         <h1 class="greeting">Xác nhận đơn hàng</h1>
         <h2>
             {{ $content['title'] }}
         </h2>
         <p>{{ $content['message'] }}</p>
-        <p>Vui lòng truy cập website để xem thông tin đơn hàng: <a href="http://localhost:8000">Bấm ở đây!</a></p>
+        <p>Vui lòng truy cập website để xem thông tin : <a href="http://localhost:8000">Bấm ở đây!</a></p>
         <div class="sender-info">
-            <p>Người gửi: Công ty Invennus</p>
+            <p>Gửi từ: Công ty Invennus</p>
             <p>Số điện thoại: 0332132912</p>
             <p>Email: Nghiemthai.nxt46@gmail.com</p>
         </div>
