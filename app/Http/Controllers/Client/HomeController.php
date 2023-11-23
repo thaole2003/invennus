@@ -95,46 +95,6 @@ class HomeController extends Controller
         return view('client.layouts.components.main', compact('category', 'products', 'banners', 'product_sale', 'productall', 'carts', 'wishlists', 'colorIds', 'sizeIds', 'posts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    // public function product(string $id)
-    // {
-    //     $product = Product::query()->with('images')->findOrFail($id);
-    //     // $colors = ProductVariant::where('product_id', $id)
-    //     //     ->select('product_variants.color_id', 'colors.name')
-    //     //     ->join('colors', 'colors.id', '=', 'product_variants.color_id')
-    //     //     ->groupBy('product_variants.color_id')->get();
-    //     // $sizes = ProductVariant::query()
-    //     //     ->select('product_variants.size_id', 'sizes.name')
-    //     //     ->join('sizes', 'sizes.id', '=', 'product_variants.size_id')
-    //     //     ->where('product_variants.product_id', $id)
-    //     //     ->groupBy('product_variants.size_id')->get();
-
-    //     // dd($colors->id);
-    //     $szArr = new stdClass;
-    //     foreach ($product->variants as $item) {
-    //         if ($item->storeVariant->quantity > 0) {
-    //             $szArr->size = $item->size->name;
-    //             $szArr->sizes = $item;
-    //             $szArr->color = $item->color->name;
-    //             $szArr->color_id = $item->color->id;
-    //             $item;
-    //         }
-    //     }
-    //     // dd($product->variants);
-
-    //     // $color = ProductVariant::query()->findOrFail($id);
-    //     // dd($product->variants);
-    //     // $product = ProductVariant::select('product_id')->distinct()->where('product_id', $id)->get();
-    //     // dd($product[0]->product[0]->images);
-    //     // $product = Product::select('product_variants.color_id', 'product_variants.size_id', 'products.id')
-    //     //     ->join('product_variants', 'products.id', '=', 'product_variants.product_id')
-    //     //     ->distinct()
-    //     //     ->get();
-    //     // dd($product);
-    //     return view('client.products.productDetail', compact('product', 'szArr'));
-    // }
     public function product(string $id)
     {
         $currentDateTime = Carbon::now()->tz('Asia/Ho_Chi_Minh');
@@ -157,16 +117,16 @@ class HomeController extends Controller
         $products = Product::whereHas('categories', function ($query) use ($product) {
             $query->whereIn('category_id', $product->categories->pluck('id'));
         })
-        ->where('id', '!=', $id)
-        ->paginate(6);
+            ->where('id', '!=', $id)
+            ->paginate(6);
 
         $totalQuantity = ProductVariant::where('product_id', $id)->sum('total_quantity_stock');
         $groupbyColors = [];
         $groupbySizes = [];
         $ads = Ads::where('active', 1)
-        ->inRandomOrder()
-        ->limit(1)
-        ->get();
+            ->inRandomOrder()
+            ->limit(1)
+            ->get();
         // dd($product->variants);
         foreach ($product->variants as $variant) {
 
@@ -193,7 +153,7 @@ class HomeController extends Controller
         // $sale = $getsizes->product->sales;
         return response()->json([
             'data' => $getsizes,
-            'sale'=>1
+            'sale' => 1
         ]);
     }
     public function search(Request $request)
@@ -247,10 +207,10 @@ class HomeController extends Controller
     {
         $posts = Post::query()->paginate(5);
         $ads = Ads::where('active', 1)
-        ->inRandomOrder()
-        ->limit(1)
-        ->get();
-        return view('client.posts.post', compact('posts','ads'));
+            ->inRandomOrder()
+            ->limit(1)
+            ->get();
+        return view('client.posts.post', compact('posts', 'ads'));
     }
 
     public function postDetail($id)
@@ -261,6 +221,15 @@ class HomeController extends Controller
             ->inRandomOrder()
             ->limit(1)
             ->get();
-        return view('client.posts.postDettail', compact('post','posts','ads'));
+        return view('client.posts.postDettail', compact('post', 'posts', 'ads'));
+    }
+
+    public function getContactForm()
+    {
+        return view('client.contact');
+    }
+    public function contactForm(Request $request)
+    {
+        dd($request->all());
     }
 }

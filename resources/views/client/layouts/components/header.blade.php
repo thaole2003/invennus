@@ -53,13 +53,12 @@
                             <li class="nav-item p-relative">
                                 <a href="{{ route('home') }}" class="nav-link active">Trang Chủ</a>
                             </li>
-                            @if(auth()->check())
-                            <li class="nav-item p-relative">
-                                <a href="{{ route('product.home') }}" class="nav-link active">Liên hệ</a>
-                            </li>
-                            @endif
+
                             <li class="nav-item p-relative">
                                 <a href="/post" class="nav-link active">Tin tức</a>
+                            </li>
+                            <li class="nav-item p-relative">
+                                <a href="{{ route('get-contact-form') }}" class="nav-link active">Liên hệ</a>
                             </li>
                         </ul>
 
@@ -68,7 +67,7 @@
                             <div class="option-item"><i class="search-btn fas fa-search fa-lg"></i>
                                 <i class="close-btn fas fa-times  fa-lg"></i>
 
-                                <div  style="width:500px" class="search-overlay search-popup">
+                                <div style="width:500px" class="search-overlay search-popup">
                                     <div style="border:solid 1px black" class='search-box'>
                                         <form action="{{ route('search') }}" class="search-form" method="POST">
                                             @csrf
@@ -102,12 +101,11 @@
                                         class="fas fa-shopping-bag"></i></a>
 
                             </div>
-                            @if(auth()->check())
-                            <div class="option-item">
-                                <a href="#" data-bs-toggle="modal"
-                                    data-bs-target="#shoppingWishlistModal">Yêu thích <i class="far fa-heart"></i></a>
-                            </div>
-
+                            @if (auth()->check())
+                                <div class="option-item">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#shoppingWishlistModal">Yêu
+                                        thích <i class="far fa-heart"></i></a>
+                                </div>
                             @endif
 
                             <div class="option-item">
@@ -121,8 +119,7 @@
 
                                         @if (Route::has('register'))
                                             <li class="nav-item">
-                                                <a class="nav-link"
-                                                    href="{{ route('register') }}">{{ __('Đăng ký') }}</a>
+                                                <a class="nav-link" href="{{ route('register') }}">{{ __('Đăng ký') }}</a>
                                             </li>
                                         @endif
                                     </div>
@@ -139,26 +136,24 @@
                                                 Đơn hàng
                                             </a>
                                             <a style="color: black ; font-size: 0.875rem;line-height: 1.25rem;"
-                                                class="dropdown-item" href="/changeinfo"
-                                              >
+                                                class="dropdown-item" href="/changeinfo">
                                                 {{ __('Đổi thông tin') }}
                                             </a>
                                             <a style="color: black ; font-size: 0.875rem;line-height: 1.25rem;"
-                                                class="dropdown-item" href="/changepassword"
-                                              >
+                                                class="dropdown-item" href="/changepassword">
                                                 {{ __('Đổi mật khẩu') }}
                                             </a>
                                             <a style="color: black ; font-size: 0.875rem;line-height: 1.25rem;"
-                                            class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
+                                                class="dropdown-item" href="{{ route('logout') }}"
+                                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            {{ __('Đăng xuất') }}
-                                        </a>
+                                                {{ __('Đăng xuất') }}
+                                            </a>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                            class="d-none">
-                                            @csrf
-                                        </form>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                class="d-none">
+                                                @csrf
+                                            </form>
                                         </div>
                                     </li>
                                 @endguest
