@@ -6,11 +6,11 @@
             @method('post')
             <div class="">
                 <label for="example-disable" class="form-label">Bắt đầu</label>
-                <input type="datetime-local" name="date_start" class="form-control" value="{{ Session::get('date_start') }}">
+                <input type="date" name="date_start" class="form-control" value="{{ Session::get('date_start') }}">
             </div>
             <div class="">
                 <label for="example-disable" class="form-label">Kết thúc</label>
-                <input type="datetime-local" name="date_end" class="form-control" value="{{ Session::get('date_end') }}">
+                <input type="date" name="date_end" class="form-control" value="{{ Session::get('date_end') }}">
             </div>
             <div class="" style="margin-top:32px;margin-left:10px">
                 <button type="submit" class="btn btn-primary waves-effect waves-light">Xem báo cáo</button>
@@ -48,110 +48,40 @@
 
     <script>
         var revenueData = {!! json_encode($revenueData) !!};
+        var months_years = {!! isset($months_years) ? json_encode($months_years) : '[]' !!};
 
-        // Tạo mảng với 12 tháng, và thiết lập giá trị ban đầu của doanh thu là 0
-        var data = Array.from({
-            length: 12
-        }, function(_, i) {
-            var monthData = revenueData.find(function(item) {
-                return item.month === (i + 1);
+        if (months_years.length > 0) {
+            var data = months_years.map(function(month_year) {
+                var monthData = revenueData.find(function(item) {
+                    // Lấy phần tháng và năm từ chuỗi ngày
+                    var itemMonthYear = item.date.substring(5, 7) + '-' + item.date.substring(0, 4);
+                    return itemMonthYear === month_year.month + '-' + month_year.year;
+                });
+
+                return {
+                    month: month_year.month + '-' + month_year.year,
+                    revenue: monthData ? monthData.revenue : 0
+                };
             });
 
-            if (monthData) {
-                return {
-                    month: "Tháng " + (i + 1),
-                    revenue: monthData.revenue
-                };
-            } else {
-                return {
-                    month: "Tháng " + (i + 1),
-                    revenue: 0
-                };
-            }
-        });
-
-        new Morris.Bar({
-            element: 'morris-bar-example',
-            data: data,
-            xkey: 'month',
-            ykeys: ['revenue'],
-            labels: ['Doanh thu'],
-            barColors: ['#ffbd4a'],
-            hideHover: 'auto',
-            resize: true,
-            xLabelAngle: 35,
-            xLabelAngle: 60, // Đổi góc xLabel nếu cần
-        });
+            new Morris.Bar({
+                element: 'morris-bar-example',
+                data: data,
+                xkey: 'month',
+                ykeys: ['revenue'],
+                labels: ['Doanh thu'],
+                barColors: ['#4e73df'],
+                hoverCallback: function(index, options, content, row) {
+                    var color = options.barColors[index];
+                    return '<div style="color:' + color + '">' + content + '</div>';
+                },
+                hideHover: 'auto',
+                resize: true,
+                xLabelAngle: 35,
+            });
+        } else {
+            // Xử lý khi không có dữ liệu
+            console.error('Không có dữ liệu để hiển thị.');
+        }
     </script>
-    {{-- <script>
-        // var revenueData = {!! json_encode($revenueData) !!};
-
-        $(function() {
-            var startDate = null;
-            var endDate = null;
-
-            // Tạo datepicker cho ngày bắt đầu và ngày kết thúc
-            $("#start-date").datepicker();
-            $("#end-date").datepicker();
-
-            // Khi người dùng thay đổi ngày bắt đầu
-            $("#start-date").on("change", function() {
-                startDate = $("#start-date").datepicker("getDate");
-                updateChart(startDate, endDate);
-            });
-
-            // Khi người dùng thay đổi ngày kết thúc
-            $("#end-date").on("change", function() {
-                endDate = $("#end-date").datepicker("getDate");
-                updateChart(startDate, endDate);
-            });
-
-            // Hàm cập nhật biểu đồ
-            function updateChart(start, end) {
-                // Nếu cả hai ngày bắt đầu và kết thúc đã được chọn
-                if (start && end) {
-                    // Gửi yêu cầu Ajax để lấy dữ liệu doanh thu trong khoảng thời gian
-                    $.ajax({
-                        url: '/filter',
-                        type: 'POST',
-                        data: {
-                            date_start: start,
-                            date_end: end
-                        },
-                        success: function(response) {
-                            // Xử lý kết quả trả về từ máy chủ và cập nhật biểu đồ
-                            updateChartWithData(response);
-                        }
-                    });
-                } else {
-                    // Sử dụng dữ liệu toàn bộ (không lọc)
-                    updateChartWithData(revenueData);
-                }
-            }
-
-            // Hàm cập nhật biểu đồ với dữ liệu
-            function updateChartWithData(data) {
-                // Chuyển dữ liệu sang định dạng phù hợp với biểu đồ và cập nhật biểu đồ
-                var dataForChart = data.map(function(item) {
-                    return {
-                        month: "Tháng " + item.month,
-                        revenue: item.revenue
-                    };
-                });
-
-                new Morris.Bar({
-                    element: 'morris-bar-example',
-                    data: dataForChart,
-                    xkey: 'month',
-                    ykeys: ['revenue'],
-                    labels: ['Doanh thu'],
-                    barColors: ['#ffbd4a'],
-                    hideHover: 'auto',
-                    resize: true,
-                    xLabelAngle: 35,
-                    xLabelAngle: 60, // Đổi góc xLabel nếu cần
-                });
-            }
-        });
-    </script> --}}
 @endpush
