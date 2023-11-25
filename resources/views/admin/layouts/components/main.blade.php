@@ -86,7 +86,7 @@
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                     Nhà cung cấp
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $product }}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $vender }}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -162,7 +162,7 @@
                             @foreach ($top7Products as $index => $product)
                                 <span class="mr-2">
                                     <i class="fas fa-circle" style="color: {{ $fixedColors[$index] }}"></i>
-                                    {{ $product['product_name'] }} - {{ $product['size'] }} -{{ $product['color'] }}
+                                    {{ $product['product_sku'] }}
                                 </span>
                             @endforeach
                         </div>

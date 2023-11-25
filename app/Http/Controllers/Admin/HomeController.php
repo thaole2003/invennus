@@ -51,6 +51,12 @@ class HomeController extends Controller
         //     ->orderBy('total_quantity', 'desc')
         //     ->take(7) // Lấy 7 sản phẩm
         //     ->get();
+        $top7Products = BillDetails::select('product_sku', DB::raw('SUM(quantity) as total_quantity'), DB::raw('SUM(quantity * price) as total_amount'))
+            ->where('created_at', '>=', $sevenDaysAgo)
+            ->groupBy('product_sku')
+            ->take(7)
+            ->get();
+        // dd($add);
         $fixedColors = ['#4e73df', '#1cc88a', '#36b9cc', '#d9534f', '#5bc0de', '#f0ad4e', '#5cb85c'];
         return view('admin.layouts.components.main', compact('product', 'post', 'user', 'vender', 'last7DaysData', 'top7Products', 'fixedColors'));
     }

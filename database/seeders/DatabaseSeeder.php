@@ -21,5 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SuperAdminSeeder::class,
         ]);
+        \App\Models\Category::factory(10)->create();
+
     }
 }
