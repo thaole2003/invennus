@@ -19,18 +19,19 @@
                 </tr>
             </thead>
             <tbody>
-                @if (count($bills->billDetail) > 0)
-                    @foreach ($bills->billDetail as $value)
+                @if (count($billDetail) > 0)
+                    @foreach ($billDetail as $value)
                         <tr>
                             <th scope="">{{ $value->id }}</th>
                             <td><img style="width: 80px;height: 80px"
-                                    src="{{ asset($value->ProductVariant->product->image) }}" alt=""></td>
+                                    src="{{ asset($value->product_image) }}" alt=""></td>
                             <td class="">
-                                {{ $value->ProductVariant->product->title }}
+                                <span class="" style="font-weight: bold">{{ $value->product_sku }}</span> - {{ $value->product_name }}
                                 <ul>
-                                    <li>Màu: <strong>{{ $value->ProductVariant->color->name }}</strong>
+                                    <li>Màu: <strong>{{ $value->color }}</strong>
                                     </li>
-                                    <li>Kích cỡ: <strong>{{ $value->ProductVariant->size->name }}</strong></li>
+                                    <li>Kích cỡ: <strong>{{ $value->size }}</strong></li>
+                                    <li>Giá: <strong>{{ number_format($value->price) }} VND</strong></li>
                                 </ul>
                             </td>
 

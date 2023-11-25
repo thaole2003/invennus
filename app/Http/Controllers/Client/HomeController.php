@@ -171,6 +171,7 @@ class HomeController extends Controller
                 },
                 'images',
                 'categories',
+                'sales'
             ])->get();
             return view('client.search', compact('products'));
         }

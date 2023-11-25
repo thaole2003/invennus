@@ -29,10 +29,8 @@ class BillController extends Controller
      */
     public function show($id)
     {
-        $bills = Bill::query()->where([
-            'id' => $id
-        ])->first();
-        return view('admin.bills.billProduct', compact('bills'));
+        $billDetail = BillDetails::with(['product', 'size', 'color'])->where('bill_id', $id)->get();
+        return view('admin.bills.billProduct', compact('billDetail'));
     }
     public function edit($id){
         $bills = Bill::query()->where([

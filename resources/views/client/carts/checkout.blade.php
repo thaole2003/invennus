@@ -123,7 +123,7 @@
                                         </td>
 
                                         <td class="order-subtotal-price">
-                                            <span class="order-subtotal-amount"> {{ number_format($totalAmount) }}</span>
+                                            <span class="order-subtotal-amount"> {{ number_format($totalAmount) }} VND</span>
                                         </td>
                                         </tr>
                                         <tr>
@@ -142,7 +142,7 @@
 
                                             <td class="product-subtotal">
                                                 <span
-                                                    class="subtotal-amount">{{ number_format($totalAmount) }}</span>
+                                                    class="subtotal-amount">{{ number_format($totalAmount) }} VND</span>
                                                 <input type="text" name="total_price" value="{{ $totalAmount }}"
                                                     hidden>
                                             </td>

@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('bill_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_variant_id');
+            $table->string('product_sku');
+            $table->string('product_name');
+            $table->string('product_image');
+            $table->string('color');
+            $table->string('size');
             $table->integer('quantity');
-            $table->foreign('product_variant_id')
-            ->references('id')
-            ->on('product_variants')
-            ->onDelete('cascade');
+            $table->double('price');
             $table->unsignedBigInteger('bill_id')->nullable();
             $table->foreign('bill_id')
             ->references('id')
