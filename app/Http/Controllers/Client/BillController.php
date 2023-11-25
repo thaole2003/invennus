@@ -27,12 +27,9 @@ class BillController extends Controller
      */
     public function show($id)
     {
-        $bills = Bill::query()->where([
-            'user_id' => auth()->user()->id,
-            'id' => $id
-        ])->first();
-        // dd($bills->billDetail);
-        return view('client.bills.billProduct', compact('bills'));
+        $billDetail = BillDetails::with(['product', 'size', 'color'])->where('bill_id', $id)->get();
+
+        return view('client.bills.billProduct', compact('billDetail'));
     }
     public function edit($id)
     {
@@ -80,7 +77,7 @@ class BillController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {   $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
         $request->validate([
             'name' => 'required',
             'address' => 'required',
@@ -110,7 +107,18 @@ class BillController extends Controller
             ->get();
         foreach ($cart_user as $value) {
             $billDetail =  new BillDetails();
-            $billDetail->product_variant_id = $value['product_radiant'];
+            $product_variant = ProductVariant::findOrFail($value['product_radiant']);
+            $billDetail->product_name = $product_variant->product->title;
+            $billDetail->product_sku = $product_variant->product->sku;
+            $billDetail->product_image = $product_variant->product->image;
+            $billDetail->color = $product_variant->color->name;
+            $billDetail->size = $product_variant->size->name;
+            if ($product_variant->product->sales && $product_variant->product->sales->start_date <= $currentDateTime && $product_variant->product->sales->end_date >= $currentDateTime){
+                $price = $product_variant->price - $product_variant->product->sales->discount;
+            }else{
+                $price = $product_variant->price;
+            }
+            $billDetail->price = $price;
             $billDetail->quantity = $value['quantity'];
             $billDetail->bill_id = $model->id;
             $billDetail->save();

@@ -34,7 +34,7 @@ Danh mục
                         <td scope="">{{ $value->id }}</td>
                         <td>{{ $value->name }}</td>
                         <td>{{ $value->products_count. ' sản phẩm' }}</td>
-                        <td><img class="" src="{{ asset($value->image) }}" alt=""
+                        <td><img class="" src="{{ $value->image ? asset($value->image) :  asset('img/logo.jpg') }}" alt=""
                                 style="width: 80px;height: 80px"></td>
                         <td style="gap: 0.5rem;" class="d-flex align-items-center">
                             <a class="btn btn-primary" href="{{ route('admin.category.edit', $value->id) }}"><i

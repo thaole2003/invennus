@@ -72,7 +72,7 @@
                                         <form action="{{ route('search') }}" class="search-form" method="POST">
                                             @csrf
                                             @method('POST')
-                                            <input class="search-input" name="keyword" placeholder="Tìm kiếm"
+                                            <input class="search-input" required name="keyword" placeholder="Tìm kiếm"
                                                 type="text">
 
                                             <button class="search-button" type="submit"><i

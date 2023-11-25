@@ -21,25 +21,26 @@
                                 <?php
                                 $sumTotal = 0;
                                 ?>
-                                @foreach ($bills->billDetail as $key => $value)
+                                @foreach ($billDetail as $key => $value)
                                     <tr>
                                         {{-- <form> --}}
 
                                             <td>{{ $key + 1 }}</td>
                                             <td class="product-thumbnail">
                                                 <a href="#">
-                                                    <img src="{{ asset($value->ProductVariant->product->image) }}"
+                                                    <img src="{{ asset($value->product_image) }}"
                                                         alt="item">
                                                 </a>
                                             </td>
 
                                             <td class="product-name">
-                                                <a href="#">{{ $value->ProductVariant->product->title }}</a>
+                                                <a href="#">{{ $value->product_name }}</a>
                                                 <ul>
-                                                    <li>Color: <strong>{{ $value->ProductVariant->color->name }}</strong>
+                                                    <li>Màu: <strong>{{ $value->color }}</strong>
                                                     </li>
-                                                    <li>Size: <strong>{{ $value->ProductVariant->size->name }}</strong></li>
-                                                    <li>Material: <strong>Cotton</strong></li>
+                                                    <li>Kích cỡ: <strong>{{ $value->size}}</strong></li>
+                                                    <li>Giá: <strong>{{ number_format($value->price)}} VND</strong></li>
+                                                    {{-- <li>Material: <strong>Cotton</strong></li> --}}
                                                 </ul>
                                             </td>
 

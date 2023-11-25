@@ -54,7 +54,10 @@
                                                     $product->sales->start_date <= $currentDateTime &&
                                                      $product->sales->end_date >= $currentDateTime)
                                                         <span style="text-decoration: line-through; " class="old-price">{{ number_format($product->price) }} VND</span><br>
-                                                        <span style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;" class="new-price">{{ number_format(max($product->price - $product->sales->discount), 0) }} VND</span>
+                                                        <span style="font-weight: bold; color: red; font-size: 1.25rem; line-height: 1.75rem;" class="new-price">
+                                                            {{ number_format(max($product->price - $product->sales->discount, 0), 0) }} VND
+                                                        </span>
+
                                                     @else
                                                     <span style="" class="">{{ $product->metatitle}}</span><br>
                                                         <span style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;" class="new-price">{{ number_format($product->price) }} VND</span>
