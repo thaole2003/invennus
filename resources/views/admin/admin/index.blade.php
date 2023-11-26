@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="m-10">
-        <h1 class="text-center">Danh sách admin</h1>
+        <h1 class="text-center">Danh sách quản trị viên</h1>
     </div>
     <div>
 
@@ -53,7 +53,7 @@
                             <form action="{{ route('admin.admins.destroy', $value->id) }}" method="POST">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" onclick="return confirm('chắc chắn xóa?')" class="btn btn-danger"
+                                <button type="submit" onclick="return confirm('Chắc chắn xóa quản trị viên này?')" class="btn btn-danger"
                                     class="btn btn-danger"><i class="fas fa-trash-alt"></i> </button>
                             </form>
                         </td>
