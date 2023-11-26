@@ -102,8 +102,8 @@
     @endif
     @if (Auth::user()->can('storevariants.resource'))
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('admin.storevariant.index') }}" data-toggle=""
-                data-target="#" aria-expanded="true" aria-controls="">
+            <a class="nav-link collapsed" href="{{ route('admin.storevariant.index') }}" data-toggle="" data-target="#"
+                aria-expanded="true" aria-controls="">
                 <i class="fas fa-store-alt"></i>
                 <span> Sản phẩm theo cửa hàng</span>
             </a>

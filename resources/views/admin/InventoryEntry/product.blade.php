@@ -1,21 +1,21 @@
 @extends('admin.layouts.master')
 @section('content')
     <div class="col-xl-12">
-        {{-- <form class="d-flex gap-2 mb-2" action="" method="post">
+        <form class="d-flex gap-2 mb-2" action="{{ route('filter-product') }}" method="post">
             @csrf
             @method('post')
             <div class="">
                 <label for="example-disable" class="form-label">Bắt đầu</label>
-                <input type="datetime-local" name="date_start" class="form-control" value="{{ old('date_start') }}">
+                <input type="date" name="date_start" class="form-control" value="{{ Session::get('date_start1') }}">
             </div>
             <div class="">
                 <label for="example-disable" class="form-label">Kết thúc</label>
-                <input type="datetime-local" name="date_end" class="form-control" value="{{ old('date_end') }}">
+                <input type="date" name="date_end" class="form-control" value="{{ Session::get('date_end1') }}">
             </div>
-            <div class="mt-5">
+            <div class="" style="margin-top:32px;margin-left:10px">
                 <button type="submit" class="btn btn-primary waves-effect waves-light">Xem báo cáo</button>
             </div>
-        </form> --}}
+        </form>
         <div class="card">
             <div class="card-body">
                 <div class="dropdown float-end">
@@ -51,22 +51,20 @@
 
         // Tạo mảng dữ liệu cho biểu đồ
         var data = topProducts.map(function(product) {
-            var title = product.product_name + ' - ' + product.size + ' - ' + product.color;
             return {
-                product_variant_id: product.product_variant_id,
-                product_name: title,
-                price: product.price,
-                total_quantity: product.total_quantity
+                product_sku: product.product_sku, // Thay product_sku bằng tên cột thực tế trong dữ liệu của bạn
+                total_quantity: product.total_quantity,
+                price: product.total_amount // Thay total_amount bằng tên cột thực tế trong dữ liệu của bạn
             };
         });
 
         new Morris.Bar({
             element: 'morris-bar-example',
             data: data,
-            xkey: 'product_name',
+            xkey: 'product_sku',
             ykeys: ['total_quantity'],
             labels: ['Số lượng'],
-            barColors: ['#ffbd4a'],
+            barColors: ['#4e73df'],
             hideHover: 'auto',
             resize: true,
             xLabelAngle: 0,
@@ -74,9 +72,9 @@
                 var formattedPrice = new Intl.NumberFormat('vi-VN', {
                     style: 'currency',
                     currency: 'VND'
-                }).format(row.price * row.total_quantity);
+                }).format(row.price);
 
-                var tooltipContent = '<div class="morris-hover-row-label">' + row.product_name + '</div>' +
+                var tooltipContent = '<div class="morris-hover-row-label">' + row.product_sku + '</div>' +
                     '<div class="morris-hover-point" style="color: #ffbd4a">Số lượng: ' + row.total_quantity +
                     '</div>' +
                     '<div class="morris-hover-point" style="color: #ffbd4a">Giá: ' + formattedPrice + '</div>';
