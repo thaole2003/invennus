@@ -61,10 +61,6 @@
                         </td>
                     </tr>
                 @endforeach
-                @else
-                <tr>
-                    <td colspan="10">Chưa có đơn hàng nào !</td>
-                </tr>
                 @endif
             </tbody>
 
