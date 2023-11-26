@@ -100,6 +100,10 @@ class AdminController extends Controller
     public function update(Request $request, string $id)
     {
         try {
+            if($id === 1){
+                toastr()->error('Không thể sửa quản trị viên cấp cao nhất', 'Thất bại');
+                return to_route('admin.admins.index');
+            }
             $model = User::findOrFail($id);
             $model->role = 'admin';
             $model->fill($request->all());
@@ -141,6 +145,11 @@ class AdminController extends Controller
     public function destroy(string $id)
     {
         try {
+            if($id === 1){
+                toastr()->error('Không thể xóa quản trị viên cấp cao nhất', 'Thất bại');
+                return back();
+            }
+
             $data = User::query()->findOrFail($id);
             $data->delete();
             if ($data->avt) {

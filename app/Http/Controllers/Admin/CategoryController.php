@@ -123,6 +123,10 @@ class CategoryController extends Controller
     {
         //
         try {
+            if(count($category->products) > 0){
+                toastr()->error('Không thể xóa danh mục này, nếu xóa sẽ mất sản phẩm', 'Vui lòng xóa sản phẩm trước');
+                return back();
+            }
             $category->delete();
             if ($category->image) {
                 $oldFilePath = str_replace('storage/', '', $category->image);

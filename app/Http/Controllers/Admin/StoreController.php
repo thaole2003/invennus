@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Store\CreateStoreRequest;
 use App\Http\Requests\Store\UpdateStoreRequest;
 use App\Models\Store;
+use App\Models\StoreVariant;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -99,6 +100,29 @@ class StoreController extends Controller
     {
         //
         try {
+            $data = StoreVariant::with(['variant.product'])
+            ->where('store_id', $store->id)
+            ->latest('created_at')
+            ->get();
+        $productGroups = [];
+
+        foreach ($data as $storeVariant) {
+            $product = $storeVariant->variant->product;
+            $productId = $product->id;
+            // Nếu sản phẩm đã tồn tại trong nhóm, thêm vào nhóm đó
+            if (isset($productGroups[$productId])) {
+                $productGroups[$productId]['variants'][] = $storeVariant->variant;
+            } else {
+                $productGroups[$productId] = [
+                    'product' => $product,
+                    'variants' => [$storeVariant->variant],
+                ];
+            }
+            if(count($productGroups)>0){
+                toastr()->error('Không thể xóa cửa hàng này, xóa sẽ mất sản phẩm có liên quan','Thử lại sau');
+                return back();
+            }
+        }
             $store->delete();
             toastr()->success('Xóa thành công 1 cửa hàng!','Đã xóa');
             return redirect()->back();

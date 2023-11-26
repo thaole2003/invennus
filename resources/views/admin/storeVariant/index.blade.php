@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="m-10">
-        <h1 class="text-center">Chọn cửa hàng quản lí cửa hàng</h1>
+        <h1 class="text-center">Chọn cửa hàng để quản lý sản phẩm</h1>
     </div>
     <div class="w-80">
         <table id="table" class="table table-striped" style="width:100%">

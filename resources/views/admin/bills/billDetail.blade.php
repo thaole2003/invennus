@@ -7,10 +7,10 @@
         <h1 class="text-center">Danh sách đơn hàng</h1>
     </div>
     <div class="w-80">
-        <table id="" class="table table-striped" style="width:100%">
+        <table id="table" class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Mã</th>
+                    <th scope="col">#</th>
                     <th scope="col">Khách hàng</th>
                     <th scope="col">Email</th>
                     <th scope="col">Địa chỉ</th>
@@ -19,13 +19,14 @@
                     <th scope="col">Phương thức thanh toán</th>
                     <th scope="col">Tổng tiền</th>
                     <th scope="col">Ngày đặt</th>
-                    <th></th>
+                    <th scope="col">Thao tác</th>
                 </tr>
             </thead>
             <tbody>
+                @if(count($bills) > 0)
                 @foreach ($bills as $key => $value)
                     <tr>
-                        <td>{{ $value->id }}</td>
+                        <td>{{ $key+1 }}</td>
                         <td>{{ $value->name }}</td>
                         <td>{{ $value->email }}</td>
                         <td>{{ $value->address }}</td>
@@ -60,8 +61,13 @@
                         </td>
                     </tr>
                 @endforeach
+                @else
+                <tr>
+                    <td colspan="10">Chưa có đơn hàng nào !</td>
+                </tr>
+                @endif
             </tbody>
-            {{ $bills->links() }}
+
         </table>
     </div>
 @endsection
@@ -89,4 +95,5 @@
             });
         });
     </script>
+
 @endpush

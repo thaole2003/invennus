@@ -187,12 +187,12 @@
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo00"
                 aria-expanded="true" aria-controls="collapseTwo00">
                 <i class="fas fa-store"></i>
-                <span>Quản lý admin</span>
+                <span>Quản lý quản trị viên</span>
             </a>
             <div id="collapseTwo00" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href={{ route('admin.admins.index') }}>Danh sách admin</a>
-                    <a class="collapse-item" href={{ route('admin.admins.create') }}>Thêm mới admin</a>
+                    <a class="collapse-item" href={{ route('admin.admins.index') }}>Danh sách quản trị viên</a>
+                    <a class="collapse-item" href={{ route('admin.admins.create') }}>Thêm mới quản trị viên</a>
                 </div>
             </div>
         </li>

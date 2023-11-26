@@ -43,7 +43,17 @@ Tài khoản
                         <td>{{ $value->email }}</td>
                         <td>{{ $value->phone }}</td>
                         <td>{{ $value->address }}</td>
-                        <td>{{ $value->role }}</td>
+                        <td>
+                            @if($value->role === 'admin')
+                                Quản trị viên
+                            @elseif($value->role === 'employ')
+                                Nhân viên
+                            @elseif($value->role === 'user')
+                                Người dùng
+                            @else
+                                Không xác định
+                            @endif
+                        </td>
                         <td>{{ $value->store_id ? $value->store->name : '' }}</td>
                         <td style="gap: 0.5rem;" class="d-flex align-items-center">
                             <a class="btn btn-primary" href="{{ route('admin.users.edit', $value->id) }}"><i

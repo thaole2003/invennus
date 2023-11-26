@@ -102,6 +102,10 @@ class UserController extends Controller
             'store_id' => ['nullable', new EmployeeStoreRule],
         ]);
         try {
+            if($id==1){
+                toastr()->error('Bạn không thể cập nhật quản trị viên cấp cao nhất!', 'Thao tác thất bại');
+                return to_route('admin.users.index');
+            }
             $model = User::findOrFail($id);
             $model->fill($request->all());
             $model->fill($request->all());
@@ -138,8 +142,8 @@ class UserController extends Controller
     {
         //
         try {
-            if($user->id===1){
-                toastr()->error('Bạn không thể xóa quản trị viên này!', 'Thao tác thất bại');
+            if($user->id === 1){
+                toastr()->error('Bạn không thể xóa quản trị viên cấp cao nhất!', 'Thao tác thất bại');
                 return redirect()->back();
             }
             $user->delete();
