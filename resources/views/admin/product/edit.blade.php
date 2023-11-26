@@ -5,7 +5,7 @@ Sản phẩm
 @section('content')
     <h1 class="d-flex justify-content-center align-items-center" style="height: 80px">
         Sửa sản phẩm</h1>
-    <div class="d-flex">
+    <div class="d-grid">
         <form class="col-md-10" action="{{ route('admin.product.update', $data->id) }}" method="post"
             enctype="multipart/form-data">
             @csrf
@@ -98,8 +98,8 @@ Sản phẩm
 
 
 
-        <div>
-            <h2>ảnh sản phẩm</h2>
+        <div class="col-md-8">
+            <h2>Ảnh sản phẩm</h2>
             <div class="d-flex col-md-2">
                 @if ($data->images->count() > 0)
                     @foreach ($data->images as $key => $value)

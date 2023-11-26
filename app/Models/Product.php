@@ -20,6 +20,10 @@ class Product extends Model
         'width',
         'weight',
     ];
+    public function getTotalQuantityStock()
+    {
+        return $this->variants()->sum('total_quantity_stock');
+    }
     public function variants()
     {
         return $this->hasMany(ProductVariant::class);

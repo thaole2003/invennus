@@ -102,7 +102,6 @@
         </div>
     </section>
     <!-- End Category Boxes Area -->
-
     <!-- Start All Products Area -->
     <section class="all-products-area pb-60">
         <div class="container">
@@ -128,7 +127,8 @@
                                 <img src="" class="" alt="">
                                 <div class="all-products-slides-two owl-carousel owl-theme">
                                     @foreach ($products as $product)
-                                        <div class="single-product-box">
+                                        <div class="single-product-box" style="position: relative">
+                                            <span class="sold-out-btn" style="padding: 10px 20px;font-size: 16px;font-weight: bold;background-color:red;position: absolute;top:10px;z-index:5;left:5px;color:white;border-radius:10px;display:{{ $product->getTotalQuantityStock() === 0 ? 'block' : 'none'  }}">Tạm hết hàng</span>
                                             <div class="product-image">
 
                                                 <a href="#">
@@ -216,7 +216,8 @@
                                 <img src="" class="" alt="">
                                 <div class="all-products-slides-two owl-carousel owl-theme">
                                     @foreach ($product_sale as $product)
-                                        <div class="single-product-box">
+                                    <div class="single-product-box" style="position: relative">
+                                        <span class="sold-out-btn" style="padding: 10px 20px;font-size: 16px;font-weight: bold;background-color:red;position: absolute;top:10px;z-index:5;left:5px;color:white;border-radius:10px;display:{{ $product->getTotalQuantityStock() === 0 ? 'block' : 'none'  }}">Tạm hết hàng</span>
                                             <div class="product-image">
 
                                                 <a href="#">
@@ -230,9 +231,41 @@
                                                             title="Quick View" data-bs-toggle="modal"
                                                             data-bs-target="#productQuickView{{ $product->id }}"><i
                                                                 class="far fa-eye"></i></a></li>
-                                                    <li><a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
-                                                            data-tooltip="tooltip" data-placement="left"
-                                                            title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                                <?php
+                                                                $user_id = null;
+                                                                $wishlistcheck = null;
+
+                                                                if (Auth::check()) {
+                                                                    $user_id = auth()->user()->id;
+                                                                    $wishlistcheck = \App\Models\wishlist::where('user_id', $user_id)
+                                                                        ->where('product_id', $product->id)
+                                                                        ->first();
+                                                                }
+                                                                ?>
+
+                                                                @if ($wishlistcheck)
+                                                                <form id="removeFromWishlistForm{{ $product->id }}"
+                                                                    action="{{ route('wishlist.del-to-wishlist', $wishlistcheck->id) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    @method('delete')
+                                                                    <li><a id="removeFromWishlist{{ $product->id }}" data-tooltip="tooltip"
+                                                                            data-placement="left" title="Remove from Wishlist"><i class="fas fa-heart"></i></a></li>
+                                                                </form>
+
+                                                                <script>
+                                                                    document.getElementById('removeFromWishlist{{ $product->id }}').addEventListener('click', function(event) {
+                                                                        event.preventDefault();
+                                                                        document.getElementById('removeFromWishlistForm{{ $product->id }}').submit();
+                                                                    });
+                                                                </script>
+
+                                                                @else
+                                                                    <li><a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
+                                                                            data-tooltip="tooltip" data-placement="left"
+                                                                            title="Add to Wishlist"><i class="far fa-heart"></i></a>
+                                                                    </li>
+                                                                @endif
                                                 </ul>
                                             </div>
                                             <div class="product-content">
@@ -299,7 +332,8 @@
                                 <img src="" class="" alt="">
                                 <div class="d-flex flex-wrap ">
                                     @foreach ($productall as $product)
-                                        <div class="single-product-box p-2 col-lg-3">
+                                    <div class="single-product-box p-2 col-lg-3" style="position: relative">
+                                        <span class="sold-out-btn" style="padding: 10px 20px ;font-size: 16px;font-weight: bold;background-color:red;position: absolute;top:20px;z-index:5;left:15px;color:white;border-radius:10px;display:{{ $product->getTotalQuantityStock() === 0 ? 'block' : 'none'  }}">Tạm hết hàng</span>
                                             <div class="product-image">
 
                                                 <a href="#">

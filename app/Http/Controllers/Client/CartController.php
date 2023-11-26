@@ -103,16 +103,35 @@ class CartController extends Controller
     }
     public function checkout()
     {
+        $flag = true;
         $countCart = Cart::where('user_id', auth()->user()->id)->sum('quantity');
         if ($countCart == 0) {
         toastr()->error('Giỏ hàng của bạn đang trống. Vui lòng thêm sản phẩm vào giỏ hàng trước khi tạo đơn hàng.', 'Không thành công');
         return back();
-    }
+        }
         $carts = Cart::with('ProductVariant')
-            ->where('user_id', auth()->user()->id) // Thêm điều kiện user_id
+            ->where('user_id', auth()->user()->id)
             ->latest()
             ->get();
-        return view('client.carts.checkout', compact('carts'));
+            foreach($carts as $key => $value) {
+                if($value->quantity > $value->ProductVariant->total_quantity_stock){
+                    $model = Cart::findOrFail($value->id);
+                    if($value->ProductVariant->total_quantity_stock === 0){
+                        $model = Cart::destroy($value->id);
+                    }else{
+                        $model->quantity = $value->ProductVariant->total_quantity_stock;
+                        $model->save();
+                    }
+
+                    $flag=false;
+                }
+            }
+            if($flag){
+                return view('client.carts.checkout', compact('carts'));
+            }else{
+                toastr()->error('Số lượng không đủ để tạo đơn hàng','Thử lại sau');
+                return back();
+            }
     }
-    
+
 }

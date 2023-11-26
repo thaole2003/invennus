@@ -7,7 +7,7 @@
             <div class="container">
                 <ul>
                     <li><a href="#">Home</a></li>
-                    <li>Contact Us</li>
+                    <li>Liên hệ</li>
                 </ul>
             </div>
         </div>
@@ -24,7 +24,7 @@
                     <div class="col-lg-5 col-md-12">
                         <div class="contact-info">
                             <h3>Về chúng tôi</h3>
-                            <p>Have a question? You may find an answer in our FAQs. But you can also contact us.</p>
+                            <p></p>
 
                             <ul class="contact-list">
                                 <li><i class="fas fa-map-marker-alt"></i> Địa chỉ: Nguyễn Trãi, Thanh Xuân, Hà Nội</li>

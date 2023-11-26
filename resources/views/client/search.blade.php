@@ -23,7 +23,8 @@
                         <div class="col-lg-3 col-md-12">
 
                                     {{-- <div class="all-products-slides-two owl-carousel owl-theme"> --}}
-                                        <div class="single-product-box">
+                                        <div class="single-product-box" style="position: relative">
+                                            <span class="sold-out-btn" style="padding: 10px 20px;font-size: 16px;font-weight: bold;background-color:red;position: absolute;top:10px;z-index:5;left:5px;color:white;border-radius:10px;display:{{ $product->getTotalQuantityStock() === 0 ? 'block' : 'none'  }}">Tạm hết hàng</span>
                                             <div class="product-image">
 
                                                 <a href="#">

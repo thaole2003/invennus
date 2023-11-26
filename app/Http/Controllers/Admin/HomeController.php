@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Ads;
 use App\Models\Bill;
 use App\Models\BillDetails;
 use App\Models\Post;
 use App\Models\Product;
+use App\Models\Store;
 use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
@@ -19,7 +21,9 @@ class HomeController extends Controller
         $product = Product::query()->count();
         $post = Post::query()->count();
         $user = User::query()->count();
+        $store = Store::query()->count();
         $vender = Vendor::query()->count();
+        $ads = Ads::query()->count();
         $last7DaysData = Bill::select(DB::raw('DATE(created_at) as date'))
             ->selectRaw('SUM(total_price) as revenue, COUNT(*) as totalBills')
             ->whereDate('created_at', '>=', now()->subDays(7)) // Lấy dữ liệu trong 7 ngày gần nhất
@@ -58,6 +62,6 @@ class HomeController extends Controller
             ->get();
         // dd($add);
         $fixedColors = ['#4e73df', '#1cc88a', '#36b9cc', '#d9534f', '#5bc0de', '#f0ad4e', '#5cb85c'];
-        return view('admin.layouts.components.main', compact('product', 'post', 'user', 'vender', 'last7DaysData', 'top7Products', 'fixedColors'));
+        return view('admin.layouts.components.main', compact('product', 'post', 'user', 'vender', 'last7DaysData', 'top7Products', 'fixedColors', 'store', 'ads'));
     }
 }

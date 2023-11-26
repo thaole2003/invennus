@@ -37,12 +37,12 @@ Kích cỡ
                         <td style="gap: 0.5rem;" class="d-flex align-items-center">
                             <a class="btn btn-primary" href="{{ route('admin.size.edit', $value->id) }}"><i
                                     class="fas fa-edit"></i></a>
-                            <form action="{{ route('admin.size.destroy', $value->id) }}" method="POST">
+                            {{-- <form action="{{ route('admin.size.destroy', $value->id) }}" method="POST">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" onclick="return confirm('chắc chắn xóa?')" class="btn btn-danger"
                                     class="btn btn-danger"><i class="fas fa-trash-alt"></i> </button>
-                            </form>
+                            </form> --}}
                         </td>
                     </tr>
                 @endforeach

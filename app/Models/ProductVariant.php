@@ -18,7 +18,10 @@ class ProductVariant extends Model
         'price',
         'total_quantity_stock'
     ];
-
+    public function getTotalQuantityStock()
+    {
+        return $this->sum('total_quantity_stock');
+    }
     public function product()
     {
         return $this->belongsTo(Product::class);
