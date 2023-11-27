@@ -49,13 +49,17 @@
         const selectedSuggestionsTable = document.querySelector("#selectedSuggestions table tbody");
 
         // Một danh sách ví dụ cho gợi ý
-        const suggestionList = {!! json_encode($productVariants) !!};
+        const suggestionList = {!! json_encode($productVariants) !!}.map(item => ({ ...item, isSelected: false }));
         const selectedSuggestions = [];
 
         const updateSuggestionsDisplay = () => {
             suggestions.innerHTML = "";
 
-            suggestionList.forEach((suggestion) => {
+                const searchText = searchInput.value.toLowerCase();
+                const filteredSuggestions = suggestionList.filter((item) =>
+                    item.sku.toLowerCase().includes(searchText) && !item.isSelected
+                );
+                filteredSuggestions.forEach((suggestion) => {
                 const suggestionItem = document.createElement("div");
                 suggestionItem.classList.add("suggestion-item","d-flex","p-2", "m-2");
 
@@ -86,8 +90,9 @@
                 suggestionItem.appendChild(suggestionInfo);
                 suggestions.appendChild(suggestionItem);
 
-                suggestionCheckbox.addEventListener("change", function() {
+                suggestionCheckbox.addEventListener("change", function () {
                     if (suggestionCheckbox.checked) {
+                        suggestion.isSelected = true;
                         selectedSuggestions.push(suggestion);
                         suggestionItem.remove();
                         if (suggestions.children.length === 0) {
@@ -100,7 +105,11 @@
                 });
             });
 
-            suggestions.style.display = "block";
+            if (filteredSuggestions.length > 0) {
+                suggestions.style.display = "block";
+            } else {
+                suggestions.style.display = "none";
+            }
         };
 
         // Xử lý sự kiện nhập vào trường tìm kiếm
