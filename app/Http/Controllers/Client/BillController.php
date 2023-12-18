@@ -40,6 +40,12 @@ class BillController extends Controller
        $bill = Bill::findOrFail($id);
        if($bill->status==='pendding'){
         if($request->status=='cancelled'){
+            $bill_details =  BillDetails::where('bill_id', $id)->get();
+             foreach($bill_details as $item => $value){
+                 $vartiant = ProductVariant::findOrFail($value->product_variant_id);
+                 $vartiant->total_quantity_stock += $value->quantity;
+                 $vartiant->save();
+             }
             $bill->fill($request->all());
             $bill->save();
             toastr()->success('Đã hủy đơn hàng!','Thành công');
@@ -113,6 +119,7 @@ class BillController extends Controller
             $billDetail->product_image = $product_variant->product->image;
             $billDetail->color = $product_variant->color->name;
             $billDetail->size = $product_variant->size->name;
+            $billDetail->product_variant_id = $product_variant->id;
             if ($product_variant->product->sales && $product_variant->product->sales->start_date <= $currentDateTime && $product_variant->product->sales->end_date >= $currentDateTime){
                 $price = $product_variant->price - $product_variant->product->sales->discount;
             }else{

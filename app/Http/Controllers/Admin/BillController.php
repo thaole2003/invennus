@@ -77,7 +77,7 @@ class BillController extends Controller
         $bill->save();
         toastr()->success('Sửa trạng thái thành công đơn hàng', 'Thành công');
         if($bill->status === 'cancelled'){
-           $bill_details =  BillDetails::where('bill_id', $bill->id)->get();
+           $bill_details =  BillDetails::where('bill_id', $request->id)->get();
            if($bill_details){
             foreach($bill_details as $item => $value){
                 $vartiant = ProductVariant::findOrFail($value->product_variant_id);

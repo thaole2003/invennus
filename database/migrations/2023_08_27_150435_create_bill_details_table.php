@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('size');
             $table->integer('quantity');
             $table->double('price');
+            $table->unsignedBigInteger('product_variant_id')->nullable();
             $table->unsignedBigInteger('bill_id')->nullable();
             $table->foreign('bill_id')
             ->references('id')
