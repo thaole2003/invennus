@@ -34,7 +34,7 @@
                     <tr>
                         <td scope="">{{ $key + 1 }}</td>
                         <td>{{ $value->title }}</td>
-                        <td>{!! substr($value->description, 0, 20) !!}</td>
+                        <td>{!! mb_strimwidth($value->description, 0, 20, '...') !!}</td>
                         <td><img style="width:150px;height:80px" src="{{ asset($value->image) }}" alt="" width="300px"
                                 height="150px"></td>
                         <td>{!! $value->active == 1

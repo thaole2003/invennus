@@ -26,9 +26,9 @@
                     <tr>
                         <td scope="">{{ $key + 1 }}</td>
                         <td>{{ $value['product']->sku }}</td>
-                        <td>{!! substr($value['product']->title, 0, 20) !!}</td>
-                        <td>{!! substr($value['product']->metatitle, 0, 20) !!}</td>
-                        <td>{!! substr($value['product']->description, 0, 20) !!}</td>
+                        <td>{!! mb_strimwidth($value['product']->title, 0, 20, '...') !!}</td>
+                        <td>{!! mb_strimwidth($value['product']->metatitle, 0, 20, '...') !!}</td>
+                        <td>{!! mb_strimwidth($value['product']->description, 0, 20, '...') !!}</td>
                         <td><img style="width:80px;height:80px" src="{{ asset($value['product']->image) }}" alt=""></td>
                         <td  style="gap: 0.5rem;" class="d-flex align-items-center">
                             <a class="btn btn-primary" href="{{ route('admin.showStoreVariant', [$id, $value['product']->id]) }}">

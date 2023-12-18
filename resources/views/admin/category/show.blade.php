@@ -39,7 +39,7 @@ Danh mục
                             <td>{{ $value->sku }}</td>
                             <td>{{ $value->title }}</td>
                             <td>{{ $value->metatitle }}</td>
-                            <td>{!! substr($value->description, 0, 20) !!}</td>
+                            <td>{!! mb_strimwidth($value->description, 0, 20, '...') !!}</td>
                             <td><img  style="width: 80px;height: 80px" src="{{ asset($value->image) }}" alt=""></td>
                             <td class="d-flex align-items-center" style='gap: 0.5rem;'>
                                 <a  class="btn btn-primary" href="{{ route('admin.product.edit',$value->id) }}"><i class="fas fa-edit"></i></a>

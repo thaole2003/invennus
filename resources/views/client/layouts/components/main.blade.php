@@ -180,8 +180,9 @@
                                                 </ul>
                                             </div>
                                             <div class="product-content">
-                                                <h3><a
-                                                        href="{{ route('product.detail', $product->id) }}">{!! substr($product->title, 0, 25) !!}</a>
+                                                <h3><a class="abc"
+                                                        href="{{ route('product.detail', $product->id) }}">{!! mb_strimwidth($product->title, 0, 22, '...') !!}
+                                                    </a>
                                                 </h3>
                                                 <div style="height: 50px" class="product-price">
                                                     @if ($product->sales)
@@ -198,7 +199,7 @@
                                                             VND</span>
                                                     @else
                                                         <span style=""
-                                                            class="">{!! substr($product->metatitle, 0, 25) !!}</span><br>
+                                                            class="">{!! mb_strimwidth($product->metatitle, 0, 25, '...') !!}</span><br>
                                                         <span
                                                             style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;"
                                                             class="new-price">{{ number_format($product->price) }}
@@ -382,7 +383,7 @@
                                             </div>
                                             <div class="product-content">
                                                 <h3><a
-                                                        href="{{ route('product.detail', $product->id) }}">{!! substr($product->title, 0, 25) !!}</a>
+                                                        href="{{ route('product.detail', $product->id) }}">{!! mb_strimwidth($product->title, 0, 25, '...') !!}</a>
                                                 </h3>
                                                 <div style="height: 50px" class="product-price">
                                                     @if ($product->sales)
@@ -399,7 +400,7 @@
                                                             VND</span>
                                                     @else
                                                         <span style=""
-                                                            class="">{!! substr($product->metatitle, 0, 25) !!}</span><br>
+                                                            class="">{!! mb_strimwidth($product->metatitle, 0, 25, '...') !!}</span><br>
                                                         <span
                                                             style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;"
                                                             class="new-price">{{ number_format($product->price) }}
