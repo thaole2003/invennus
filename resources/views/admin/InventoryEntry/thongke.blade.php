@@ -48,10 +48,10 @@
 
     <script>
         var revenueData = {!! json_encode($revenueData) !!};
-        var months_years = {!! isset($months_years) ? json_encode($months_years) : '[]' !!};
+        var manger = {!! isset($manger) ? json_encode($manger) : '[]' !!};
 
-        if (months_years.length > 0) {
-            var data = months_years.map(function(month_year) {
+        if (manger.length > 0) {
+            var data = manger.map(function(month_year) {
                 var monthData = revenueData.find(function(item) {
                     // Lấy phần tháng và năm từ chuỗi ngày
                     var itemMonthYear = item.date.substring(5, 7) + '-' + item.date.substring(0, 4);
@@ -84,4 +84,5 @@
             console.error('Không có dữ liệu để hiển thị.');
         }
     </script>
+    {{
 @endpush
