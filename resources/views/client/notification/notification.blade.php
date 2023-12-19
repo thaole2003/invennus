@@ -37,7 +37,6 @@
 <body>
     <div class="email-container">
         <img class="logo" src="{{ asset('img/logo.jpg') }}" alt="Logo">
-        <h1 class="greeting">Xác nhận đơn hàng</h1>
         <h2>
             {{ $content['title'] }}
         </h2>

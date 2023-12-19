@@ -17,6 +17,7 @@ use App\Models\StoreVariant;
 use App\Models\User;
 use App\Models\wishlist;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use stdClass;
 use Carbon\Carbon;
 
@@ -233,6 +234,18 @@ class HomeController extends Controller
     }
     public function contactForm(Request $request)
     {
+        $messages = [
+            'phone_number.required' => 'Số điện thoại là trường bắt buộc.',
+            'phone_number.regex' => 'Số điện thoại không hợp lệ. Vui lòng nhập số điện thoại có 9 hoặc 10 chữ số.',
+        ];
+
+        $request->validate([
+            'phone_number' => [
+                'required',
+                'regex:/^[0-9]{9,10}$/',
+            ],
+        ], $messages);
+
         $user = User::where('role', 'admin')->first();
         $content = [
             'title' => 'Liên hệ làm việc',

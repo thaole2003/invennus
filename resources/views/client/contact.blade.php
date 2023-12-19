@@ -87,8 +87,17 @@
                                             <label>Số điện thoại <span class="text-danger fs-5">*</span></label>
                                             <input required type="tel" name="phone_number" id="phone_number" class="form-control"
                                                 placeholder="Nhập số điện thoại">
+                                                @error('phone_number')
+                                                <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
+                                    {{-- <input type="file" class="form-control" name="image" accept="image/*" id="image-input"
+                                    placeholder="Nhập tiêu đề" value="{{ old('image') }}">
+                            </div>
+                                @error('image')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror --}}
 
                                     <div class="col-lg-12 col-md-12">
                                         <div class="form-group">
