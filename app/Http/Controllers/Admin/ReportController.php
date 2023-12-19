@@ -57,15 +57,111 @@ class ReportController extends Controller
         return view('admin.InventoryEntry.thongke', compact('revenueData', 'months_years'));
     }
 
+    // public function filterRevenue(Request $request)
+    // {
+    //     $date_start = $request->input('date_start');
+    //     $date_end = $request->input('date_end');
+    //     $start_date = null;
+    //     $end_date = null;
+
+    //     $query = Bill::select(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d") as date'), DB::raw('SUM(total_price) as revenue'));
+
+    //     if ($date_start !== null && $date_end !== null) {
+    //         $query->whereBetween(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'), [$date_start, $date_end]);
+    //         $start_date = Carbon::createFromFormat('Y-m-d', $date_start);
+    //     } else {
+    //         // If date_start and date_end are null, show revenue for the last 12 months
+    //         $end_date = now();
+    //         $start_date = $end_date->copy()->subMonths(11);
+
+    //         $query->whereBetween(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'), [$start_date, $end_date]);
+    //     }
+
+    //     $revenueData = $query
+    //         ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
+    //         ->orderBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
+    //         ->get();
+
+    //     $months_years = [];
+
+    //     $current_date = $start_date->copy(); // Start from the calculated start date
+
+    //     while ($current_date <= $end_date) {
+    //         $months_years[] = [
+    //             'month' => $current_date->format('m'),
+    //             'year' => $current_date->format('Y'),
+    //         ];
+
+    //         $current_date->modify('+1 month');
+    //     }
+    //     dd($months_years);
+    //     return view('admin.InventoryEntry.thongke', compact('revenueData', 'months_years'));
+    // }
+    // public function filterRevenue(Request $request)
+    // {
+    //     $date_start = $request->input('date_start');
+    //     $date_end = $request->input('date_end');
+    //     $start_date = null;
+    //     $end_date = null;
+
+    //     $query = Bill::select(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d") as date'), DB::raw('SUM(total_price) as revenue'));
+
+    //     if ($date_start !== null && $date_end !== null) {
+    //         $query->whereBetween(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'), [$date_start, $date_end]);
+    //         $start_date = Carbon::createFromFormat('Y-m-d', $date_start);
+    //         $end_date = Carbon::createFromFormat('Y-m-d', $date_end);
+    //     } else {
+    //         // If date_start and date_end are null, show revenue for the last 12 months
+    //         $end_date = now();
+    //         $start_date = $end_date->copy()->subMonths(11);
+
+    //         $query->whereBetween(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'), [$start_date, $end_date]);
+    //     }
+
+    //     $revenueData = $query
+    //         ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
+    //         ->orderBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
+    //         ->get();
+
+    //     $months_years = [];
+
+    //     if ($date_start === null || $date_end === null) {
+    //         // If date_start or date_end is null, use the while loop
+    //         $current_date = $start_date->copy(); // Start from the calculated start date
+
+    //         while ($current_date <= ($end_date ?: now())) {
+    //             $months_years[] = [
+    //                 'month' => $current_date->format('m'),
+    //                 'year' => $current_date->format('Y'),
+    //             ];
+
+    //             $current_date->modify('+1 month');
+    //         }
+    //     } else {
+    //         // If date_start and date_end are specified, create a single entry for that range
+    //         $months_years[] = [
+    //             'month' => $start_date->format('m'),
+    //             'year' => $start_date->format('Y'),
+    //         ];
+    //     }
+
+    //     dd($months_years);
+    //     return view('admin.InventoryEntry.thongke', compact('revenueData', 'months_years'));
+    // }
+
     public function filterRevenue(Request $request)
     {
         $date_start = $request->input('date_start');
         $date_end = $request->input('date_end');
+        $start_date = null;
+        $end_date = null;
 
         $query = Bill::select(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d") as date'), DB::raw('SUM(total_price) as revenue'));
 
         if ($date_start !== null && $date_end !== null) {
             $query->whereBetween(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'), [$date_start, $date_end]);
+            $start_date = Carbon::createFromFormat('Y-m-d', $date_start);
+            $end_date = Carbon::createFromFormat('Y-m-d', $date_end);
         } else {
             // If date_start and date_end are null, show revenue for the last 12 months
             $end_date = now();
@@ -79,20 +175,34 @@ class ReportController extends Controller
             ->orderBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'))
             ->get();
 
-        $months_years = [];
+        $manger = [];
 
-        $current_date = $start_date->copy(); // Start from the calculated start date
+        if ($date_start !== null && $date_end !== null) {
+            // If date_start and date_end are specified, calculate the difference in months
+            $months_difference = $start_date->diffInMonths($end_date);
 
-        while ($current_date <= $end_date) {
-            $months_years[] = [
-                'month' => $current_date->format('m'),
-                'year' => $current_date->format('Y'),
-            ];
+            for ($i = 0; $i <= $months_difference; $i++) {
+                $manger[] = [
+                    'month' => $start_date->copy()->addMonths($i)->format('m'),
+                    'year' => $start_date->copy()->addMonths($i)->format('Y'),
+                ];
+            }
+        } else {
+            // If date_start or date_end is null, use the while loop
+            $current_date = $start_date->copy(); // Start from the calculated start date
 
-            $current_date->modify('+1 month');
+            while ($current_date <= $end_date) {
+                $manger[] = [
+                    'month' => $current_date->format('m'),
+                    'year' => $current_date->format('Y'),
+                ];
+
+                $current_date->modify('+1 month');
+            }
         }
 
-        return view('admin.InventoryEntry.thongke', compact('revenueData', 'months_years'));
+        // dd($manger);
+        return view('admin.InventoryEntry.thongke', compact('revenueData', 'manger'));
     }
 
     public function reportProduct()
