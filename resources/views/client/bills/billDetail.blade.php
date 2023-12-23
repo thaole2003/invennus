@@ -75,7 +75,7 @@
                                             @endif
                                             <td class="" style="width: 11%">
                                                 <a class="btn btn-primary" href="{{ route('bill.product', $value->id) }}"
-                                                    class="remove border-0 bg-light">Xem chi tiết</a>
+                                                    class="remove border-0 bg-light">Chi tiết</a>
                                             </td>
                                             @if ($value->status == 'pendding')
                                             <td class="" style="width: 5%">

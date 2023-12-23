@@ -142,7 +142,7 @@ class UserController extends Controller
     {
         //
         try {
-            if($user->id === 1){
+            if($user->id === 12){
                 toastr()->error('Bạn không thể xóa quản trị viên cấp cao nhất!', 'Thao tác thất bại');
                 return redirect()->back();
             }
