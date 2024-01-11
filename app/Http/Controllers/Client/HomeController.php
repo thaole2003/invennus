@@ -8,6 +8,7 @@ use App\Models\Ads;
 use App\Models\Banner;
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Feedback;
 use App\Models\Image;
 use App\Models\Post;
 use App\Models\Product;
@@ -94,8 +95,9 @@ class HomeController extends Controller
         }
 
         $posts = Post::query()->paginate(3);
+        $feedbacks = Feedback::query()->paginate(6);
 
-        return view('client.layouts.components.main', compact('category', 'products', 'banners', 'product_sale', 'productall', 'carts', 'wishlists', 'colorIds', 'sizeIds', 'posts'));
+        return view('client.layouts.components.main', compact('category', 'products', 'banners', 'product_sale', 'productall', 'carts', 'wishlists', 'colorIds', 'sizeIds', 'posts', 'feedbacks'));
     }
 
     public function product(string $id)

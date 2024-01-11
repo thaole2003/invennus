@@ -21,10 +21,6 @@
     <section class="all-products-area pb-60 pt-60">
         <div class="container">
             <div class="tab products-category-tab">
-                <div class="section-title">
-                    <h2>Sản phẩm nổi bật</h2>
-                </div>
-
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
                         <ul class="tabs without-bg">
@@ -34,6 +30,9 @@
                             <li><a href="#">
                                     <span class="dot"></span>Sản phẩm giảm sâu
                                 </a></li>
+                            <li><a href="#">
+                                <span class="dot"></span>Tất cả sản phẩm
+                            </a></li>
                         </ul>
                     </div>
                     <div class="col-lg-12 col-md-12">
@@ -226,6 +225,99 @@
                                     @endforeach
                                 </div>
                             </div>
+                            <div class="tabs_item">
+                                <img src="" class="" alt="">
+                                <div class="all-products-slides-two owl-carousel owl-theme">
+                                    @foreach ($productall as $product)
+                                        <div class="single-product-box" style="position: relative">
+                                            <span class="sold-out-btn"
+                                                  style="padding: 10px 20px;font-size: 16px;font-weight: bold;background-color:red;position: absolute;top:10px;z-index:5;left:5px;color:white;border-radius:10px;display:{{ $product->getTotalQuantityStock() === 0 ? 'block' : 'none'  }}">Tạm hết hàng</span>
+                                            <div class="product-image">
+
+                                                <a href="#">
+                                                    <img src="{{ $product->image }}" alt="image">
+                                                    <img src="{{ isset($product->images[0]->image) ? $product->images[0]->image : asset('img/logo.jpg') }}"
+                                                         alt="image">
+                                                </a>
+
+                                                <ul>
+                                                    <li><a href="#" data-tooltip="tooltip" data-placement="left"
+                                                           title="Quick View" data-bs-toggle="modal"
+                                                           data-bs-target="#productQuickView{{ $product->id }}"><i
+                                                                    class="far fa-eye"></i></a></li>
+                                                        <?php
+                                                        $user_id = null;
+                                                        $wishlistcheck = null;
+
+                                                        if (Auth::check()) {
+                                                            $user_id = auth()->user()->id;
+                                                            $wishlistcheck = \App\Models\wishlist::where('user_id', $user_id)
+                                                                ->where('product_id', $product->id)
+                                                                ->first();
+                                                        }
+                                                        ?>
+
+                                                    @if ($wishlistcheck)
+                                                        <form id="removeFromWishlistForm{{ $product->id }}"
+                                                              action="{{ route('wishlist.del-to-wishlist', $wishlistcheck->id) }}"
+                                                              method="post">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <li><a id="removeFromWishlist{{ $product->id }}"
+                                                                   data-tooltip="tooltip"
+                                                                   data-placement="left" title="Remove from Wishlist"><i
+                                                                            class="fas fa-heart"></i></a></li>
+                                                        </form>
+
+                                                        <script>
+                                                            document.getElementById('removeFromWishlist{{ $product->id }}').addEventListener('click', function (event) {
+                                                                event.preventDefault();
+                                                                document.getElementById('removeFromWishlistForm{{ $product->id }}').submit();
+                                                            });
+                                                        </script>
+
+                                                    @else
+                                                        <li>
+                                                            <a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
+                                                               data-tooltip="tooltip" data-placement="left"
+                                                               title="Add to Wishlist"><i class="far fa-heart"></i></a>
+                                                        </li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                            <div class="product-content">
+                                                <h3><a
+                                                            href="{{ route('product.detail', $product->id) }}">{{ $product->title }}</a>
+                                                </h3>
+                                                <div style="height: 50px" class="product-price">
+                                                    @if ($product->sales)
+                                                        @php
+                                                            $discountedPrice = $product->price - $product->sales->discount;
+                                                            $discountedPrice = max($discountedPrice, 0);
+                                                        @endphp
+                                                        <span style="text-decoration: line-through; "
+                                                              class="old-price">{{ number_format($product->price) }}
+                                                            VND</span><br>
+                                                        <span
+                                                                style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;"
+                                                                class="new-price">{{ number_format($discountedPrice) }}
+                                                            VND</span>
+                                                    @else
+                                                        <span style=""
+                                                              class="">{{ $product->metatitle }}</span><br>
+                                                        <span
+                                                                style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;"
+                                                                class="new-price">{{ number_format($product->price) }}
+                                                            VND</span>
+                                                    @endif
+                                                </div>
+                                                <a href="{{ route('product.detail', $product->id) }}"
+                                                   class="btn btn-light">Xem chi tiết</a>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -236,7 +328,7 @@
 
     {{-- Category --}}
     <section class="all-products-area pb-60">
-        <div class="container-fluid">
+        <div class="container">
             <div class="tab products-category-tab">
                 <div class="section-title">
                     <h2>Danh mục</h2>
@@ -249,8 +341,8 @@
                                 <div class="all-products-slides-two owl-carousel owl-theme">
                                     @if (count($category) > 0)
                                         @foreach ($category as $item)
-                                            <div style="position: relative" class="single-category-boxes w-100">
-                                                <img class="" style="width:100%;height:350px"
+                                            <div style="position: relative" class="single-category-boxes" >
+                                                <img class="" style="width:301.5px;height:301.5px"
                                                      src="{{ $item->image ? asset($item->image) : asset('fe/assets/img/category-products-img5.jpg') }}"
                                                      alt="image">
                                                 <h3 class="cate-name" style="color: black">{{ $item->name }}<br>
@@ -285,17 +377,17 @@
     {{-- EndCategory--}}
 
     {{--    Chính sách--}}
-    <section class="facility-area black-bg" style="background-color: gray">
+    <section class="facility-area black-bg" style="background-color: #f5f5f5;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="facility-box">
+                    <div class="facility-box" style="">
                         <div class="icon">
                             <i class="fas fa-money-bill-wave"></i>
                         </div>
                         <div class="text-content-facility">
-                            <h3>Thanh toán khi nhận hàng (COD)</h3>
-                            <p class="text-white">Giao hàng toàn quốc.</p>
+                            <h3 style="color:#0b0b0b">Thanh toán khi nhận hàng (COD)</h3>
+                            <p style="color:#0b0b0b">Giao hàng toàn quốc.</p>
                         </div>
 
                     </div>
@@ -307,8 +399,8 @@
                             <i class="fas fa-exchange-alt"></i>
                         </div>
                         <div class="text-content-facility">
-                            <h3>Đổi hàng miễn phí</h3>
-                            <p class="text-white">Trong 30 ngày kể từ ngày mua.</p>
+                            <h3 style="color:#0b0b0b">Đổi hàng miễn phí</h3>
+                            <p style="color:#0b0b0b">Trong 30 ngày kể từ ngày mua.</p>
                         </div>
                     </div>
                 </div>
@@ -317,9 +409,9 @@
                         <div class="icon">
                             <i class="fas fa-shipping-fast"></i>
                         </div>
-                        <div class="text-content-facility">
-                            <h3>Miễn phí giao hàng</h3>
-                            <p class="text-white">Với đơn hàng trên 599.000đ..</p>
+                        <div class="text-content-facility" style="color:#0b0b0b">
+                            <h3 style="color:#0b0b0b">Miễn phí giao hàng</h3>
+                            <p style="color:#0b0b0b">Với đơn hàng trên 599.000đ..</p>
                         </div>
 
                     </div>
@@ -330,9 +422,9 @@
                         <div class="icon">
                             <i class="fas fa-headset"></i>
                         </div>
-                        <div class="text-content-facility">
-                            <h3>Hỗ trợ 24/7</h3>
-                            <p class="text-white">Hotline: 0332132912.</p>
+                        <div class="text-content-facility" style="color:#0b0b0b">
+                            <h3 style="color:#0b0b0b">Hỗ trợ 24/7</h3>
+                            <p style="color:#0b0b0b">Hotline: 0332132912.</p>
                         </div>
 
                     </div>
@@ -343,7 +435,7 @@
     <!-- End Chính sách -->
 
     <!-- Start All Products Area -->
-    <section class="all-products-area pb-60 pt-60">
+    {{-- <section class="all-products-area pb-60 pt-60">
         <div class="container">
             <div class="tab products-category-tab">
                 <div class="section-title">
@@ -454,10 +546,33 @@
                     </div>
                 </div>
             </div>
-    </section>
+    </section> --}}
     <!-- End all Products Area -->
 
     <!-- Start News Area -->
+    <section class="news-area ptb-60">
+        <div class="container">
+            <div class="section-title">
+                <h2>Feedback</h2>
+            </div>
+
+            <div class="row">
+                <div class="news-slides owl-carousel owl-theme">
+                    @foreach ($feedbacks as $feedback)
+                        <div class="col-lg-12 col-md-12">
+                            <div class="single-news-post">
+                                <div class="news-image" style="">
+                                    <a href="{{ route('product.detail', $feedback->product_id) }}"><img style="height:340px" src="{{ asset($feedback->image) }}"
+                                                     alt="image"></a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    {{-- {{ $posts->links() }} --}}
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="news-area ptb-60">
         <div class="container">
             <div class="section-title">
@@ -489,6 +604,9 @@
             </div>
         </div>
     </section>
+    <!-- End News Area -->
+     <!-- Start News Area -->
+
     <!-- End News Area -->
 
     <!-- Start Partner Area -->
@@ -1146,7 +1264,8 @@
             }
 
             .single-category-boxes {
-                height: 200px !important;
+                height: 160px !important;
+                width: 160px !important;
             }
 
             .cate-name {
@@ -1165,9 +1284,13 @@
             .mean-container .mean-nav .navbar-nav {
                 height: 220px;
             }
-            .facility-box{
+            .facility-box {
                 display: flex;
                 align-items: center;
+            }
+
+            .facility-box > * {
+                padding-right: 5px;
             }
             .text-content-facility{
                 text-align: start;
