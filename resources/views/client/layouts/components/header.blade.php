@@ -1,44 +1,10 @@
 <header class="header-area">
-    <!-- Start Top Header Area -->
-    {{-- <div class="top-header">
-        <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="col-lg-7 col-md-6">
-                    <ul class="top-header-nav">
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="about.html">Our Stores</a></li>
-                        <li><a href="faq.html">FAQ's</a></li>
-                        <li><a href="contact-us.html">Contact</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-5 col-md-6">
-                    <ul class="top-header-right-nav">
-                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#shoppingWishlistModal">Wishlist <i
-                                    class="far fa-heart"></i></a></li>
-                        <li><a href="compare.html">Compare <i class="fas fa-balance-scale"></i></a></li>
-                        <li>
-                            <div class="languages-list">
-                                <select>
-                                    <option value="1">Eng</option>
-                                    <option value="2">Ger</option>
-                                    <option value="3">Span</option>
-                                </select>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-    <!-- End Top Header Area -->
-
     <!-- Start Navbar Area -->
     <div class="navbar-area bg-black">
         <div class="comero-mobile-nav">
-            <div class="logo">
+            <div class="logo rounded-circle">
                 <a href="{{ route('home') }}"><img style="width:35px;height:35px" src="{{ asset('img/logo.jpg') }}"
-                        alt="logo"></a>
+                        alt="logo" class="rounded-circle"></a>
             </div>
         </div>
 
@@ -46,12 +12,15 @@
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-md navbar-light">
                     <a class="navbar-brand" style="width:70px" href="{{ route('home') }}"><img
-                            src="{{ asset('img/logo.jpg') }}" alt="logo"></a>
+                            src="{{ asset('img/logo.jpg') }}" alt="logo"  class="rounded-circle p-1"></a>
 
                     <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                         <ul class="navbar-nav">
                             <li class="nav-item p-relative">
                                 <a href="{{ route('home') }}" class="nav-link active">Trang Chủ</a>
+                            </li>
+                            <li class="nav-item p-relative">
+                                <a href="{{ route('product.home') }}" class="nav-link active">Sản phẩm</a>
                             </li>
 
                             <li class="nav-item p-relative">
