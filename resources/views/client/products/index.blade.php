@@ -9,7 +9,7 @@
             <div class="container">
                 <ul>
                     <li><a href="{{route('home')}}">Home</a></li>
-                    <li>Tìm kiếm</li>
+                    <li>Sản phẩm</li>
                 </ul>
             </div>
         </div>

@@ -39,9 +39,9 @@
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="{{ asset('fe/assets/css/responsive.css') }}">
 
-    <title>Comero - eCommerce HTML Template</title>
+    <title>Trang chủ</title>
 
-    <link rel="icon" type="image/png" href="{{ asset('fe/assets/img/favicon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('img/logo.jpg') }}">
 </head>
 
 <body>

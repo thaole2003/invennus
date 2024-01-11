@@ -70,7 +70,7 @@ class HomeController extends Controller
                 $query->where('start_date', '<=', $currentDateTime)
                     ->where('end_date', '>=', $currentDateTime);
             },
-        ])->latest()->paginate(8);
+        ])->latest()->paginate(12);
         $colorIds = ProductVariant
             ::where('total_quantity_stock', '>', 0)
             ->where('product_id', 1)
@@ -203,7 +203,7 @@ class HomeController extends Controller
         ]);
         $products = $product->get();
         // dd($products);
-        return view('client.search', compact('products'));
+        return view('client.products.index', compact('products'));
     }
 
 

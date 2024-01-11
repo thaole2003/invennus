@@ -806,13 +806,14 @@ Top Header Area CSS
 /*================================================
 Navbar Area CSS
 =================================================*/
-.header-area {
-  position: absolute;
+.header-area1 {
+  position: static !important;
   left: 0;
   top: 0;
   width: 100%;
   height: auto;
   z-index: 999;
+  color: #222222;
 }
 
 .comero-mobile-nav {
@@ -916,7 +917,7 @@ Navbar Area CSS
 }
 
 .navbar-area.bg-black .comero-nav {
-  background-color: rgba(0, 0, 0, 0.36);
+  background-color: black;
 }
 
 .navbar-area.bg-black .comero-nav .navbar .navbar-nav .nav-item a {

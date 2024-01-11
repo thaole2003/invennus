@@ -1,14 +1,11 @@
 @extends('client.layouts.master')
 
 @section('content')
-
-    <!-- Start Facility Area -->
-    <!-- End Navbar Area -->
-
+    {{-- Banner --}}
     <div class="home-slides-two owl-carousel owl-theme">
         @foreach ($banners as $banner)
             <div class="banner-section jarallax" style="background-image: url({{ $banner->image }})"
-                data-jarallax='{"speed": 0.3}'>
+                 data-jarallax='{"speed": 0.3}'>
                 <div class="d-table">
                     <div class="d-table-cell">
                         <div class="container">
@@ -18,92 +15,10 @@
             </div>
         @endforeach
     </div>
-    <section class="facility-area black-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="facility-box">
-                        <div class="icon">
-                            <i class="fas fa-money-bill-wave"></i>
-                        </div>
-                        <h3>Thanh toán khi nhận hàng (COD)</h3>
-                        <p class="text-white">Giao hàng toàn quốc.</p>
-                    </div>
-                </div>
+    {{-- AndBanner --}}
 
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="facility-box">
-                        <div class="icon">
-                            <i class="fas fa-exchange-alt"></i>
-                        </div>
-                        <h3>Đổi hàng miễn phí</h3>
-                        <p class="text-white">Trong 30 ngày kể từ ngày mua.</p>
-
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="facility-box">
-                        <div class="icon">
-                            <i class="fas fa-shipping-fast"></i>
-                        </div>
-                        <h3>Miễn phí giao hàng</h3>
-                        <p class="text-white">Với đơn hàng trên 599.000đ..</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="facility-box">
-                        <div class="icon">
-                            <i class="fas fa-headset"></i>
-                        </div>
-                        <h3>Hỗ trợ 24/7</h3>
-                        <p class="text-white">Hotline: 0332132912.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Facility Area -->
-
-    <!-- Start Category Boxes Area -->
-    <section class="category-boxes-area pt-60">
-        <div class="container-fluid">
-            <div class="row">
-                {{-- đổ dữ liệu category --}}
-                {{-- <table> --}}
-                @if (count($category) > 0)
-                    @foreach ($category as $item)
-
-                        <div class="col-lg-3 col-sm-6 col-md-6">
-                            <div style="position: relative" class="single-category-boxes w-100">
-                                <img class="" style="width:100%;height:350px"
-                                    src="{{ $item->image ? asset($item->image) : asset('fe/assets/img/category-products-img5.jpg') }}"
-                                    alt="image">
-
-
-                                <h3  class="" style="color: black">{{ $item->name }}<span style="color: black "class=""> ( {{ $item->products_count }} Sản
-                                        Phẩm)</span></h3>
-                                <form action="{{ route('search') }}" method="POST" class="">
-                                    @csrf
-                                    @method('post')
-                                    <input type="" hidden name="category_id" value="{{ $item->id }}">
-                                    <button class="shop-now-btn"
-                                        style="border-radius:15px;position: absolute; bottom:10px;right:10px">Xem
-                                        ngay</button>
-                                </form>
-                                <a href="#" class="link-btn"></a>
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
-            {{-- </table> --}}
-                {{ $category->links() }}
-            </div>
-        </div>
-    </section>
-    <!-- End Category Boxes Area -->
-    <!-- Start All Products Area -->
-    <section class="all-products-area pb-60">
+    {{--    Sản phẩm nổi bật--}}
+    <section class="all-products-area pb-60 pt-60">
         <div class="container">
             <div class="tab products-category-tab">
                 <div class="section-title">
@@ -128,60 +43,64 @@
                                 <div class="all-products-slides-two owl-carousel owl-theme">
                                     @foreach ($products as $product)
                                         <div class="single-product-box" style="position: relative">
-                                            <span class="sold-out-btn" style="padding: 10px 20px;font-size: 16px;font-weight: bold;background-color:red;position: absolute;top:10px;z-index:5;left:5px;color:white;border-radius:10px;display:{{ $product->getTotalQuantityStock() === 0 ? 'block' : 'none'  }}">Tạm hết hàng</span>
+                                            <span class="sold-out-btn"
+                                                  style="padding: 10px 20px;font-size: 16px;font-weight: bold;background-color:red;position: absolute;top:10px;z-index:5;left:5px;color:white;border-radius:10px;display:{{ $product->getTotalQuantityStock() === 0 ? 'block' : 'none'  }}">Tạm hết hàng</span>
                                             <div class="product-image">
 
                                                 <a href="#">
                                                     <img src="{{ $product->image }}" alt="image">
                                                     <img src="{{ isset($product->images[0]->image) ? $product->images[0]->image : asset('img/logo.jpg') }}"
-                                                        alt="image">
+                                                         alt="image">
                                                 </a>
 
                                                 <ul>
                                                     <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                            title="Quick View" data-bs-toggle="modal"
-                                                            data-bs-target="#productQuickView{{ $product->id }}"><i
-                                                                class="far fa-eye"></i></a></li>
-                                                    <?php
-                                                    $user_id = null;
-                                                    $wishlistcheck = null;
+                                                           title="Quick View" data-bs-toggle="modal"
+                                                           data-bs-target="#productQuickView{{ $product->id }}"><i
+                                                                    class="far fa-eye"></i></a></li>
+                                                        <?php
+                                                        $user_id = null;
+                                                        $wishlistcheck = null;
 
-                                                    if (Auth::check()) {
-                                                        $user_id = auth()->user()->id;
-                                                        $wishlistcheck = \App\Models\wishlist::where('user_id', $user_id)
-                                                            ->where('product_id', $product->id)
-                                                            ->first();
-                                                    }
-                                                    ?>
+                                                        if (Auth::check()) {
+                                                            $user_id = auth()->user()->id;
+                                                            $wishlistcheck = \App\Models\wishlist::where('user_id', $user_id)
+                                                                ->where('product_id', $product->id)
+                                                                ->first();
+                                                        }
+                                                        ?>
 
                                                     @if ($wishlistcheck)
-                                                    <form id="removeFromWishlistForm{{ $product->id }}"
-                                                        action="{{ route('wishlist.del-to-wishlist', $wishlistcheck->id) }}"
-                                                        method="post">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <li><a id="removeFromWishlist{{ $product->id }}" data-tooltip="tooltip"
-                                                                data-placement="left" title="Remove from Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                    </form>
+                                                        <form id="removeFromWishlistForm{{ $product->id }}"
+                                                              action="{{ route('wishlist.del-to-wishlist', $wishlistcheck->id) }}"
+                                                              method="post">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <li><a id="removeFromWishlist{{ $product->id }}"
+                                                                   data-tooltip="tooltip"
+                                                                   data-placement="left" title="Remove from Wishlist"><i
+                                                                            class="fas fa-heart"></i></a></li>
+                                                        </form>
 
-                                                    <script>
-                                                        document.getElementById('removeFromWishlist{{ $product->id }}').addEventListener('click', function(event) {
-                                                            event.preventDefault();
-                                                            document.getElementById('removeFromWishlistForm{{ $product->id }}').submit();
-                                                        });
-                                                    </script>
+                                                        <script>
+                                                            document.getElementById('removeFromWishlist{{ $product->id }}').addEventListener('click', function (event) {
+                                                                event.preventDefault();
+                                                                document.getElementById('removeFromWishlistForm{{ $product->id }}').submit();
+                                                            });
+                                                        </script>
 
                                                     @else
-                                                        <li><a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
-                                                                data-tooltip="tooltip" data-placement="left"
-                                                                title="Add to Wishlist"><i class="far fa-heart"></i></a>
+                                                        <li>
+                                                            <a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
+                                                               data-tooltip="tooltip" data-placement="left"
+                                                               title="Add to Wishlist"><i class="far fa-heart"></i></a>
                                                         </li>
                                                     @endif
                                                 </ul>
                                             </div>
                                             <div class="product-content">
                                                 <h3><a class="abc"
-                                                        href="{{ route('product.detail', $product->id) }}">{!! mb_strimwidth($product->title, 0, 22, '...') !!}
+                                                       href="{{ route('product.detail', $product->id) }}">{!! mb_strimwidth($product->title, 0, 22, '...') !!}
                                                     </a>
                                                 </h3>
                                                 <div style="height: 50px" class="product-price">
@@ -191,23 +110,24 @@
                                                             $discountedPrice = max($discountedPrice, 0);
                                                         @endphp
                                                         <span style="text-decoration: line-through; "
-                                                            class="old-price">{{ number_format($product->price) }}
+                                                              class="old-price">{{ number_format($product->price) }}
                                                             VND</span><br>
                                                         <span
-                                                            style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;"
-                                                            class="new-price">{{ number_format($discountedPrice) }}
+                                                                style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;"
+                                                                class="new-price">{{ number_format($discountedPrice) }}
                                                             VND</span>
                                                     @else
                                                         <span style=""
-                                                            class="">{!! mb_strimwidth($product->metatitle, 0, 25, '...') !!}</span><br>
+                                                              class="">{!! mb_strimwidth($product->metatitle, 0, 25, '...') !!}</span>
+                                                        <br>
                                                         <span
-                                                            style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;"
-                                                            class="new-price">{{ number_format($product->price) }}
+                                                                style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;"
+                                                                class="new-price">{{ number_format($product->price) }}
                                                             VND</span>
                                                     @endif
                                                 </div>
                                                 <a href="{{ route('product.detail', $product->id) }}"
-                                                    class="btn btn-light">Xem chi tiết</a>
+                                                   class="btn btn-light">Xem chi tiết</a>
                                             </div>
                                         </div>
                                     @endforeach
@@ -217,61 +137,65 @@
                                 <img src="" class="" alt="">
                                 <div class="all-products-slides-two owl-carousel owl-theme">
                                     @foreach ($product_sale as $product)
-                                    <div class="single-product-box" style="position: relative">
-                                        <span class="sold-out-btn" style="padding: 10px 20px;font-size: 16px;font-weight: bold;background-color:red;position: absolute;top:10px;z-index:5;left:5px;color:white;border-radius:10px;display:{{ $product->getTotalQuantityStock() === 0 ? 'block' : 'none'  }}">Tạm hết hàng</span>
+                                        <div class="single-product-box" style="position: relative">
+                                            <span class="sold-out-btn"
+                                                  style="padding: 10px 20px;font-size: 16px;font-weight: bold;background-color:red;position: absolute;top:10px;z-index:5;left:5px;color:white;border-radius:10px;display:{{ $product->getTotalQuantityStock() === 0 ? 'block' : 'none'  }}">Tạm hết hàng</span>
                                             <div class="product-image">
 
                                                 <a href="#">
                                                     <img src="{{ $product->image }}" alt="image">
                                                     <img src="{{ isset($product->images[0]->image) ? $product->images[0]->image : asset('img/logo.jpg') }}"
-                                                        alt="image">
+                                                         alt="image">
                                                 </a>
 
                                                 <ul>
                                                     <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                            title="Quick View" data-bs-toggle="modal"
-                                                            data-bs-target="#productQuickView{{ $product->id }}"><i
-                                                                class="far fa-eye"></i></a></li>
-                                                                <?php
-                                                                $user_id = null;
-                                                                $wishlistcheck = null;
+                                                           title="Quick View" data-bs-toggle="modal"
+                                                           data-bs-target="#productQuickView{{ $product->id }}"><i
+                                                                    class="far fa-eye"></i></a></li>
+                                                        <?php
+                                                        $user_id = null;
+                                                        $wishlistcheck = null;
 
-                                                                if (Auth::check()) {
-                                                                    $user_id = auth()->user()->id;
-                                                                    $wishlistcheck = \App\Models\wishlist::where('user_id', $user_id)
-                                                                        ->where('product_id', $product->id)
-                                                                        ->first();
-                                                                }
-                                                                ?>
+                                                        if (Auth::check()) {
+                                                            $user_id = auth()->user()->id;
+                                                            $wishlistcheck = \App\Models\wishlist::where('user_id', $user_id)
+                                                                ->where('product_id', $product->id)
+                                                                ->first();
+                                                        }
+                                                        ?>
 
-                                                                @if ($wishlistcheck)
-                                                                <form id="removeFromWishlistForm{{ $product->id }}"
-                                                                    action="{{ route('wishlist.del-to-wishlist', $wishlistcheck->id) }}"
-                                                                    method="post">
-                                                                    @csrf
-                                                                    @method('delete')
-                                                                    <li><a id="removeFromWishlist{{ $product->id }}" data-tooltip="tooltip"
-                                                                            data-placement="left" title="Remove from Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                                </form>
+                                                    @if ($wishlistcheck)
+                                                        <form id="removeFromWishlistForm{{ $product->id }}"
+                                                              action="{{ route('wishlist.del-to-wishlist', $wishlistcheck->id) }}"
+                                                              method="post">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <li><a id="removeFromWishlist{{ $product->id }}"
+                                                                   data-tooltip="tooltip"
+                                                                   data-placement="left" title="Remove from Wishlist"><i
+                                                                            class="fas fa-heart"></i></a></li>
+                                                        </form>
 
-                                                                <script>
-                                                                    document.getElementById('removeFromWishlist{{ $product->id }}').addEventListener('click', function(event) {
-                                                                        event.preventDefault();
-                                                                        document.getElementById('removeFromWishlistForm{{ $product->id }}').submit();
-                                                                    });
-                                                                </script>
+                                                        <script>
+                                                            document.getElementById('removeFromWishlist{{ $product->id }}').addEventListener('click', function (event) {
+                                                                event.preventDefault();
+                                                                document.getElementById('removeFromWishlistForm{{ $product->id }}').submit();
+                                                            });
+                                                        </script>
 
-                                                                @else
-                                                                    <li><a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
-                                                                            data-tooltip="tooltip" data-placement="left"
-                                                                            title="Add to Wishlist"><i class="far fa-heart"></i></a>
-                                                                    </li>
-                                                                @endif
+                                                    @else
+                                                        <li>
+                                                            <a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
+                                                               data-tooltip="tooltip" data-placement="left"
+                                                               title="Add to Wishlist"><i class="far fa-heart"></i></a>
+                                                        </li>
+                                                    @endif
                                                 </ul>
                                             </div>
                                             <div class="product-content">
                                                 <h3><a
-                                                        href="{{ route('product.detail', $product->id) }}">{{ $product->title }}</a>
+                                                            href="{{ route('product.detail', $product->id) }}">{{ $product->title }}</a>
                                                 </h3>
                                                 <div style="height: 50px" class="product-price">
                                                     @if ($product->sales)
@@ -280,23 +204,23 @@
                                                             $discountedPrice = max($discountedPrice, 0);
                                                         @endphp
                                                         <span style="text-decoration: line-through; "
-                                                            class="old-price">{{ number_format($product->price) }}
+                                                              class="old-price">{{ number_format($product->price) }}
                                                             VND</span><br>
                                                         <span
-                                                            style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;"
-                                                            class="new-price">{{ number_format($discountedPrice) }}
+                                                                style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;"
+                                                                class="new-price">{{ number_format($discountedPrice) }}
                                                             VND</span>
                                                     @else
                                                         <span style=""
-                                                            class="">{{ $product->metatitle }}</span><br>
+                                                              class="">{{ $product->metatitle }}</span><br>
                                                         <span
-                                                            style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;"
-                                                            class="new-price">{{ number_format($product->price) }}
+                                                                style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;"
+                                                                class="new-price">{{ number_format($product->price) }}
                                                             VND</span>
                                                     @endif
                                                 </div>
                                                 <a href="{{ route('product.detail', $product->id) }}"
-                                                    class="btn btn-light">Xem chi tiết</a>
+                                                   class="btn btn-light">Xem chi tiết</a>
                                             </div>
                                         </div>
                                     @endforeach
@@ -308,7 +232,118 @@
             </div>
         </div>
     </section>
+    {{--    End Sản phẩm nổi bật--}}
+
+    {{-- Category --}}
     <section class="all-products-area pb-60">
+        <div class="container-fluid">
+            <div class="tab products-category-tab">
+                <div class="section-title">
+                    <h2>Danh mục</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="tab_content">
+                            <div class="tabs_item">
+                                <img src="" class="" alt="">
+                                <div class="all-products-slides-two owl-carousel owl-theme">
+                                    @if (count($category) > 0)
+                                        @foreach ($category as $item)
+                                            <div style="position: relative" class="single-category-boxes w-100">
+                                                <img class="" style="width:100%;height:350px"
+                                                     src="{{ $item->image ? asset($item->image) : asset('fe/assets/img/category-products-img5.jpg') }}"
+                                                     alt="image">
+                                                <h3 class="cate-name" style="color: black">{{ $item->name }}<br>
+                                                    <span
+                                                            style="color: black " class="cate-count"> ( {{ $item->products_count }} Sản Phẩm)</span>
+                                                </h3>
+                                                <form action="{{ route('search') }}" method="POST" class="">
+                                                    @csrf
+                                                    @method('post')
+                                                    <input type="" hidden name="category_id"
+                                                           value="{{ $item->id }}">
+                                                    <button class="shop-now-btn"
+                                                            style="border-radius:15px;position: absolute; bottom:10px;right:10px">
+                                                        Xem
+                                                        ngay
+                                                    </button>
+                                                </form>
+                                                <a href="#" class="link-btn"></a>
+                                            </div>
+                                            {{--                                            </div>--}}
+                                        @endforeach
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- EndCategory--}}
+
+    {{--    Chính sách--}}
+    <section class="facility-area black-bg" style="background-color: gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="facility-box">
+                        <div class="icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="text-content-facility">
+                            <h3>Thanh toán khi nhận hàng (COD)</h3>
+                            <p class="text-white">Giao hàng toàn quốc.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="facility-box">
+                        <div class="icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="text-content-facility">
+                            <h3>Đổi hàng miễn phí</h3>
+                            <p class="text-white">Trong 30 ngày kể từ ngày mua.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="facility-box">
+                        <div class="icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <div class="text-content-facility">
+                            <h3>Miễn phí giao hàng</h3>
+                            <p class="text-white">Với đơn hàng trên 599.000đ..</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="facility-box">
+                        <div class="icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="text-content-facility">
+                            <h3>Hỗ trợ 24/7</h3>
+                            <p class="text-white">Hotline: 0332132912.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Chính sách -->
+
+    <!-- Start All Products Area -->
+    <section class="all-products-area pb-60 pt-60">
         <div class="container">
             <div class="tab products-category-tab">
                 <div class="section-title">
@@ -317,132 +352,116 @@
 
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
-                        {{-- <ul class="tabs without-bg">
-                            <li><a href="#">
-                                    <span class="dot"></span> Sản phẩm mới nhất
-                                </a></li>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="tab_content">
+                                <div class="tabs_item">
+                                    <img src="" class="" alt="">
+                                    <div class="d-flex flex-wrap ">
+                                        @foreach ($productall as $product)
+                                            <div class="col-6 single-product-box p-2 col-lg-3" style="position: relative">
+                                                <span class="sold-out-btn"
+                                                      style="padding: 10px 20px ;font-size: 16px;font-weight: bold;background-color:red;position: absolute;top:20px;z-index:5;left:15px;color:white;border-radius:10px;display:{{ $product->getTotalQuantityStock() === 0 ? 'block' : 'none'  }}">Tạm hết hàng</span>
+                                                <div class="product-image">
 
-                            <li><a href="#">
-                                    <span class="dot"></span>Sản phẩm giảm sâu
-                                </a></li>
-                        </ul>
-                    </div> --}}
-                    <div class="col-lg-12 col-md-12">
-                        <div class="tab_content">
-                            <div class="tabs_item">
-                                <img src="" class="" alt="">
-                                <div class="d-flex flex-wrap ">
-                                    @foreach ($productall as $product)
-                                    <div class="single-product-box p-2 col-lg-3" style="position: relative">
-                                        <span class="sold-out-btn" style="padding: 10px 20px ;font-size: 16px;font-weight: bold;background-color:red;position: absolute;top:20px;z-index:5;left:15px;color:white;border-radius:10px;display:{{ $product->getTotalQuantityStock() === 0 ? 'block' : 'none'  }}">Tạm hết hàng</span>
-                                            <div class="product-image">
+                                                    <a href="#">
+                                                        <img src="{{ $product->image }}" alt="image">
+                                                        <img src="{{ isset($product->images[0]->image) ? $product->images[0]->image : asset('img/logo.jpg') }}"
+                                                             alt="image">
+                                                    </a>
 
-                                                <a href="#">
-                                                    <img src="{{ $product->image }}" alt="image">
-                                                    <img src="{{ isset($product->images[0]->image) ? $product->images[0]->image : asset('img/logo.jpg') }}"
-                                                        alt="image">
-                                                </a>
+                                                    <ul>
+                                                        <li><a href="#" data-tooltip="tooltip" data-placement="left"
+                                                               title="Quick View" data-bs-toggle="modal"
+                                                               data-bs-target="#productQuickView{{ $product->id }}"><i
+                                                                        class="far fa-eye"></i></a></li>
+                                                            <?php
+                                                            $user_id = null;
+                                                            $wishlistcheck = null; // Define it here with a default value
 
-                                                <ul>
-                                                    <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                            title="Quick View" data-bs-toggle="modal"
-                                                            data-bs-target="#productQuickView{{ $product->id }}"><i
-                                                                class="far fa-eye"></i></a></li>
-                                                                <?php
-                                                                $user_id = null;
-                                                                $wishlistcheck = null; // Define it here with a default value
+                                                            if (Auth::check()) {
+                                                                $user_id = auth()->user()->id;
+                                                                $wishlistcheck = \App\Models\wishlist::where('user_id', $user_id)
+                                                                    ->where('product_id', $product->id)->first();
+                                                            }
+                                                            ?>
 
-                                                                if (Auth::check()) {
-                                                                    $user_id = auth()->user()->id;
-                                                                    $wishlistcheck = \App\Models\wishlist::where('user_id', $user_id)
-                                                                        ->where('product_id', $product->id)->first();
-                                                                }
-                                                                ?>
+                                                        @if ($wishlistcheck)
+                                                            <form id="removeFromWishlistForm"
+                                                                  action="{{ route('wishlist.del-to-wishlist', $wishlistcheck->id) }}"
+                                                                  method="post">
+                                                                @csrf
+                                                                @method('delete')
+                                                                <li><a id="removeFromWishlist" data-tooltip="tooltip"
+                                                                       data-placement="left"
+                                                                       title="Remove from Wishlist"><i
+                                                                                class="fas fa-heart"></i></a></li>
+                                                            </form>
 
-                                                                @if ($wishlistcheck)
-                                                                <form id="removeFromWishlistForm" action="{{ route('wishlist.del-to-wishlist', $wishlistcheck->id) }}" method="post">
-                                                                    @csrf
-                                                                    @method('delete')
-                                                                    <li><a id="removeFromWishlist" data-tooltip="tooltip" data-placement="left" title="Remove from Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                                </form>
+                                                            <script>
+                                                                document.getElementById('removeFromWishlist').addEventListener('click', function (event) {
+                                                                    event.preventDefault();
+                                                                    document.getElementById('removeFromWishlistForm').submit();
+                                                                });
+                                                            </script>
 
-                                                                <script>
-                                                                    document.getElementById('removeFromWishlist').addEventListener('click', function(event) {
-                                                                        event.preventDefault();
-                                                                        document.getElementById('removeFromWishlistForm').submit();
-                                                                    });
-                                                                </script>
-
-                                                    @else
-                                                        <li><a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
-                                                                data-tooltip="tooltip" data-placement="left"
-                                                                title="Add to Wishlist"><i class="far fa-heart"></i></a>
-                                                        </li>
-                                                    @endif
-                                                </ul>
-                                            </div>
-                                            <div class="product-content">
-                                                <h3><a
-                                                        href="{{ route('product.detail', $product->id) }}">{!! mb_strimwidth($product->title, 0, 25, '...') !!}</a>
-                                                </h3>
-                                                <div style="height: 50px" class="product-price">
-                                                    @if ($product->sales)
-                                                        @php
-                                                            $discountedPrice = $product->price - $product->sales->discount;
-                                                            $discountedPrice = max($discountedPrice, 0);
-                                                        @endphp
-                                                        <span style="text-decoration: line-through; "
-                                                            class="old-price">{{ number_format($product->price) }}
-                                                            VND</span><br>
-                                                        <span
-                                                            style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;"
-                                                            class="new-price">{{ number_format($discountedPrice) }}
-                                                            VND</span>
-                                                    @else
-                                                        <span style=""
-                                                            class="">{!! mb_strimwidth($product->metatitle, 0, 25, '...') !!}</span><br>
-                                                        <span
-                                                            style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;"
-                                                            class="new-price">{{ number_format($product->price) }}
-                                                            VND</span>
-                                                    @endif
+                                                        @else
+                                                            <li>
+                                                                <a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
+                                                                   data-tooltip="tooltip" data-placement="left"
+                                                                   title="Add to Wishlist"><i class="far fa-heart"></i></a>
+                                                            </li>
+                                                        @endif
+                                                    </ul>
                                                 </div>
-                                                <a href="{{ route('product.detail', $product->id) }}"
-                                                    class="btn btn-light">Xem chi tiết</a>
+                                                <div class="product-content">
+                                                    <h3><a
+                                                                href="{{ route('product.detail', $product->id) }}">{!! mb_strimwidth($product->title, 0, 25, '...') !!}</a>
+                                                    </h3>
+                                                    <div style="height: 50px" class="product-price">
+                                                        @if ($product->sales)
+                                                            @php
+                                                                $discountedPrice = $product->price - $product->sales->discount;
+                                                                $discountedPrice = max($discountedPrice, 0);
+                                                            @endphp
+                                                            <span style="text-decoration: line-through; "
+                                                                  class="old-price">{{ number_format($product->price) }}
+                                                            VND</span><br>
+                                                            <span
+                                                                    style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;"
+                                                                    class="new-price">{{ number_format($discountedPrice) }}
+                                                            VND</span>
+                                                        @else
+                                                            <span style=""
+                                                                  class="">{!! mb_strimwidth($product->metatitle, 0, 25, '...') !!}</span>
+                                                            <br>
+                                                            <span
+                                                                    style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;"
+                                                                    class="new-price">{{ number_format($product->price) }}
+                                                            VND</span>
+                                                        @endif
+                                                    </div>
+                                                    <a href="{{ route('product.detail', $product->id) }}"
+                                                       class="btn btn-light">Xem chi tiết</a>
+                                                </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
 
+                                    </div>
+                                    {{ $productall->links() }}
                                 </div>
-                                {{ $productall->links() }}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
     <!-- End all Products Area -->
-
-    <!-- Start Products Offer Area -->
-    {{-- <section class="products-offer-area bg-image2 ptb-60 jarallax" data-jarallax='{"speed": 0.3}'>
-        <div class="container">
-            <div class="products-offer-content">
-                <span class="sub-title">Tràn ngập ưu đãi!</span>
-                <h1>Sự lựa chọn đa dạng!</h1>
-                <p>Trải nghiệm ngay</p>
-                <a href="#" class="btn btn-primary">Quần bò</a>
-                <a href="#" class="btn btn-primary">Quần vải</a>
-            </div>
-        </div>
-    </section> --}}
-    <!-- End Products Offer Area -->
 
     <!-- Start News Area -->
     <section class="news-area ptb-60">
         <div class="container">
             <div class="section-title">
-                <h2><span class=""></span> Bài viết mới nhất</h2>
+                <h2>Bài viết mới nhất</h2>
             </div>
 
             <div class="row">
@@ -451,87 +470,21 @@
                         <div class="col-lg-12 col-md-12">
                             <div class="single-news-post">
                                 <div class="news-image" style="">
-                                    <a href="#"><img style="height:340px" src="{{ asset($post->image) }}" alt="image"></a>
+                                    <a href="#"><img style="height:340px" src="{{ asset($post->image) }}"
+                                                     alt="image"></a>
                                 </div>
 
                                 <div class="news-content">
                                     <h3><a href="{{ route('post.detail', $post->id) }}">{{ $post->title }}</a></h3>
                                     <span class="author">Người đăng : <a href="#">{{ $post->user->name }}</a></span>
                                     <p>{{ $post->name }}</p>
-                                    <a href="{{ route('post.detail', $post->id) }}" class="btn btn-light">Đọc chi tiết</a>
+                                    <a href="{{ route('post.detail', $post->id) }}" class="btn btn-light">Đọc chi
+                                        tiết</a>
                                 </div>
                             </div>
                         </div>
                     @endforeach
-{{ $posts->links() }}
-                    {{--
-                    <div class="col-lg-12 col-md-12">
-                        <div class="single-news-post">
-                            <div class="news-image">
-                                <a href="#"><img src="{{ asset('fe/assets/img/blog-img2.jpg') }}"
-                                        alt="image"></a>
-                            </div>
-
-                            <div class="news-content">
-                                <h3><a href="#">The Best Ecommerce Platform for Growing Sales</a></h3>
-                                <span class="author">By <a href="#">Admin</a></span>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua.</p>
-                                <a href="#" class="btn btn-light">Read More</a>
-                            </div>
-                        </div>
-                    </div> --}}
-                    {{--
-                    <div class="col-lg-12 col-md-12">
-                        <div class="single-news-post">
-                            <div class="news-image">
-                                <a href="#"><img src="{{ asset('fe/assets/img/blog-img3.jpg') }}"
-                                        alt="image"></a>
-                            </div>
-
-                            <div class="news-content">
-                                <h3><a href="#">The Evolution of the B2B Buying Process</a></h3>
-                                <span class="author">By <a href="#">Admin</a></span>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua.</p>
-                                <a href="#" class="btn btn-light">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12 col-md-12">
-                        <div class="single-news-post">
-                            <div class="news-image">
-                                <a href="#"><img src="{{ asset('fe/assets/img/blog-img4.jpg') }}"
-                                        alt="image"></a>
-                            </div>
-
-                            <div class="news-content">
-                                <h3><a href="#">The Best eCommerce Blogs for Online Retailers</a></h3>
-                                <span class="author">By <a href="#">Admin</a></span>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua.</p>
-                                <a href="#" class="btn btn-light">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12 col-md-12">
-                        <div class="single-news-post">
-                            <div class="news-image">
-                                <a href="#"><img src="{{ asset('fe/assets/img/blog-img5.jpg') }}"
-                                        alt="image"></a>
-                            </div>
-
-                            <div class="news-content">
-                                <h3><a href="#">How to Do Social Media Customer Service</a></h3>
-                                <span class="author">By <a href="#">Admin</a></span>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua.</p>
-                                <a href="#" class="btn btn-light">Read More</a>
-                            </div>
-                        </div>
-                    </div> --}}
+                    {{ $posts->links() }}
                 </div>
             </div>
         </div>
@@ -544,164 +497,44 @@
             <div class="partner-slides owl-carousel owl-theme">
                 <div class="partner-item">
                     <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/partner1.png') }}"
-                            alt="image"></a>
+                                                     alt="image"></a>
                 </div>
 
                 <div class="partner-item">
                     <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/partner2.png') }}"
-                            alt="image"></a>
+                                                     alt="image"></a>
                 </div>
 
                 <div class="partner-item">
                     <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/partner3.png') }}"
-                            alt="image"></a>
+                                                     alt="image"></a>
                 </div>
 
                 <div class="partner-item">
                     <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/partner4.png') }}"
-                            alt="image"></a>
+                                                     alt="image"></a>
                 </div>
 
                 <div class="partner-item">
                     <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/partner5.png') }}"
-                            alt="image"></a>
+                                                     alt="image"></a>
                 </div>
 
                 <div class="partner-item">
                     <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/partner6.png') }}"
-                            alt="image"></a>
+                                                     alt="image"></a>
                 </div>
             </div>
         </div>
     </div>
     <!-- End Partner Area -->
 
-    <!-- Start Subscribe Area -->
-    {{-- <section class="subscribe-area ptb-60">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="newsletter-content">
-                        <h3>Subscribe to our newsletter</h3>
-                        <p>A short sentence describing what someone will receive by subscribing</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <form class="newsletter-form" data-bs-toggle="validator">
-                        <input type="email" class="form-control" placeholder="Enter your email address" name="EMAIL"
-                            required autocomplete="off">
-                        <button type="submit">Subscribe</button>
-                        <div id="validator-newsletter" class="form-result"></div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section> --}}
-    <!-- End Subscribe Area -->
-
-    <!-- Start Instagram Area -->
-    {{-- <div class="instagram-area">
-        <div class="instagram-slides owl-carousel owl-theme">
-            <div class="instagram-box">
-                <img src="{{ asset('fe/assets/img/instagram1.jpg') }}" alt="image">
-
-                <div class="icon">
-                    <i class="fab fa-instagram"></i>
-                </div>
-
-                <a href="https://www.instagram.com/" target="_blank"></a>
-            </div>
-
-            <div class="instagram-box">
-                <img src="{{ asset('fe/assets/img/instagram2.jpg') }}" alt="image">
-
-                <div class="icon">
-                    <i class="fab fa-instagram"></i>
-                </div>
-
-                <a href="https://www.instagram.com/" target="_blank"></a>
-            </div>
-
-            <div class="instagram-box">
-                <img src="{{ asset('fe/assets/img/instagram3.jpg') }}" alt="image">
-
-                <div class="icon">
-                    <i class="fab fa-instagram"></i>
-                </div>
-
-                <a href="https://www.instagram.com/" target="_blank"></a>
-            </div>
-
-            <div class="instagram-box">
-                <img src="{{ asset('fe/assets/img/instagram4.jpg') }}" alt="image">
-
-                <div class="icon">
-                    <i class="fab fa-instagram"></i>
-                </div>
-
-                <a href="https://www.instagram.com/" target="_blank"></a>
-            </div>
-
-            <div class="instagram-box">
-                <img src="{{ asset('fe/assets/img/instagram5.jpg') }}" alt="image">
-
-                <div class="icon">
-                    <i class="fab fa-instagram"></i>
-                </div>
-
-                <a href="https://www.instagram.com/" target="_blank"></a>
-            </div>
-
-            <div class="instagram-box">
-                <img src="{{ asset('fe/assets/img/instagram6.jpg') }}" alt="image">
-
-                <div class="icon">
-                    <i class="fab fa-instagram"></i>
-                </div>
-
-                <a href="https://www.instagram.com/" target="_blank"></a>
-            </div>
-
-            <div class="instagram-box">
-                <img src="{{ asset('fe/assets/img/instagram7.jpg') }}" alt="image">
-
-                <div class="icon">
-                    <i class="fab fa-instagram"></i>
-                </div>
-
-                <a href="https://www.instagram.com/" target="_blank"></a>
-            </div>
-
-            <div class="instagram-box">
-                <img src="{{ asset('fe/assets/img/instagram8.jpg') }}" alt="image">
-
-                <div class="icon">
-                    <i class="fab fa-instagram"></i>
-                </div>
-
-                <a href="https://www.instagram.com/" target="_blank"></a>
-            </div>
-
-            <div class="instagram-box">
-                <img src="{{ asset('fe/assets/img/instagram9.jpg') }}" alt="image">
-
-                <div class="icon">
-                    <i class="fab fa-instagram"></i>
-                </div>
-
-                <a href="https://www.instagram.com/" target="_blank"></a>
-            </div>
-        </div>
-    </div> --}}
-    <!-- End Instagram Area -->
-
     <!-- Start Shopping Cart Modal -->
     <div class="modal right fade shoppingCartModal" id="shoppingCartModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                            aria-hidden="true">&times;</span></button>
 
                 <div class="modal-body">
                     <h3>My Cart </h3>
@@ -729,7 +562,6 @@
                         @endif --}}
 
 
-
                     </div>
 
                     <div class="product-cart-subtotal">
@@ -755,7 +587,7 @@
     <!-- Start Products QuickView Modal Area -->
     @foreach ($products as $product)
         <div class="modal fade productQuickView" id="productQuickView{{ $product->id }}" tabindex="-1" role="dialog"
-            aria-hidden="true">
+             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
@@ -775,7 +607,8 @@
                                 <h3><a href="#">{{ $product->title }}</a></h3>
 
                                 <div class="price">
-                                    <span id="newPrice" class="new-price">{{ number_format($product->price) }} VND</span>
+                                    <span id="newPrice"
+                                          class="new-price">{{ number_format($product->price) }} VND</span>
                                 </div>
 
                                 {{-- <div class="product-review">
@@ -885,130 +718,130 @@
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
-                                <tr>
-                                    <th>Italian</th>
-                                    <th>Spanish</th>
-                                    <th>German</th>
-                                    <th>UK</th>
-                                    <th>US</th>
-                                    <th>Japanese</th>
-                                    <th>Chinese</th>
-                                    <th>Russian</th>
-                                    <th>Korean</th>
-                                </tr>
+                            <tr>
+                                <th>Italian</th>
+                                <th>Spanish</th>
+                                <th>German</th>
+                                <th>UK</th>
+                                <th>US</th>
+                                <th>Japanese</th>
+                                <th>Chinese</th>
+                                <th>Russian</th>
+                                <th>Korean</th>
+                            </tr>
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <td>34</td>
-                                    <td>30</td>
-                                    <td>28</td>
-                                    <td>4</td>
-                                    <td>00</td>
-                                    <td>3</td>
-                                    <td>155/75A</td>
-                                    <td>36</td>
-                                    <td>44</td>
-                                </tr>
-                                <tr>
-                                    <td>36</td>
-                                    <td>32</td>
-                                    <td>30</td>
-                                    <td>6</td>
-                                    <td>0</td>
-                                    <td>5</td>
-                                    <td>155/80A</td>
-                                    <td>38</td>
-                                    <td>44</td>
-                                </tr>
-                                <tr>
-                                    <td>38</td>
-                                    <td>34</td>
-                                    <td>32</td>
-                                    <td>8</td>
-                                    <td>2</td>
-                                    <td>7</td>
-                                    <td>160/84A</td>
-                                    <td>40</td>
-                                    <td>55</td>
-                                </tr>
-                                <tr>
-                                    <td>40</td>
-                                    <td>36</td>
-                                    <td>34</td>
-                                    <td>10</td>
-                                    <td>4</td>
-                                    <td>9</td>
-                                    <td>165/88A</td>
-                                    <td>42</td>
-                                    <td>55</td>
-                                </tr>
-                                <tr>
-                                    <td>42</td>
-                                    <td>38</td>
-                                    <td>36</td>
-                                    <td>12</td>
-                                    <td>6</td>
-                                    <td>11</td>
-                                    <td>170/92A</td>
-                                    <td>44</td>
-                                    <td>66</td>
-                                </tr>
-                                <tr>
-                                    <td>44</td>
-                                    <td>40</td>
-                                    <td>38</td>
-                                    <td>14</td>
-                                    <td>8</td>
-                                    <td>13</td>
-                                    <td>175/96A</td>
-                                    <td>46</td>
-                                    <td>66</td>
-                                </tr>
-                                <tr>
-                                    <td>46</td>
-                                    <td>42</td>
-                                    <td>40</td>
-                                    <td>16</td>
-                                    <td>10</td>
-                                    <td>15</td>
-                                    <td>170/98A</td>
-                                    <td>48</td>
-                                    <td>77</td>
-                                </tr>
-                                <tr>
-                                    <td>48</td>
-                                    <td>44</td>
-                                    <td>42</td>
-                                    <td>18</td>
-                                    <td>12</td>
-                                    <td>17</td>
-                                    <td>170/100B</td>
-                                    <td>50</td>
-                                    <td>77</td>
-                                </tr>
-                                <tr>
-                                    <td>50</td>
-                                    <td>46</td>
-                                    <td>44</td>
-                                    <td>20</td>
-                                    <td>14</td>
-                                    <td>19</td>
-                                    <td>175/100B</td>
-                                    <td>52</td>
-                                    <td>88</td>
-                                </tr>
-                                <tr>
-                                    <td>52</td>
-                                    <td>48</td>
-                                    <td>46</td>
-                                    <td>22</td>
-                                    <td>16</td>
-                                    <td>21</td>
-                                    <td>180/104B</td>
-                                    <td>54</td>
-                                    <td>88</td>
-                                </tr>
+                            <tr>
+                                <td>34</td>
+                                <td>30</td>
+                                <td>28</td>
+                                <td>4</td>
+                                <td>00</td>
+                                <td>3</td>
+                                <td>155/75A</td>
+                                <td>36</td>
+                                <td>44</td>
+                            </tr>
+                            <tr>
+                                <td>36</td>
+                                <td>32</td>
+                                <td>30</td>
+                                <td>6</td>
+                                <td>0</td>
+                                <td>5</td>
+                                <td>155/80A</td>
+                                <td>38</td>
+                                <td>44</td>
+                            </tr>
+                            <tr>
+                                <td>38</td>
+                                <td>34</td>
+                                <td>32</td>
+                                <td>8</td>
+                                <td>2</td>
+                                <td>7</td>
+                                <td>160/84A</td>
+                                <td>40</td>
+                                <td>55</td>
+                            </tr>
+                            <tr>
+                                <td>40</td>
+                                <td>36</td>
+                                <td>34</td>
+                                <td>10</td>
+                                <td>4</td>
+                                <td>9</td>
+                                <td>165/88A</td>
+                                <td>42</td>
+                                <td>55</td>
+                            </tr>
+                            <tr>
+                                <td>42</td>
+                                <td>38</td>
+                                <td>36</td>
+                                <td>12</td>
+                                <td>6</td>
+                                <td>11</td>
+                                <td>170/92A</td>
+                                <td>44</td>
+                                <td>66</td>
+                            </tr>
+                            <tr>
+                                <td>44</td>
+                                <td>40</td>
+                                <td>38</td>
+                                <td>14</td>
+                                <td>8</td>
+                                <td>13</td>
+                                <td>175/96A</td>
+                                <td>46</td>
+                                <td>66</td>
+                            </tr>
+                            <tr>
+                                <td>46</td>
+                                <td>42</td>
+                                <td>40</td>
+                                <td>16</td>
+                                <td>10</td>
+                                <td>15</td>
+                                <td>170/98A</td>
+                                <td>48</td>
+                                <td>77</td>
+                            </tr>
+                            <tr>
+                                <td>48</td>
+                                <td>44</td>
+                                <td>42</td>
+                                <td>18</td>
+                                <td>12</td>
+                                <td>17</td>
+                                <td>170/100B</td>
+                                <td>50</td>
+                                <td>77</td>
+                            </tr>
+                            <tr>
+                                <td>50</td>
+                                <td>46</td>
+                                <td>44</td>
+                                <td>20</td>
+                                <td>14</td>
+                                <td>19</td>
+                                <td>175/100B</td>
+                                <td>52</td>
+                                <td>88</td>
+                            </tr>
+                            <tr>
+                                <td>52</td>
+                                <td>48</td>
+                                <td>46</td>
+                                <td>22</td>
+                                <td>16</td>
+                                <td>21</td>
+                                <td>180/104B</td>
+                                <td>54</td>
+                                <td>88</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -1020,7 +853,7 @@
 
     <!-- Start Shipping Modal Area -->
     <div class="modal fade productShippingModal" id="productShippingModal" tabindex="-1" role="dialog"
-        aria-hidden="true">
+         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
@@ -1034,7 +867,8 @@
                         <li>In-store collection available within 1 to 7 business days</li>
                         <li>Next-day and Express delivery options also available</li>
                         <li>Purchases are delivered in an orange box tied with a Bolduc ribbon, with the exception of
-                            certain items</li>
+                            certain items
+                        </li>
                         <li>See the delivery FAQs for details on shipping methods, costs and delivery times</li>
                     </ul>
 
@@ -1054,7 +888,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true"><i class="fas fa-times"></i> Close</span></button>
+                            aria-hidden="true"><i class="fas fa-times"></i> Close</span></button>
 
                 <div class="modal-body">
                     <div class="woocommerce-sidebar-area">
@@ -1277,7 +1111,8 @@
     <div class="bts-popup" role="alert">
         <div class="bts-popup-container">
             <h3>Free Shipping</h3>
-            <p>Worldwide free shipping for all members. To become a member subscribe for our <strong>free offers / discount
+            <p>Worldwide free shipping for all members. To become a member subscribe for our <strong>free offers /
+                    discount
                     newsletter.</strong></p>
 
             <form>
@@ -1302,6 +1137,47 @@
     </div>
     <!-- End Ads Popup Area -->
 
+
+    <style>
+        @media (max-width: 435px) {
+            .single-product-box .product-image img {
+                width: 100%;
+                height: 240px;
+            }
+
+            .single-category-boxes {
+                height: 200px !important;
+            }
+
+            .cate-name {
+                font-size: 16px !important;
+            }
+
+            .cate-count {
+                font-size: 12px;
+            }
+
+            .mean-bar {
+                background-color: #0b0b0b !important;
+                height: 55px !important;
+            }
+
+            .mean-container .mean-nav .navbar-nav {
+                height: 220px;
+            }
+            .facility-box{
+                display: flex;
+                align-items: center;
+            }
+            .text-content-facility{
+                text-align: start;
+                padding-left: 25px;
+            }
+            .new-price{
+                font-size: 16px !important;
+            }
+        }
+    </style>
 @endsection
 
 @push('scripts')
@@ -1314,78 +1190,4 @@
             }
         });
     </script>
-    {{-- <script>
-        $(document).ready(function() {
-            let dataProduct = @json($product->variants);
-            let color = $(this).val();
-            let size = $("input[name='size']:checked").val();
-            // let product_id = $(".product_id").val();
-            $(document).on('change', '#color', function() {
-                color = $(this).val();
-                const product_id = $(this).data('prod-id')
-                // console.log(product_id);
-                $.ajax({
-                    type: "GET",
-                    url: "{{ route('product.check-detail-quantity') }}",
-                    data: {
-                        product_id: product_id,
-                        color: color,
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        let sizeIds = [];
-
-                        const res = response.data;
-
-                        for (const item of res) {
-                            sizeIds.push(item.size_id + '');
-                        }
-                        $("input[name='size']").each(function() {
-                            $(this).prop('checked', false);
-
-                            if (sizeIds.includes($(this).val())) {
-                                $(this).removeAttr('disabled');
-                            } else {
-                                $(this).attr('disabled', true);
-                            }
-                        })
-                        dataProduct.forEach(function(data) {
-                            if (data.color_id == color && data.size_id == size) {
-                                // console.log(data);
-                                document.getElementById('newPrice').innerHTML = data
-                                    .price;
-                            }
-                        });
-                    }
-                })
-            })
-
-            $(document).on('change', '#size', function() {
-                size = $(this).val();
-                dataProduct.forEach(function(data) {
-                    if (data.color_id == color && data.size_id == size) {
-                        document.getElementById('newPrice').innerHTML = data.price;
-                    }
-                });
-            })
-        })
-        $(function() {
-            $(document).on('click', '#addtocart', function() {
-                $.ajax({
-                    type: 'GET',
-                    url: "{{ route('cart.add-to-cart') }}",
-                    data: {
-                        quantity: $('.qty-input').val(),
-                        size: $("input[name='size']:checked").val(),
-                        color: $("input[name='color']:checked").val(),
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        console.log(response)
-                        location.reload();
-                    }
-                });
-            });
-        });
-    </script> --}}
 @endpush
