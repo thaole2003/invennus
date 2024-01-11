@@ -1,29 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Category\CreateCategoryRequest;
-use App\Http\Requests\Category\UpdateCategoryRequest;
-use App\Models\Category;
+use App\Http\Requests\Feedback\FeedbackRequest;
+use App\Http\Requests\Feedback\FeedbackUpdateRequest;
+use App\Models\Feedback;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-
-class CategoryController extends Controller
+class FeedbackController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function __construct()
-    {
-        $this->middleware('permission:categories.resource', ['only' => ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']]);
-    }
     public function index()
     {
-        $data = Category::withCount('products')->latest('created_at')->get();
-        return view('admin.category.index', compact('data'));
+        //
+        $data = Feedback::latest('created_at')->get();
+        return view('admin.feedback.index', compact('data'));
     }
 
     /**
@@ -32,35 +29,36 @@ class CategoryController extends Controller
     public function create()
     {
         //
-        return view('admin.category.create');
+        $products = Product::query()->get();
+        return view('admin.feedback.create',compact('products'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateCategoryRequest $request)
+    public function store(FeedbackRequest $request)
     {
         //
+
         try {
-            $model = new Category();
+            $model = new Feedback();
             $model->fill($request->all());
-            $slug = Str::slug($request->name);
-            $model->slug = $slug;
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $folder = 'images/categories';
+                $folder = 'images/feedbacks';
                 $imageName = Storage::put($folder, $image);
                 $imageName = 'storage/' . $imageName;
                 $model->image = $imageName;
             }
-            toastr()->success('Thêm thành công danh mục', 'Thành công');
+            toastr()->success('Thêm thành công feedback', 'Thành công');
             $model->save();
-            return to_route('admin.category.index');
+            return to_route('admin.feedbacks.index');
         } catch (\Exception $exception) {
             toastr()->error('Đã có lỗi xảy ra', 'Thử lại sau');
             Log::error($exception->getMessage());
             return back();
         }
+
     }
 
     /**
@@ -69,10 +67,6 @@ class CategoryController extends Controller
     public function show(string $id)
     {
         //
-        $data = Category::with('products')
-            ->where('id', $id)
-            ->latest('created_at')->get();
-        return view('admin.category.show', compact('data'));
     }
 
     /**
@@ -81,24 +75,20 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         //
-        $data = Category::findOrFail($id);
-        return view('admin.category.edit', compact('data'));
+        $data = Feedback::findOrFail($id);
+        return view('admin.feedback.edit', compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategoryRequest $request, string $id)
+    public function update(FeedbackUpdateRequest $request, string $id)
     {
         //
-        $data = Category::findOrFail($id);
-        $data->fill($request->all());
-        $slug = Str::slug($request->name);
-        $data->slug = $slug;
+        $data = Feedback::findOrFail($id);
         if ($request->hasFile('newimage')) {
-
             $image = $request->file('newimage');
-            $folder = 'images/categories';
+            $folder = 'images/feedbacks';
             $imageName = Storage::put($folder, $image);
             $imageName = 'storage/' . $imageName;
             if ($data->image) {
@@ -112,34 +102,32 @@ class CategoryController extends Controller
             $data->image =  $request->input('currentimage');
         }
         $data->save();
-        toastr()->success('Sửa thành công danh mục', 'Thành công');
-        return to_route('admin.category.index');
+        toastr()->success('Sửa thành công feedback', 'Thành công');
+        return to_route('admin.feedbacks.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(Feedback $feedback)
     {
         //
         try {
-            if(count($category->products) > 0){
-                toastr()->error('Không thể xóa danh mục này, nếu xóa sẽ mất sản phẩm', 'Vui lòng xóa sản phẩm trước');
-                return back();
-            }
-            $category->delete();
-            if ($category->image) {
-                $oldFilePath = str_replace('storage/', '', $category->image);
+            $feedback->delete();
+            if ($feedback->image) {
+                $oldFilePath = str_replace('storage/', '', $feedback->image);
                 if (Storage::exists($oldFilePath)) {
                     Storage::delete($oldFilePath);
                 }
             }
-            toastr()->success('Xóa thành công 1 danh mục', 'Thành công');
+            toastr()->success('Xóa thành công 1 feedback', 'Thành công');
+
             return redirect()->back();
         } catch (\Exception $exception) {
-            Log::error($exception->getMessage());
             toastr()->error('Đã có lỗi xảy ra', 'Thử lại sau');
+            Log::error($exception->getMessage());
             return back();
         }
+
     }
 }

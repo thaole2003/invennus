@@ -23,6 +23,7 @@ use App\Http\Controllers\Client\BillController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\HomeController as ClientHomeController;
 use App\Http\Controllers\Client\WishlistController;
+use App\Http\Controllers\Admin\FeedbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
@@ -89,6 +90,7 @@ Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(fu
     Route::resource('vendors', VendoreController::class);
     Route::resource('ads', AdsController::class);
     Route::resource('users', UserController::class);
+    Route::resource('feedbacks', FeedbackController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('banner', BannerController::class);
     Route::resource('color', ColorController::class);
