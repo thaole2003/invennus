@@ -145,7 +145,7 @@ class AdminController extends Controller
     public function destroy(string $id)
     {
         try {
-            if($id == 12){
+            if($id == 1){
                 toastr()->error('Không thể xóa quản trị viên cấp cao nhất', 'Thất bại');
                 return back();
             }

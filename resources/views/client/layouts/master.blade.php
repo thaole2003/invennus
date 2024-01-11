@@ -51,7 +51,7 @@
     @yield('content')
     @php
         $wishlists = auth()->check()
-            ? \App\Models\Wishlist::latest()
+            ? \App\Models\wishlist::latest()
                 ->where('user_id', auth()->user()->id)
                 ->get()
             : collect();
