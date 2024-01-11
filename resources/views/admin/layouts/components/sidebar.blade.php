@@ -160,6 +160,21 @@
             </div>
         </li>
     @endif
+    @if (Auth::user()->can('feedbacks.resource'))
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('admin.feedbacks.index') }}" data-toggle="collapse"
+                data-target="#collapseTwo33" aria-expanded="true" aria-controls="collapseTwo33">
+                <i class="fas fa-user"></i>
+                <span>Quản lý feedback</span>
+            </a>
+            <div id="collapseTwo33" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('admin.feedbacks.index') }}">Danh sách feedback</a>
+                    <a class="collapse-item" href="{{ route('admin.feedbacks.create') }}">Thêm mới feedback</a>
+                </div>
+            </div>
+        </li>
+    @endif
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo0"
