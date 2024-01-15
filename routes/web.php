@@ -124,8 +124,6 @@ Route::prefix('product')->name('product.')->group(function () {
 Route::prefix('post')->name('post.')->group(function () {
     Route::get('/', [ClientHomeController::class, 'post'])->name('home');
     Route::get('/detail/{id}', [ClientHomeController::class, 'postDetail'])->name('detail');
-    // Route::get('/QuickView/{id}', [ClientHomeController::class, 'products'])->name('QuickView');
-    // Route::get('check-detail-quantity', [ClientHomeController::class, 'checkQuantity'])->name('check-detail-quantity');
 });
 Route::prefix('bill')->name('bill.')->middleware('auth')->group(function () {
     Route::get('/detail', [BillController::class, 'index'])->name('detail');
