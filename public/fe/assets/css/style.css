@@ -803,19 +803,19 @@ Top Header Area CSS
   width: 0;
 }
 
+
 /*================================================
 Navbar Area CSS
 =================================================*/
-.header-area1 {
+header.header-area {
+  width: 100%;
+  height: auto;
   position: static !important;
   left: 0;
   top: 0;
-  width: 100%;
-  height: auto;
   z-index: 999;
   color: #222222;
 }
-
 .comero-mobile-nav {
   display: none;
 }
@@ -2783,11 +2783,11 @@ All Products Area CSS
 .single-product-box .product-image {
   position: relative;
 }
-
 .single-product-box .product-image img {
   width: 100%;
-  height: 368px;
+  height: 300px;
 }
+
 
 .single-product-box .product-image img:nth-child(2) {
   position: absolute;
@@ -9322,4 +9322,5 @@ Go Top CSS
   top: 50%;
 }
 /*# sourceMappingURL=style.css.map */
+
 

@@ -112,7 +112,7 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
                                     <div class="product-page-gallery-main">
                                         @foreach ($product->images as $value)
                                             <div class="item">
-                                                <img style="width:416px;height:508px" src="{{ asset($value->image) }}"
+                                                <img style="width:408px;height:408px" src="{{ asset($value->image) }}"
                                                     alt="image">
                                             </div>
                                         @endforeach
@@ -120,7 +120,7 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
                                     <div class="product-page-gallery-preview">
                                         @foreach ($product->images as $value)
                                             <div class="item">
-                                                <img style="width:76px;height:92px" src="{{ asset($value->image) }}"
+                                                <img style="width:76px;height:76px" src="{{ asset($value->image) }}"
                                                     alt="image">
                                             </div>
                                         @endforeach
@@ -170,7 +170,7 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
                                             @foreach ($groupbyColors as $color)
                                                 <label class="color-label variant "
                                                     style="width: auto;height:40px; padding-left: 20px; padding-right: 20px;">
-                                                    <input style="display: none" type="radio" name="color"
+                                                    <input style="display: none" type="radio" name="color" class="color"
                                                         id="color" value="{{ $color->id }}">
                                                     <div class="text-muted">{{ $color->name }}</div>
                                                 </label>
@@ -624,12 +624,11 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
         $(function() {
             var inputValue = parseInt($('#quantity').val());
             let dataProduct = @json($productvariants);
-            // console.log(dataProduct);
             let product_id = $("#product_id").val();
-            // console.log(product_id);
             let size = $("input[name='size']:checked").val();
             $(document).on('change', '#color', function() {
                 const color = $(this).val();
+                // console.log(color);
                 $('.color-label').removeClass('activeVariant');
                 $(this).closest('.color-label').addClass('activeVariant');
                 const sizeEl = $('input[name="size"]');
@@ -645,12 +644,13 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
                     dataType: 'json',
                     success: function(response) {
                         const data = response.data;
-                        // console.log(response.data);
                         let szIds = [];
                         for (const item of data) {
                             szIds.push(item.size_id)
+                            // console.log(item);
                         }
                         sizeEl.each(function() {
+                        //     console.log()
                             const val = Number($(this).val());
                             $('.labelSize').removeClass('active-size');
                             $(this).prop('checked', false);
