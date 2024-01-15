@@ -30,8 +30,8 @@
                                     <span class="dot"></span>Sản phẩm giảm sâu
                                 </a></li>
                             <li><a href="#">
-                                <span class="dot"></span>Tất cả sản phẩm
-                            </a></li>
+                                    <span class="dot"></span>Tất cả sản phẩm
+                                </a></li>
                         </ul>
                     </div>
                     <div class="col-lg-12 col-md-12">
@@ -52,7 +52,8 @@
                                                 </a>
 
                                                 <ul>
-                                                    <li><a href="#" data-tooltip="tooltip" data-placement="left"
+                                                    <li><a href="{{ route('product.detail', $product->id) }}"
+                                                           data-tooltip="tooltip" data-placement="left"
                                                            title="Quick View" data-bs-toggle="modal"
                                                            data-bs-target="#productQuickView{{ $product->id }}"><i
                                                                     class="far fa-eye"></i></a></li>
@@ -97,8 +98,8 @@
                                                 </ul>
                                             </div>
                                             <div class="product-content">
-                                                <h3><a class="abc"
-                                                       href="{{ route('product.detail', $product->id) }}">{!! mb_strimwidth($product->title, 0, 22, '...') !!}
+                                                <h3><a class="text-content-a"
+                                                       href="{{ route('product.detail', $product->id) }}">{!! mb_strimwidth($product->title, 0, 65, '...') !!}
                                                     </a>
                                                 </h3>
                                                 <div style="height: 50px" class="product-price">
@@ -132,9 +133,9 @@
                                 </div>
                             </div>
                             <div class="tabs_item">
-                                <img src="" class="" alt="">
+                                {{--                                Sản phẩm giảm sâu--}}
                                 <div class="all-products-slides-two owl-carousel owl-theme">
-                                    @foreach ($product_sale as $product)
+                                    @foreach ($products as $product)
                                         <div class="single-product-box" style="position: relative">
                                             <span class="sold-out-btn"
                                                   style="padding: 10px 20px;font-size: 16px;font-weight: bold;background-color:red;position: absolute;top:10px;z-index:5;left:5px;color:white;border-radius:10px;display:{{ $product->getTotalQuantityStock() === 0 ? 'block' : 'none'  }}">Tạm hết hàng</span>
@@ -147,7 +148,8 @@
                                                 </a>
 
                                                 <ul>
-                                                    <li><a href="#" data-tooltip="tooltip" data-placement="left"
+                                                    <li><a href="{{ route('product.detail', $product->id) }}"
+                                                           data-tooltip="tooltip" data-placement="left"
                                                            title="Quick View" data-bs-toggle="modal"
                                                            data-bs-target="#productQuickView{{ $product->id }}"><i
                                                                     class="far fa-eye"></i></a></li>
@@ -192,8 +194,8 @@
                                                 </ul>
                                             </div>
                                             <div class="product-content">
-                                                <h3><a class="abc"
-                                                       href="{{ route('product.detail', $product->id) }}">{!! mb_strimwidth($product->title, 0, 22, '...') !!}
+                                                <h3><a class="text-content-a"
+                                                       href="{{ route('product.detail', $product->id) }}">{!! mb_strimwidth($product->title, 0, 65, '...') !!}
                                                     </a>
                                                 </h3>
                                                 <div style="height: 50px" class="product-price">
@@ -224,13 +226,15 @@
                                             </div>
                                         </div>
                                     @endforeach
+
                                 </div>
                             </div>
                             <div class="tabs_item">
+                                {{--                                Tất cả sản phẩm--}}
                                 <img src="" class="" alt="">
                                 <div class="all-products-slides-two owl-carousel owl-theme">
                                     @foreach ($productall as $product)
-                                        <div class="single-product-box" style="position: relative">
+                                        <div class="single-product-box">
                                             <span class="sold-out-btn"
                                                   style="padding: 10px 20px;font-size: 16px;font-weight: bold;background-color:red;position: absolute;top:10px;z-index:5;left:5px;color:white;border-radius:10px;display:{{ $product->getTotalQuantityStock() === 0 ? 'block' : 'none'  }}">Tạm hết hàng</span>
                                             <div class="product-image">
@@ -287,8 +291,8 @@
                                                 </ul>
                                             </div>
                                             <div class="product-content">
-                                                <h3><a class="abc"
-                                                       href="{{ route('product.detail', $product->id) }}">{!! mb_strimwidth($product->title, 0, 22, '...') !!}
+                                                <h3><a class="text-content-a"
+                                                       href="{{ route('product.detail', $product->id) }}">{!! mb_strimwidth($product->title, 0, 65, '...') !!}
                                                     </a>
                                                 </h3>
                                                 <div style="height: 50px" class="product-price">
@@ -344,7 +348,7 @@
                                 <div class="all-products-slides-two owl-carousel owl-theme">
                                     @if (count($category) > 0)
                                         @foreach ($category as $item)
-                                            <div style="position: relative" class="single-category-boxes" >
+                                            <div style="position: relative" class="single-category-boxes">
                                                 <img class="" style="width:301.5px;height:301.5px"
                                                      src="{{ $item->image ? asset($item->image) : asset('fe/assets/img/category-products-img5.jpg') }}"
                                                      alt="image">
@@ -389,7 +393,7 @@
                             <i class="fas fa-money-bill-wave"></i>
                         </div>
                         <div class="text-content-facility">
-                            <h3 style="color:#0b0b0b">Thanh toán khi nhận hàng (COD)</h3>
+                            <h3 style="color:#0b0b0b">Thanh toán khi nhận hàng.</h3>
                             <p style="color:#0b0b0b">Giao hàng toàn quốc.</p>
                         </div>
 
@@ -402,8 +406,8 @@
                             <i class="fas fa-exchange-alt"></i>
                         </div>
                         <div class="text-content-facility">
-                            <h3 style="color:#0b0b0b">Đổi hàng miễn phí</h3>
-                            <p style="color:#0b0b0b">Trong 30 ngày kể từ ngày mua.</p>
+                            <h3 style="color:#0b0b0b">Hỗ Trợ Đổi Trả</h3>
+                            <p style="color:#0b0b0b">7 ngày từ khi nhận hàng.</p>
                         </div>
                     </div>
                 </div>
@@ -414,7 +418,7 @@
                         </div>
                         <div class="text-content-facility" style="color:#0b0b0b">
                             <h3 style="color:#0b0b0b">Miễn phí giao hàng</h3>
-                            <p style="color:#0b0b0b">Với đơn hàng trên 599.000đ..</p>
+                            <p style="color:#0b0b0b">Với đơn hàng trên 300.000đ</p>
                         </div>
 
                     </div>
@@ -427,7 +431,7 @@
                         </div>
                         <div class="text-content-facility" style="color:#0b0b0b">
                             <h3 style="color:#0b0b0b">Hỗ trợ 24/7</h3>
-                            <p style="color:#0b0b0b">Hotline: 0332132912.</p>
+                            <p style="color:#0b0b0b">Hotline: 0399292338.</p>
                         </div>
 
                     </div>
@@ -565,8 +569,9 @@
                         <div class="col-lg-12 col-md-12">
                             <div class="single-news-post">
                                 <div class="news-image" style="">
-                                    <a href="{{ route('product.detail', $feedback->product_id) }}"><img style="height:340px" src="{{ asset($feedback->image) }}"
-                                                     alt="image"></a>
+                                    <a href="{{ route('product.detail', $feedback->product_id) }}"><img
+                                                style="height:412px" src="{{ asset($feedback->image) }}"
+                                                alt="image"></a>
                                 </div>
                             </div>
                         </div>
@@ -608,7 +613,7 @@
         </div>
     </section>
     <!-- End News Area -->
-     <!-- Start News Area -->
+    <!-- Start News Area -->
 
     <!-- End News Area -->
 
@@ -617,32 +622,32 @@
         <div class="container">
             <div class="partner-slides owl-carousel owl-theme">
                 <div class="partner-item">
-                    <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/partner1.png') }}"
+                    <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/item/1.jpg') }}"
                                                      alt="image"></a>
                 </div>
 
                 <div class="partner-item">
-                    <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/partner2.png') }}"
+                    <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/item/2.jpg') }}"
                                                      alt="image"></a>
                 </div>
 
                 <div class="partner-item">
-                    <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/partner3.png') }}"
+                    <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/item/3.jpg') }}"
                                                      alt="image"></a>
                 </div>
 
                 <div class="partner-item">
-                    <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/partner4.png') }}"
+                    <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/item/4.jpg') }}"
                                                      alt="image"></a>
                 </div>
 
                 <div class="partner-item">
-                    <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/partner5.png') }}"
+                    <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/item/5.jpg') }}"
                                                      alt="image"></a>
                 </div>
 
                 <div class="partner-item">
-                    <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/partner6.png') }}"
+                    <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/item/6.jpg') }}"
                                                      alt="image"></a>
                 </div>
             </div>
@@ -723,9 +728,10 @@
 
                         <div class="col-lg-6 col-md-6">
                             <div class="product-content">
-                                <h2><a href="#">{{ $product->metatitle }}</a></h2>
+                                <h2><a href="{{ route('product.detail', $product->id) }}">{{ $product->metatitle }}</a>
+                                </h2>
 
-                                <h3><a href="#">{{ $product->title }}</a></h3>
+                                <h3><a href="{{ route('product.detail', $product->id) }}">{{ $product->title }}</a></h3>
 
                                 <div class="price">
                                     <span id="newPrice"
@@ -1260,6 +1266,10 @@
 
 
     <style>
+        .text-content-a {
+            font-style: 16px;
+        }
+
         @media (max-width: 435px) {
             .single-product-box .product-image img {
                 width: 100%;
@@ -1287,6 +1297,7 @@
             .mean-container .mean-nav .navbar-nav {
                 height: 220px;
             }
+
             .facility-box {
                 display: flex;
                 align-items: center;
@@ -1295,11 +1306,13 @@
             .facility-box > * {
                 padding-right: 5px;
             }
-            .text-content-facility{
+
+            .text-content-facility {
                 text-align: start;
                 padding-left: 25px;
             }
-            .new-price{
+
+            .new-price {
                 font-size: 16px !important;
             }
         }
