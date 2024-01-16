@@ -4,8 +4,7 @@
     {{-- Banner --}}
     <div class="home-slides-two owl-carousel owl-theme">
         @foreach ($banners as $banner)
-            <div class="banner-section jarallax" style="background-image: url({{ $banner->image }})"
-                 data-jarallax='{"speed": 0.3}'>
+            <div class="banner-section jarallax" style="background-image: url({{ $banner->image }})">
                 <div class="d-table">
                     <div class="d-table-cell">
                         <div class="container">
@@ -136,7 +135,7 @@
                             <div class="tabs_item">
                                 {{--                                Sản phẩm giảm sâu--}}
                                 <div class="all-products-slides-two owl-carousel owl-theme">
-                                    @foreach ($products as $product)
+                                    @foreach ($product_sale as $product)
                                         <div class="single-product-box" style="position: relative">
                                             <span class="sold-out-btn"
                                                   style="padding: 10px 20px;font-size: 16px;font-weight: bold;background-color:red;position: absolute;top:10px;z-index:5;left:5px;color:white;border-radius:10px;display:{{ $product->getTotalQuantityStock() === 0 ? 'block' : 'none'  }}">Tạm hết hàng</span>
@@ -311,7 +310,8 @@
                                                             VND</span>
                                                     @else
                                                         <span style=""
-                                                              class="">{{ $product->metatitle }}</span><br>
+                                                              class="">{!! mb_strimwidth($product->metatitle, 0, 25, '...') !!}</span>
+                                                        <br>
                                                         <span
                                                                 style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;"
                                                                 class="new-price">{{ number_format($product->price) }}
@@ -336,7 +336,6 @@
     {{-- Category --}}
     <section class="all-products-area pb-60">
         <div class="container">
-            <div class="tab products-category-tab">
                 <div class="section-title">
                     <h2>Danh mục</h2>
                 </div>
@@ -352,10 +351,10 @@
                                                 <img class="" style="width:301.5px;height:301.5px"
                                                      src="{{ $item->image ? asset($item->image) : asset('fe/assets/img/category-products-img5.jpg') }}"
                                                      alt="image">
-                                                <h3 class="cate-name" style="color: black">{{ $item->name }}<br>
+                                                {{-- <h3 class="cate-name" style="color: black">{{ $item->name }}<br>
                                                     <span
                                                             style="color: black " class="cate-count"> ( {{ $item->products_count }} Sản Phẩm)</span>
-                                                </h3>
+                                                </h3> --}}
                                                 <form action="{{ route('search') }}" method="POST" class="">
                                                     @csrf
                                                     @method('post')
@@ -439,128 +438,13 @@
             </div>
         </div>
     </section>
-    <!-- End Chính sách -->
 
-    <!-- Start All Products Area -->
-    {{-- <section class="all-products-area pb-60 pt-60">
-        <div class="container">
-            <div class="tab products-category-tab">
-                <div class="section-title">
-                    <h2>Tất cả sản phẩm</h2>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="col-lg-12 col-md-12">
-                            <div class="tab_content">
-                                <div class="tabs_item">
-                                    <img src="" class="" alt="">
-                                    <div class="d-flex flex-wrap ">
-                                        @foreach ($productall as $product)
-                                            <div class="col-6 single-product-box p-2 col-lg-3" style="position: relative">
-                                                <span class="sold-out-btn"
-                                                      style="padding: 10px 20px ;font-size: 16px;font-weight: bold;background-color:red;position: absolute;top:20px;z-index:5;left:15px;color:white;border-radius:10px;display:{{ $product->getTotalQuantityStock() === 0 ? 'block' : 'none'  }}">Tạm hết hàng</span>
-                                                <div class="product-image">
-
-                                                    <a href="#">
-                                                        <img src="{{ $product->image }}" alt="image">
-                                                        <img src="{{ isset($product->images[0]->image) ? $product->images[0]->image : asset('img/logo.jpg') }}"
-                                                             alt="image">
-                                                    </a>
-
-                                                    <ul>
-                                                        <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                               title="Quick View" data-bs-toggle="modal"
-                                                               data-bs-target="#productQuickView{{ $product->id }}"><i
-                                                                        class="far fa-eye"></i></a></li>
-                                                            <?php
-                                                            $user_id = null;
-                                                            $wishlistcheck = null; // Define it here with a default value
-
-                                                            if (Auth::check()) {
-                                                                $user_id = auth()->user()->id;
-                                                                $wishlistcheck = \App\Models\wishlist::where('user_id', $user_id)
-                                                                    ->where('product_id', $product->id)->first();
-                                                            }
-                                                            ?>
-
-                                                        @if ($wishlistcheck)
-                                                            <form id="removeFromWishlistForm"
-                                                                  action="{{ route('wishlist.del-to-wishlist', $wishlistcheck->id) }}"
-                                                                  method="post">
-                                                                @csrf
-                                                                @method('delete')
-                                                                <li><a id="removeFromWishlist" data-tooltip="tooltip"
-                                                                       data-placement="left"
-                                                                       title="Remove from Wishlist"><i
-                                                                                class="fas fa-heart"></i></a></li>
-                                                            </form>
-
-                                                            <script>
-                                                                document.getElementById('removeFromWishlist').addEventListener('click', function (event) {
-                                                                    event.preventDefault();
-                                                                    document.getElementById('removeFromWishlistForm').submit();
-                                                                });
-                                                            </script>
-
-                                                        @else
-                                                            <li>
-                                                                <a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
-                                                                   data-tooltip="tooltip" data-placement="left"
-                                                                   title="Add to Wishlist"><i class="far fa-heart"></i></a>
-                                                            </li>
-                                                        @endif
-                                                    </ul>
-                                                </div>
-                                                <div class="product-content">
-                                                    <h3><a
-                                                                href="{{ route('product.detail', $product->id) }}">{!! mb_strimwidth($product->title, 0, 25, '...') !!}</a>
-                                                    </h3>
-                                                    <div style="height: 50px" class="product-price">
-                                                        @if ($product->sales)
-                                                            @php
-                                                                $discountedPrice = $product->price - $product->sales->discount;
-                                                                $discountedPrice = max($discountedPrice, 0);
-                                                            @endphp
-                                                            <span style="text-decoration: line-through; "
-                                                                  class="old-price">{{ number_format($product->price) }}
-                                                            VND</span><br>
-                                                            <span
-                                                                    style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;"
-                                                                    class="new-price">{{ number_format($discountedPrice) }}
-                                                            VND</span>
-                                                        @else
-                                                            <span style=""
-                                                                  class="">{!! mb_strimwidth($product->metatitle, 0, 25, '...') !!}</span>
-                                                            <br>
-                                                            <span
-                                                                    style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;"
-                                                                    class="new-price">{{ number_format($product->price) }}
-                                                            VND</span>
-                                                        @endif
-                                                    </div>
-                                                    <a href="{{ route('product.detail', $product->id) }}"
-                                                       class="btn btn-light">Xem chi tiết</a>
-                                                </div>
-                                            </div>
-                                        @endforeach
-
-                                    </div>
-                                    {{ $productall->links() }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </section> --}}
-    <!-- End all Products Area -->
 
     <!-- Start News Area -->
     <section class="news-area ptb-60">
         <div class="container">
             <div class="section-title">
-                <h2>Feedback</h2>
+                <h2><a style="color:black" href="/feedback">Feedback</a></h2>
             </div>
 
             <div class="row">
@@ -584,7 +468,7 @@
     <section class="news-area ptb-60">
         <div class="container">
             <div class="section-title">
-                <h2>Bài viết mới nhất</h2>
+                <h2><a style="color: black" href="/post">Bài viết mới nhất</a></h2>
             </div>
 
             <div class="row">

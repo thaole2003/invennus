@@ -165,7 +165,7 @@
                         <input id="phone" type="text" placeholder="Số điện thoại"
                             class="form-control @error('phone') is-invalid @enderror" name="phone"
                             value="{{ old('phone') }}" autocomplete="phone">
-                        <i class="flaticon-envelope"></i>
+                        <i class="fas fa-phone"></i>
                         @error('phone')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -178,7 +178,7 @@
                         <input id="phone" type="text" placeholder="Địa chỉ"
                             class="form-control @error('address') is-invalid @enderror" name="address"
                             value="{{ old('address') }}" autocomplete="address">
-                        <i class="flaticon-envelope"></i>
+                        <i class="fas fa-map-marker-alt"></i>
                         @error('address')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

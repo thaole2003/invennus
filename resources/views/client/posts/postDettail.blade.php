@@ -1,7 +1,7 @@
 @extends('client.layouts.master')
 @section('content')
     <div class="container mx-6" style="margin-top: 120px">
-        <h3 style="text-align: center;padding-bottom:10px">{{ $post->user->name }} </h3>
+        <h3 style="text-align: center;padding-bottom:10px">{{ $post->title }} </h3>
 
         <!-- Start Page Title Area -->
         <div class="page-title-area">
@@ -27,7 +27,7 @@
                                     <li><i class="far fa-calendar-alt"></i> {{ $post->created_at->format('Y-m-d') }}</li>
                                 </ul>
 
-                                <h3>{{ $post->title }}</h3>
+                                <a style="font-size: 22px;font-weight:700">{{ $post->title }}</a>
 
                                 {!! $post->description !!}
 

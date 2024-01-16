@@ -22,6 +22,9 @@
                             <li class="nav-item p-relative">
                                 <a href="{{ route('product.home') }}" class="nav-link active">Sản phẩm</a>
                             </li>
+                            <li class="nav-item p-relative">
+                                <a href="/feedback" class="nav-link active">Feedback</a>
+                            </li>
 
                             <li class="nav-item p-relative">
                                 <a href="/post" class="nav-link active">Tin tức</a>

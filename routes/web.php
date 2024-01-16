@@ -28,6 +28,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Models\Feedback;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,6 +63,10 @@ Route::get('/changepassword', function () {
 Route::post('/changepassword/{id}', [AuthController::class, 'editPassword'])->name('changePassword');
 Route::get('/dashboard', function () {
     return view('admin.thongke.charts');
+});
+Route::get('/feedback', function () {
+    $feedbacks = Feedback::all();
+    return view('client.feedback',compact('feedbacks'));
 });
 // Route::get('/thongke', function () {
 //     return view('admin.InventoryEntry.thongke');
