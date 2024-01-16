@@ -33,13 +33,12 @@ Sản phẩm
                         <input type="text" class="form-control" id="email" placeholder="Giá ban đầu" name="price"
                             value="{{ $data->price }}">
                     </div>
-
-                </div>
-                <div class="col-md-4">
                     <div class="mb-3 mt-3">
                         <label for="email" class="form-label">Mô tả :</label>
-                        <textarea type="text" class="form-control" id="email" placeholder="Nhập mô tả" name="description"> {{ $data->description }}</textarea>
+                        <textarea type="text" class="form-control" id="description" placeholder="Nhập mô tả" name="description"> {{ $data->description }}</textarea>
                     </div>
+                </div>
+                <div class="col-md-4">
                     <div class="mb-3 mt-3">
                         <div class="mb-3 mt-3">
                             <div class="category-container">
@@ -169,6 +168,10 @@ Sản phẩm
     <!-- Page level plugins -->
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
+        <script src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script>
+        <script>
+            CKEDITOR.replace('description');
+        </script>
     <script>
         $(() => {
             function readURL(input) {
