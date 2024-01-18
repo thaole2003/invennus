@@ -3949,8 +3949,8 @@ Category Products Area CSS
   position: absolute;
   left: 25px;
   top: 25px;
-  font-size: 26px;
   font-weight: 800;
+  font-size: 20px;
 }
 
 .single-category-boxes:hover img {
@@ -5146,9 +5146,10 @@ Partner Area CSS
 }
 
 .partner-item {
+  width: 112px;
+  height: 112px;
   text-align: center;
 }
-
 .partner-item a img {
   width: auto !important;
   display: inline-block !important;

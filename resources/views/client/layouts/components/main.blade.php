@@ -336,54 +336,53 @@
     {{-- Category --}}
     <section class="all-products-area pb-60">
         <div class="container">
-                <div class="section-title">
-                    <h2>Danh mục</h2>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="tab_content">
-                            <div class="tabs_item">
-                                <img src="" class="" alt="">
-                                <div class="all-products-slides-two owl-carousel owl-theme">
-                                    @if (count($category) > 0)
-                                        @foreach ($category as $item)
-                                            <div style="position: relative" class="single-category-boxes">
-                                                <img class="" style="width:301.5px;height:301.5px"
-                                                     src="{{ $item->image ? asset($item->image) : asset('fe/assets/img/category-products-img5.jpg') }}"
-                                                     alt="image">
-                                                {{-- <h3 class="cate-name" style="color: black">{{ $item->name }}<br>
-                                                    <span
-                                                            style="color: black " class="cate-count"> ( {{ $item->products_count }} Sản Phẩm)</span>
-                                                </h3> --}}
-                                                <form action="{{ route('search') }}" method="POST" class="">
-                                                    @csrf
-                                                    @method('post')
-                                                    <input type="" hidden name="category_id"
-                                                           value="{{ $item->id }}">
-                                                    <button class="shop-now-btn"
-                                                            style="border-radius:15px;position: absolute; bottom:10px;right:10px">
-                                                        Xem
-                                                        ngay
-                                                    </button>
-                                                </form>
-                                                <a href="#" class="link-btn"></a>
-                                            </div>
-                                            {{--                                            </div>--}}
-                                        @endforeach
-                                    @endif
-                                </div>
+            <div class="section-title">
+                <h2>Danh mục</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="tab_content">
+                        <div class="tabs_item">
+                            <img src="" class="" alt="">
+                            <div class="all-products-slides-two owl-carousel owl-theme">
+                                @if (count($category) > 0)
+                                    @foreach ($category as $item)
+                                        <div style="position: relative" class="single-category-boxes">
+                                            <img class="" style="width:301.5px;height:402px"
+                                                 src="{{ $item->image ? asset($item->image) : asset('fe/assets/img/category-products-img5.jpg') }}"
+                                                 alt="image">
+{{--                                            <h3 class="cate-name" style="color: black">{{ $item->name }}<br>--}}
+{{--                                                <span style="color: black " class="cate-count"> ( {{ $item->products_count }} Sản Phẩm)</span>--}}
+{{--                                            </h3>--}}
+                                            <form action="{{ route('search') }}" method="POST" class="">
+                                                @csrf
+                                                @method('post')
+                                                <input type="" hidden name="category_id"
+                                                       value="{{ $item->id }}">
+                                                <button class="shop-now-btn"
+                                                        style="border-radius:15px;position: absolute; bottom:10px;right:10px">
+                                                    Xem
+                                                    ngay
+                                                </button>
+                                            </form>
+                                            <a href="#" class="link-btn"></a>
+                                        </div>
+                                        {{--                                            </div>--}}
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        </div>
     </section>
 
     {{-- EndCategory--}}
 
     {{--    Chính sách--}}
-    <section class="facility-area black-bg" style="background-color: #f5f5f5;">
+    <section class="facility-area black-bg container" style="background-color: #f5f5f5;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
@@ -454,7 +453,7 @@
                             <div class="single-news-post">
                                 <div class="news-image" style="">
                                     <a href="{{ route('product.detail', $feedback->product_id) }}"><img
-                                                style="height:412px" src="{{ asset($feedback->image) }}"
+                                                style="height:550px" src="{{ asset($feedback->image) }}"
                                                 alt="image"></a>
                                 </div>
                             </div>
@@ -477,12 +476,14 @@
                         <div class="col-lg-12 col-md-12">
                             <div class="single-news-post">
                                 <div class="news-image" style="">
-                                    <a href="#"><img style="height:340px" src="{{ asset($post->image) }}"
+                                    <a href="#"><img style="height:309px" src="{{ asset($post->image) }}"
                                                      alt="image"></a>
                                 </div>
 
                                 <div class="news-content">
-                                    <h3><a href="{{ route('post.detail', $post->id) }}">{{ $post->title }}</a></h3>
+                                    <h3>
+                                        <a href="{{ route('post.detail', $post->id) }}">{!! mb_strimwidth($post->title, 0, 75, '...') !!}</a>
+                                    </h3>
                                     <span class="author">Người đăng : <a href="#">{{ $post->user->name }}</a></span>
                                     <p>{{ $post->name }}</p>
                                     <a href="{{ route('post.detail', $post->id) }}" class="btn btn-light">Đọc chi
@@ -491,7 +492,7 @@
                             </div>
                         </div>
                     @endforeach
-                    {{ $posts->links() }}
+                    {{--                    {{ $posts->links() }}--}}
                 </div>
             </div>
         </div>
@@ -502,35 +503,35 @@
     <!-- End News Area -->
 
     <!-- Start Partner Area -->
-    <div class="partner-area">
-        <div class="container">
-            <div class="partner-slides owl-carousel owl-theme">
-                <div class="partner-item">
+    <div class="partner-area container">
+        <div class="container ">
+            <div class="partner-slides owl-carousel owl-theme text-center">
+                <div class="partner-item" style="width: 115px; height: 115px">
                     <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/item/1.jpg') }}"
                                                      alt="image"></a>
                 </div>
 
-                <div class="partner-item">
+                <div class="partner-item" style="width: 115px; height: 115px">
                     <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/item/2.jpg') }}"
                                                      alt="image"></a>
                 </div>
 
-                <div class="partner-item">
+                <div class="partner-item" style="width: 115px; height: 115px">
                     <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/item/3.jpg') }}"
                                                      alt="image"></a>
                 </div>
 
-                <div class="partner-item">
+                <div class="partner-item" style="width: 115px; height: 115px">
                     <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/item/4.jpg') }}"
                                                      alt="image"></a>
                 </div>
 
-                <div class="partner-item">
+                <div class="partner-item" style="width: 115px; height: 115px">
                     <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/item/5.jpg') }}"
                                                      alt="image"></a>
                 </div>
 
-                <div class="partner-item">
+                <div class="partner-item" style="width: 115px; height: 115px">
                     <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/item/6.jpg') }}"
                                                      alt="image"></a>
                 </div>
