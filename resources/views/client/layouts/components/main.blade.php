@@ -482,7 +482,7 @@
 
                                 <div class="news-content">
                                     <h3>
-                                        <a href="{{ route('post.detail', $post->id) }}">{!! mb_strimwidth($post->title, 0, 75, '...') !!}</a>
+                                        <a style="min-height:55px" href="{{ route('post.detail', $post->id) }}">{!! mb_strimwidth($post->title, 0, 75, '...') !!}</a>
                                     </h3>
                                     <span class="author">Người đăng : <a href="#">{{ $post->user->name }}</a></span>
                                     <p>{{ $post->name }}</p>

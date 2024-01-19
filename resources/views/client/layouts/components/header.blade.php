@@ -1,13 +1,44 @@
 <header class="header-area">
+
     <!-- Start Navbar Area -->
     <div class="navbar-area bg-black">
-        <div class="comero-mobile-nav">
-            <div class="logo rounded-circle">
-                <a href="{{ route('home') }}"><img style="width:35px;height:35px" src="{{ asset('img/logo.jpg') }}"
-                        alt="logo" class="rounded-circle"></a>
+        <div style="position: relative;" class="comero-mobile-nav">
+            <div style="position:absolute;z-index:1000;left:10px;top:60%" class="option-item"><i style="color:azure;" class="search-btn fas fa-search fa-lg"></i>
+                <i class="close-btn fas fa-times  fa-lg"></i>
+
+                <div style="width:400px" class="search-overlay search-popup">
+                    <div style="border:solid 1px black" class='search-box'>
+                        <form action="{{ route('search') }}" class="search-form" method="POST">
+                            @csrf
+                            @method('POST')
+                            <input class="search-input" required name="keyword" placeholder="Tìm kiếm"
+                                type="text">
+
+                            <button class="search-button" type="submit"><i
+                                    class="fas fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div style="display:flex;" class="logo rounded-circle">
+                <a href="{{ route('home') }}" style="font-size: 18px;font-weight:700;color:white">INVENNUS</a>
             </div>
         </div>
+        <style>
+            @media (max-width: 768px) {
+                .social-media-text {
+                    display: none;
+                }
+                #searchDK{
+                    display: none;
 
+                }
+                .close-btn{
+                    display: none;
+
+                }
+            }
+        </style>
         <div class="comero-nav">
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-md navbar-light">
@@ -36,7 +67,7 @@
 
 
                         <div class="others-option">
-                            <div class="option-item"><i class="search-btn fas fa-search fa-lg"></i>
+                            <div id="searchDK" class="option-item"><i class="search-btn fas fa-search fa-lg"></i>
                                 <i class="close-btn fas fa-times  fa-lg"></i>
 
                                 <div style="width:500px" class="search-overlay search-popup">
@@ -44,7 +75,7 @@
                                         <form action="{{ route('search') }}" class="search-form" method="POST">
                                             @csrf
                                             @method('POST')
-                                            <input class="search-input" required name="keyword" placeholder="Tìm kiếm"
+                                            <input class="search-input" style="width:90%" required name="keyword" placeholder="Tìm kiếm"
                                                 type="text">
 
                                             <button class="search-button" type="submit"><i

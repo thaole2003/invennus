@@ -50,7 +50,7 @@
     font-size: 12px;
   }
   .mean-container a.meanmenu-reveal span {
-    background-color: #272b2b;
+    background-color: white;
     position: relative;
     top: 8px;
     margin-top: -8px;
@@ -1156,7 +1156,7 @@
     width: 25%;
   }
   .mean-container a.meanmenu-reveal span {
-    background-color: #272b2b;
+    background-color: white;
     position: relative;
     top: 8px;
     margin-top: -8px;
@@ -1481,7 +1481,7 @@
   .comero-mobile-nav .logo {
     position: relative;
     z-index: 9910;
-    left: 15px;
+    left:150px;
     width: 60%;
     top: 14px;
   }

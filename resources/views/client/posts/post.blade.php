@@ -32,7 +32,7 @@
 
                                         <div class="blog-post-content">
                                             <span class="date">{{ $post->created_at->format('M d, Y') }}</span>
-                                            <h3><a href="{{ route('post.detail', $post->id) }}">{{ $post->title }}</a></h3>
+                                            <h3><a style="min-height: 55px" href="{{ route('post.detail', $post->id) }}">{!! mb_strimwidth($post->title, 0, 75, '...') !!}</a></h3>
 
                                             <a href="{{ route('post.detail', $post->id) }}" class="read-more-btn">Đọc chi tiết
                                                 <i class="icofont-double-right"></i></a>

@@ -1542,7 +1542,7 @@ Modal CSS
 
 .search-overlay.search-popup .search-form .search-input {
   display: block;
-  width: 100%;
+  width: 60%;
   height: 40px;
   line-height: initial;
   border: 1px solid #eeeeee;
