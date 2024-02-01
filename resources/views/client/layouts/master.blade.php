@@ -79,9 +79,32 @@
                                             <h3><a
                                                     href="{{ route('product.detail', $wishlist->product_id) }}">{{ $wishlist->product->title }}</a>
                                             </h3>
-                                            <div class="product-price">
-                                                <span class="price">{{ number_format($wishlist->product->price) }}
-                                                    VND</span>
+{{--                                            <div class="product-price">--}}
+{{--                                                <span class="price">{{ number_format($wishlist->product->price) }}--}}
+{{--                                                    VND</span>--}}
+{{--                                            </div>--}}
+                                            <div style="height: 50px" class="product-price">
+                                                @if ($wishlist->product->sales)
+                                                    @php
+                                                        $discountedPrice = $wishlist->product->price - $wishlist->product->sales->discount;
+                                                        $discountedPrice = max($discountedPrice, 0);
+                                                    @endphp
+                                                    <span style="text-decoration: line-through; "
+                                                          class="old-price">{{ number_format($wishlist->product->price) }}
+                                                            VND</span><br>
+                                                    <span
+                                                            style="font-weight: bold;color: red; font-size: 1.25rem; line-height: 1.75rem;"
+                                                            class="new-price">{{ number_format($discountedPrice) }}
+                                                            VND</span>
+                                                @else
+                                                    <span style=""
+                                                          class="">{!! mb_strimwidth($wishlist->product->metatitle, 0, 25, '...') !!}</span>
+                                                    <br>
+                                                    <span
+                                                            style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;"
+                                                            class="new-price">{{ number_format($wishlist->product->price) }}
+                                                            VND</span>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

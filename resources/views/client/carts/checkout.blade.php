@@ -156,10 +156,10 @@
                                         <input type="radio" id="direct-bank-transfer" name="pay_method" value="cod" checked>
                                         <label for="direct-bank-transfer">Thanh toán khi nhận hàng</label>
                                     </p>
-                                    <p>
+                               {{--     <p>
                                         <input type="radio" id="paypal-momo" name="pay_method" value="paypal-momo" name="radio-group">
                                         <label for="paypal-momo">PayPal (Momo)</label>
-                                    </p>
+                                    </p>--}}
                                     {{-- <p>
                                         <input type="radio" id="paypal-vnpay" name="pay_method" value="paypal-vnpay" name="radio-group">
                                         <label for="paypal-vnpay">PayPal (VNPay)</label>

@@ -100,14 +100,13 @@
                                     }
                                 @endphp
 
-                                <a href="{{ route('cart.view-cart') }}">Giỏ hàng ({{ $countCart }}) <i
-                                        class="fas fa-shopping-bag"></i></a>
+                                <a href="{{ route('cart.view-cart') }}">Giỏ hàng ({{ $countCart }})</a>
 
                             </div>
                             @if (auth()->check())
                                 <div class="option-item">
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#shoppingWishlistModal">Yêu
-                                        thích <i class="far fa-heart"></i></a>
+                                        thích </a>
                                 </div>
                             @endif
 
