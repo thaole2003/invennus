@@ -48,14 +48,21 @@
 
                 <div class="col-lg-6 col-md-6">
                     <ul class="payment-card">
-                        <li><a href="#" target="_blank"><img src="{{asset('fe/assets/img/visa.png')}}" alt="image"></a></li>
-                        <li><a href="#" target="_blank"><img src="{{asset('fe/assets/img/mastercard.png')}}" alt="image"></a></li>
-                        <li><a href="#" target="_blank"><img src="{{asset('fe/assets/img/mastercard2.png')}}" alt="image"></a></li>
-                        <li><a href="#" target="_blank"><img src="{{asset('fe/assets/img/visa2.png')}}" alt="image"></a></li>
-                        <li><a href="#" target="_blank"><img src="{{asset('fe/assets/img/expresscard.png')}}" alt="image"></a></li>
+                        <li><a href="https://zalo.me/0399292338" target="_blank"><img src="{{ asset('fe/assets/img/icon/zalo.jpg') }}" alt="image"></a></li>
+                        <li><a href="https://www.facebook.com/invennus.vn?mibextid=LQQJ4d" target="_blank"><img src="{{ asset('fe/assets/img/icon/facebook.png') }}" alt="image"></a></li>
+                        <li><a href="https://www.tiktok.com/@invennus.vn?_t=8jAaa6RVAON&_r=1" target="_blank"><img src="{{ asset('fe/assets/img/icon/tiktok.jpg') }}" alt="image"></a></li>
+                        <li><a href="https://shope.ee/5KmymIYORQ" target="_blank"><img src="{{ asset('fe/assets/img/icon/shopee.jpg') }}" alt="image"></a></li>
+                        <li><a href="https://s.lazada.vn/s.3OMk9?dsource=share&laz_share_info=821161101_100_1600_0_821161101_null&laz_token=ff391434b3134ba21b7ce4535a66f4a7" target="_blank"><img src="{{ asset('fe/assets/img/icon/laz.jpg') }}" alt="image"></a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </footer>
+
+<style>
+    .copyright-area .payment-card img {
+        width: 50px;
+        height: 50px;
+    }
+</style>

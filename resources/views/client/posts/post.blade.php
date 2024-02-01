@@ -22,7 +22,7 @@
                                 <div class="col-lg-6 col-md-6">
                                     <div class="single-blog-post">
                                         <div class="blog-image">
-                                            <a href="{{ route('post.detail', $post->id) }}"><img style="width:400px;height:350px"
+                                            <a href="{{ route('post.detail', $post->id) }}"><img style="width:100%;height:100%"
                                                     src="{{ asset($post->image) }}" alt="image"></a>
 
                                             {{-- <div class="post-tag">

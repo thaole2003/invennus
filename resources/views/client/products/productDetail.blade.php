@@ -112,7 +112,7 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
                                     <div class="product-page-gallery-main">
                                         @foreach ($product->images as $value)
                                             <div class="item">
-                                                <img style="width:408px;height:408px" src="{{ asset($value->image) }}"
+                                                <img style="width:100%;height:100%" src="{{ asset($value->image) }}"
                                                     alt="image">
                                             </div>
                                         @endforeach
@@ -644,20 +644,25 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
                     dataType: 'json',
                     success: function(response) {
                         const data = response.data;
+                        // console.log(data);
                         let szIds = [];
                         for (const item of data) {
                             szIds.push(item.size_id)
-                            // console.log(item);
+                            // console.log(szIds);
                         }
+                        // console.log(sizeEl)
                         sizeEl.each(function() {
-                        //     console.log()
-                            const val = Number($(this).val());
+                            const val = String($(this).val());
                             $('.labelSize').removeClass('active-size');
                             $(this).prop('checked', false);
+                            console.log(szIds , val);
                             if (szIds.includes(val)) {
                                 $(this).parent().removeClass('disableVariant');
+                                // console.log(2);
+
                             } else {
                                 $(this).parent().addClass('disableVariant');
+                                // console.log(1);
                             }
                         });
                     }

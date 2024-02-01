@@ -453,7 +453,7 @@
                             <div class="single-news-post">
                                 <div class="news-image" style="">
                                     <a href="{{ route('product.detail', $feedback->product_id) }}"><img
-                                                style="height:550px" src="{{ asset($feedback->image) }}"
+                                                style="height:100%" src="{{ asset($feedback->image) }}"
                                                 alt="image"></a>
                                 </div>
                             </div>
@@ -476,7 +476,7 @@
                         <div class="col-lg-12 col-md-12">
                             <div class="single-news-post">
                                 <div class="news-image" style="">
-                                    <a href="#"><img style="height:309px" src="{{ asset($post->image) }}"
+                                    <a href="#"><img style="height:100%" src="{{ asset($post->image) }}"
                                                      alt="image"></a>
                                 </div>
 

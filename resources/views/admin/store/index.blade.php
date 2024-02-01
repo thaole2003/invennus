@@ -36,7 +36,7 @@ Cửa hàng
                     <tr>
                         <td scope="">{{ $key + 1 }}</td>
                         <td>{{ $value->name }}</td>
-                        <td>{{ $value->description }}</td>
+                        <td>{!! $value->description !!} </td>
                         <td>{{ $value->address }}</td>
                         <td>{{ $value->phone }}</td>
                         <td>{{ $value->email }}</td>
