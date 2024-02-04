@@ -56,8 +56,8 @@
                                             </a>
                                             <div class="info">
                                                 <time datetime="2021-06-30">{{ $post->created_at->format('Y-m-d') }}</time>
-                                                <h4 class="title usmall fs-5"><a href="#">{{ $post->title }}.</a>
-                                                </h4>
+                                                <div class=""><a style="color: black" href="#">{!! mb_strimwidth($post->title, 0, 60, '...') !!}.</a>
+                                                </div>
                                             </div>
 
                                             <div class="clear"></div>

@@ -56,7 +56,7 @@
                 </div>
             </form>
         </div>
-        <div class="fxt-footer">
+        {{-- <div class="fxt-footer">
             <div class="fxt-transformY-50 fxt-transition-delay-8">
                 <h3>Hoặc đăng nhập với:</h3>
             </div>
@@ -77,6 +77,6 @@
                     <a href="#" title="pinterest"><i class="fab fa-pinterest-p"></i></a>
                 </li>
             </ul>
-        </div>
+        </div> --}}
     </div>
 @endsection

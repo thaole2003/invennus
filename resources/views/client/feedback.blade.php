@@ -20,9 +20,9 @@
                 <div style="flex:3;font-size:15px;font-weight:100;display:flex;align-items: center;color:#666666">Theo dõi chúng tôi qua</div>
                 <div style="flex: 2;display: flex; flex-direction: column; align-items: flex-end;">
                     <ul>
-                        <li><a href="https://www.instagram.com/invennus.vn?igsh=MWdjbWpjc3lrNWNuaA=="><img style="width:20px" src="{{ asset('icon/instagram.png') }}" alt=""><span class="social-media-text"> Instagram</span></a></li>
-                        <li><a href="https://www.facebook.com/invennus.vn?mibextid=LQQJ4d"><img style="width:20px" src="{{ asset('icon/facebook.png') }}" alt=""><span class="social-media-text"> Facebook</span></a></li>
-                        <li><a href="https://www.tiktok.com/@invennus.vn?_t=8jAaa6RVAON&_r=1"><img style="width:20px" src="{{ asset('icon/tiktok.png') }}" alt=""><span class="social-media-text"> Tiktok</span></a></li>
+                        <li><a href="https://www.instagram.com/invennus.vn?igsh=MWdjbWpjc3lrNWNuaA=="><img style="width:20px" src="{{ asset('icon/itg.png') }}" alt=""><span class="social-media-text"> Instagram</span></a></li>
+                        <li><a href="https://www.facebook.com/invennus.vn?mibextid=LQQJ4d"><img style="width:20px" src="{{ asset('icon/fb.png') }}" alt=""><span class="social-media-text"> Facebook</span></a></li>
+                        <li><a href="https://www.tiktok.com/@invennus.vn?_t=8jAaa6RVAON&_r=1"><img style="width:20px" src="{{ asset('icon/t.png') }}" alt=""><span class="social-media-text"> Tiktok</span></a></li>
                     </ul>
                 </div>
                 <style>
@@ -45,7 +45,7 @@
                             <div class="col-lg-3 col-md-12">
                                 <div class="single-news-post">
                                     <div class="news-image" style="">
-                                        <a href="{{ route('product.detail', $feedback->product_id) }}"><img style="height:100%" src="{{ asset($feedback->image) }}"
+                                        <a href="{{ route('product.detail', ['slug' => $feedback->product->slug, 'id' => $feedback->product_id]) }}"><img style="height:100%" src="{{ asset($feedback->image) }}"
                                                          alt="image"></a>
                                     </div>
                                 </div>

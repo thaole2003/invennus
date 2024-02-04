@@ -34,8 +34,8 @@ class HomeController extends Controller
             ->having('products_count', '>', 0)
             ->paginate(4);
         $banners = Banner::where('is_active', 1)
-            ->latest('id')
-            ->paginate(2);
+            ->latest()
+            ->paginate(3);
         $product_sale = Product::with([
             'variants' => function ($query) {
                 $query->with('color', 'size');
@@ -100,7 +100,7 @@ class HomeController extends Controller
         return view('client.layouts.components.main', compact('category', 'products', 'banners', 'product_sale', 'productall', 'carts', 'wishlists', 'colorIds', 'sizeIds', 'posts', 'feedbacks'));
     }
 
-    public function product(string $id)
+    public function product(string $slug,string $id)
     {
         $currentDateTime = Carbon::now()->tz('Asia/Ho_Chi_Minh');
         $store_isset = StoreVariant::whereHas('variant', function ($query) use ($id) {

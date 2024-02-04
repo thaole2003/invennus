@@ -122,7 +122,7 @@ Route::prefix('admin')->as('admin.')->middleware('store.access:admin')->group(fu
 Route::get('/', [ClientHomeController::class, 'index'])->name('home');
 Route::prefix('product')->name('product.')->group(function () {
     Route::get('/', [ClientHomeController::class, 'allProduct'])->name('home');
-    Route::get('/detail/{id}', [ClientHomeController::class, 'product'])->name('detail');
+    Route::get('/{slug}/{id}', [ClientHomeController::class, 'product'])->name('detail');
     Route::get('/QuickView/{id}', [ClientHomeController::class, 'products'])->name('QuickView');
     Route::get('check-detail-quantity', [ClientHomeController::class, 'checkQuantity'])->name('check-detail-quantity');
 });
