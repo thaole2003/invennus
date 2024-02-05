@@ -910,7 +910,8 @@
   .sizeGuideModal .modal-content .modal-sizeguide .table tr td, .sizeGuideModal .modal-content .modal-sizeguide .table tr th {
     white-space: nowrap;
   }
-  .banner-section {
+  .banner-section
+  {
     height: 100%;
     padding-top: 290px;
     padding-bottom: 110px;

@@ -52,7 +52,7 @@
                                                 </a>
 
                                                 <ul>
-                                                    <li><a href="{{ route('product.detail', $product->id) }}"
+                                                    <li><a href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}"
                                                            data-tooltip="tooltip" data-placement="left"
                                                            title="Quick View" data-bs-toggle="modal"
                                                            data-bs-target="#productQuickView{{ $product->id }}"><i
@@ -99,7 +99,7 @@
                                             </div>
                                             <div class="product-content">
                                                 <h3><a class="text-content-a"
-                                                       href="{{ route('product.detail', $product->id) }}">{!! mb_strimwidth($product->title, 0, 65, '...') !!}
+                                                       href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}">{!! mb_strimwidth($product->title, 0, 65, '...') !!}
                                                     </a>
                                                 </h3>
                                                 <div style="height: 50px" class="product-price">
@@ -125,13 +125,14 @@
                                                             VND</span>
                                                     @endif
                                                 </div>
-                                                <a href="{{ route('product.detail', $product->id) }}"
+                                                <a href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}"
                                                    class="btn btn-light">Xem chi tiết</a>
                                             </div>
                                         </div>
                                     @endforeach
                                 </div>
                             </div>
+
                             <div class="tabs_item">
                                 {{--                                Sản phẩm giảm sâu--}}
                                 <div class="all-products-slides-two owl-carousel owl-theme">
@@ -148,7 +149,7 @@
                                                 </a>
 
                                                 <ul>
-                                                    <li><a href="{{ route('product.detail', $product->id) }}"
+                                                    <li><a href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}"
                                                            data-tooltip="tooltip" data-placement="left"
                                                            title="Quick View" data-bs-toggle="modal"
                                                            data-bs-target="#productQuickView{{ $product->id }}"><i
@@ -195,7 +196,7 @@
                                             </div>
                                             <div class="product-content">
                                                 <h3><a class="text-content-a"
-                                                       href="{{ route('product.detail', $product->id) }}">{!! mb_strimwidth($product->title, 0, 65, '...') !!}
+                                                       href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}">{!! mb_strimwidth($product->title, 0, 65, '...') !!}
                                                     </a>
                                                 </h3>
                                                 <div style="height: 50px" class="product-price">
@@ -221,7 +222,7 @@
                                                             VND</span>
                                                     @endif
                                                 </div>
-                                                <a href="{{ route('product.detail', $product->id) }}"
+                                                <a href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}"
                                                    class="btn btn-light">Xem chi tiết</a>
                                             </div>
                                         </div>
@@ -292,7 +293,7 @@
                                             </div>
                                             <div class="product-content">
                                                 <h3><a class="text-content-a"
-                                                       href="{{ route('product.detail', $product->id) }}">{!! mb_strimwidth($product->title, 0, 65, '...') !!}
+                                                    href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}">{!! mb_strimwidth($product->title, 0, 65, '...') !!}
                                                     </a>
                                                 </h3>
                                                 <div style="height: 50px" class="product-price">
@@ -318,7 +319,7 @@
                                                             VND</span>
                                                     @endif
                                                 </div>
-                                                <a href="{{ route('product.detail', $product->id) }}"
+                                                <a href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}"
                                                    class="btn btn-light">Xem chi tiết</a>
                                             </div>
                                         </div>
@@ -452,9 +453,8 @@
                         <div class="col-lg-12 col-md-12">
                             <div class="single-news-post">
                                 <div class="news-image" style="">
-                                    <a href="{{ route('product.detail', $feedback->product_id) }}"><img
-                                                style="height:100%" src="{{ asset($feedback->image) }}"
-                                                alt="image"></a>
+                                    <a href="{{ route('product.detail', ['slug' => $feedback->product->slug, 'id' => $feedback->product_id]) }}">
+                                        <img style="height:100%" src="{{ asset($feedback->image) }}" alt="image"></a>
                                 </div>
                             </div>
                         </div>
@@ -506,32 +506,32 @@
     <div class="partner-area container">
         <div class="container ">
             <div class="partner-slides owl-carousel owl-theme text-center">
-                <div class="partner-item" style="width: 115px; height: 115px">
+                <div class="partner-item" style="width: 105px; height: 105px">
                     <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/item/1.jpg') }}"
                                                      alt="image"></a>
                 </div>
 
-                <div class="partner-item" style="width: 115px; height: 115px">
+                <div class="partner-item" style="width: 105px; height: 105px">
                     <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/item/2.jpg') }}"
                                                      alt="image"></a>
                 </div>
 
-                <div class="partner-item" style="width: 115px; height: 115px">
+                <div class="partner-item" style="width: 105px; height: 105px">
                     <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/item/3.jpg') }}"
                                                      alt="image"></a>
                 </div>
 
-                <div class="partner-item" style="width: 115px; height: 115px">
+                <div class="partner-item" style="width: 105px; height: 105px">
                     <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/item/4.jpg') }}"
                                                      alt="image"></a>
                 </div>
 
-                <div class="partner-item" style="width: 115px; height: 115px">
+                <div class="partner-item" style="width: 105px; height: 105px">
                     <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/item/5.jpg') }}"
                                                      alt="image"></a>
                 </div>
 
-                <div class="partner-item" style="width: 115px; height: 115px">
+                <div class="partner-item" style="width: 105px; height: 105px">
                     <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/item/6.jpg') }}"
                                                      alt="image"></a>
                 </div>
@@ -613,10 +613,10 @@
 
                         <div class="col-lg-6 col-md-6">
                             <div class="product-content">
-                                <h2><a href="{{ route('product.detail', $product->id) }}">{{ $product->metatitle }}</a>
+                                <h2><a href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}">{{ $product->metatitle }}</a>
                                 </h2>
 
-                                <h3><a href="{{ route('product.detail', $product->id) }}">{{ $product->title }}</a></h3>
+                                <h3><a href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}">{{ $product->title }}</a></h3>
 
                                 <div class="price">
                                     <span id="newPrice"
@@ -704,7 +704,7 @@
                                         Cart</button>
                                 </div> --}}
 
-                                <a href="{{ route('product.detail', $product->id) }}" class="view-full-info">Xem chi
+                                <a href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}" class="view-full-info">Xem chi
                                     tiết</a>
                             </div>
                         </div>

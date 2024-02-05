@@ -40,10 +40,19 @@
                             </ul>
 
                             <h3>Theo dõi:</h3>
-                            <ul class="social">
+                            {{-- <ul class="social">
                                 <li><a href="https://www.tiktok.com/@invennus.vn?_t=8jAaa6RVAON&_r=1" target="_blank"><img src="{{ asset('fe/assets/img/icon/tiktok.jpg') }}" alt="image"></a></li>
                                 <li><a href="https://shope.ee/5KmymIYORQ" target="_blank"><img src="{{ asset('fe/assets/img/icon/shopee.jpg') }}" alt="image"></a></li>
-                                <li><a href="https://s.lazada.vn/s.3OMk9?dsource=share&laz_share_info=821161101_100_1600_0_821161101_null&laz_token=ff391434b3134ba21b7ce4535a66f4a7" target="_blank"><img src="{{ asset('fe/assets/img/icon/laz.jpg') }}" alt="image"></a></li> </ul>
+                                <li><a href="https://s.lazada.vn/s.3OMk9?dsource=share&laz_share_info=821161101_100_1600_0_821161101_null&laz_token=ff391434b3134ba21b7ce4535a66f4a7" target="_blank"><img src="{{ asset('fe/assets/img/icon/laz.jpg') }}" alt="image"></a></li>
+                             </ul> --}}
+                             <ul class="social" style="">
+                                <li><a href="https://zalo.me/0399292338" target="_blank"><img style="width: 40px;height: 40px; margin-right:10px" src="{{ asset('icon/contact/zl.png') }}" alt="image"></a></li>
+                                <li><a href="https://www.tiktok.com/@invennus.vn?_t=8jAaa6RVAON&_r=1" target="_blank"><img style=" margin-right:10px" src="{{ asset('icon/contact/ti.png') }}" alt="image"></a></li>
+                                <li><a href="https://www.facebook.com/invennus.vn?mibextid=LQQJ4d" target="_blank"><img style="width: 40px;height: 40px; margin-right:10px" src="{{ asset('icon/contact/fb.png') }}" alt="image"></a></li>
+                                <li><a href="https://www.instagram.com/invennus.vn?igsh=MWdjbWpjc3lrNWNuaA==" target="_blank"><img style=" margin-right:10px" src="{{ asset('icon/contact/ig.png') }}" alt="image"></a></li>
+                                <li><a href="https://shope.ee/5KmymIYORQ" target="_blank"><img style="margin-right:10px" src="{{ asset('icon/contact/sp.png') }}" alt="image"></a></li>
+                                <li><a href="https://s.lazada.vn/s.3OMk9?dsource=share&laz_share_info=821161101_100_1600_0_821161101_null&laz_token=ff391434b3134ba21b7ce4535a66f4a7" target="_blank"><img style="margin-right:10px" src="{{ asset('icon/contact/la.png') }}" alt="image"></a></li>
+                            </ul>
                             <div id="map" class="w-100 h-100 py-4">
                                 <iframe
                                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.8550433652604!2d105.81054951109121!3d20.998446988737822!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac90c642fc01%3A0x6aab5a22f55b82bd!2zxJAuIE5ndXnhu4VuIFRyw6NpLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1700709555889!5m2!1svi!2s"

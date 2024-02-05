@@ -48,7 +48,7 @@
 
                                             <div class="product-content">
                                                 <h3><a
-                                                    href="{{ route('product.detail', $product->id) }}">{!! mb_strimwidth($product->title, 0, 25, '...') !!}</a>
+                                                    href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}">{!! mb_strimwidth($product->title, 0, 25, '...') !!}</a>
                                             </h3>
                                                 <div style="height: 50px" class="product-price">
                                                     @if ($product->sales &&
@@ -64,7 +64,7 @@
                                                         <span style="font-weight: bold; font-size: 1.25rem; color: red; line-height: 1.75rem;" class="new-price">{{ number_format($product->price) }} VND</span>
                                                     @endif
                                                 </div>
-                                                <a href="{{ route('product.detail', $product->id) }}"
+                                                <a href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}"
                                                     class="btn btn-light">Xem chi tiết</a>
                                             </div>
                                         </div>
