@@ -22,7 +22,7 @@
                                 <div class="col-lg-6 col-md-6">
                                     <div class="single-blog-post">
                                         <div class="blog-image">
-                                            <a href="{{ route('post.detail', $post->id) }}"><img style="width:100%;height:100%"
+                                            <a href="{{ route('post.detail', $post->slug) }}"><img style="width:100%;height:100%"
                                                     src="{{ asset($post->image) }}" alt="image"></a>
 
                                             {{-- <div class="post-tag">
@@ -32,7 +32,7 @@
 
                                         <div class="blog-post-content">
                                             <span class="date">{{ $post->created_at->format('M d, Y') }}</span>
-                                            <h3><a style="min-height: 55px" href="{{ route('post.detail', $post->id) }}">{!! mb_strimwidth($post->title, 0, 75, '...') !!}</a></h3>
+                                            <h3><a style="min-height: 55px" href="{{ route('post.detail', $post->slug) }}">{!! mb_strimwidth($post->title, 0, 75, '...') !!}</a></h3>
 
                                             <a href="{{ route('post.detail', $post->id) }}" class="read-more-btn">Đọc chi tiết
                                                 <i class="icofont-double-right"></i></a>
@@ -40,124 +40,6 @@
                                     </div>
                                 </div>
                             @endforeach
-                            {{--
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single-blog-post">
-                                <div class="blog-image">
-                                    <a href="#"><img src="assets/img/blog2.jpg" alt="image"></a>
-
-                                    <div class="post-tag">
-                                        <a href="#">Inspiration</a>
-                                    </div>
-                                </div>
-
-                                <div class="blog-post-content">
-                                    <span class="date">27 Feb, 2021</span>
-                                    <h3><a href="#">The Best Marketing top use Management Tools</a></h3>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum.</p>
-                                    <a href="#" class="read-more-btn">Read More <i
-                                            class="icofont-double-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single-blog-post">
-                                <div class="blog-image">
-                                    <a href="#"><img src="assets/img/blog3.jpg" alt="image"></a>
-
-                                    <div class="post-tag">
-                                        <a href="#">Sell</a>
-                                    </div>
-                                </div>
-
-                                <div class="blog-post-content">
-                                    <span class="date">28 Feb, 2021</span>
-                                    <h3><a href="#">3 WooCommerce Plugins to Boost Sales</a></h3>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum.</p>
-                                    <a href="#" class="read-more-btn">Read More <i
-                                            class="icofont-double-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single-blog-post">
-                                <div class="blog-image">
-                                    <a href="#"><img src="assets/img/blog4.jpg" alt="image"></a>
-
-                                    <div class="post-tag">
-                                        <a href="#">Marketing</a>
-                                    </div>
-                                </div>
-
-                                <div class="blog-post-content">
-                                    <span class="date">29 Feb, 2021</span>
-                                    <h3><a href="#">Top 21 Must-Read Blogs For Creative Agencies</a></h3>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum.</p>
-                                    <a href="#" class="read-more-btn">Read More <i
-                                            class="icofont-double-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single-blog-post">
-                                <div class="blog-image">
-                                    <a href="#"><img src="assets/img/blog5.jpg" alt="image"></a>
-
-                                    <div class="post-tag">
-                                        <a href="#">Shop</a>
-                                    </div>
-                                </div>
-
-                                <div class="blog-post-content">
-                                    <span class="date">25 Feb, 2021</span>
-                                    <h3><a href="#">The Most Popular New top Business Apps</a></h3>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum.</p>
-                                    <a href="#" class="read-more-btn">Read More <i
-                                            class="icofont-double-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single-blog-post">
-                                <div class="blog-image">
-                                    <a href="#"><img src="assets/img/blog6.jpg" alt="image"></a>
-
-                                    <div class="post-tag">
-                                        <a href="#">Inspiration</a>
-                                    </div>
-                                </div>
-
-                                <div class="blog-post-content">
-                                    <span class="date">27 Feb, 2021</span>
-                                    <h3><a href="#">The Best Marketing top use Management Tools</a></h3>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum.</p>
-                                    <a href="#" class="read-more-btn">Read More <i
-                                            class="icofont-double-right"></i></a>
-                                </div>
-                            </div>
-                        </div> --}}
-
-                            <div class="col-lg-12 col-md-12">
-                            </div>
-                            {{-- <div class="pagination-area">
-                                    <a href="#" class="prev page-numbers"><i class="fas fa-angle-double-left"></i></a>
-                                    <a href="#" class="page-numbers">1</a>
-                                    <span class="page-numbers current" aria-current="page">2</span>
-                                    <a href="#" class="page-numbers">3</a>
-                                    <a href="#" class="page-numbers">4</a>
-                                    <a href="#" class="next page-numbers"><i
-                                            class="fas fa-angle-double-right"></i></a>
-                                </div> --}}
-
                         </div>
                     </div>
                     {{ $posts->links() }}

@@ -18,7 +18,7 @@
                     <div class="col-lg-8 col-md-12">
                         <div class="blog-details">
                             <div class="article-img">
-                                <img style="width:850px;height:650px" src="{{ asset($post->image) }}" alt="image">
+                                <img style="width:100%;height:100%" src="{{ asset($post->image) }}" alt="image">
                             </div>
 
                             <div class="article-content">

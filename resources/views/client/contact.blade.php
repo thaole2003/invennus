@@ -46,9 +46,9 @@
                                 <li><a href="https://s.lazada.vn/s.3OMk9?dsource=share&laz_share_info=821161101_100_1600_0_821161101_null&laz_token=ff391434b3134ba21b7ce4535a66f4a7" target="_blank"><img src="{{ asset('fe/assets/img/icon/laz.jpg') }}" alt="image"></a></li>
                              </ul> --}}
                              <ul class="social" style="">
-                                <li><a href="https://zalo.me/0399292338" target="_blank"><img style="width: 40px;height: 40px; margin-right:10px" src="{{ asset('icon/contact/zl.png') }}" alt="image"></a></li>
+                                <li><a href="https://zalo.me/0399292338" target="_blank"><img style="margin-right:10px" src="{{ asset('icon/contact/zl.png') }}" alt="image"></a></li>
                                 <li><a href="https://www.tiktok.com/@invennus.vn?_t=8jAaa6RVAON&_r=1" target="_blank"><img style=" margin-right:10px" src="{{ asset('icon/contact/ti.png') }}" alt="image"></a></li>
-                                <li><a href="https://www.facebook.com/invennus.vn?mibextid=LQQJ4d" target="_blank"><img style="width: 40px;height: 40px; margin-right:10px" src="{{ asset('icon/contact/fb.png') }}" alt="image"></a></li>
+                                <li><a href="https://www.facebook.com/invennus.vn?mibextid=LQQJ4d" target="_blank"><img style="margin-right:10px" src="{{ asset('icon/contact/fb.png') }}" alt="image"></a></li>
                                 <li><a href="https://www.instagram.com/invennus.vn?igsh=MWdjbWpjc3lrNWNuaA==" target="_blank"><img style=" margin-right:10px" src="{{ asset('icon/contact/ig.png') }}" alt="image"></a></li>
                                 <li><a href="https://shope.ee/5KmymIYORQ" target="_blank"><img style="margin-right:10px" src="{{ asset('icon/contact/sp.png') }}" alt="image"></a></li>
                                 <li><a href="https://s.lazada.vn/s.3OMk9?dsource=share&laz_share_info=821161101_100_1600_0_821161101_null&laz_token=ff391434b3134ba21b7ce4535a66f4a7" target="_blank"><img style="margin-right:10px" src="{{ asset('icon/contact/la.png') }}" alt="image"></a></li>

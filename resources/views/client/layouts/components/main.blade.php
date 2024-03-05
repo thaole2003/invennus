@@ -482,11 +482,11 @@
 
                                 <div class="news-content">
                                     <h3>
-                                        <a style="min-height:55px" href="{{ route('post.detail', $post->id) }}">{!! mb_strimwidth($post->title, 0, 75, '...') !!}</a>
+                                        <a style="min-height:55px" href="{{ route('post.detail', $post->slug) }}">{!! mb_strimwidth($post->title, 0, 75, '...') !!}</a>
                                     </h3>
                                     <span class="author">Người đăng : <a href="#">{{ $post->user->name }}</a></span>
                                     <p>{{ $post->name }}</p>
-                                    <a href="{{ route('post.detail', $post->id) }}" class="btn btn-light">Đọc chi
+                                    <a href="{{ route('post.detail', $post->slug) }}" class="btn btn-light">Đọc chi
                                         tiết</a>
                                 </div>
                             </div>
@@ -1156,14 +1156,27 @@
         }
 
         @media (max-width: 435px) {
+
             .single-product-box .product-image img {
                 width: 100%;
-                height: 240px;
+                height: 100%;
             }
 
-            .single-category-boxes {
-                height: 160px !important;
-                width: 160px !important;
+            /*.single-category-boxes {*/
+            /*    height: 160px !important;*/
+            /*    width: 160px !important;*/
+            /*}*/
+            .single-category-boxes img{
+                height: 100% !important;
+                width: 100% !important;
+            }
+            .shop-now-btn{
+                border-radius: 10px !important;
+                position: absolute;
+                bottom: 10px;
+                right: 10px;
+                padding: 3px 9px !important;
+                font-size: 10px !important;
             }
 
             .cate-name {
