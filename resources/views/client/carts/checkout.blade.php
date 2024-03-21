@@ -6,13 +6,7 @@
     @endphp
     <section class="checkout-area ptb-60">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12">
-                    <div class="user-actions">
-                        <i class="fas fa-sign-in-alt"></i>
-                    </div>
-                </div>
-            </div>
+
 
             <div style="position: relative" >
                 <form action="{{ route('bill.store') }}" method="POST">
@@ -79,7 +73,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <div class="order-details">
-                                <h3 class="title">Đơn của bạn</h3>
+                                <h3 class="title">Đơn hàng của bạn</h3>
 
                                 <div class="order-table table-responsive">
                                     <table class="table table-bordered">

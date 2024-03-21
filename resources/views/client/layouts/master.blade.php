@@ -77,7 +77,7 @@
 
                                         <div class="product-content">
                                             <h3><a
-                                                    href="{{ route('product.detail', $wishlist->product_id) }}">{{ $wishlist->product->title }}</a>
+                                                    href="{{ route('product.detail', ['slug' => $wishlist->product->slug, 'id' => $wishlist->product->id]) }}">{{ $wishlist->product->title }}</a>
                                             </h3>
 {{--                                            <div class="product-price">--}}
 {{--                                                <span class="price">{{ number_format($wishlist->product->price) }}--}}

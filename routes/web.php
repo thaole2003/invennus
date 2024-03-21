@@ -128,7 +128,7 @@ Route::prefix('product')->name('product.')->group(function () {
 });
 Route::prefix('post')->name('post.')->group(function () {
     Route::get('/', [ClientHomeController::class, 'post'])->name('home');
-    Route::get('/detail/{id}', [ClientHomeController::class, 'postDetail'])->name('detail');
+    Route::get('/detail/{slug}', [ClientHomeController::class, 'postDetail'])->name('detail');
 });
 Route::prefix('bill')->name('bill.')->middleware('auth')->group(function () {
     Route::get('/detail', [BillController::class, 'index'])->name('detail');

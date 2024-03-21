@@ -219,10 +219,10 @@ class HomeController extends Controller
         return view('client.posts.post', compact('posts', 'ads'));
     }
 
-    public function postDetail($id)
+    public function postDetail($slug)
     {
-        $post = Post::findOrFail($id);
-        $posts = Post::where('id', '!=', $id)->paginate(5);
+        $post = Post::where('slug', $slug)->firstOrFail();
+        $posts = Post::where('slug', '!=', $slug)->paginate(5);
         $ads = Ads::where('active', 1)
             ->inRandomOrder()
             ->limit(1)
