@@ -18,37 +18,20 @@
         <section class="products-details-area ptb-60">
             <div class="container">
                 <div class="row">
-
                     @foreach ($products as $product)
-                        <div class="col-lg-3 col-md-12">
-
-                                    {{-- <div class="all-products-slides-two owl-carousel owl-theme"> --}}
-                                        <div class="single-product-box" style="position: relative">
+                        <div class="col-lg-3 col-6">
+                            <div class="single-product-box"style="position: relative">
                                             <span class="sold-out-btn" style="padding: 10px 20px;font-size: 16px;font-weight: bold;background-color:red;position: absolute;top:10px;z-index:5;left:5px;color:white;border-radius:10px;display:{{ $product->getTotalQuantityStock() === 0 ? 'block' : 'none'  }}">Tạm hết hàng</span>
                                             <div class="product-image">
 
                                                 <a href="#">
                                                     <img src="{{ $product->image }}" alt="image">
-                                                    {{-- <img src="{{ $product->images[0]->image }}" alt="image"> --}}
                                                 </a>
-
-                                                {{-- <ul>
-                                                    <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                            title="Quick View" data-bs-toggle="modal"
-                                                            data-bs-target="#productQuickView{{ $product->id }}"><i
-                                                                class="far fa-eye"></i></a></li>
-                                                    <li><a href="{{ route('wishlist.add-to-wishlist', $product->id) }}"
-                                                            data-tooltip="tooltip" data-placement="left"
-                                                            title="Add to Wishlist"><i class="far fa-heart"></i></a>
-                                                    </li>
-                                                    <li><a href="#" data-tooltip="tooltip" data-placement="left"
-                                                            title="Add to Compare"><i class="fas fa-sync"></i></a></li>
-                                                </ul> --}}
                                             </div>
 
                                             <div class="product-content">
                                                 <h3><a
-                                                    href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}">{!! mb_strimwidth($product->title, 0, 25, '...') !!}</a>
+                                                    href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}">{!! mb_strimwidth($product->title, 0, 50, '...') !!}</a>
                                             </h3>
                                                 <div style="height: 50px" class="product-price">
                                                     @if ($product->sales &&
@@ -68,14 +51,12 @@
                                                     class="btn btn-light">Xem chi tiết</a>
                                             </div>
                                         </div>
-                                    {{-- </div> --}}
                                 </div>
 
                     @endforeach
 
 
                 </div>
-
 
             </div>
 

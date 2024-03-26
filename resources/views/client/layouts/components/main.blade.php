@@ -99,7 +99,7 @@
                                             </div>
                                             <div class="product-content">
                                                 <h3><a class="text-content-a"
-                                                       href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}">{!! mb_strimwidth($product->title, 0, 65, '...') !!}
+                                                       href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}">{!! mb_strimwidth($product->title, 0, 50, '...') !!}
                                                     </a>
                                                 </h3>
                                                 <div style="height: 50px" class="product-price">
@@ -196,7 +196,7 @@
                                             </div>
                                             <div class="product-content">
                                                 <h3><a class="text-content-a"
-                                                       href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}">{!! mb_strimwidth($product->title, 0, 65, '...') !!}
+                                                       href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}">{!! mb_strimwidth($product->title, 0, 50, '...') !!}
                                                     </a>
                                                 </h3>
                                                 <div style="height: 50px" class="product-price">
@@ -293,7 +293,7 @@
                                             </div>
                                             <div class="product-content">
                                                 <h3><a class="text-content-a"
-                                                    href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}">{!! mb_strimwidth($product->title, 0, 65, '...') !!}
+                                                    href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}">{!! mb_strimwidth($product->title, 0, 50, '...') !!}
                                                     </a>
                                                 </h3>
                                                 <div style="height: 50px" class="product-price">
@@ -383,8 +383,10 @@
     {{-- EndCategory--}}
 
     {{--    Chính sách--}}
-    <section class="facility-area black-bg container" style="background-color: #f5f5f5;">
-        <div class="container">
+    <div class="container">
+        <div class="partner-area">
+    {{-- <section class="facility-area black-bg container" style="background-color: #f5f5f5;">
+        <div class="container"> --}}
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="facility-box" style="">
@@ -392,8 +394,8 @@
                             <i class="fas fa-money-bill-wave"></i>
                         </div>
                         <div class="text-content-facility">
-                            <h3 style="color:#0b0b0b">Thanh toán khi nhận hàng.</h3>
-                            <p style="color:#0b0b0b">Giao hàng toàn quốc.</p>
+                            <h3 style="color:#0b0b0b">Thanh toán khi nhận hàng</h3>
+                            <p style="color:#0b0b0b">Giao hàng toàn quốc</p>
                         </div>
 
                     </div>
@@ -406,7 +408,7 @@
                         </div>
                         <div class="text-content-facility">
                             <h3 style="color:#0b0b0b">Hỗ Trợ Đổi Trả</h3>
-                            <p style="color:#0b0b0b">7 ngày từ khi nhận hàng.</p>
+                            <p style="color:#0b0b0b">3 ngày từ khi nhận hàng</p>
                         </div>
                     </div>
                 </div>
@@ -430,14 +432,14 @@
                         </div>
                         <div class="text-content-facility" style="color:#0b0b0b">
                             <h3 style="color:#0b0b0b">Hỗ trợ 24/7</h3>
-                            <p style="color:#0b0b0b">Hotline: 0399292338.</p>
+                            <p style="color:#0b0b0b">Hotline: 0399 292 338</p>
                         </div>
 
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
 
     <!-- Start News Area -->
@@ -503,9 +505,9 @@
     <!-- End News Area -->
 
     <!-- Start Partner Area -->
-    <div class="partner-area container">
-        <div class="container ">
-            <div class="partner-slides owl-carousel owl-theme text-center">
+    <div class="container">
+        <div class="partner-area">
+            <div  style="margin-left: 40px" class="partner-slides owl-carousel owl-theme text-center">
                 <div class="partner-item" style="width: 105px; height: 105px">
                     <a href="#" target="_blank"><img src="{{ asset('fe/assets/img/item/1.jpg') }}"
                                                      alt="image"></a>

@@ -48,7 +48,7 @@
 
                                             <div class="product-content">
                                                 <h3><a
-                                                    href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}">{!! mb_strimwidth($product->title, 0, 25, '...') !!}</a>
+                                                    href="{{ route('product.detail', ['slug' => $product->slug, 'id' => $product->id]) }}">{!! mb_strimwidth($product->title, 0, 50, '...') !!}</a>
                                             </h3>
                                                 <div style="height: 50px" class="product-price">
                                                     @if ($product->sales &&

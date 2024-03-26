@@ -91,10 +91,13 @@ class HomeController extends Controller
                 ->where('user_id', auth()->user()->id)
                 ->get();
         } else {
-            $wishlists = collect(); // Tạo một mảng trống
+            $wishlists = collect();
         }
 
-        $posts = Post::query()->paginate(3);
+        $posts = Post::query()
+        ->whereNotIn('slug', ['gioi-thieu', 'chinh-sach-doi-tra'])
+        ->paginate(3);
+
         $feedbacks = Feedback::query()->paginate(6);
 
         return view('client.layouts.components.main', compact('category', 'products', 'banners', 'product_sale', 'productall', 'carts', 'wishlists', 'colorIds', 'sizeIds', 'posts', 'feedbacks'));
@@ -211,7 +214,10 @@ class HomeController extends Controller
 
     public function post()
     {
-        $posts = Post::query()->paginate(5);
+        $posts = Post::query()
+        ->whereNotIn('slug', ['gioi-thieu', 'chinh-sach-doi-tra'])
+        ->paginate(5);
+
         $ads = Ads::where('active', 1)
             ->inRandomOrder()
             ->limit(1)
@@ -222,7 +228,7 @@ class HomeController extends Controller
     public function postDetail($slug)
     {
         $post = Post::where('slug', $slug)->firstOrFail();
-        $posts = Post::where('slug', '!=', $slug)->paginate(5);
+        $posts = Post::where('slug', '!=', $slug)->whereNotIn('slug', ['gioi-thieu', 'chinh-sach-doi-tra'])->paginate(5);
         $ads = Ads::where('active', 1)
             ->inRandomOrder()
             ->limit(1)
