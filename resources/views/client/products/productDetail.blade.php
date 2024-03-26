@@ -491,7 +491,7 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
                     <div class="col-lg-4 col-md-12">
 
                         <div class="product-single-aside">
-                            <div>
+                            {{-- <div>
                                 <h3>Sản phẩm có sẵn tại : </h3>
                                 <hr>
                             </div>
@@ -500,27 +500,33 @@ $currentDateTime = \Illuminate\Support\Carbon::now()->tz('Asia/Ho_Chi_Minh');
                                     <h4>{{ $store->name }}</h4>
                                     <hr>
                                 @endforeach
-                            @endif
+                            @endif --}}
                             <div>
 
                             </div>
                             <div class="services-aside">
                                 <div class="facility-block">
-                                    <h3><i class="fas fa-plane"></i>Miễn phí vận chuyển</h3>
+                                    <h3><i class="fas fa-plane"></i>Thanh toán khi nhận hàng</h3>
 
-                                    <p>Với đơn hàng trên 599.000 VND.</p>
+                                    <p>Giao hàng toàn quốc</p>
                                 </div>
 
                                 <div class="facility-block">
-                                    <h3><i class="fas fa-headset"></i>Hỗ trợ 24/7</h3>
+                                    <h3><i class="fas fa-headset"></i>Hỗ Trợ Đổi Trả</h3>
 
-                                    <p>Liên hệ với chúng tôi.</p>
+                                    <p>3 ngày từ khi nhận hàng.</p>
                                 </div>
 
                                 <div class="facility-block">
-                                    <h3><i class="fas fa-exchange-alt"></i> Miễn phí đổi hàng</h3>
+                                    <h3><i class="fas fa-exchange-alt"></i>Miễn phí giao hàng</h3>
 
-                                    <p>Trong 30 ngày kể từ ngày mua..</p>
+                                    <p>Với đơn hàng trên 300.000đ</p>
+                                </div>
+
+                                <div class="facility-block">
+                                    <h3><i class="fas fa-exchange-alt"></i>Hỗ trợ 24/7</h3>
+
+                                    <p>Hotline: 0399 292 338</p>
                                 </div>
                             </div>
 

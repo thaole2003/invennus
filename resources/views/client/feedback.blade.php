@@ -42,7 +42,7 @@
             <div class="container">
                 <div class="row">
                         @foreach ($feedbacks as $feedback)
-                            <div class="col-lg-3 col-md-12">
+                            <div class="col-lg-3 col-6">
                                 <div class="single-news-post">
                                     <div class="news-image" style="">
                                         <a href="{{ route('product.detail', ['slug' => $feedback->product->slug, 'id' => $feedback->product_id]) }}"><img style="height:100%" src="{{ asset($feedback->image) }}"

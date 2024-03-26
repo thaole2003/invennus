@@ -8,7 +8,7 @@
 
     // Header Sticky
     $(window).on('scroll',function() {
-        if ($(this).scrollTop() > 120){  
+        if ($(this).scrollTop() > 120){
             $('.navbar-area').addClass("is-sticky");
         }
         else{
@@ -94,7 +94,7 @@
     (function ($) {
         $('.tab ul.tabs').addClass('active').find('> li:eq(0)').addClass('current');
         $('.tab ul.tabs li a').on('click', function (g) {
-            var tab = $(this).closest('.tab'), 
+            var tab = $(this).closest('.tab'),
             index = $(this).closest('li').index();
             tab.find('ul.tabs > li').removeClass('current');
             $(this).closest('li').addClass('current');
@@ -256,6 +256,36 @@
         navText: [
             "<i class='fas fa-chevron-left'></i>",
             "<i class='fas fa-chevron-right'></i>"
+        ],
+        responsive: {
+            0: {
+                items: 2,
+            },
+            576: {
+                items: 2,
+            },
+            768: {
+                items: 2,
+            },
+            1024: {
+                items: 3,
+            },
+            1200: {
+                items: 4,
+            }
+        }
+    });
+    $('.trending-products-slide-two').owlCarousel({
+        // loop: true,
+        nav: false,
+        smartSpeed: 750,
+        dots: true,
+        margin: 30,
+        autoplayHoverPause: true,
+        // autoplay: true,
+        navText: [
+            // "<i class='fas fa-chevron-left'></i>",
+            // "<i class='fas fa-chevron-right'></i>"
         ],
         responsive: {
             0: {
@@ -471,13 +501,13 @@
             var scrolled = $(window).scrollTop();
             if (scrolled > 300) $('.go-top').fadeIn('slow');
             if (scrolled < 300) $('.go-top').fadeOut('slow');
-        });  
+        });
         // Click Event
         $('.go-top').on('click', function() {
             $("html, body").animate({ scrollTop: "0" },  500);
         });
     });
-    
+
     // Woocommerce Sidebar Collapse Accordion
     $(function() {
         $('.collapse-widget').find('.collapse-widget-title').on('click', function(){
@@ -531,14 +561,14 @@
         $(this).addClass("active");
     });
 
-    // Count Down Time 
+    // Count Down Time
     function makeTimer() {
-        var endTime = new Date("August 19, 2025 17:00:00 PDT");			
+        var endTime = new Date("August 19, 2025 17:00:00 PDT");
         var endTime = (Date.parse(endTime)) / 1000;
         var now = new Date();
         var now = (Date.parse(now) / 1000);
         var timeLeft = endTime - now;
-        var days = Math.floor(timeLeft / 86400); 
+        var days = Math.floor(timeLeft / 86400);
         var hours = Math.floor((timeLeft - (days * 86400)) / 3600);
         var minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600 )) / 60);
         var seconds = Math.floor((timeLeft - (days * 86400) - (hours * 3600) - (minutes * 60)));
@@ -560,7 +590,7 @@
         btnDown = spinner.find('.minus-btn'),
         min = input.attr('min'),
         max = input.attr('max');
-        
+
         btnUp.on('click', function() {
             var oldValue = parseFloat(input.val());
             if (oldValue >= max) {
@@ -611,10 +641,10 @@
             // Hide The Other Panels
             $('.accordion-content').not($(this).next()).slideUp('fast');
             // Removes Active Class From Other Titles
-            $('.accordion-title').not($(this)).removeClass('active');		
+            $('.accordion-title').not($(this)).removeClass('active');
         });
     });
-    
+
     // Subscribe form
     $(".newsletter-form").validator().on("submit", function (event) {
         if (event.isDefaultPrevented()) {
@@ -660,7 +690,7 @@
         url: "https://envytheme.us20.list-manage.com/subscribe/post?u=60e1ffe2e8a68ce1204cd39a5&amp;id=42d6d188d9", // Your url MailChimp
         callback: callbackFunction
     });
-    
+
     // Products Details Image Slides
     $('.product-page-gallery-main').slick({
         slidesToShow: 1,
@@ -680,7 +710,7 @@
         arrows: false,
         autoplay: true,
     });
-    
+
     $('.home-slides-three').owlCarousel({
         loop: true,
         nav: false,
